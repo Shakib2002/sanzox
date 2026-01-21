@@ -25,6 +25,12 @@ export interface SiteSettings {
   footer_email: string;
   footer_location: string;
   footer_copyright: string;
+  
+  // SEO
+  seo_title: string;
+  seo_description: string;
+  seo_keywords: string;
+  seo_og_image: string | null;
 }
 
 export const defaultSiteSettings: SiteSettings = {
@@ -51,6 +57,12 @@ export const defaultSiteSettings: SiteSettings = {
   footer_email: 'hello@sanzox.com',
   footer_location: 'Remote-First Agency\nServing clients worldwide',
   footer_copyright: 'SANZOX. All rights reserved.',
+  
+  // SEO
+  seo_title: 'SANZOX | AI-Powered Digital Agency',
+  seo_description: 'We specialize in AI Automation, YouTube Automation, Video Editing, Website Development, and Shopify solutions that transform your brand.',
+  seo_keywords: 'AI automation, digital agency, web development, video editing, YouTube automation, Shopify',
+  seo_og_image: null,
 };
 
 export function useSiteSettings() {
