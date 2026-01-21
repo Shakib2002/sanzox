@@ -1,72 +1,77 @@
 import { useParams, Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft, ArrowRight, ExternalLink, CheckCircle2 } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ExternalLink } from 'lucide-react';
 import { Layout } from '@/components/layout/Layout';
 import { GlassCard } from '@/components/ui/GlassCard';
 import { Button } from '@/components/ui/button';
-import { fadeUpVariants, staggerContainerVariants } from '@/hooks/useScrollAnimation';
+import { WorkGallery } from '@/components/WorkGallery';
+import { supabase } from '@/integrations/supabase/client';
+import ReactMarkdown from 'react-markdown';
 
-// Demo work data
-const worksData: Record<string, {
+interface Work {
+  id: string;
   title: string;
-  industry: string;
-  tags: string[];
-  challenge: string;
-  solution: string;
-  result: string;
-  metrics: { label: string; value: string }[];
-  techStack: string[];
-  liveUrl?: string;
-}> = {
-  'ai-workflow-automation': {
-    title: 'AI Workflow Automation',
-    industry: 'SaaS',
-    tags: ['AI Automation', 'Process Optimization'],
-    challenge: 'A growing SaaS company was spending 40+ hours weekly on manual data entry and customer support tasks.',
-    solution: 'We built a comprehensive AI automation system using Make.com and OpenAI to handle data processing, ticket routing, and automated responses.',
-    result: 'The client now saves 35+ hours per week and has reduced response times by 80%.',
-    metrics: [{ label: 'Hours Saved/Week', value: '35+' }, { label: 'Response Time', value: '-80%' }, { label: 'Customer Satisfaction', value: '+45%' }],
-    techStack: ['Make.com', 'OpenAI', 'Airtable', 'Slack', 'Zendesk'],
-    liveUrl: '#',
-  },
-  'youtube-channel-growth': {
-    title: 'YouTube Channel Growth System',
-    industry: 'Creator',
-    tags: ['YouTube Automation', 'Growth'],
-    challenge: 'A content creator struggled to maintain consistent uploads and optimize for YouTube algorithm.',
-    solution: 'We implemented an end-to-end YouTube automation system covering content planning, SEO optimization, and automated publishing.',
-    result: 'The channel grew from 50K to 500K subscribers in 8 months.',
-    metrics: [{ label: 'Subscriber Growth', value: '10x' }, { label: 'Monthly Views', value: '2M+' }, { label: 'Upload Consistency', value: '100%' }],
-    techStack: ['TubeBuddy', 'VidIQ', 'Make.com', 'Notion', 'Canva'],
-    liveUrl: '#',
-  },
-  'premium-shopify-store': {
-    title: 'Premium Shopify Store',
-    industry: 'eCommerce',
-    tags: ['Shopify', 'eCommerce'],
-    challenge: 'An emerging fashion brand needed a premium online store that could handle high traffic and showcase their products beautifully.',
-    solution: 'We designed and built a custom Shopify store with advanced filtering, quick checkout, and integrated inventory management.',
-    result: 'The store launched successfully and achieved $100K in sales in the first month.',
-    metrics: [{ label: 'First Month Sales', value: '$100K' }, { label: 'Conversion Rate', value: '4.2%' }, { label: 'Cart Abandonment', value: '-35%' }],
-    techStack: ['Shopify', 'Liquid', 'Klaviyo', 'Judge.me', 'ShipStation'],
-    liveUrl: '#',
-  },
-  'saas-landing-page': {
-    title: 'SaaS Landing Page',
-    industry: 'SaaS',
-    tags: ['Website Development', 'Design'],
-    challenge: 'A B2B SaaS startup needed a high-converting landing page to launch their product.',
-    solution: 'We designed and developed a modern, fast landing page with clear value proposition and optimized conversion funnels.',
-    result: 'The page achieved a 12% demo booking rate, exceeding industry benchmarks.',
-    metrics: [{ label: 'Demo Booking Rate', value: '12%' }, { label: 'Page Load Time', value: '<1s' }, { label: 'Bounce Rate', value: '28%' }],
-    techStack: ['React', 'Next.js', 'Tailwind CSS', 'Framer Motion', 'Vercel'],
-    liveUrl: '#',
-  },
-};
+  slug: string;
+  industry: string | null;
+  thumbnail: string | null;
+  gallery: string[] | null;
+  live_url: string | null;
+  tags: string[] | null;
+  tech_stack: string[] | null;
+  challenge_md: string | null;
+  solution_md: string | null;
+  result_md: string | null;
+  metrics: { label: string; value: string }[] | null;
+}
 
 export default function WorkDetailPage() {
   const { slug } = useParams<{ slug: string }>();
-  const work = slug ? worksData[slug] : null;
+  const [work, setWork] = useState<Work | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchWork = async () => {
+      if (!slug) return;
+      
+      const { data, error } = await supabase
+        .from('works')
+        .select('*')
+        .eq('slug', slug)
+        .single();
+
+      if (!error && data) {
+        // Parse metrics from JSON
+        let parsedMetrics: { label: string; value: string }[] = [];
+        if (data.metrics && Array.isArray(data.metrics)) {
+          parsedMetrics = data.metrics.map((m: unknown) => {
+            const metric = m as { label?: string; value?: string };
+            return {
+              label: metric.label || '',
+              value: metric.value || ''
+            };
+          });
+        }
+        setWork({ 
+          ...data, 
+          metrics: parsedMetrics 
+        } as Work);
+      }
+      setLoading(false);
+    };
+
+    fetchWork();
+  }, [slug]);
+
+  if (loading) {
+    return (
+      <Layout>
+        <div className="min-h-[60vh] flex items-center justify-center">
+          <div className="animate-pulse text-muted-foreground">Loading...</div>
+        </div>
+      </Layout>
+    );
+  }
 
   if (!work) {
     return (
@@ -92,15 +97,17 @@ export default function WorkDetailPage() {
           </Link>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-3xl">
             <div className="flex flex-wrap gap-2 mb-4">
-              <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium">{work.industry}</span>
-              {work.tags.map(tag => (
+              {work.industry && (
+                <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium">{work.industry}</span>
+              )}
+              {work.tags?.map(tag => (
                 <span key={tag} className="px-3 py-1 rounded-full bg-secondary text-muted-foreground text-sm">{tag}</span>
               ))}
             </div>
             <h1 className="heading-xl mb-4">{work.title}</h1>
-            {work.liveUrl && (
+            {work.live_url && (
               <Button variant="outline" asChild>
-                <a href={work.liveUrl} target="_blank" rel="noopener noreferrer">
+                <a href={work.live_url} target="_blank" rel="noopener noreferrer">
                   View Live <ExternalLink className="ml-2 w-4 h-4" />
                 </a>
               </Button>
@@ -109,12 +116,14 @@ export default function WorkDetailPage() {
         </div>
       </section>
 
-      {/* Gallery placeholder */}
+      {/* Gallery */}
       <section className="pb-16">
         <div className="container-custom">
-          <div className="aspect-video rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 border border-border/50 flex items-center justify-center">
-            <span className="text-6xl font-bold text-primary/20">{work.title[0]}</span>
-          </div>
+          <WorkGallery
+            images={work.gallery || []}
+            thumbnail={work.thumbnail}
+            title={work.title}
+          />
         </div>
       </section>
 
@@ -124,48 +133,64 @@ export default function WorkDetailPage() {
           <div className="grid lg:grid-cols-3 gap-12">
             <div className="lg:col-span-2 space-y-12">
               {/* Challenge */}
-              <div>
-                <h2 className="heading-md mb-4 text-primary">The Challenge</h2>
-                <p className="text-muted-foreground text-lg">{work.challenge}</p>
-              </div>
+              {work.challenge_md && (
+                <div>
+                  <h2 className="heading-md mb-4 text-primary">The Challenge</h2>
+                  <div className="prose prose-invert prose-lg max-w-none text-muted-foreground">
+                    <ReactMarkdown>{work.challenge_md}</ReactMarkdown>
+                  </div>
+                </div>
+              )}
               
               {/* Solution */}
-              <div>
-                <h2 className="heading-md mb-4 text-primary">Our Solution</h2>
-                <p className="text-muted-foreground text-lg">{work.solution}</p>
-              </div>
+              {work.solution_md && (
+                <div>
+                  <h2 className="heading-md mb-4 text-primary">Our Solution</h2>
+                  <div className="prose prose-invert prose-lg max-w-none text-muted-foreground">
+                    <ReactMarkdown>{work.solution_md}</ReactMarkdown>
+                  </div>
+                </div>
+              )}
               
               {/* Result */}
-              <div>
-                <h2 className="heading-md mb-4 text-primary">The Result</h2>
-                <p className="text-muted-foreground text-lg">{work.result}</p>
-              </div>
+              {work.result_md && (
+                <div>
+                  <h2 className="heading-md mb-4 text-primary">The Result</h2>
+                  <div className="prose prose-invert prose-lg max-w-none text-muted-foreground">
+                    <ReactMarkdown>{work.result_md}</ReactMarkdown>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Sidebar */}
             <div className="space-y-6">
               {/* Metrics */}
-              <GlassCard>
-                <h3 className="font-semibold mb-4">Key Metrics</h3>
-                <div className="space-y-4">
-                  {work.metrics.map(metric => (
-                    <div key={metric.label} className="flex justify-between items-center">
-                      <span className="text-muted-foreground">{metric.label}</span>
-                      <span className="text-xl font-bold text-primary">{metric.value}</span>
-                    </div>
-                  ))}
-                </div>
-              </GlassCard>
+              {work.metrics && work.metrics.length > 0 && (
+                <GlassCard>
+                  <h3 className="font-semibold mb-4">Key Metrics</h3>
+                  <div className="space-y-4">
+                    {work.metrics.map((metric, index) => (
+                      <div key={index} className="flex justify-between items-center">
+                        <span className="text-muted-foreground">{metric.label}</span>
+                        <span className="text-xl font-bold text-primary">{metric.value}</span>
+                      </div>
+                    ))}
+                  </div>
+                </GlassCard>
+              )}
 
               {/* Tech Stack */}
-              <GlassCard>
-                <h3 className="font-semibold mb-4">Tech Stack</h3>
-                <div className="flex flex-wrap gap-2">
-                  {work.techStack.map(tech => (
-                    <span key={tech} className="px-3 py-1 rounded-full bg-secondary text-sm">{tech}</span>
-                  ))}
-                </div>
-              </GlassCard>
+              {work.tech_stack && work.tech_stack.length > 0 && (
+                <GlassCard>
+                  <h3 className="font-semibold mb-4">Tech Stack</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {work.tech_stack.map(tech => (
+                      <span key={tech} className="px-3 py-1 rounded-full bg-secondary text-sm">{tech}</span>
+                    ))}
+                  </div>
+                </GlassCard>
+              )}
             </div>
           </div>
         </div>
