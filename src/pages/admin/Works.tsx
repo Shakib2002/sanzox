@@ -12,12 +12,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import { ImageUpload } from '@/components/admin/ImageUpload';
 
 const workSchema = z.object({
   title: z.string().trim().min(1, 'Title is required').max(100),
   slug: z.string().trim().min(1, 'Slug is required').max(100).regex(/^[a-z0-9-]+$/, 'Slug must be lowercase with hyphens'),
   industry: z.string().trim().max(50).optional(),
-  thumbnail: z.string().url('Must be a valid URL').optional().or(z.literal('')),
+  thumbnail: z.string().optional(),
   live_url: z.string().url('Must be a valid URL').optional().or(z.literal('')),
   tags: z.string().optional(),
   tech_stack: z.string().optional(),
@@ -273,8 +274,14 @@ export default function AdminWorks() {
 
               <FormField control={form.control} name="thumbnail" render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Thumbnail URL</FormLabel>
-                  <FormControl><Input placeholder="https://..." {...field} /></FormControl>
+                  <FormLabel>Thumbnail Image</FormLabel>
+                  <FormControl>
+                    <ImageUpload
+                      bucket="works"
+                      value={field.value}
+                      onChange={field.onChange}
+                    />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )} />

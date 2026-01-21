@@ -97,6 +97,7 @@ export type Database = {
       }
       services: {
         Row: {
+          cover_image: string | null
           created_at: string
           display_order: number | null
           faqs: Json | null
@@ -112,6 +113,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          cover_image?: string | null
           created_at?: string
           display_order?: number | null
           faqs?: Json | null
@@ -127,6 +129,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          cover_image?: string | null
           created_at?: string
           display_order?: number | null
           faqs?: Json | null
