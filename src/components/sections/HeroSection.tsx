@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, Play } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { fadeUpVariants, staggerContainerVariants, slideInLeftVariants, slideInRightVariants } from '@/hooks/useScrollAnimation';
+import { fadeUpVariants, staggerContainerVariants, slideInRightVariants } from '@/hooks/useScrollAnimation';
+import heroImage from '@/assets/hero-main.jpg';
 
 export function HeroSection() {
   return (
@@ -85,7 +86,7 @@ export function HeroSection() {
             </motion.div>
           </motion.div>
 
-          {/* Right Illustration */}
+          {/* Right Hero Image */}
           <motion.div
             variants={slideInRightVariants}
             initial="hidden"
@@ -94,74 +95,35 @@ export function HeroSection() {
           >
             <div className="relative w-full max-w-lg">
               {/* Glow effect behind */}
-              <div className="absolute inset-0 bg-primary/20 rounded-full blur-[80px] animate-pulse-glow" />
+              <div className="absolute inset-0 bg-primary/30 rounded-full blur-[100px] animate-pulse-glow" />
               
-              {/* Astronaut illustration placeholder */}
+              {/* Hero image with floating animation */}
               <motion.div
                 animate={{ y: [-10, 10, -10] }}
                 transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
                 className="relative z-10"
               >
-                <div className="relative aspect-square bg-gradient-to-br from-primary/20 to-primary/5 rounded-3xl border border-primary/20 flex items-center justify-center overflow-hidden">
-                  {/* Abstract space illustration */}
-                  <svg viewBox="0 0 400 400" className="w-full h-full p-8 text-primary">
-                    {/* Planet */}
-                    <circle cx="200" cy="200" r="80" fill="currentColor" fillOpacity="0.1" stroke="currentColor" strokeWidth="2"/>
-                    <ellipse cx="200" cy="200" rx="120" ry="30" fill="none" stroke="currentColor" strokeWidth="1" strokeOpacity="0.3" transform="rotate(-20 200 200)"/>
-                    
-                    {/* Orbiting elements */}
-                    <motion.circle
-                      cx="320" cy="180"
-                      r="15"
-                      fill="currentColor"
-                      fillOpacity="0.5"
-                      animate={{ rotate: 360 }}
-                      transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                      style={{ transformOrigin: "200px 200px" }}
-                    />
-                    <motion.circle
-                      cx="80" cy="220"
-                      r="10"
-                      fill="currentColor"
-                      fillOpacity="0.3"
-                      animate={{ rotate: -360 }}
-                      transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-                      style={{ transformOrigin: "200px 200px" }}
-                    />
-
-                    {/* Stars */}
-                    {[...Array(20)].map((_, i) => (
-                      <motion.circle
-                        key={i}
-                        cx={50 + Math.random() * 300}
-                        cy={50 + Math.random() * 300}
-                        r={1 + Math.random() * 2}
-                        fill="currentColor"
-                        fillOpacity={0.3 + Math.random() * 0.5}
-                        animate={{ opacity: [0.3, 1, 0.3] }}
-                        transition={{ duration: 2 + Math.random() * 2, repeat: Infinity, delay: Math.random() * 2 }}
-                      />
-                    ))}
-
-                    {/* Rocket/spacecraft shape */}
-                    <g transform="translate(250, 100) rotate(45)">
-                      <path d="M0,0 L20,50 L0,45 L-20,50 Z" fill="currentColor" fillOpacity="0.6"/>
-                      <circle cx="0" cy="20" r="8" fill="hsl(var(--background))" stroke="currentColor" strokeWidth="2"/>
-                    </g>
-                  </svg>
-
+                <div className="relative rounded-3xl overflow-hidden border border-primary/20 shadow-2xl shadow-primary/20">
+                  <img 
+                    src={heroImage} 
+                    alt="AI Automation Visual" 
+                    className="w-full h-auto object-cover"
+                  />
+                  {/* Overlay gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/50 via-transparent to-transparent" />
+                  
                   {/* Floating badges */}
                   <motion.div
                     animate={{ y: [-5, 5, -5], x: [-3, 3, -3] }}
                     transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                    className="absolute top-8 right-8 px-3 py-1.5 rounded-full bg-primary/20 border border-primary/30 text-xs font-medium text-primary"
+                    className="absolute top-6 right-6 px-3 py-1.5 rounded-full bg-background/80 backdrop-blur-sm border border-primary/30 text-xs font-medium text-primary"
                   >
                     AI Powered
                   </motion.div>
                   <motion.div
                     animate={{ y: [5, -5, 5], x: [3, -3, 3] }}
                     transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                    className="absolute bottom-12 left-8 px-3 py-1.5 rounded-full bg-primary/20 border border-primary/30 text-xs font-medium text-primary"
+                    className="absolute bottom-6 left-6 px-3 py-1.5 rounded-full bg-background/80 backdrop-blur-sm border border-primary/30 text-xs font-medium text-primary"
                   >
                     Automation
                   </motion.div>
