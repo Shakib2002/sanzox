@@ -14,6 +14,12 @@ import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { ImageUpload } from '@/components/admin/ImageUpload';
 import { GalleryUpload } from '@/components/admin/GalleryUpload';
+import { MetricsEditor } from '@/components/admin/MetricsEditor';
+
+const metricSchema = z.object({
+  label: z.string(),
+  value: z.string(),
+});
 
 const workSchema = z.object({
   title: z.string().trim().min(1, 'Title is required').max(100),
@@ -24,6 +30,7 @@ const workSchema = z.object({
   live_url: z.string().url('Must be a valid URL').optional().or(z.literal('')),
   tags: z.string().optional(),
   tech_stack: z.string().optional(),
+  metrics: z.array(metricSchema).optional(),
   featured: z.boolean().optional(),
   challenge_md: z.string().optional(),
   solution_md: z.string().optional(),
@@ -31,6 +38,11 @@ const workSchema = z.object({
 });
 
 type WorkFormData = z.infer<typeof workSchema>;
+
+interface Metric {
+  label: string;
+  value: string;
+}
 
 interface Work {
   id: string;
@@ -42,6 +54,7 @@ interface Work {
   live_url: string | null;
   tags: string[] | null;
   tech_stack: string[] | null;
+  metrics: Metric[] | null;
   featured: boolean | null;
   challenge_md: string | null;
   solution_md: string | null;
@@ -71,13 +84,28 @@ export default function AdminWorks() {
       .select('*')
       .order('created_at', { ascending: false });
 
-    if (!error && data) setWorks(data);
+    if (!error && data) {
+      // Parse metrics from JSON for each work
+      const parsedWorks = data.map((work) => ({
+        ...work,
+        metrics: parseMetrics(work.metrics),
+      }));
+      setWorks(parsedWorks as Work[]);
+    }
     setLoading(false);
+  };
+
+  const parseMetrics = (metrics: unknown): Metric[] => {
+    if (!metrics || !Array.isArray(metrics)) return [];
+    return metrics.map((m: unknown) => {
+      const metric = m as { label?: string; value?: string };
+      return { label: metric.label || '', value: metric.value || '' };
+    });
   };
 
   const openCreateDialog = () => {
     setEditingWork(null);
-    form.reset({ title: '', slug: '', industry: '', thumbnail: '', gallery: [], live_url: '', tags: '', tech_stack: '', featured: false, challenge_md: '', solution_md: '', result_md: '' });
+    form.reset({ title: '', slug: '', industry: '', thumbnail: '', gallery: [], live_url: '', tags: '', tech_stack: '', metrics: [], featured: false, challenge_md: '', solution_md: '', result_md: '' });
     setDialogOpen(true);
   };
 
@@ -92,6 +120,7 @@ export default function AdminWorks() {
       live_url: work.live_url || '',
       tags: work.tags?.join(', ') || '',
       tech_stack: work.tech_stack?.join(', ') || '',
+      metrics: work.metrics || [],
       featured: work.featured || false,
       challenge_md: work.challenge_md || '',
       solution_md: work.solution_md || '',
@@ -113,6 +142,7 @@ export default function AdminWorks() {
       live_url: data.live_url || null,
       tags,
       tech_stack,
+      metrics: data.metrics?.filter(m => m.label && m.value) || [],
       featured: data.featured || false,
       challenge_md: data.challenge_md || null,
       solution_md: data.solution_md || null,
@@ -343,6 +373,19 @@ export default function AdminWorks() {
                 <FormItem>
                   <FormLabel>Result</FormLabel>
                   <FormControl><Textarea placeholder="Describe the results..." rows={3} {...field} /></FormControl>
+                  <FormMessage />
+                </FormItem>
+              )} />
+
+              <FormField control={form.control} name="metrics" render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Key Metrics</FormLabel>
+                  <FormControl>
+                    <MetricsEditor
+                      value={(field.value || []).map(m => ({ label: m.label || '', value: m.value || '' }))}
+                      onChange={field.onChange}
+                    />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )} />
