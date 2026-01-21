@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { useSiteSettings, defaultSiteSettings } from '@/hooks/useSiteSettings';
 
 const navLinks = [
   { name: 'Home', href: '/' },
@@ -18,6 +19,9 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
+  const { data: settings } = useSiteSettings();
+
+  const s = settings || defaultSiteSettings;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -51,7 +55,11 @@ export function Navbar() {
             to="/" 
             className="flex items-center gap-2 font-display text-2xl font-bold tracking-tight"
           >
-            <span className="gradient-text">SANZOX</span>
+            {s.logo_url ? (
+              <img src={s.logo_url} alt={s.site_name} className="h-8 md:h-10 w-auto" />
+            ) : (
+              <span className="gradient-text">{s.site_name}</span>
+            )}
           </Link>
 
           {/* Desktop Navigation */}

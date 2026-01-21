@@ -6,7 +6,7 @@ import { TypewriterText } from '@/components/ui/TypewriterText';
 import { ParallaxBadge } from '@/components/hero/ParallaxBadge';
 import { HeroVideoBackground } from '@/components/hero/HeroVideoBackground';
 import { useHeroStats } from '@/hooks/useHeroStats';
-import { useHeroSettings } from '@/hooks/useHeroSettings';
+import { useSiteSettings, defaultSiteSettings } from '@/hooks/useSiteSettings';
 import { fadeUpVariants, staggerContainerVariants, slideInRightVariants } from '@/hooks/useScrollAnimation';
 import defaultHeroImage from '@/assets/hero-main.jpg';
 
@@ -19,10 +19,11 @@ const serviceWords = [
 
 export function HeroSection() {
   const { ref: statsRef, stats } = useHeroStats();
-  const { data: heroSettings } = useHeroSettings();
+  const { data: settings } = useSiteSettings();
 
-  const showVideo = heroSettings?.video_enabled && heroSettings?.video_url;
-  const heroImage = heroSettings?.image_url || defaultHeroImage;
+  const s = settings || defaultSiteSettings;
+  const showVideo = s.hero_video_enabled && s.hero_video_url;
+  const heroImage = s.hero_image_url || defaultHeroImage;
 
   return (
     <section className="relative min-h-[90vh] flex items-center overflow-hidden">
@@ -31,7 +32,7 @@ export function HeroSection() {
         {showVideo ? (
           <>
             <HeroVideoBackground 
-              videoUrl={heroSettings.video_url!} 
+              videoUrl={s.hero_video_url!} 
               fallbackImage={heroImage}
             />
             {/* Overlay for text readability */}
@@ -73,7 +74,7 @@ export function HeroSection() {
             <motion.div variants={fadeUpVariants}>
               <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-6">
                 <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                AI-Powered Digital Agency
+                {s.tagline}
               </span>
             </motion.div>
 
@@ -81,7 +82,7 @@ export function HeroSection() {
               variants={fadeUpVariants}
               className="heading-xl mb-6"
             >
-              Your Pro Team for{' '}
+              {s.hero_headline}{' '}
               <br className="hidden sm:block" />
               <TypewriterText 
                 words={serviceWords}
@@ -95,8 +96,7 @@ export function HeroSection() {
               variants={fadeUpVariants}
               className="text-lg md:text-xl text-muted-foreground mb-8 max-w-xl mx-auto lg:mx-0"
             >
-              We specialize in AI Automation, YouTube Automation, Video Editing, 
-              Website Development, and Shopify solutions that transform your brand.
+              {s.hero_description}
             </motion.p>
 
             <motion.div 

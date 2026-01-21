@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { 
   Twitter, 
   Linkedin, 
@@ -9,6 +8,7 @@ import {
   MapPin,
   ArrowUpRight
 } from 'lucide-react';
+import { useSiteSettings, defaultSiteSettings } from '@/hooks/useSiteSettings';
 
 const footerLinks = {
   company: [
@@ -30,14 +30,17 @@ const footerLinks = {
   ],
 };
 
-const socialLinks = [
-  { name: 'Twitter', href: '#', icon: Twitter },
-  { name: 'LinkedIn', href: '#', icon: Linkedin },
-  { name: 'Instagram', href: '#', icon: Instagram },
-  { name: 'YouTube', href: '#', icon: Youtube },
-];
-
 export function Footer() {
+  const { data: settings } = useSiteSettings();
+  const s = settings || defaultSiteSettings;
+
+  const socialLinks = [
+    { name: 'Twitter', href: s.social_twitter, icon: Twitter },
+    { name: 'LinkedIn', href: s.social_linkedin, icon: Linkedin },
+    { name: 'Instagram', href: s.social_instagram, icon: Instagram },
+    { name: 'YouTube', href: s.social_youtube, icon: Youtube },
+  ].filter(link => link.href); // Only show links that have URLs
+
   return (
     <footer className="relative bg-background border-t border-border/50">
       {/* Background decoration */}
@@ -51,27 +54,34 @@ export function Footer() {
         <div className="py-16 lg:py-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand Column */}
           <div className="lg:col-span-1">
-            <Link to="/" className="inline-block font-display text-2xl font-bold mb-4">
-              <span className="gradient-text">SANZOX</span>
+            <Link to="/" className="inline-block mb-4">
+              {s.logo_url ? (
+                <img src={s.logo_url} alt={s.site_name} className="h-8 w-auto" />
+              ) : (
+                <span className="font-display text-2xl font-bold gradient-text">{s.site_name}</span>
+              )}
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed mb-6">
-              Your pro team for automation-driven growth. We specialize in AI, YouTube, 
-              and digital solutions that transform brands.
+              {s.footer_description}
             </p>
             
             {/* Social Links */}
-            <div className="flex items-center gap-3">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.name}
-                  href={social.href}
-                  className="w-10 h-10 rounded-lg bg-secondary/50 flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-colors"
-                  aria-label={social.name}
-                >
-                  <social.icon size={18} />
-                </a>
-              ))}
-            </div>
+            {socialLinks.length > 0 && (
+              <div className="flex items-center gap-3">
+                {socialLinks.map((social) => (
+                  <a
+                    key={social.name}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 rounded-lg bg-secondary/50 flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-colors"
+                    aria-label={social.name}
+                  >
+                    <social.icon size={18} />
+                  </a>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Company Links */}
@@ -112,22 +122,25 @@ export function Footer() {
           <div>
             <h4 className="font-display font-semibold text-foreground mb-4">Contact</h4>
             <ul className="space-y-4">
-              <li className="flex items-start gap-3">
-                <Mail size={18} className="text-primary mt-0.5 shrink-0" />
-                <a 
-                  href="mailto:hello@sanzox.com" 
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                >
-                  hello@sanzox.com
-                </a>
-              </li>
-              <li className="flex items-start gap-3">
-                <MapPin size={18} className="text-primary mt-0.5 shrink-0" />
-                <span className="text-sm text-muted-foreground">
-                  Remote-First Agency<br />
-                  Serving clients worldwide
-                </span>
-              </li>
+              {s.footer_email && (
+                <li className="flex items-start gap-3">
+                  <Mail size={18} className="text-primary mt-0.5 shrink-0" />
+                  <a 
+                    href={`mailto:${s.footer_email}`}
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    {s.footer_email}
+                  </a>
+                </li>
+              )}
+              {s.footer_location && (
+                <li className="flex items-start gap-3">
+                  <MapPin size={18} className="text-primary mt-0.5 shrink-0" />
+                  <span className="text-sm text-muted-foreground whitespace-pre-line">
+                    {s.footer_location}
+                  </span>
+                </li>
+              )}
             </ul>
 
             {/* CTA */}
@@ -144,7 +157,7 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="py-6 border-t border-border/50 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} SANZOX. All rights reserved.
+            © {new Date().getFullYear()} {s.footer_copyright}
           </p>
           <div className="flex items-center gap-6">
             {footerLinks.legal.map((link) => (
