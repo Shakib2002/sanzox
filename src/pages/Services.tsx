@@ -7,6 +7,7 @@ import { GlassCard } from '@/components/ui/GlassCard';
 import { Button } from '@/components/ui/button';
 import { fadeUpVariants, staggerContainerVariants } from '@/hooks/useScrollAnimation';
 import { CTASection } from '@/components/sections/CTASection';
+import heroServicesImage from '@/assets/hero-services.jpg';
 
 const services = [
   {
@@ -55,8 +56,13 @@ export default function ServicesPage() {
   return (
     <Layout>
       {/* Hero */}
-      <section className="pt-20 pb-16 relative">
+      <section className="pt-20 pb-16 relative overflow-hidden">
         <div className="absolute inset-0 bg-hero-gradient opacity-50 pointer-events-none" />
+        {/* Hero background image */}
+        <div className="absolute inset-0 opacity-20 pointer-events-none">
+          <img src={heroServicesImage} alt="" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background via-background/80 to-background" />
+        </div>
         <div className="container-custom relative">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

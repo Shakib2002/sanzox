@@ -15,6 +15,7 @@ import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { fadeUpVariants, slideInLeftVariants, slideInRightVariants } from '@/hooks/useScrollAnimation';
 import { FAQSection } from '@/components/sections/FAQSection';
+import heroContactImage from '@/assets/hero-contact.jpg';
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, 'Name is required').max(100, 'Name must be less than 100 characters'),
@@ -98,8 +99,13 @@ export default function ContactPage() {
   return (
     <Layout>
       {/* Hero */}
-      <section className="pt-20 pb-16 relative">
+      <section className="pt-20 pb-16 relative overflow-hidden">
         <div className="absolute inset-0 bg-hero-gradient opacity-50 pointer-events-none" />
+        {/* Hero background image */}
+        <div className="absolute inset-0 opacity-20 pointer-events-none">
+          <img src={heroContactImage} alt="" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background via-background/80 to-background" />
+        </div>
         <div className="container-custom relative">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center max-w-3xl mx-auto">
             <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-4">
