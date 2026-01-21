@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Plus, Pencil, Trash2, Search, GripVertical } from 'lucide-react';
+import { Plus, Pencil, Trash2, Search } from 'lucide-react';
 import { GlassCard } from '@/components/ui/GlassCard';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -12,6 +12,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import { ImageUpload } from '@/components/admin/ImageUpload';
 
 const serviceSchema = z.object({
   title: z.string().trim().min(1, 'Title is required').max(100),
@@ -20,6 +21,7 @@ const serviceSchema = z.object({
   icon: z.string().trim().max(50).optional(),
   featured: z.boolean().optional(),
   highlights: z.string().optional(),
+  cover_image: z.string().optional(),
 });
 
 type ServiceFormData = z.infer<typeof serviceSchema>;
@@ -33,6 +35,7 @@ interface Service {
   featured: boolean | null;
   highlights: string[] | null;
   display_order: number | null;
+  cover_image: string | null;
 }
 
 export default function AdminServices() {
@@ -45,7 +48,7 @@ export default function AdminServices() {
 
   const form = useForm<ServiceFormData>({
     resolver: zodResolver(serviceSchema),
-    defaultValues: { title: '', slug: '', short_desc: '', icon: '', featured: false, highlights: '' },
+    defaultValues: { title: '', slug: '', short_desc: '', icon: '', featured: false, highlights: '', cover_image: '' },
   });
 
   useEffect(() => {
@@ -64,7 +67,7 @@ export default function AdminServices() {
 
   const openCreateDialog = () => {
     setEditingService(null);
-    form.reset({ title: '', slug: '', short_desc: '', icon: '', featured: false, highlights: '' });
+    form.reset({ title: '', slug: '', short_desc: '', icon: '', featured: false, highlights: '', cover_image: '' });
     setDialogOpen(true);
   };
 
@@ -77,6 +80,7 @@ export default function AdminServices() {
       icon: service.icon || '',
       featured: service.featured || false,
       highlights: service.highlights?.join(', ') || '',
+      cover_image: service.cover_image || '',
     });
     setDialogOpen(true);
   };
@@ -93,6 +97,7 @@ export default function AdminServices() {
       icon: data.icon || null,
       featured: data.featured || false,
       highlights,
+      cover_image: data.cover_image || null,
     };
 
     if (editingService) {
@@ -173,7 +178,14 @@ export default function AdminServices() {
               <tbody className="divide-y divide-border">
                 {filteredServices.map((service) => (
                   <tr key={service.id} className="hover:bg-secondary/30 transition-colors">
-                    <td className="px-4 py-3 text-sm font-medium">{service.title}</td>
+                    <td className="px-4 py-3">
+                      <div className="flex items-center gap-3">
+                        {service.cover_image && (
+                          <img src={service.cover_image} alt="" className="w-10 h-10 rounded object-cover" />
+                        )}
+                        <span className="text-sm font-medium">{service.title}</span>
+                      </div>
+                    </td>
                     <td className="px-4 py-3 text-sm text-muted-foreground hidden md:table-cell">{service.slug}</td>
                     <td className="px-4 py-3 text-sm text-muted-foreground hidden lg:table-cell">{service.icon || '-'}</td>
                     <td className="px-4 py-3 text-sm">
@@ -242,6 +254,20 @@ export default function AdminServices() {
                 <FormItem>
                   <FormLabel>Highlights (comma-separated)</FormLabel>
                   <FormControl><Input placeholder="Feature 1, Feature 2, Feature 3" {...field} /></FormControl>
+                  <FormMessage />
+                </FormItem>
+              )} />
+
+              <FormField control={form.control} name="cover_image" render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Cover Image</FormLabel>
+                  <FormControl>
+                    <ImageUpload
+                      bucket="services"
+                      value={field.value}
+                      onChange={field.onChange}
+                    />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )} />

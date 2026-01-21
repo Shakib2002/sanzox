@@ -12,13 +12,14 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import { ImageUpload } from '@/components/admin/ImageUpload';
 
 const blogSchema = z.object({
   title: z.string().trim().min(1, 'Title is required').max(200),
   slug: z.string().trim().min(1, 'Slug is required').max(100).regex(/^[a-z0-9-]+$/, 'Slug must be lowercase with hyphens'),
   excerpt: z.string().trim().max(500).optional(),
   content_md: z.string().optional(),
-  cover: z.string().url('Must be a valid URL').optional().or(z.literal('')),
+  cover: z.string().optional(),
   author: z.string().trim().max(100).optional(),
   tags: z.string().optional(),
   published: z.boolean().optional(),
@@ -294,8 +295,14 @@ export default function AdminBlog() {
               <div className="grid sm:grid-cols-2 gap-4">
                 <FormField control={form.control} name="cover" render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Cover Image URL</FormLabel>
-                    <FormControl><Input placeholder="https://..." {...field} /></FormControl>
+                    <FormLabel>Cover Image</FormLabel>
+                    <FormControl>
+                      <ImageUpload
+                        bucket="blog"
+                        value={field.value}
+                        onChange={field.onChange}
+                      />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )} />
