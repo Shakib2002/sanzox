@@ -2,16 +2,43 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { TypewriterText } from '@/components/ui/TypewriterText';
+import { ParallaxBadge } from '@/components/hero/ParallaxBadge';
+import { useHeroStats } from '@/hooks/useHeroStats';
 import { fadeUpVariants, staggerContainerVariants, slideInRightVariants } from '@/hooks/useScrollAnimation';
 import heroImage from '@/assets/hero-main.jpg';
 
+const serviceWords = [
+  'AI Automation',
+  'Web Development',
+  'Video Editing',
+  'Shopify Solutions',
+];
+
 export function HeroSection() {
+  const { ref: statsRef, stats } = useHeroStats();
+
   return (
     <section className="relative min-h-[90vh] flex items-center overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px]" />
-        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[100px]" />
+      {/* Animated background grid */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--primary)/0.03)_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--primary)/0.03)_1px,transparent_1px)] bg-[size:60px_60px]" />
+        <motion.div
+          animate={{ 
+            opacity: [0.3, 0.6, 0.3],
+            scale: [1, 1.1, 1],
+          }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px]"
+        />
+        <motion.div
+          animate={{ 
+            opacity: [0.2, 0.4, 0.2],
+            scale: [1, 1.15, 1],
+          }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+          className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[100px]"
+        />
       </div>
 
       <div className="container-custom relative z-10">
@@ -35,8 +62,13 @@ export function HeroSection() {
               className="heading-xl mb-6"
             >
               Your Pro Team for{' '}
-              <span className="gradient-text">Automation-Driven</span>{' '}
-              Growth
+              <br className="hidden sm:block" />
+              <TypewriterText 
+                words={serviceWords}
+                typingSpeed={80}
+                deletingSpeed={40}
+                pauseDuration={2500}
+              />
             </motion.h1>
 
             <motion.p 
@@ -64,25 +96,25 @@ export function HeroSection() {
               </Button>
             </motion.div>
 
-            {/* Quick stats */}
+            {/* Animated stats */}
             <motion.div 
+              ref={statsRef}
               variants={fadeUpVariants}
-              className="mt-12 flex items-center justify-center lg:justify-start gap-8"
+              className="mt-12 flex items-center justify-center lg:justify-start gap-6 sm:gap-8"
             >
-              <div className="text-center">
-                <div className="text-2xl font-bold text-foreground">30+</div>
-                <div className="text-sm text-muted-foreground">Projects</div>
-              </div>
-              <div className="w-px h-10 bg-border" />
-              <div className="text-center">
-                <div className="text-2xl font-bold text-foreground">5M+</div>
-                <div className="text-sm text-muted-foreground">Views</div>
-              </div>
-              <div className="w-px h-10 bg-border" />
-              <div className="text-center">
-                <div className="text-2xl font-bold text-foreground">13+</div>
-                <div className="text-sm text-muted-foreground">Team</div>
-              </div>
+              {stats.map((stat, index) => (
+                <div key={stat.label} className="text-center">
+                  <div className="text-2xl font-bold text-foreground">
+                    <span className="gradient-text">{stat.animatedValue}</span>
+                    <span className="text-primary">{stat.suffix}</span>
+                  </div>
+                  <div className="text-sm text-muted-foreground">{stat.label}</div>
+                  {index < stats.length - 1 && (
+                    <div className="hidden" />
+                  )}
+                </div>
+              ))}
+              {/* Dividers rendered separately for proper flexbox layout */}
             </motion.div>
           </motion.div>
 
@@ -91,11 +123,18 @@ export function HeroSection() {
             variants={slideInRightVariants}
             initial="hidden"
             animate="visible"
-            className="relative hidden lg:flex items-center justify-center"
+            className="relative flex items-center justify-center"
           >
-            <div className="relative w-full max-w-lg">
+            <div className="relative w-full max-w-lg mx-auto lg:mx-0">
               {/* Glow effect behind */}
-              <div className="absolute inset-0 bg-primary/30 rounded-full blur-[100px] animate-pulse-glow" />
+              <motion.div 
+                animate={{ 
+                  opacity: [0.3, 0.5, 0.3],
+                  scale: [0.95, 1.05, 0.95],
+                }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute inset-0 bg-primary/30 rounded-full blur-[100px]"
+              />
               
               {/* Hero image with floating animation */}
               <motion.div
@@ -112,21 +151,26 @@ export function HeroSection() {
                   {/* Overlay gradient */}
                   <div className="absolute inset-0 bg-gradient-to-t from-background/50 via-transparent to-transparent" />
                   
-                  {/* Floating badges */}
-                  <motion.div
-                    animate={{ y: [-5, 5, -5], x: [-3, 3, -3] }}
-                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                    className="absolute top-6 right-6 px-3 py-1.5 rounded-full bg-background/80 backdrop-blur-sm border border-primary/30 text-xs font-medium text-primary"
+                  {/* Floating parallax badges */}
+                  <ParallaxBadge 
+                    className="absolute top-6 right-6"
+                    intensity={15}
+                    floatDelay={0}
                   >
-                    AI Powered
-                  </motion.div>
-                  <motion.div
-                    animate={{ y: [5, -5, 5], x: [3, -3, 3] }}
-                    transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                    className="absolute bottom-6 left-6 px-3 py-1.5 rounded-full bg-background/80 backdrop-blur-sm border border-primary/30 text-xs font-medium text-primary"
+                    <div className="px-3 py-1.5 rounded-full bg-background/80 backdrop-blur-sm border border-primary/30 text-xs font-medium text-primary">
+                      AI Powered
+                    </div>
+                  </ParallaxBadge>
+                  
+                  <ParallaxBadge 
+                    className="absolute bottom-6 left-6"
+                    intensity={20}
+                    floatDelay={0.5}
                   >
-                    Automation
-                  </motion.div>
+                    <div className="px-3 py-1.5 rounded-full bg-background/80 backdrop-blur-sm border border-primary/30 text-xs font-medium text-primary">
+                      Automation
+                    </div>
+                  </ParallaxBadge>
                 </div>
               </motion.div>
             </div>
@@ -139,7 +183,7 @@ export function HeroSection() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:block"
       >
         <motion.div
           animate={{ y: [0, 8, 0] }}
