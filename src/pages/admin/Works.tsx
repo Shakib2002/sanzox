@@ -13,12 +13,14 @@ import { z } from 'zod';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { ImageUpload } from '@/components/admin/ImageUpload';
+import { GalleryUpload } from '@/components/admin/GalleryUpload';
 
 const workSchema = z.object({
   title: z.string().trim().min(1, 'Title is required').max(100),
   slug: z.string().trim().min(1, 'Slug is required').max(100).regex(/^[a-z0-9-]+$/, 'Slug must be lowercase with hyphens'),
   industry: z.string().trim().max(50).optional(),
   thumbnail: z.string().optional(),
+  gallery: z.array(z.string()).optional(),
   live_url: z.string().url('Must be a valid URL').optional().or(z.literal('')),
   tags: z.string().optional(),
   tech_stack: z.string().optional(),
@@ -36,6 +38,7 @@ interface Work {
   slug: string;
   industry: string | null;
   thumbnail: string | null;
+  gallery: string[] | null;
   live_url: string | null;
   tags: string[] | null;
   tech_stack: string[] | null;
@@ -55,7 +58,7 @@ export default function AdminWorks() {
 
   const form = useForm<WorkFormData>({
     resolver: zodResolver(workSchema),
-    defaultValues: { title: '', slug: '', industry: '', thumbnail: '', live_url: '', tags: '', tech_stack: '', featured: false, challenge_md: '', solution_md: '', result_md: '' },
+    defaultValues: { title: '', slug: '', industry: '', thumbnail: '', gallery: [], live_url: '', tags: '', tech_stack: '', featured: false, challenge_md: '', solution_md: '', result_md: '' },
   });
 
   useEffect(() => {
@@ -74,7 +77,7 @@ export default function AdminWorks() {
 
   const openCreateDialog = () => {
     setEditingWork(null);
-    form.reset({ title: '', slug: '', industry: '', thumbnail: '', live_url: '', tags: '', tech_stack: '', featured: false, challenge_md: '', solution_md: '', result_md: '' });
+    form.reset({ title: '', slug: '', industry: '', thumbnail: '', gallery: [], live_url: '', tags: '', tech_stack: '', featured: false, challenge_md: '', solution_md: '', result_md: '' });
     setDialogOpen(true);
   };
 
@@ -85,6 +88,7 @@ export default function AdminWorks() {
       slug: work.slug,
       industry: work.industry || '',
       thumbnail: work.thumbnail || '',
+      gallery: work.gallery || [],
       live_url: work.live_url || '',
       tags: work.tags?.join(', ') || '',
       tech_stack: work.tech_stack?.join(', ') || '',
@@ -105,6 +109,7 @@ export default function AdminWorks() {
       slug: data.slug,
       industry: data.industry || null,
       thumbnail: data.thumbnail || null,
+      gallery: data.gallery || [],
       live_url: data.live_url || null,
       tags,
       tech_stack,
@@ -280,6 +285,21 @@ export default function AdminWorks() {
                       bucket="works"
                       value={field.value}
                       onChange={field.onChange}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )} />
+
+              <FormField control={form.control} name="gallery" render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Gallery Images</FormLabel>
+                  <FormControl>
+                    <GalleryUpload
+                      bucket="works"
+                      value={field.value || []}
+                      onChange={field.onChange}
+                      maxImages={10}
                     />
                   </FormControl>
                   <FormMessage />
