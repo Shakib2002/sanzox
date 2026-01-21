@@ -1,14 +1,20 @@
 import { ReactNode } from 'react';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
+import { SEOHead } from '@/components/SEOHead';
 
 interface LayoutProps {
   children: ReactNode;
+  title?: string;
+  description?: string;
+  image?: string;
 }
 
-export function Layout({ children }: LayoutProps) {
+export function Layout({ children, title, description, image }: LayoutProps) {
   return (
     <div className="relative min-h-screen flex flex-col">
+      <SEOHead title={title} description={description} image={image} />
+      
       {/* Star background */}
       <div className="fixed inset-0 stars-bg opacity-50 pointer-events-none" />
       

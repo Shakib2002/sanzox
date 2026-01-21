@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Upload, Video, Image, Loader2, Trash2, Type, Link as LinkIcon, Globe } from 'lucide-react';
+import { Upload, Video, Image, Loader2, Trash2, Type, Link as LinkIcon, Globe, Search } from 'lucide-react';
 import { toast } from 'sonner';
 import { GlassCard } from '@/components/ui/GlassCard';
 import { Button } from '@/components/ui/button';
@@ -19,6 +19,7 @@ export default function AdminSettings() {
   const [uploadingLogo, setUploadingLogo] = useState(false);
   const [uploadingHeroImage, setUploadingHeroImage] = useState(false);
   const [uploadingVideo, setUploadingVideo] = useState(false);
+  const [uploadingOgImage, setUploadingOgImage] = useState(false);
 
   useEffect(() => {
     if (settings) {
@@ -32,7 +33,7 @@ export default function AdminSettings() {
 
   const handleFileUpload = async (
     e: React.ChangeEvent<HTMLInputElement>,
-    field: 'logo_url' | 'hero_image_url' | 'hero_video_url',
+    field: 'logo_url' | 'hero_image_url' | 'hero_video_url' | 'seo_og_image',
     type: 'image' | 'video',
     setUploading: (val: boolean) => void
   ) => {
@@ -104,11 +105,12 @@ export default function AdminSettings() {
       </div>
 
       <Tabs defaultValue="branding" className="space-y-6">
-        <TabsList className="bg-secondary/50">
+        <TabsList className="bg-secondary/50 flex-wrap">
           <TabsTrigger value="branding">Branding</TabsTrigger>
           <TabsTrigger value="hero">Hero Section</TabsTrigger>
           <TabsTrigger value="social">Social Links</TabsTrigger>
           <TabsTrigger value="footer">Footer</TabsTrigger>
+          <TabsTrigger value="seo">SEO</TabsTrigger>
         </TabsList>
 
         {/* Branding Tab */}
@@ -440,6 +442,130 @@ export default function AdminSettings() {
                   onChange={(e) => handleChange('footer_copyright', e.target.value)}
                   placeholder="SANZOX. All rights reserved."
                 />
+              </div>
+            </div>
+          </GlassCard>
+        </TabsContent>
+
+        {/* SEO Tab */}
+        <TabsContent value="seo">
+          <GlassCard>
+            <div className="flex items-center gap-3 mb-6">
+              <Search className="w-5 h-5 text-primary" />
+              <h2 className="text-lg font-semibold">Search Engine Optimization</h2>
+            </div>
+
+            <div className="space-y-6">
+              <div className="space-y-2">
+                <Label>Meta Title</Label>
+                <Input
+                  value={formData.seo_title}
+                  onChange={(e) => handleChange('seo_title', e.target.value)}
+                  placeholder="SANZOX | AI-Powered Digital Agency"
+                  className="max-w-lg"
+                />
+                <p className="text-xs text-muted-foreground">
+                  Recommended: Under 60 characters. Currently: {formData.seo_title.length} characters
+                </p>
+              </div>
+
+              <div className="space-y-2">
+                <Label>Meta Description</Label>
+                <Textarea
+                  value={formData.seo_description}
+                  onChange={(e) => handleChange('seo_description', e.target.value)}
+                  placeholder="We specialize in AI Automation..."
+                  className="max-w-lg min-h-[100px]"
+                />
+                <p className="text-xs text-muted-foreground">
+                  Recommended: 150-160 characters. Currently: {formData.seo_description.length} characters
+                </p>
+              </div>
+
+              <div className="space-y-2">
+                <Label>Keywords</Label>
+                <Input
+                  value={formData.seo_keywords}
+                  onChange={(e) => handleChange('seo_keywords', e.target.value)}
+                  placeholder="AI automation, digital agency, web development"
+                  className="max-w-lg"
+                />
+                <p className="text-xs text-muted-foreground">
+                  Comma-separated keywords for search engines
+                </p>
+              </div>
+
+              <div className="space-y-3 pt-4 border-t border-border">
+                <Label>OG Image (Social Sharing)</Label>
+                <p className="text-sm text-muted-foreground">
+                  This image appears when your site is shared on social media. Recommended size: 1200x630px
+                </p>
+                
+                {formData.seo_og_image ? (
+                  <div className="space-y-3">
+                    <div className="relative rounded-lg overflow-hidden bg-secondary aspect-[1200/630] max-w-md">
+                      <img 
+                        src={formData.seo_og_image} 
+                        alt="OG Image preview"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="flex gap-2">
+                      <Button variant="outline" size="sm" onClick={() => handleChange('seo_og_image', null)}>
+                        <Trash2 className="w-4 h-4 mr-2" />Remove
+                      </Button>
+                      <label className="cursor-pointer">
+                        <Button variant="outline" size="sm" asChild>
+                          <span><Upload className="w-4 h-4 mr-2" />Replace</span>
+                        </Button>
+                        <Input
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          onChange={(e) => handleFileUpload(e, 'seo_og_image', 'image', setUploadingOgImage)}
+                          disabled={uploadingOgImage}
+                        />
+                      </label>
+                    </div>
+                  </div>
+                ) : (
+                  <label className="cursor-pointer block max-w-md">
+                    <div className="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-primary/50 transition-colors">
+                      {uploadingOgImage ? (
+                        <Loader2 className="w-6 h-6 animate-spin text-primary mx-auto" />
+                      ) : (
+                        <>
+                          <Image className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
+                          <p className="text-sm text-muted-foreground">Click to upload OG image</p>
+                          <p className="text-xs text-muted-foreground mt-1">1200x630px recommended</p>
+                        </>
+                      )}
+                    </div>
+                    <Input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={(e) => handleFileUpload(e, 'seo_og_image', 'image', setUploadingOgImage)}
+                      disabled={uploadingOgImage}
+                    />
+                  </label>
+                )}
+              </div>
+
+              {/* Preview */}
+              <div className="pt-4 border-t border-border">
+                <Label className="mb-3 block">Search Result Preview</Label>
+                <div className="bg-secondary/30 rounded-lg p-4 max-w-lg">
+                  <div className="text-primary text-sm mb-1 truncate">
+                    {window.location.origin}
+                  </div>
+                  <div className="text-foreground font-medium text-lg mb-1 line-clamp-1">
+                    {formData.seo_title || 'Your Page Title'}
+                  </div>
+                  <div className="text-muted-foreground text-sm line-clamp-2">
+                    {formData.seo_description || 'Your meta description will appear here...'}
+                  </div>
+                </div>
               </div>
             </div>
           </GlassCard>
