@@ -8,7 +8,7 @@ import { HeroVideoBackground } from '@/components/hero/HeroVideoBackground';
 import { useHeroStats } from '@/hooks/useHeroStats';
 import { useHeroSettings } from '@/hooks/useHeroSettings';
 import { fadeUpVariants, staggerContainerVariants, slideInRightVariants } from '@/hooks/useScrollAnimation';
-import heroImage from '@/assets/hero-main.jpg';
+import defaultHeroImage from '@/assets/hero-main.jpg';
 
 const serviceWords = [
   'AI Automation',
@@ -22,6 +22,7 @@ export function HeroSection() {
   const { data: heroSettings } = useHeroSettings();
 
   const showVideo = heroSettings?.video_enabled && heroSettings?.video_url;
+  const heroImage = heroSettings?.image_url || defaultHeroImage;
 
   return (
     <section className="relative min-h-[90vh] flex items-center overflow-hidden">

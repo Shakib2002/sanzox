@@ -4,11 +4,13 @@ import { supabase } from '@/integrations/supabase/client';
 export interface HeroSettings {
   video_enabled: boolean;
   video_url: string | null;
+  image_url: string | null;
 }
 
 const defaultSettings: HeroSettings = {
   video_enabled: false,
   video_url: null,
+  image_url: null,
 };
 
 export function useHeroSettings() {
