@@ -16,6 +16,16 @@ import Contact from '@/pages/Contact';
 import Privacy from '@/pages/Privacy';
 import Terms from '@/pages/Terms';
 
+// Admin
+import AdminLogin from '@/pages/admin/Login';
+import AdminDashboard from '@/pages/admin/Dashboard';
+import AdminServices from '@/pages/admin/Services';
+import AdminWorks from '@/pages/admin/Works';
+import AdminTestimonials from '@/pages/admin/Testimonials';
+import AdminBlog from '@/pages/admin/Blog';
+import AdminLeads from '@/pages/admin/Leads';
+import { AdminLayout } from '@/components/admin/AdminLayout';
+
 export function AnimatedRoutes() {
   const location = useLocation();
 
@@ -33,6 +43,18 @@ export function AnimatedRoutes() {
         <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
         <Route path="/privacy" element={<PageTransition><Privacy /></PageTransition>} />
         <Route path="/terms" element={<PageTransition><Terms /></PageTransition>} />
+        
+        {/* Admin Routes */}
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<AdminDashboard />} />
+          <Route path="services" element={<AdminServices />} />
+          <Route path="works" element={<AdminWorks />} />
+          <Route path="testimonials" element={<AdminTestimonials />} />
+          <Route path="blog" element={<AdminBlog />} />
+          <Route path="leads" element={<AdminLeads />} />
+        </Route>
+        
         <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
       </Routes>
     </AnimatePresence>
