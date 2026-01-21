@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { GlassCard } from '@/components/ui/GlassCard';
 import { fadeUpVariants, staggerContainerVariants, slideInLeftVariants, slideInRightVariants } from '@/hooks/useScrollAnimation';
+import aboutVisual from '@/assets/about-visual.jpg';
 
 const benefits = [
   {
@@ -125,31 +126,18 @@ export function AboutSplitSection() {
             className="relative"
           >
             <div className="relative aspect-square lg:aspect-[4/3] rounded-2xl overflow-hidden border border-border/50">
-              {/* Abstract team visual */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-primary/10" />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="grid grid-cols-3 gap-4 p-8">
-                  {[...Array(6)].map((_, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: i * 0.1 }}
-                      viewport={{ once: true }}
-                      className="aspect-square rounded-xl bg-secondary/80 border border-border/50 flex items-center justify-center"
-                    >
-                      <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">
-                        {['S', 'A', 'N', 'Z', 'O', 'X'][i]}
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
+              <img 
+                src={aboutVisual} 
+                alt="SANZOX Network" 
+                className="w-full h-full object-cover"
+              />
+              {/* Overlay gradient */}
+              <div className="absolute inset-0 bg-gradient-to-br from-background/30 via-transparent to-primary/10" />
               {/* Decorative elements */}
-              <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-primary/20 border border-primary/30 text-xs font-medium text-primary">
+              <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-background/80 backdrop-blur-sm border border-primary/30 text-xs font-medium text-primary">
                 Remote-First
               </div>
-              <div className="absolute bottom-4 left-4 px-3 py-1 rounded-full bg-success/20 border border-success/30 text-xs font-medium text-success-foreground">
+              <div className="absolute bottom-4 left-4 px-3 py-1 rounded-full bg-background/80 backdrop-blur-sm border border-primary/30 text-xs font-medium text-primary">
                 13+ Team Members
               </div>
             </div>
