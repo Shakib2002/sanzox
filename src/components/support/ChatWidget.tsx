@@ -21,6 +21,14 @@ export function ChatWidget() {
   const [messages, setMessages] = useState<Message[]>([
     { role: 'assistant', content: "Hi! 👋 I'm your SANZOX AI assistant. How can I help you today?" }
   ]);
+  const [showQuickReplies, setShowQuickReplies] = useState(true);
+
+  const quickReplies = [
+    { label: '🤖 Services', message: 'What services does SANZOX offer?' },
+    { label: '💰 Pricing', message: 'What are your pricing packages?' },
+    { label: '⏱ Delivery', message: 'How long does it take to complete a project?' },
+    { label: '📩 Contact', message: 'How can I contact SANZOX?' },
+  ];
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -120,6 +128,7 @@ export function ChatWidget() {
     setMessages(newMessages);
     setInput('');
     setIsLoading(true);
+    setShowQuickReplies(false);
 
     try {
       await streamChat(newMessages.filter(m => m.role === 'user' || m.content !== "Hi! 👋 I'm your AI assistant. How can I help you today?"));
@@ -140,6 +149,28 @@ export function ChatWidget() {
       e.preventDefault();
       handleSend();
     }
+  };
+
+  const handleQuickReply = (message: string) => {
+    setInput(message);
+    setTimeout(() => {
+      const userMessage: Message = { role: 'user', content: message };
+      const newMessages = [...messages, userMessage];
+      setMessages(newMessages);
+      setInput('');
+      setIsLoading(true);
+      setShowQuickReplies(false);
+      streamChat(newMessages.filter(m => m.role === 'user' || m.content !== "Hi! 👋 I'm your AI assistant. How can I help you today?"))
+        .catch((error) => {
+          console.error('Chat error:', error);
+          toast.error(error instanceof Error ? error.message : 'Failed to get response');
+          setMessages(prev => [...prev, { 
+            role: 'assistant', 
+            content: "I'm sorry, I'm having trouble connecting right now. Please try again or contact us via WhatsApp." 
+          }]);
+        })
+        .finally(() => setIsLoading(false));
+    }, 0);
   };
 
   return (
@@ -279,6 +310,28 @@ export function ChatWidget() {
                     <div className="bg-muted p-3 rounded-2xl rounded-bl-md">
                       <Loader2 className="w-4 h-4 animate-spin text-muted-foreground" />
                     </div>
+                  </motion.div>
+                )}
+
+                {/* Quick Reply Buttons */}
+                {showQuickReplies && messages.length === 1 && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="flex flex-wrap gap-2 mt-2"
+                  >
+                    {quickReplies.map((reply, index) => (
+                      <motion.button
+                        key={index}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: index * 0.1 }}
+                        onClick={() => handleQuickReply(reply.message)}
+                        className="px-3 py-1.5 text-xs rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors border border-primary/20"
+                      >
+                        {reply.label}
+                      </motion.button>
+                    ))}
                   </motion.div>
                 )}
               </div>
