@@ -24,10 +24,12 @@ export function ChatWidget() {
   const [showQuickReplies, setShowQuickReplies] = useState(true);
 
   const quickReplies = [
-    { label: '🤖 Services', message: 'What services does SANZOX offer?' },
+    { label: '🤖 AI Automation', message: 'Tell me about your AI Automation services' },
+    { label: '🌐 Web Dev', message: 'What web development services do you offer?' },
+    { label: '🎬 Video Editing', message: 'Tell me about your video editing services' },
+    { label: '🛍 Shopify', message: 'What Shopify solutions do you provide?' },
+    { label: '📈 YouTube', message: 'Tell me about YouTube Automation services' },
     { label: '💰 Pricing', message: 'What are your pricing packages?' },
-    { label: '⏱ Delivery', message: 'How long does it take to complete a project?' },
-    { label: '📩 Contact', message: 'How can I contact SANZOX?' },
   ];
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
