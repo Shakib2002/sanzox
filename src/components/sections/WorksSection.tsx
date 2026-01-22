@@ -17,6 +17,7 @@ import agencyWebsite from '@/assets/works/agency-website.jpg';
 
 // Demo works data
 const works = [
+  // AI Automation
   {
     id: '1',
     slug: 'ai-workflow-automation',
@@ -27,6 +28,16 @@ const works = [
     featured: true,
   },
   {
+    id: '7',
+    slug: 'ai-customer-support',
+    title: 'AI Customer Support System',
+    industry: 'AI Automation',
+    tags: ['AI Automation', 'Chatbot'],
+    thumbnail: aiAutomation,
+    featured: false,
+  },
+  // Youtube Automation
+  {
     id: '2',
     slug: 'youtube-channel-growth',
     title: 'YouTube Channel Growth System',
@@ -35,6 +46,35 @@ const works = [
     thumbnail: youtubeGrowth,
     featured: true,
   },
+  {
+    id: '8',
+    slug: 'youtube-content-pipeline',
+    title: 'YouTube Content Pipeline',
+    industry: 'Youtube Automation',
+    tags: ['YouTube Automation', 'Content Strategy'],
+    thumbnail: youtubeGrowth,
+    featured: false,
+  },
+  // Video Editing
+  {
+    id: '5',
+    slug: 'video-series-production',
+    title: 'Educational Video Series',
+    industry: 'Video Editing',
+    tags: ['Video Editing', 'Production'],
+    thumbnail: videoSeries,
+    featured: true,
+  },
+  {
+    id: '9',
+    slug: 'brand-video-campaign',
+    title: 'Brand Video Campaign',
+    industry: 'Video Editing',
+    tags: ['Video Editing', 'Branding'],
+    thumbnail: videoSeries,
+    featured: false,
+  },
+  // Shopify
   {
     id: '3',
     slug: 'shopify-store-launch',
@@ -45,6 +85,16 @@ const works = [
     featured: true,
   },
   {
+    id: '10',
+    slug: 'shopify-dropshipping',
+    title: 'Dropshipping Store Setup',
+    industry: 'Shopify',
+    tags: ['Shopify', 'Dropshipping'],
+    thumbnail: shopifyStore,
+    featured: false,
+  },
+  // Website & Application
+  {
     id: '4',
     slug: 'saas-landing-page',
     title: 'SaaS Landing Page',
@@ -52,15 +102,6 @@ const works = [
     tags: ['Website Development', 'Design'],
     thumbnail: saasLanding,
     featured: true,
-  },
-  {
-    id: '5',
-    slug: 'video-series-production',
-    title: 'Educational Video Series',
-    industry: 'Video Editing',
-    tags: ['Video Editing', 'Production'],
-    thumbnail: videoSeries,
-    featured: false,
   },
   {
     id: '6',

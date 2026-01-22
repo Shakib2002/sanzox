@@ -23,11 +23,20 @@ interface Work {
 
 // Fallback demo data
 const demoWorks: Work[] = [
+  // AI Automation
   { id: '1', slug: 'ai-workflow-automation', title: 'AI Workflow Automation', industry: 'AI Automation', tags: ['AI Automation', 'Process Optimization'], thumbnail: null, featured: true },
+  { id: '7', slug: 'ai-customer-support', title: 'AI Customer Support System', industry: 'AI Automation', tags: ['AI Automation', 'Chatbot'], thumbnail: null, featured: false },
+  // Youtube Automation
   { id: '2', slug: 'youtube-channel-growth', title: 'YouTube Channel Growth System', industry: 'Youtube Automation', tags: ['YouTube Automation', 'Growth'], thumbnail: null, featured: true },
-  { id: '3', slug: 'premium-shopify-store', title: 'Premium Shopify Store', industry: 'Shopify', tags: ['Shopify', 'eCommerce'], thumbnail: null, featured: true },
+  { id: '8', slug: 'youtube-content-pipeline', title: 'YouTube Content Pipeline', industry: 'Youtube Automation', tags: ['YouTube Automation', 'Content Strategy'], thumbnail: null, featured: false },
+  // Video Editing
+  { id: '5', slug: 'video-series-production', title: 'Educational Video Series', industry: 'Video Editing', tags: ['Video Editing', 'Production'], thumbnail: null, featured: true },
+  { id: '9', slug: 'brand-video-campaign', title: 'Brand Video Campaign', industry: 'Video Editing', tags: ['Video Editing', 'Branding'], thumbnail: null, featured: false },
+  // Shopify
+  { id: '3', slug: 'shopify-store-launch', title: 'Premium Shopify Store', industry: 'Shopify', tags: ['Shopify', 'eCommerce'], thumbnail: null, featured: true },
+  { id: '10', slug: 'shopify-dropshipping', title: 'Dropshipping Store Setup', industry: 'Shopify', tags: ['Shopify', 'Dropshipping'], thumbnail: null, featured: false },
+  // Website & Application
   { id: '4', slug: 'saas-landing-page', title: 'SaaS Landing Page', industry: 'Website & Application', tags: ['Website Development', 'Design'], thumbnail: null, featured: true },
-  { id: '5', slug: 'video-series-production', title: 'Educational Video Series', industry: 'Video Editing', tags: ['Video Editing', 'Production'], thumbnail: null, featured: false },
   { id: '6', slug: 'agency-website', title: 'Creative Agency Website', industry: 'Website & Application', tags: ['Website Development', 'Branding'], thumbnail: null, featured: false },
 ];
 
