@@ -172,25 +172,45 @@ export function HeroSection() {
               transition={{ duration: 1, delay: 0.3, type: 'spring', stiffness: 50 }}
               className="relative flex items-center justify-center lg:justify-end"
             >
-              {/* Outer glow effect */}
+              {/* Outer glow effect - matching hero gradient colors */}
               <motion.div 
                 animate={{ 
-                  opacity: [0.2, 0.4, 0.2],
+                  opacity: [0.25, 0.45, 0.25],
                   scale: [0.9, 1.1, 0.9],
                 }}
                 transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute inset-0 bg-gradient-to-r from-primary/30 via-accent/20 to-primary/30 rounded-full blur-[100px] -z-10"
+                className="absolute inset-0 rounded-full blur-[120px] -z-10"
+                style={{
+                  background: 'radial-gradient(circle, hsl(280 70% 50% / 0.4) 0%, hsl(217 91% 60% / 0.3) 50%, transparent 70%)',
+                }}
               />
               
-              {/* Secondary glow for depth */}
+              {/* Secondary purple glow for depth */}
               <motion.div 
                 animate={{ 
-                  opacity: [0.15, 0.3, 0.15],
+                  opacity: [0.2, 0.4, 0.2],
                   x: [-20, 20, -20],
                   y: [10, -10, 10],
                 }}
                 transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-1/4 right-1/4 w-64 h-64 bg-primary/20 rounded-full blur-[80px] -z-10"
+                className="absolute top-1/4 right-1/4 w-72 h-72 rounded-full blur-[90px] -z-10"
+                style={{
+                  background: 'radial-gradient(circle, hsl(280 70% 50% / 0.35) 0%, transparent 60%)',
+                }}
+              />
+              
+              {/* Tertiary cyan glow accent */}
+              <motion.div 
+                animate={{ 
+                  opacity: [0.15, 0.3, 0.15],
+                  x: [10, -15, 10],
+                  y: [-10, 15, -10],
+                }}
+                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                className="absolute bottom-1/4 left-1/4 w-56 h-56 rounded-full blur-[70px] -z-10"
+                style={{
+                  background: 'radial-gradient(circle, hsl(200 80% 50% / 0.3) 0%, transparent 60%)',
+                }}
               />
 
               {/* 3D Floating Astronaut */}
