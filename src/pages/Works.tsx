@@ -23,12 +23,12 @@ interface Work {
 
 // Fallback demo data
 const demoWorks: Work[] = [
-  { id: '1', slug: 'ai-workflow-automation', title: 'AI Workflow Automation', industry: 'SaaS', tags: ['AI Automation', 'Process Optimization'], thumbnail: null, featured: true },
-  { id: '2', slug: 'youtube-channel-growth', title: 'YouTube Channel Growth System', industry: 'Creator', tags: ['YouTube Automation', 'Growth'], thumbnail: null, featured: true },
-  { id: '3', slug: 'premium-shopify-store', title: 'Premium Shopify Store', industry: 'eCommerce', tags: ['Shopify', 'eCommerce'], thumbnail: null, featured: true },
-  { id: '4', slug: 'saas-landing-page', title: 'SaaS Landing Page', industry: 'SaaS', tags: ['Website Development', 'Design'], thumbnail: null, featured: true },
-  { id: '5', slug: 'video-series-production', title: 'Educational Video Series', industry: 'Education', tags: ['Video Editing', 'Production'], thumbnail: null, featured: false },
-  { id: '6', slug: 'agency-website', title: 'Creative Agency Website', industry: 'Agency', tags: ['Website Development', 'Branding'], thumbnail: null, featured: false },
+  { id: '1', slug: 'ai-workflow-automation', title: 'AI Workflow Automation', industry: 'AI Automation', tags: ['AI Automation', 'Process Optimization'], thumbnail: null, featured: true },
+  { id: '2', slug: 'youtube-channel-growth', title: 'YouTube Channel Growth System', industry: 'Youtube Automation', tags: ['YouTube Automation', 'Growth'], thumbnail: null, featured: true },
+  { id: '3', slug: 'premium-shopify-store', title: 'Premium Shopify Store', industry: 'Shopify', tags: ['Shopify', 'eCommerce'], thumbnail: null, featured: true },
+  { id: '4', slug: 'saas-landing-page', title: 'SaaS Landing Page', industry: 'Website & Application', tags: ['Website Development', 'Design'], thumbnail: null, featured: true },
+  { id: '5', slug: 'video-series-production', title: 'Educational Video Series', industry: 'Video Editing', tags: ['Video Editing', 'Production'], thumbnail: null, featured: false },
+  { id: '6', slug: 'agency-website', title: 'Creative Agency Website', industry: 'Website & Application', tags: ['Website Development', 'Branding'], thumbnail: null, featured: false },
 ];
 
 const industries = ['All', 'AI Automation', 'Youtube Automation', 'Video Editing', 'Shopify', 'Website & Application'];
