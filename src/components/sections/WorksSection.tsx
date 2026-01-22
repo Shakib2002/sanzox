@@ -7,6 +7,14 @@ import { SectionHeading } from '@/components/ui/SectionHeading';
 import { BentoGrid } from '@/components/ui/BentoGrid';
 import { fadeUpVariants } from '@/hooks/useScrollAnimation';
 
+// Import generated thumbnails
+import aiAutomation from '@/assets/works/ai-automation.jpg';
+import youtubeGrowth from '@/assets/works/youtube-growth.jpg';
+import shopifyStore from '@/assets/works/shopify-store.jpg';
+import saasLanding from '@/assets/works/saas-landing.jpg';
+import videoSeries from '@/assets/works/video-series.jpg';
+import agencyWebsite from '@/assets/works/agency-website.jpg';
+
 // Demo works data
 const works = [
   {
@@ -15,7 +23,7 @@ const works = [
     title: 'AI Workflow Automation',
     industry: 'SaaS',
     tags: ['AI Automation', 'Process Optimization'],
-    thumbnail: null,
+    thumbnail: aiAutomation,
     featured: true,
   },
   {
@@ -24,7 +32,7 @@ const works = [
     title: 'YouTube Channel Growth System',
     industry: 'Creator',
     tags: ['YouTube Automation', 'Growth'],
-    thumbnail: null,
+    thumbnail: youtubeGrowth,
     featured: true,
   },
   {
@@ -33,7 +41,7 @@ const works = [
     title: 'Premium Shopify Store',
     industry: 'eCommerce',
     tags: ['Shopify', 'eCommerce'],
-    thumbnail: null,
+    thumbnail: shopifyStore,
     featured: true,
   },
   {
@@ -42,7 +50,7 @@ const works = [
     title: 'SaaS Landing Page',
     industry: 'SaaS',
     tags: ['Website Development', 'Design'],
-    thumbnail: null,
+    thumbnail: saasLanding,
     featured: true,
   },
   {
@@ -51,7 +59,7 @@ const works = [
     title: 'Educational Video Series',
     industry: 'Education',
     tags: ['Video Editing', 'Production'],
-    thumbnail: null,
+    thumbnail: videoSeries,
     featured: false,
   },
   {
@@ -60,7 +68,7 @@ const works = [
     title: 'Creative Agency Website',
     industry: 'Agency',
     tags: ['Website Development', 'Branding'],
-    thumbnail: null,
+    thumbnail: agencyWebsite,
     featured: false,
   },
 ];
