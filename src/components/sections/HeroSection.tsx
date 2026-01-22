@@ -5,16 +5,15 @@ import { Button } from '@/components/ui/button';
 import { TypewriterText } from '@/components/ui/TypewriterText';
 import { WordReveal } from '@/components/ui/WordReveal';
 import { MagneticButton } from '@/components/ui/MagneticButton';
-import { ParallaxBadge } from '@/components/hero/ParallaxBadge';
 import { HeroVideoBackground } from '@/components/hero/HeroVideoBackground';
 import { SpaceParallaxHero } from '@/components/hero/SpaceParallaxHero';
 import { AnimatedGradientBackground } from '@/components/hero/AnimatedGradientBackground';
-import { TiltCard } from '@/components/hero/TiltCard';
 import { FloatingIcons } from '@/components/hero/FloatingIcons';
 import { BentoStats } from '@/components/hero/BentoStats';
 import { useSiteSettings, defaultSiteSettings } from '@/hooks/useSiteSettings';
 import { staggerContainerVariants } from '@/hooks/useScrollAnimation';
 import defaultHeroImage from '@/assets/hero-main.jpg';
+import heroAstronaut from '@/assets/hero-astronaut.png';
 
 const defaultServiceWords = [
   'AI Automation',
@@ -165,73 +164,88 @@ export function HeroSection() {
             </motion.div>
           </motion.div>
 
-          {/* Right Hero Image with 3D Tilt */}
+          {/* Right 3D Floating Astronaut */}
           {!showVideo && (
             <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="relative flex items-center justify-center group"
+              initial={{ opacity: 0, x: 100, scale: 0.8 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              transition={{ duration: 1, delay: 0.3, type: 'spring', stiffness: 50 }}
+              className="relative flex items-center justify-center lg:justify-end"
             >
-              <TiltCard className="w-full max-w-lg mx-auto lg:mx-0">
-                {/* Glow effect behind */}
-                <motion.div 
-                  animate={{ 
-                    opacity: [0.3, 0.5, 0.3],
-                    scale: [0.95, 1.05, 0.95],
-                  }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute -inset-10 bg-primary/20 rounded-full blur-[80px] -z-10"
-                />
-                
-                {/* Hero image container */}
-                <motion.div
-                  animate={{ y: [-5, 5, -5] }}
-                  transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                  className="relative z-10"
-                >
-                  <div className="relative rounded-3xl overflow-hidden border border-primary/20 shadow-2xl shadow-primary/20">
-                    <img 
-                      src={heroImage} 
-                      alt="AI Automation Visual" 
-                      className="w-full h-auto object-cover"
-                    />
-                    {/* Overlay gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/50 via-transparent to-transparent" />
-                    
-                    {/* Floating parallax badges */}
-                    <ParallaxBadge 
-                      className="absolute top-6 right-6"
-                      intensity={15}
-                      floatDelay={0}
-                    >
-                      <div className="px-3 py-1.5 rounded-full bg-card/80 backdrop-blur-md border border-primary/30 text-xs font-medium text-primary shadow-lg">
-                        AI Powered
-                      </div>
-                    </ParallaxBadge>
-                    
-                    <ParallaxBadge 
-                      className="absolute bottom-6 left-6"
-                      intensity={20}
-                      floatDelay={0.5}
-                    >
-                      <div className="px-3 py-1.5 rounded-full bg-card/80 backdrop-blur-md border border-primary/30 text-xs font-medium text-primary shadow-lg">
-                        Automation
-                      </div>
-                    </ParallaxBadge>
+              {/* Outer glow effect */}
+              <motion.div 
+                animate={{ 
+                  opacity: [0.2, 0.4, 0.2],
+                  scale: [0.9, 1.1, 0.9],
+                }}
+                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute inset-0 bg-gradient-to-r from-primary/30 via-accent/20 to-primary/30 rounded-full blur-[100px] -z-10"
+              />
+              
+              {/* Secondary glow for depth */}
+              <motion.div 
+                animate={{ 
+                  opacity: [0.15, 0.3, 0.15],
+                  x: [-20, 20, -20],
+                  y: [10, -10, 10],
+                }}
+                transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute top-1/4 right-1/4 w-64 h-64 bg-primary/20 rounded-full blur-[80px] -z-10"
+              />
 
-                    <ParallaxBadge 
-                      className="absolute top-1/2 -left-4"
-                      intensity={25}
-                      floatDelay={1}
-                    >
-                      <div className="px-3 py-1.5 rounded-full bg-card/80 backdrop-blur-md border border-primary/30 text-xs font-medium text-primary shadow-lg">
-                        24/7 Support
-                      </div>
-                    </ParallaxBadge>
-                  </div>
+              {/* 3D Floating Astronaut */}
+              <motion.div
+                animate={{ 
+                  y: [-15, 15, -15],
+                  rotateZ: [-2, 2, -2],
+                  rotateY: [-5, 5, -5],
+                }}
+                transition={{ 
+                  duration: 8, 
+                  repeat: Infinity, 
+                  ease: "easeInOut",
+                }}
+                className="relative z-10"
+                style={{ transformStyle: 'preserve-3d', perspective: '1000px' }}
+              >
+                {/* Mouse tracking effect */}
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                >
+                  <img 
+                    src={heroAstronaut} 
+                    alt="3D Astronaut floating in space" 
+                    className="w-full max-w-md lg:max-w-lg xl:max-w-xl h-auto object-contain drop-shadow-[0_0_60px_hsl(var(--primary)/0.3)]"
+                  />
                 </motion.div>
-              </TiltCard>
+                
+                {/* Floating particles around astronaut */}
+                <motion.div
+                  animate={{ 
+                    opacity: [0.4, 0.8, 0.4],
+                    scale: [0.8, 1.2, 0.8],
+                  }}
+                  transition={{ duration: 3, repeat: Infinity, delay: 0 }}
+                  className="absolute top-10 left-10 w-2 h-2 bg-primary rounded-full blur-[2px]"
+                />
+                <motion.div
+                  animate={{ 
+                    opacity: [0.3, 0.7, 0.3],
+                    scale: [1, 0.6, 1],
+                  }}
+                  transition={{ duration: 4, repeat: Infinity, delay: 1 }}
+                  className="absolute bottom-20 right-10 w-3 h-3 bg-primary rounded-full blur-[3px]"
+                />
+                <motion.div
+                  animate={{ 
+                    opacity: [0.5, 1, 0.5],
+                    scale: [0.9, 1.3, 0.9],
+                  }}
+                  transition={{ duration: 2.5, repeat: Infinity, delay: 0.5 }}
+                  className="absolute top-1/3 right-0 w-1.5 h-1.5 bg-accent rounded-full blur-[1px]"
+                />
+              </motion.div>
             </motion.div>
           )}
         </div>
