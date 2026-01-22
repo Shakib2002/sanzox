@@ -271,30 +271,47 @@ export function HeroSection() {
                 
               </div>
 
-              {/* 3D Floating Astronaut */}
+              {/* 3D Floating Astronaut with enhanced animation */}
               <motion.div
                 animate={{ 
-                  y: [-15, 15, -15],
-                  rotateZ: [-2, 2, -2],
-                  rotateY: [-5, 5, -5],
+                  y: [-20, 20, -20],
+                  x: [-8, 8, -8],
+                  rotateZ: [-4, 4, -4],
+                  rotateY: [-8, 8, -8],
+                  rotateX: [-3, 3, -3],
                 }}
                 transition={{ 
-                  duration: 8, 
-                  repeat: Infinity, 
-                  ease: "easeInOut",
+                  y: { duration: 6, repeat: Infinity, ease: "easeInOut" },
+                  x: { duration: 7, repeat: Infinity, ease: "easeInOut", delay: 0.5 },
+                  rotateZ: { duration: 8, repeat: Infinity, ease: "easeInOut" },
+                  rotateY: { duration: 10, repeat: Infinity, ease: "easeInOut", delay: 0.3 },
+                  rotateX: { duration: 9, repeat: Infinity, ease: "easeInOut", delay: 0.7 },
                 }}
                 className="relative z-10"
                 style={{ transformStyle: 'preserve-3d', perspective: '1000px' }}
               >
-                {/* Mouse tracking effect */}
+                {/* Hover scale effect */}
                 <motion.div
-                  whileHover={{ scale: 1.05 }}
+                  whileHover={{ scale: 1.08 }}
                   transition={{ type: 'spring', stiffness: 300, damping: 20 }}
                 >
-                  <img 
+                  {/* Inner subtle breathing animation */}
+                  <motion.img 
                     src={heroAstronaut} 
                     alt="3D Astronaut floating in space" 
-                    className="w-full max-w-md lg:max-w-lg xl:max-w-xl h-auto object-contain opacity-85 mix-blend-lighten drop-shadow-[0_0_80px_hsl(var(--primary)/0.5)]"
+                    className="w-full max-w-md lg:max-w-lg xl:max-w-xl h-auto object-contain drop-shadow-[0_0_80px_hsl(var(--primary)/0.5)]"
+                    animate={{
+                      scale: [1, 1.02, 1],
+                      filter: [
+                        'drop-shadow(0 0 60px hsl(280 70% 50% / 0.4))',
+                        'drop-shadow(0 0 100px hsl(200 80% 50% / 0.5))',
+                        'drop-shadow(0 0 60px hsl(280 70% 50% / 0.4))',
+                      ],
+                    }}
+                    transition={{
+                      scale: { duration: 4, repeat: Infinity, ease: "easeInOut" },
+                      filter: { duration: 3, repeat: Infinity, ease: "easeInOut" },
+                    }}
                   />
                 </motion.div>
                 
