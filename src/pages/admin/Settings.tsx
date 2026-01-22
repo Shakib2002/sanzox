@@ -23,6 +23,7 @@ export default function AdminSettings() {
   const [uploadingOgImage, setUploadingOgImage] = useState(false);
   const [newServiceWord, setNewServiceWord] = useState('');
   const [newIndustry, setNewIndustry] = useState('');
+  const [newTrustIndicator, setNewTrustIndicator] = useState('');
   useEffect(() => {
     if (settings) {
       setFormData(settings);
@@ -55,6 +56,18 @@ export default function AdminSettings() {
   const removeIndustry = (index: number) => {
     const industries = formData.works_industries.filter((_, i) => i !== index);
     handleChange('works_industries', industries);
+  };
+
+  const addTrustIndicator = () => {
+    if (!newTrustIndicator.trim()) return;
+    const indicators = [...(formData.cta_trust_indicators || []), newTrustIndicator.trim()];
+    handleChange('cta_trust_indicators', indicators);
+    setNewTrustIndicator('');
+  };
+
+  const removeTrustIndicator = (index: number) => {
+    const indicators = formData.cta_trust_indicators.filter((_, i) => i !== index);
+    handleChange('cta_trust_indicators', indicators);
   };
 
   const handleFileUpload = async (
@@ -135,6 +148,7 @@ export default function AdminSettings() {
           <TabsTrigger value="branding">Branding</TabsTrigger>
           <TabsTrigger value="hero">Hero Section</TabsTrigger>
           <TabsTrigger value="works">Works Section</TabsTrigger>
+          <TabsTrigger value="cta">CTA Section</TabsTrigger>
           <TabsTrigger value="social">Social Links</TabsTrigger>
           <TabsTrigger value="footer">Footer</TabsTrigger>
           <TabsTrigger value="seo">SEO</TabsTrigger>
@@ -501,6 +515,159 @@ export default function AdminSettings() {
                   <strong>Tip:</strong> The marquee displays your portfolio works in an animated, scrolling layout. 
                   Each row scrolls in alternating directions at different speeds for a dynamic effect.
                 </p>
+              </div>
+            </div>
+          </GlassCard>
+        </TabsContent>
+
+        {/* CTA Section Tab */}
+        <TabsContent value="cta">
+          <GlassCard>
+            <div className="flex items-center gap-3 mb-6">
+              <Briefcase className="w-5 h-5 text-primary" />
+              <h2 className="text-lg font-semibold">Call-to-Action Section</h2>
+            </div>
+
+            <div className="space-y-6">
+              {/* Badge */}
+              <div className="space-y-2">
+                <Label>Badge Text</Label>
+                <Input
+                  value={formData.cta_badge}
+                  onChange={(e) => handleChange('cta_badge', e.target.value)}
+                  placeholder="Ready to Transform?"
+                  className="max-w-md"
+                />
+              </div>
+
+              {/* Headline */}
+              <div className="space-y-4 border-t border-border pt-6">
+                <Label className="text-base font-medium">Headline</Label>
+                <p className="text-sm text-muted-foreground">
+                  The headline is split into three parts for styling
+                </p>
+                
+                <div className="grid sm:grid-cols-3 gap-4">
+                  <div className="space-y-2">
+                    <Label className="text-xs text-muted-foreground">Prefix</Label>
+                    <Input
+                      value={formData.cta_headline}
+                      onChange={(e) => handleChange('cta_headline', e.target.value)}
+                      placeholder="Let's start"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label className="text-xs text-muted-foreground">Highlight (gradient)</Label>
+                    <Input
+                      value={formData.cta_headline_highlight}
+                      onChange={(e) => handleChange('cta_headline_highlight', e.target.value)}
+                      placeholder="building brands"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label className="text-xs text-muted-foreground">Suffix (muted)</Label>
+                    <Input
+                      value={formData.cta_headline_suffix}
+                      onChange={(e) => handleChange('cta_headline_suffix', e.target.value)}
+                      placeholder="that matter"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Description */}
+              <div className="space-y-2">
+                <Label>Description</Label>
+                <Textarea
+                  value={formData.cta_description}
+                  onChange={(e) => handleChange('cta_description', e.target.value)}
+                  placeholder="Ready to transform your business..."
+                  className="max-w-lg min-h-[80px]"
+                />
+              </div>
+
+              {/* Buttons */}
+              <div className="space-y-4 border-t border-border pt-6">
+                <Label className="text-base font-medium">Buttons</Label>
+                
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label className="text-xs text-muted-foreground">Primary Button Text</Label>
+                    <Input
+                      value={formData.cta_primary_button_text}
+                      onChange={(e) => handleChange('cta_primary_button_text', e.target.value)}
+                      placeholder="Get Free Proposal"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label className="text-xs text-muted-foreground">Primary Button Link</Label>
+                    <Input
+                      value={formData.cta_primary_button_link}
+                      onChange={(e) => handleChange('cta_primary_button_link', e.target.value)}
+                      placeholder="/contact"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label className="text-xs text-muted-foreground">Secondary Button Text</Label>
+                    <Input
+                      value={formData.cta_secondary_button_text}
+                      onChange={(e) => handleChange('cta_secondary_button_text', e.target.value)}
+                      placeholder="View Our Work"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label className="text-xs text-muted-foreground">Secondary Button Link</Label>
+                    <Input
+                      value={formData.cta_secondary_button_link}
+                      onChange={(e) => handleChange('cta_secondary_button_link', e.target.value)}
+                      placeholder="/works"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Trust Indicators */}
+              <div className="space-y-4 border-t border-border pt-6">
+                <div className="space-y-2">
+                  <Label>Trust Indicators</Label>
+                  <p className="text-sm text-muted-foreground">
+                    Small badges shown below the CTA buttons
+                  </p>
+                </div>
+                
+                <div className="flex flex-wrap gap-2">
+                  {formData.cta_trust_indicators?.map((indicator, index) => (
+                    <Badge 
+                      key={index} 
+                      variant="secondary" 
+                      className="px-3 py-1.5 text-sm flex items-center gap-2"
+                    >
+                      {indicator}
+                      <button
+                        type="button"
+                        onClick={() => removeTrustIndicator(index)}
+                        className="hover:text-destructive transition-colors"
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
+                    </Badge>
+                  ))}
+                </div>
+
+                <div className="flex gap-2 max-w-md">
+                  <Input
+                    value={newTrustIndicator}
+                    onChange={(e) => setNewTrustIndicator(e.target.value)}
+                    placeholder="Add trust indicator..."
+                    onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), addTrustIndicator())}
+                  />
+                  <Button type="button" variant="outline" size="icon" onClick={addTrustIndicator}>
+                    <Plus className="w-4 h-4" />
+                  </Button>
+                </div>
               </div>
             </div>
           </GlassCard>

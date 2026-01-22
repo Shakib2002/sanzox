@@ -19,6 +19,18 @@ export interface SiteSettings {
   works_marquee_rows: 2 | 3;
   works_industries: string[];
   
+  // CTA Section
+  cta_badge: string;
+  cta_headline: string;
+  cta_headline_highlight: string;
+  cta_headline_suffix: string;
+  cta_description: string;
+  cta_primary_button_text: string;
+  cta_primary_button_link: string;
+  cta_secondary_button_text: string;
+  cta_secondary_button_link: string;
+  cta_trust_indicators: string[];
+  
   // Social Links
   social_twitter: string;
   social_linkedin: string;
@@ -58,6 +70,18 @@ export const defaultSiteSettings: SiteSettings = {
   // Works Section
   works_marquee_rows: 3,
   works_industries: ['AI Automation', 'Youtube Automation', 'Video Editing', 'Shopify', 'Website & Application'],
+  
+  // CTA Section
+  cta_badge: 'Ready to Transform?',
+  cta_headline: "Let's start",
+  cta_headline_highlight: 'building brands',
+  cta_headline_suffix: 'that matter',
+  cta_description: 'Ready to transform your business with automation-driven growth? Book a free strategy call and discover your potential.',
+  cta_primary_button_text: 'Get Free Proposal',
+  cta_primary_button_link: '/contact',
+  cta_secondary_button_text: 'View Our Work',
+  cta_secondary_button_link: '/works',
+  cta_trust_indicators: ['Free Consultation', 'No Commitment', '24h Response'],
   
   // Social Links
   social_twitter: '',
