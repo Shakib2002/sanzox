@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { BentoGrid } from '@/components/ui/BentoGrid';
 import { fadeUpVariants } from '@/hooks/useScrollAnimation';
+import { useSiteSettings } from '@/hooks/useSiteSettings';
 
 // Import generated thumbnails
 import aiAutomation from '@/assets/works/ai-automation.jpg';
@@ -114,10 +115,15 @@ const works = [
   },
 ];
 
-const industries = ['All', 'AI Automation', 'Youtube Automation', 'Video Editing', 'Shopify', 'Website & Application'];
+const defaultIndustries = ['AI Automation', 'Youtube Automation', 'Video Editing', 'Shopify', 'Website & Application'];
 
 export function WorksSection() {
   const [activeFilter, setActiveFilter] = useState('All');
+  const { data: siteSettings } = useSiteSettings();
+  
+  const industries = ['All', ...(siteSettings?.works_industries?.length 
+    ? siteSettings.works_industries 
+    : defaultIndustries)];
 
   const filteredWorks = activeFilter === 'All' 
     ? works.slice(0, 6)
