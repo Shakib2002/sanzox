@@ -2,6 +2,7 @@ import { useRef, useEffect, useState } from 'react';
 import nebulaImage from '@/assets/parallax-nebula.jpg';
 import purplePlanet from '@/assets/parallax-purple-planet.png';
 import foregroundPlanet from '@/assets/parallax-foreground-planet.png';
+import { StarField } from './StarField';
 
 interface ParallaxLayer {
   ref: React.RefObject<HTMLDivElement>;
@@ -63,6 +64,11 @@ export function SpaceParallaxHero() {
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* Twinkling Stars Layer */}
+      <div className="fixed inset-0 -z-25">
+        <StarField count={100} />
+      </div>
+
       {/* Background Layer - Nebula (0.3x speed) */}
       <div
         ref={backgroundRef}
