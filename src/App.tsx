@@ -27,11 +27,11 @@ const App = () => {
               <Sonner />
               <BrowserRouter>
                 <AnimatedRoutes />
+                <SupportWidgets 
+                  whatsappNumber="8801516522978"
+                  whatsappMessage="Hi! I'm interested in your services."
+                />
               </BrowserRouter>
-              <SupportWidgets 
-                whatsappNumber="8801516522978"
-                whatsappMessage="Hi! I'm interested in your services."
-              />
             </>
           )}
         </TooltipProvider>
