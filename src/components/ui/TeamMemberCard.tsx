@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Linkedin, Twitter, Mail } from 'lucide-react';
+import { LazyImage } from './LazyImage';
 
 interface SocialLinks {
   linkedin?: string;
@@ -24,11 +25,14 @@ export function TeamMemberCard({ name, role, bio, image, socials }: TeamMemberCa
     >
       {/* Image container */}
       <div className="relative aspect-[4/5] overflow-hidden">
-        <img
-          src={image}
-          alt={name}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-        />
+        <div className="w-full h-full transition-transform duration-500 group-hover:scale-110">
+          <LazyImage
+            src={image}
+            alt={name}
+            fill
+            placeholderColor="hsl(var(--card))"
+          />
+        </div>
         
         {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300" />
