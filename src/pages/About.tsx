@@ -25,48 +25,55 @@ const values = [
   { icon: Globe, title: 'Remote-First', description: 'Global talent, flexible processes, exceptional results.' },
 ];
 
+// Company social links
+const companySocials = {
+  linkedin: 'https://linkedin.com/company/sanzox',
+  twitter: 'https://twitter.com/sanzox',
+  email: 'hello@sanzox.com'
+};
+
 const team = [
   { 
-    name: 'Alex Chen', 
+    name: 'John Doe', 
     role: 'CEO & Strategy', 
     image: founderImage,
     bio: 'Visionary leader with 10+ years in digital transformation. Passionate about helping businesses scale through innovation.',
-    socials: { linkedin: '#', twitter: '#', email: 'alex@sanzox.com' }
+    socials: companySocials
   },
   { 
-    name: 'Maya Rodriguez', 
+    name: 'Jane Smith', 
     role: 'Creative Director', 
     image: creativeLeadImage,
     bio: 'Award-winning designer crafting brand experiences that captivate and convert. Former lead at top agencies.',
-    socials: { linkedin: '#', twitter: '#', email: 'maya@sanzox.com' }
+    socials: companySocials
   },
   { 
-    name: 'James Wilson', 
+    name: 'Michael Johnson', 
     role: 'Tech Lead', 
     image: techLeadImage,
     bio: 'Full-stack architect building scalable solutions. Open source contributor and performance optimization expert.',
-    socials: { linkedin: '#', email: 'james@sanzox.com' }
+    socials: companySocials
   },
   { 
-    name: 'Sarah Kim', 
+    name: 'Emily Davis', 
     role: 'AI & Automation', 
     image: automationExpertImage,
     bio: 'AI specialist transforming workflows with intelligent automation. Making businesses 10x more efficient.',
-    socials: { linkedin: '#', twitter: '#', email: 'sarah@sanzox.com' }
+    socials: companySocials
   },
   { 
-    name: 'Marcus Thompson', 
+    name: 'David Williams', 
     role: 'Video Production', 
     image: videoLeadImage,
     bio: 'Cinematic storyteller creating content that drives engagement. 50M+ views across client projects.',
-    socials: { linkedin: '#', twitter: '#', email: 'marcus@sanzox.com' }
+    socials: companySocials
   },
   { 
-    name: 'Elena Vasquez', 
+    name: 'Sarah Brown', 
     role: 'Growth Marketing', 
     image: growthLeadImage,
     bio: 'Data-driven marketer scaling brands from startup to enterprise. Expert in conversion optimization.',
-    socials: { linkedin: '#', twitter: '#', email: 'elena@sanzox.com' }
+    socials: companySocials
   },
 ];
 
