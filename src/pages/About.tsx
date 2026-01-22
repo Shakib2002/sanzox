@@ -1,13 +1,22 @@
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { CheckCircle2, ArrowRight, Users, Zap, Target, Globe } from 'lucide-react';
+import { CheckCircle2 } from 'lucide-react';
 import { Layout } from '@/components/layout/Layout';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { GlassCard } from '@/components/ui/GlassCard';
-import { Button } from '@/components/ui/button';
 import { fadeUpVariants, staggerContainerVariants, slideInLeftVariants, slideInRightVariants } from '@/hooks/useScrollAnimation';
 import { CTASection } from '@/components/sections/CTASection';
+import { TeamMemberCard } from '@/components/ui/TeamMemberCard';
 import heroAboutImage from '@/assets/hero-about.jpg';
+
+// Team photos
+import founderImage from '@/assets/team/founder.jpg';
+import creativeLeadImage from '@/assets/team/creative-lead.jpg';
+import techLeadImage from '@/assets/team/tech-lead.jpg';
+import automationExpertImage from '@/assets/team/automation-expert.jpg';
+import videoLeadImage from '@/assets/team/video-lead.jpg';
+import growthLeadImage from '@/assets/team/growth-lead.jpg';
+
+import { Zap, Target, Users, Globe } from 'lucide-react';
 
 const values = [
   { icon: Zap, title: 'Move Fast', description: 'We deliver results quickly without compromising quality.' },
@@ -17,12 +26,48 @@ const values = [
 ];
 
 const team = [
-  { name: 'Founder', role: 'CEO & Strategy', initial: 'F' },
-  { name: 'Creative Lead', role: 'Design & Brand', initial: 'C' },
-  { name: 'Tech Lead', role: 'Development', initial: 'T' },
-  { name: 'Automation Expert', role: 'AI & Systems', initial: 'A' },
-  { name: 'Video Lead', role: 'Production', initial: 'V' },
-  { name: 'Growth Lead', role: 'Marketing', initial: 'G' },
+  { 
+    name: 'Alex Chen', 
+    role: 'CEO & Strategy', 
+    image: founderImage,
+    bio: 'Visionary leader with 10+ years in digital transformation. Passionate about helping businesses scale through innovation.',
+    socials: { linkedin: '#', twitter: '#', email: 'alex@sanzox.com' }
+  },
+  { 
+    name: 'Maya Rodriguez', 
+    role: 'Creative Director', 
+    image: creativeLeadImage,
+    bio: 'Award-winning designer crafting brand experiences that captivate and convert. Former lead at top agencies.',
+    socials: { linkedin: '#', twitter: '#', email: 'maya@sanzox.com' }
+  },
+  { 
+    name: 'James Wilson', 
+    role: 'Tech Lead', 
+    image: techLeadImage,
+    bio: 'Full-stack architect building scalable solutions. Open source contributor and performance optimization expert.',
+    socials: { linkedin: '#', email: 'james@sanzox.com' }
+  },
+  { 
+    name: 'Sarah Kim', 
+    role: 'AI & Automation', 
+    image: automationExpertImage,
+    bio: 'AI specialist transforming workflows with intelligent automation. Making businesses 10x more efficient.',
+    socials: { linkedin: '#', twitter: '#', email: 'sarah@sanzox.com' }
+  },
+  { 
+    name: 'Marcus Thompson', 
+    role: 'Video Production', 
+    image: videoLeadImage,
+    bio: 'Cinematic storyteller creating content that drives engagement. 50M+ views across client projects.',
+    socials: { linkedin: '#', twitter: '#', email: 'marcus@sanzox.com' }
+  },
+  { 
+    name: 'Elena Vasquez', 
+    role: 'Growth Marketing', 
+    image: growthLeadImage,
+    bio: 'Data-driven marketer scaling brands from startup to enterprise. Expert in conversion optimization.',
+    socials: { linkedin: '#', twitter: '#', email: 'elena@sanzox.com' }
+  },
 ];
 
 export default function AboutPage() {
@@ -111,16 +156,32 @@ export default function AboutPage() {
       {/* Team */}
       <section className="section-padding">
         <div className="container-custom">
-          <SectionHeading badge="Our Team" title={<>Meet the <span className="gradient-text">Crew</span></>} description="A diverse team of experts passionate about helping businesses grow." />
-          <motion.div variants={staggerContainerVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {team.map(member => (
-              <GlassCard key={member.name} variants={fadeUpVariants} className="text-center">
-                <div className="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-primary/30 to-primary/10 flex items-center justify-center text-primary text-2xl font-bold mb-4">
-                  {member.initial}
-                </div>
-                <h3 className="text-lg font-semibold mb-1">{member.name}</h3>
-                <p className="text-sm text-muted-foreground">{member.role}</p>
-              </GlassCard>
+          <SectionHeading 
+            badge="Our Team" 
+            title={<>Meet the <span className="gradient-text">Crew</span></>} 
+            description="A diverse team of experts passionate about helping businesses grow. Hover to learn more about each team member." 
+          />
+          <motion.div 
+            variants={staggerContainerVariants} 
+            initial="hidden" 
+            whileInView="visible" 
+            viewport={{ once: true }} 
+            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8"
+          >
+            {team.map((member, index) => (
+              <motion.div
+                key={member.name}
+                variants={fadeUpVariants}
+                custom={index}
+              >
+                <TeamMemberCard
+                  name={member.name}
+                  role={member.role}
+                  bio={member.bio}
+                  image={member.image}
+                  socials={member.socials}
+                />
+              </motion.div>
             ))}
           </motion.div>
         </div>
