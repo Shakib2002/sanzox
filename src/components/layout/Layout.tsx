@@ -3,6 +3,7 @@ import { Navbar } from './Navbar';
 import { Footer } from './Footer';
 import { SEOHead } from '@/components/SEOHead';
 import { ScrollProgress } from '@/components/ui/ScrollProgress';
+import { SupportWidgets } from '@/components/support/SupportWidgets';
 
 interface LayoutProps {
   children: ReactNode;
@@ -34,6 +35,12 @@ export function Layout({ children, title, description, image }: LayoutProps) {
       </main>
       
       <Footer />
+      
+      {/* Support Widgets - AI Chat & WhatsApp */}
+      <SupportWidgets 
+        whatsappNumber="1234567890"
+        whatsappMessage="Hi! I'm interested in your services."
+      />
     </div>
   );
 }
