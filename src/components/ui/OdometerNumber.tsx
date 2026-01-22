@@ -34,7 +34,7 @@ interface OdometerDigitProps {
   delay?: number;
 }
 
-function OdometerDigit({ digit, delay = 0 }: OdometerDigitProps) {
+export function OdometerDigit({ digit, delay = 0 }: OdometerDigitProps) {
   const numericDigit = parseInt(digit, 10);
   const isNumber = !isNaN(numericDigit);
 

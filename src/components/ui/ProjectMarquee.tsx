@@ -35,6 +35,7 @@ function MarqueeRow({ works, direction, speed, className = '' }: MarqueeRowProps
     >
       <motion.div
         className="flex gap-4"
+        initial={false}
         animate={{
           x: direction === 'left' ? ['0%', '-33.33%'] : ['-33.33%', '0%'],
         }}
@@ -49,6 +50,8 @@ function MarqueeRow({ works, direction, speed, className = '' }: MarqueeRowProps
         style={{
           animationPlayState: isPaused ? 'paused' : 'running',
         }}
+        onHoverStart={() => setIsPaused(true)}
+        onHoverEnd={() => setIsPaused(false)}
       >
         {duplicatedWorks.map((work, index) => (
           <Link
