@@ -1,9 +1,9 @@
+import { forwardRef, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useInView } from 'framer-motion';
 import { ArrowUpRight, TrendingUp } from 'lucide-react';
 import { TiltCard } from './TiltCard';
 import { VideoThumbnail } from './VideoThumbnail';
-import { useRef } from 'react';
 
 interface Work {
   id: string;
@@ -14,6 +14,7 @@ interface Work {
   thumbnail: string | null;
   featured?: boolean;
   video_preview?: string | null;
+  metrics?: { label: string; value: string }[] | null;
 }
 
 interface BentoGridProps {
@@ -29,16 +30,6 @@ const bentoPatterns = [
   { colSpan: 1, rowSpan: 1 }, // Small
   { colSpan: 1, rowSpan: 1 }, // Small
 ];
-
-// Result metrics for demo purposes - in production, fetch from DB
-const resultMetrics: Record<string, string> = {
-  'ai-workflow-automation': '+250% Efficiency',
-  'youtube-channel-growth': '+150K Subscribers',
-  'shopify-store-launch': '3x Revenue',
-  'saas-landing-page': '+180% Conversions',
-  'video-series-production': '2M+ Views',
-  'agency-website': '+400% Traffic',
-};
 
 const containerVariants = {
   hidden: {},
@@ -71,13 +62,20 @@ const cardVariants = {
   },
 };
 
-export function BentoGrid({ works }: BentoGridProps) {
+export const BentoGrid = forwardRef<HTMLDivElement, BentoGridProps>(({ works }, ref) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, amount: 0.1 });
 
   return (
     <motion.div 
-      ref={containerRef}
+      ref={(node) => {
+        (containerRef as React.MutableRefObject<HTMLDivElement | null>).current = node;
+        if (typeof ref === 'function') {
+          ref(node);
+        } else if (ref) {
+          ref.current = node;
+        }
+      }}
       className="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[160px] md:auto-rows-[180px]"
       variants={containerVariants}
       initial="hidden"
@@ -85,7 +83,8 @@ export function BentoGrid({ works }: BentoGridProps) {
     >
       {works.map((work, index) => {
         const pattern = bentoPatterns[index % bentoPatterns.length];
-        const resultMetric = resultMetrics[work.slug];
+        // Get first metric from work's metrics array
+        const resultMetric = work.metrics?.[0];
         
         return (
           <motion.div
@@ -127,7 +126,7 @@ export function BentoGrid({ works }: BentoGridProps) {
                     className="absolute top-4 left-4 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/90 backdrop-blur-sm text-primary-foreground text-xs font-semibold opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0"
                   >
                     <TrendingUp className="w-3 h-3" />
-                    {resultMetric}
+                    {resultMetric.value}
                   </motion.div>
                 )}
 
@@ -145,7 +144,7 @@ export function BentoGrid({ works }: BentoGridProps) {
                     <span className="px-2 py-1 rounded-md bg-primary/20 backdrop-blur-sm text-primary text-xs font-medium">
                       {work.industry || 'Project'}
                     </span>
-                    {pattern.colSpan >= 2 && work.tags.slice(0, 2).map((tag) => (
+                    {pattern.colSpan >= 2 && work.tags?.slice(0, 2).map((tag) => (
                       <span 
                         key={tag} 
                         className="px-2 py-1 rounded-md bg-secondary/50 backdrop-blur-sm text-muted-foreground text-xs hidden md:inline-block"
@@ -184,4 +183,6 @@ export function BentoGrid({ works }: BentoGridProps) {
       })}
     </motion.div>
   );
-}
+});
+
+BentoGrid.displayName = 'BentoGrid';
