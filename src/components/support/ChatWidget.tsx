@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { toast } from 'sonner';
+import ReactMarkdown from 'react-markdown';
 
 type Message = {
   role: 'user' | 'assistant';
@@ -291,7 +292,13 @@ export function ChatWidget() {
                           : 'bg-muted text-foreground rounded-bl-md'
                       }`}
                     >
-                      {message.content}
+                      {message.role === 'assistant' ? (
+                        <div className="prose prose-sm dark:prose-invert max-w-none [&>*:first-child]:mt-0 [&>*:last-child]:mb-0 [&_p]:my-1 [&_ul]:my-1 [&_ol]:my-1 [&_li]:my-0.5 [&_strong]:text-foreground [&_em]:text-foreground/90">
+                          <ReactMarkdown>{message.content}</ReactMarkdown>
+                        </div>
+                      ) : (
+                        message.content
+                      )}
                     </div>
                     {message.role === 'user' && (
                       <div className="w-7 h-7 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
