@@ -47,6 +47,7 @@ export function TiltCard({
   const handleMouseLeave = () => {
     setIsHovering(false);
     setTransform({ rotateX: 0, rotateY: 0 });
+    setGlarePosition({ x: 50, y: 50 });
   };
 
   return (
@@ -63,12 +64,12 @@ export function TiltCard({
       }}
       transition={{
         type: 'spring',
-        stiffness: 400,
-        damping: 30,
+        stiffness: 300,
+        damping: 25,
       }}
       style={{
         transformStyle: 'preserve-3d',
-        perspective: '1000px',
+        perspective: '1200px',
       }}
     >
       {children}
@@ -78,12 +79,20 @@ export function TiltCard({
         <motion.div
           className="pointer-events-none absolute inset-0 rounded-xl overflow-hidden"
           animate={{ opacity: isHovering ? 1 : 0 }}
-          transition={{ duration: 0.2 }}
+          transition={{ duration: 0.3 }}
         >
           <div
             className="absolute inset-0"
             style={{
-              background: `radial-gradient(circle at ${glarePosition.x}% ${glarePosition.y}%, hsl(var(--primary) / 0.15) 0%, transparent 60%)`,
+              background: `radial-gradient(ellipse at ${glarePosition.x}% ${glarePosition.y}%, hsl(var(--primary) / 0.2) 0%, transparent 50%)`,
+            }}
+          />
+          {/* Additional shimmer effect */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background: `linear-gradient(105deg, transparent 40%, hsl(var(--primary) / 0.08) 45%, hsl(var(--primary) / 0.15) 50%, hsl(var(--primary) / 0.08) 55%, transparent 60%)`,
+              transform: `translateX(${(glarePosition.x - 50) * 2}%)`,
             }}
           />
         </motion.div>
