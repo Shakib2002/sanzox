@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { GlassCard } from '@/components/ui/GlassCard';
 import { fadeUpVariants, staggerContainerVariants, slideInLeftVariants, slideInRightVariants } from '@/hooks/useScrollAnimation';
-import aboutVisual from '@/assets/about-visual.jpg';
+import teamCollaboration from '@/assets/team-collaboration.jpg';
 
 const benefits = [
   {
@@ -127,8 +127,8 @@ export function AboutSplitSection() {
           >
             <div className="relative aspect-square lg:aspect-[4/3] rounded-2xl overflow-hidden border border-border/50">
               <img 
-                src={aboutVisual} 
-                alt="SANZOX Network" 
+                src={teamCollaboration} 
+                alt="SANZOX Team Collaboration" 
                 className="w-full h-full object-cover"
               />
               {/* Overlay gradient */}
