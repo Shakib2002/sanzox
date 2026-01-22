@@ -459,20 +459,29 @@ export default function AdminSettings() {
 
             <div className="space-y-4 max-w-md">
               <div className="space-y-2">
-                <Label>Twitter / X</Label>
-                <Input
-                  value={formData.social_twitter}
-                  onChange={(e) => handleChange('social_twitter', e.target.value)}
-                  placeholder="https://twitter.com/yourhandle"
-                />
-              </div>
-
-              <div className="space-y-2">
                 <Label>LinkedIn</Label>
                 <Input
                   value={formData.social_linkedin}
                   onChange={(e) => handleChange('social_linkedin', e.target.value)}
                   placeholder="https://linkedin.com/company/yourcompany"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label>Facebook</Label>
+                <Input
+                  value={formData.social_facebook}
+                  onChange={(e) => handleChange('social_facebook', e.target.value)}
+                  placeholder="https://facebook.com/yourpage"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label>Twitter / X</Label>
+                <Input
+                  value={formData.social_twitter}
+                  onChange={(e) => handleChange('social_twitter', e.target.value)}
+                  placeholder="https://twitter.com/yourhandle"
                 />
               </div>
 
@@ -491,6 +500,24 @@ export default function AdminSettings() {
                   value={formData.social_youtube}
                   onChange={(e) => handleChange('social_youtube', e.target.value)}
                   placeholder="https://youtube.com/@yourchannel"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label>Fiverr</Label>
+                <Input
+                  value={formData.social_fiverr}
+                  onChange={(e) => handleChange('social_fiverr', e.target.value)}
+                  placeholder="https://fiverr.com/yourusername"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label>Upwork</Label>
+                <Input
+                  value={formData.social_upwork}
+                  onChange={(e) => handleChange('social_upwork', e.target.value)}
+                  placeholder="https://upwork.com/freelancers/yourusername"
                 />
               </div>
             </div>
