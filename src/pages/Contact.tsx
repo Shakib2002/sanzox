@@ -66,17 +66,31 @@ export default function ContactPage() {
     setIsSubmitting(true);
     
     try {
-      const { error } = await supabase.from('leads').insert({
-        name: data.name,
-        email: data.email,
-        company: data.company || null,
-        service_interest: data.service_interest || null,
-        budget_range: data.budget_range || null,
-        message: data.message,
-        source: 'contact_page',
+      const response = await supabase.functions.invoke('submit-lead', {
+        body: {
+          name: data.name,
+          email: data.email,
+          company: data.company || null,
+          service_interest: data.service_interest || null,
+          budget_range: data.budget_range || null,
+          message: data.message,
+          source: 'contact_page',
+        },
       });
 
-      if (error) throw error;
+      if (response.error) {
+        throw new Error(response.error.message || 'Failed to submit');
+      }
+
+      // Check for rate limit or validation errors
+      if (response.data?.error) {
+        toast({
+          title: 'Submission failed',
+          description: response.data.error,
+          variant: 'destructive',
+        });
+        return;
+      }
 
       setIsSubmitted(true);
       toast({

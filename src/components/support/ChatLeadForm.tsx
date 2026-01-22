@@ -66,16 +66,26 @@ export function ChatLeadForm({ onSubmitSuccess }: ChatLeadFormProps) {
     setIsSubmitting(true);
 
     try {
-      const { error } = await supabase.from('leads').insert({
-        name: formData.name.trim(),
-        email: formData.contact.includes('@') ? formData.contact.trim() : '',
-        message: `Contact: ${formData.contact}\nDeadline: ${formData.deadline || 'Not specified'}`,
-        service_interest: formData.service,
-        budget_range: formData.budget || null,
-        source: 'ai_chatbot',
+      const response = await supabase.functions.invoke('submit-lead', {
+        body: {
+          name: formData.name.trim(),
+          email: formData.contact.includes('@') ? formData.contact.trim() : formData.contact.trim() + '@placeholder.invalid',
+          message: `Contact: ${formData.contact}\nDeadline: ${formData.deadline || 'Not specified'}`,
+          service_interest: formData.service,
+          budget_range: formData.budget || null,
+          source: 'ai_chatbot',
+        },
       });
 
-      if (error) throw error;
+      if (response.error) {
+        throw new Error(response.error.message || 'Failed to submit');
+      }
+
+      // Check for rate limit or validation errors
+      if (response.data?.error) {
+        toast.error(response.data.error);
+        return;
+      }
 
       setIsSubmitted(true);
       onSubmitSuccess(formData);
