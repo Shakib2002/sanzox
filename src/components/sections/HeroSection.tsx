@@ -116,21 +116,42 @@ export function HeroSection() {
               className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start"
             >
               <MagneticButton>
-                <Button size="lg" asChild className="btn-glow text-base px-8 relative overflow-hidden group">
-                  <Link to="/contact">
-                    <span className="relative z-10 flex items-center">
-                      Book a Call
-                      <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                    </span>
-                  </Link>
-                </Button>
+                <div className="relative">
+                  {/* Animated glow pulse behind button */}
+                  <motion.div
+                    className="absolute -inset-1 rounded-lg bg-gradient-to-r from-primary via-primary/80 to-primary blur-md opacity-60"
+                    animate={{
+                      opacity: [0.4, 0.8, 0.4],
+                      scale: [0.98, 1.02, 0.98],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: 'easeInOut',
+                    }}
+                  />
+                  <Button size="lg" asChild className="relative btn-glow text-base px-8 overflow-hidden group">
+                    <Link to="/contact">
+                      <span className="relative z-10 flex items-center">
+                        Book a Call
+                        <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                      </span>
+                    </Link>
+                  </Button>
+                </div>
               </MagneticButton>
               <MagneticButton magneticStrength={0.2}>
-                <Button size="lg" variant="outline" asChild className="text-base px-8 backdrop-blur-sm">
-                  <Link to="/works">
-                    View Works
-                  </Link>
-                </Button>
+                <div className="relative group/outline">
+                  {/* Subtle glow for outline button on hover */}
+                  <motion.div
+                    className="absolute -inset-1 rounded-lg bg-primary/20 blur-md opacity-0 group-hover/outline:opacity-50 transition-opacity duration-300"
+                  />
+                  <Button size="lg" variant="outline" asChild className="relative text-base px-8 backdrop-blur-sm border-primary/30 hover:border-primary/60 transition-colors">
+                    <Link to="/works">
+                      View Works
+                    </Link>
+                  </Button>
+                </div>
               </MagneticButton>
             </motion.div>
 
