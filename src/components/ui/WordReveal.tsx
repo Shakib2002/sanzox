@@ -51,7 +51,10 @@ export function WordReveal({ text, className = '', delay = 0 }: WordRevealProps)
           key={index}
           variants={wordVariants}
           className="inline-block mr-[0.25em]"
-          style={{ transformStyle: 'preserve-3d' }}
+          style={{ 
+            transformStyle: 'preserve-3d',
+            transformOrigin: 'center bottom',
+          }}
         >
           {word}
         </motion.span>

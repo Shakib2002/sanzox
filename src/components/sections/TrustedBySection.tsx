@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { motion, useAnimationControls } from 'framer-motion';
 import { TextReveal } from '@/components/ui/TextReveal';
 
 const logosRow1 = [
@@ -18,10 +19,37 @@ function MarqueeRow({
   direction?: 'left' | 'right';
   speed?: number;
 }) {
+  const [isPaused, setIsPaused] = useState(false);
+  const controls = useAnimationControls();
   const duplicatedLogos = [...logos, ...logos, ...logos, ...logos];
   
+  const startAnimation = () => {
+    controls.start({
+      x: direction === 'left' ? ['0%', '-50%'] : ['-50%', '0%'],
+      transition: { 
+        duration: speed, 
+        repeat: Infinity, 
+        ease: 'linear' 
+      }
+    });
+  };
+
+  const handleMouseEnter = () => {
+    setIsPaused(true);
+    controls.stop();
+  };
+
+  const handleMouseLeave = () => {
+    setIsPaused(false);
+    startAnimation();
+  };
+
   return (
-    <div className="flex overflow-hidden group">
+    <div 
+      className="flex overflow-hidden"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       <motion.div
         animate={{ 
           x: direction === 'left' ? ['0%', '-50%'] : ['-50%', '0%'] 
@@ -31,8 +59,14 @@ function MarqueeRow({
           repeat: Infinity, 
           ease: 'linear' 
         }}
-        className="flex gap-12 items-center group-hover:[animation-play-state:paused]"
-        style={{ willChange: 'transform' }}
+        className="flex gap-12 items-center"
+        style={{ 
+          willChange: 'transform',
+          animationPlayState: isPaused ? 'paused' : 'running'
+        }}
+        onHoverStart={() => setIsPaused(true)}
+        onHoverEnd={() => setIsPaused(false)}
+        whileHover={{ animationPlayState: 'paused' }}
       >
         {duplicatedLogos.map((logo, index) => (
           <motion.div

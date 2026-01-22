@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { useHeroStats } from '@/hooks/useHeroStats';
 
 export function BentoStats() {
-  const { ref, stats } = useHeroStats();
+  const { ref, stats, isInView } = useHeroStats();
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -34,7 +34,7 @@ export function BentoStats() {
       ref={ref}
       variants={containerVariants}
       initial="hidden"
-      animate="visible"
+      animate={isInView ? "visible" : "hidden"}
       className="mt-12 grid grid-cols-3 gap-3 max-w-md mx-auto lg:mx-0"
     >
       {stats.map((stat, index) => (

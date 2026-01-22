@@ -9,7 +9,7 @@ interface Star {
   delay: number;
   duration: number;
   opacity: number;
-  parallaxSpeed: number; // Each star has its own parallax speed for depth
+  parallaxSpeed: number;
 }
 
 interface ShootingStar {
@@ -40,7 +40,7 @@ export function StarField({ count = 80, shootingStarCount = 6 }: StarFieldProps)
       delay: Math.random() * 3,
       duration: Math.random() * 2 + 1.5,
       opacity: Math.random() * 0.5 + 0.3,
-      parallaxSpeed: Math.random() * 0.15 + 0.05, // 0.05-0.2 speed variance for depth
+      parallaxSpeed: Math.random() * 0.15 + 0.05,
     }));
   }, [count]);
 
@@ -61,7 +61,7 @@ export function StarField({ count = 80, shootingStarCount = 6 }: StarFieldProps)
     });
   }, [shootingStarCount]);
 
-  // Parallax scroll effect
+  // Parallax scroll effect - only affects wrapper divs, not Framer Motion transforms
   useEffect(() => {
     let ticking = false;
 
@@ -69,9 +69,9 @@ export function StarField({ count = 80, shootingStarCount = 6 }: StarFieldProps)
       if (!ticking) {
         requestAnimationFrame(() => {
           const scrollY = window.scrollY;
-          const starElements = containerRef.current?.querySelectorAll('[data-parallax-speed]');
+          const wrappers = containerRef.current?.querySelectorAll('[data-parallax-wrapper]');
           
-          starElements?.forEach((el) => {
+          wrappers?.forEach((el) => {
             const speed = parseFloat(el.getAttribute('data-parallax-speed') || '0');
             const yOffset = scrollY * speed;
             (el as HTMLElement).style.transform = `translateY(${yOffset}px)`;
@@ -89,29 +89,36 @@ export function StarField({ count = 80, shootingStarCount = 6 }: StarFieldProps)
 
   return (
     <div ref={containerRef} className="absolute inset-0 overflow-hidden pointer-events-none">
-      {/* Twinkling stars with parallax */}
+      {/* Twinkling stars with parallax - wrapper div for parallax, inner motion.div for twinkling */}
       {stars.map((star) => (
-        <motion.div
+        <div
           key={star.id}
+          data-parallax-wrapper
           data-parallax-speed={star.parallaxSpeed}
-          className="absolute rounded-full bg-white will-change-transform"
+          className="absolute will-change-transform"
           style={{
             left: `${star.x}%`,
             top: `${star.y}%`,
-            width: star.size,
-            height: star.size,
           }}
-          animate={{
-            opacity: [star.opacity * 0.3, star.opacity, star.opacity * 0.3],
-            scale: [0.8, 1.2, 0.8],
-          }}
-          transition={{
-            duration: star.duration,
-            delay: star.delay,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-        />
+        >
+          <motion.div
+            className="rounded-full bg-white"
+            style={{
+              width: star.size,
+              height: star.size,
+            }}
+            animate={{
+              opacity: [star.opacity * 0.3, star.opacity, star.opacity * 0.3],
+              scale: [0.8, 1.2, 0.8],
+            }}
+            transition={{
+              duration: star.duration,
+              delay: star.delay,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          />
+        </div>
       ))}
 
       {/* Shooting stars with varied angles */}
