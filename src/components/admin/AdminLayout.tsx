@@ -25,6 +25,7 @@ const navItems = [
   { href: '/admin/testimonials', label: 'Testimonials', icon: MessageSquare },
   { href: '/admin/blog', label: 'Blog Posts', icon: FileText },
   { href: '/admin/leads', label: 'Leads', icon: Users },
+  { href: '/admin/team', label: 'Team', icon: Users },
   { href: '/admin/settings', label: 'Settings', icon: Settings },
 ];
 
