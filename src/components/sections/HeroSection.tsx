@@ -216,7 +216,7 @@ export function HeroSection() {
                   <img 
                     src={heroAstronaut} 
                     alt="3D Astronaut floating in space" 
-                    className="w-full max-w-md lg:max-w-lg xl:max-w-xl h-auto object-contain drop-shadow-[0_0_60px_hsl(var(--primary)/0.3)]"
+                    className="w-full max-w-md lg:max-w-lg xl:max-w-xl h-auto object-contain opacity-85 mix-blend-lighten drop-shadow-[0_0_80px_hsl(var(--primary)/0.5)]"
                   />
                 </motion.div>
                 
