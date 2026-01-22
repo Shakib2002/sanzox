@@ -302,15 +302,29 @@ export function ChatWidget() {
                 ))}
                 {isLoading && messages[messages.length - 1]?.role === 'user' && (
                   <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
                     className="flex gap-2 justify-start"
                   >
                     <div className="w-7 h-7 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
                       <Bot className="w-4 h-4 text-primary" />
                     </div>
-                    <div className="bg-muted p-3 rounded-2xl rounded-bl-md">
-                      <Loader2 className="w-4 h-4 animate-spin text-muted-foreground" />
+                    <div className="bg-muted px-4 py-3 rounded-2xl rounded-bl-md flex items-center gap-1">
+                      <motion.span
+                        className="w-2 h-2 rounded-full bg-primary/60"
+                        animate={{ y: [0, -4, 0] }}
+                        transition={{ duration: 0.6, repeat: Infinity, delay: 0 }}
+                      />
+                      <motion.span
+                        className="w-2 h-2 rounded-full bg-primary/60"
+                        animate={{ y: [0, -4, 0] }}
+                        transition={{ duration: 0.6, repeat: Infinity, delay: 0.15 }}
+                      />
+                      <motion.span
+                        className="w-2 h-2 rounded-full bg-primary/60"
+                        animate={{ y: [0, -4, 0] }}
+                        transition={{ duration: 0.6, repeat: Infinity, delay: 0.3 }}
+                      />
                     </div>
                   </motion.div>
                 )}
