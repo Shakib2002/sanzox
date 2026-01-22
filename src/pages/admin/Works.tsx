@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Switch } from '@/components/ui/switch';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -15,6 +16,7 @@ import { useToast } from '@/hooks/use-toast';
 import { ImageUpload } from '@/components/admin/ImageUpload';
 import { GalleryUpload } from '@/components/admin/GalleryUpload';
 import { MetricsEditor } from '@/components/admin/MetricsEditor';
+import { useSiteSettings } from '@/hooks/useSiteSettings';
 
 const metricSchema = z.object({
   label: z.string(),
@@ -63,6 +65,8 @@ interface Work {
   result_md: string | null;
 }
 
+const defaultIndustries = ['AI Automation', 'Youtube Automation', 'Video Editing', 'Shopify', 'Website & Application'];
+
 export default function AdminWorks() {
   const [works, setWorks] = useState<Work[]>([]);
   const [loading, setLoading] = useState(true);
@@ -70,6 +74,11 @@ export default function AdminWorks() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingWork, setEditingWork] = useState<Work | null>(null);
   const { toast } = useToast();
+  const { data: siteSettings } = useSiteSettings();
+  
+  const industries = siteSettings?.works_industries?.length 
+    ? siteSettings.works_industries 
+    : defaultIndustries;
 
   const form = useForm<WorkFormData>({
     resolver: zodResolver(workSchema),
@@ -298,7 +307,20 @@ export default function AdminWorks() {
                 <FormField control={form.control} name="industry" render={({ field }) => (
                   <FormItem>
                     <FormLabel>Industry</FormLabel>
-                    <FormControl><Input placeholder="SaaS, eCommerce, etc." {...field} /></FormControl>
+                    <Select onValueChange={field.onChange} value={field.value || ''}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select industry..." />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {industries.map((industry) => (
+                          <SelectItem key={industry} value={industry}>
+                            {industry}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                     <FormMessage />
                   </FormItem>
                 )} />

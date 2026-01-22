@@ -17,6 +17,7 @@ export interface SiteSettings {
   
   // Works Section
   works_marquee_rows: 2 | 3;
+  works_industries: string[];
   
   // Social Links
   social_twitter: string;
@@ -56,6 +57,7 @@ export const defaultSiteSettings: SiteSettings = {
   
   // Works Section
   works_marquee_rows: 3,
+  works_industries: ['AI Automation', 'Youtube Automation', 'Video Editing', 'Shopify', 'Website & Application'],
   
   // Social Links
   social_twitter: '',

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Upload, Video, Image, Loader2, Trash2, Type, Link as LinkIcon, Globe, Search, Plus, X, Briefcase } from 'lucide-react';
+import { Upload, Video, Image, Loader2, Trash2, Type, Link as LinkIcon, Globe, Search, Plus, X, Briefcase, Tag } from 'lucide-react';
 import { toast } from 'sonner';
 import { GlassCard } from '@/components/ui/GlassCard';
 import { Button } from '@/components/ui/button';
@@ -22,6 +22,7 @@ export default function AdminSettings() {
   const [uploadingVideo, setUploadingVideo] = useState(false);
   const [uploadingOgImage, setUploadingOgImage] = useState(false);
   const [newServiceWord, setNewServiceWord] = useState('');
+  const [newIndustry, setNewIndustry] = useState('');
   useEffect(() => {
     if (settings) {
       setFormData(settings);
@@ -42,6 +43,18 @@ export default function AdminSettings() {
   const removeServiceWord = (index: number) => {
     const words = formData.hero_service_words.filter((_, i) => i !== index);
     handleChange('hero_service_words', words);
+  };
+
+  const addIndustry = () => {
+    if (!newIndustry.trim()) return;
+    const industries = [...(formData.works_industries || []), newIndustry.trim()];
+    handleChange('works_industries', industries);
+    setNewIndustry('');
+  };
+
+  const removeIndustry = (index: number) => {
+    const industries = formData.works_industries.filter((_, i) => i !== index);
+    handleChange('works_industries', industries);
   };
 
   const handleFileUpload = async (
@@ -435,6 +448,50 @@ export default function AdminSettings() {
                     className="flex-1 max-w-[120px]"
                   >
                     3 Rows
+                  </Button>
+                </div>
+              </div>
+
+              {/* Industry Categories Editor */}
+              <div className="space-y-4 border-t border-border pt-6">
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <Tag className="w-4 h-4 text-muted-foreground" />
+                    <Label>Industry Categories</Label>
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    These categories appear as filter buttons on the Works page
+                  </p>
+                </div>
+                
+                <div className="flex flex-wrap gap-2">
+                  {formData.works_industries?.map((industry, index) => (
+                    <Badge 
+                      key={index} 
+                      variant="secondary" 
+                      className="px-3 py-1.5 text-sm flex items-center gap-2"
+                    >
+                      {industry}
+                      <button
+                        type="button"
+                        onClick={() => removeIndustry(index)}
+                        className="hover:text-destructive transition-colors"
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
+                    </Badge>
+                  ))}
+                </div>
+
+                <div className="flex gap-2 max-w-md">
+                  <Input
+                    value={newIndustry}
+                    onChange={(e) => setNewIndustry(e.target.value)}
+                    placeholder="Add new industry category..."
+                    onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), addIndustry())}
+                  />
+                  <Button type="button" variant="outline" size="icon" onClick={addIndustry}>
+                    <Plus className="w-4 h-4" />
                   </Button>
                 </div>
               </div>

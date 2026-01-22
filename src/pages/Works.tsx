@@ -8,6 +8,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { CTASection } from '@/components/sections/CTASection';
 import { BentoGrid } from '@/components/ui/BentoGrid';
 import { ProjectMarquee } from '@/components/ui/ProjectMarquee';
+import { useSiteSettings } from '@/hooks/useSiteSettings';
 import heroWorksImage from '@/assets/hero-works.jpg';
 
 interface Work {
@@ -40,13 +41,18 @@ const demoWorks: Work[] = [
   { id: '6', slug: 'agency-website', title: 'Creative Agency Website', industry: 'Website & Application', tags: ['Website Development', 'Branding'], thumbnail: null, featured: false },
 ];
 
-const industries = ['All', 'AI Automation', 'Youtube Automation', 'Video Editing', 'Shopify', 'Website & Application'];
+const defaultIndustries = ['AI Automation', 'Youtube Automation', 'Video Editing', 'Shopify', 'Website & Application'];
 
 export default function WorksPage() {
   const [works, setWorks] = useState<Work[]>(demoWorks);
   const [activeFilter, setActiveFilter] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const { data: siteSettings } = useSiteSettings();
+  
+  const industries = ['All', ...(siteSettings?.works_industries?.length 
+    ? siteSettings.works_industries 
+    : defaultIndustries)];
 
   useEffect(() => {
     async function fetchWorks() {
