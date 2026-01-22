@@ -15,7 +15,7 @@ import { useSiteSettings, defaultSiteSettings } from '@/hooks/useSiteSettings';
 import { staggerContainerVariants } from '@/hooks/useScrollAnimation';
 import defaultHeroImage from '@/assets/hero-main.jpg';
 
-const serviceWords = [
+const defaultServiceWords = [
   'AI Automation',
   'Web Development',
   'Video Editing',
@@ -41,6 +41,7 @@ export function HeroSection() {
   const s = settings || defaultSiteSettings;
   const showVideo = s.hero_video_enabled && s.hero_video_url;
   const heroImage = s.hero_image_url || defaultHeroImage;
+  const serviceWords = s.hero_service_words?.length > 0 ? s.hero_service_words : defaultServiceWords;
 
   return (
     <section className="relative min-h-[90vh] flex items-center overflow-hidden">
