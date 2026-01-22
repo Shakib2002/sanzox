@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { motion, useAnimationControls } from 'framer-motion';
 import { TextReveal } from '@/components/ui/TextReveal';
 
@@ -19,7 +19,6 @@ function MarqueeRow({
   direction?: 'left' | 'right';
   speed?: number;
 }) {
-  const [isPaused, setIsPaused] = useState(false);
   const controls = useAnimationControls();
   const duplicatedLogos = [...logos, ...logos, ...logos, ...logos];
   
@@ -34,13 +33,15 @@ function MarqueeRow({
     });
   };
 
+  useEffect(() => {
+    startAnimation();
+  }, []);
+
   const handleMouseEnter = () => {
-    setIsPaused(true);
     controls.stop();
   };
 
   const handleMouseLeave = () => {
-    setIsPaused(false);
     startAnimation();
   };
 
@@ -51,30 +52,18 @@ function MarqueeRow({
       onMouseLeave={handleMouseLeave}
     >
       <motion.div
-        animate={{ 
-          x: direction === 'left' ? ['0%', '-50%'] : ['-50%', '0%'] 
-        }}
-        transition={{ 
-          duration: speed, 
-          repeat: Infinity, 
-          ease: 'linear' 
-        }}
+        animate={controls}
         className="flex gap-12 items-center"
-        style={{ 
-          willChange: 'transform',
-          animationPlayState: isPaused ? 'paused' : 'running'
-        }}
-        onHoverStart={() => setIsPaused(true)}
-        onHoverEnd={() => setIsPaused(false)}
-        whileHover={{ animationPlayState: 'paused' }}
+        style={{ willChange: 'transform' }}
       >
         {duplicatedLogos.map((logo, index) => (
           <motion.div
             key={index}
-            whileHover={{ scale: 1.1 }}
+            whileHover={{ scale: 1.1, y: -4 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 17 }}
             className="flex items-center gap-3 text-muted-foreground/40 hover:text-muted-foreground transition-all duration-300 cursor-default select-none"
           >
-            <div className="w-10 h-10 rounded-xl bg-muted-foreground/10 border border-muted-foreground/10 flex items-center justify-center backdrop-blur-sm">
+            <div className="w-10 h-10 rounded-xl bg-muted-foreground/10 border border-muted-foreground/10 flex items-center justify-center backdrop-blur-sm hover:bg-muted-foreground/20 transition-colors">
               <span className="text-sm font-bold gradient-text">{logo[0]}</span>
             </div>
             <span className="text-lg font-semibold whitespace-nowrap tracking-tight">{logo}</span>
