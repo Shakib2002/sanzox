@@ -38,13 +38,37 @@ const detectBuyingIntent = (messages: Message[]): boolean => {
 const SUPABASE_URL = "https://qksdhteorfupfxtmrlxw.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFrc2RodGVvcmZ1cGZ4dG1ybHh3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg5OTYxNzQsImV4cCI6MjA4NDU3MjE3NH0.rTUhVmqB19vD6JrLkLmfGd9XOezcosrp24Yso53GjvQ";
 
+const STORAGE_KEY = 'sanzox_chat_history';
+const LEAD_SUBMITTED_KEY = 'sanzox_lead_submitted';
+
+const getStoredMessages = (): Message[] => {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        return parsed;
+      }
+    }
+  } catch (e) {
+    console.error('Failed to parse stored messages:', e);
+  }
+  return [{ role: 'assistant', content: "Hey there! 👋 Welcome to **SANZOX**!\n\nI'm here to help you build something amazing. Whether it's **AI Automation**, **Web Development**, **Video Editing**, **Shopify Solutions**, or **YouTube Automation** — we've got you covered.\n\nWhat would you like to create or automate today?" }];
+};
+
+const getLeadSubmitted = (): boolean => {
+  try {
+    return localStorage.getItem(LEAD_SUBMITTED_KEY) === 'true';
+  } catch {
+    return false;
+  }
+};
+
 export function ChatWidget() {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', content: "Hey there! 👋 Welcome to **SANZOX**!\n\nI'm here to help you build something amazing. Whether it's **AI Automation**, **Web Development**, **Video Editing**, **Shopify Solutions**, or **YouTube Automation** — we've got you covered.\n\nWhat would you like to create or automate today?" }
-  ]);
-  const [showQuickReplies, setShowQuickReplies] = useState(true);
+  const [messages, setMessages] = useState<Message[]>(getStoredMessages);
+  const [showQuickReplies, setShowQuickReplies] = useState(() => getStoredMessages().length === 1);
 
   const quickReplies = [
     { label: '🤖 AI Automation', message: 'Tell me about your AI Automation services' },
@@ -57,14 +81,31 @@ export function ChatWidget() {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [showLeadForm, setShowLeadForm] = useState(false);
-  const [leadSubmitted, setLeadSubmitted] = useState(false);
+  const [leadSubmitted, setLeadSubmitted] = useState(getLeadSubmitted);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  // Persist messages to localStorage
+  useEffect(() => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+    } catch (e) {
+      console.error('Failed to save messages:', e);
+    }
+  }, [messages]);
+
+  // Persist lead submitted state
+  useEffect(() => {
+    try {
+      localStorage.setItem(LEAD_SUBMITTED_KEY, String(leadSubmitted));
+    } catch (e) {
+      console.error('Failed to save lead state:', e);
+    }
+  }, [leadSubmitted]);
 
   // Check for buying intent after messages change
   useEffect(() => {
     if (!leadSubmitted && messages.length > 2 && detectBuyingIntent(messages)) {
-      // Show form after a short delay for better UX
       const timer = setTimeout(() => setShowLeadForm(true), 500);
       return () => clearTimeout(timer);
     }
@@ -73,11 +114,18 @@ export function ChatWidget() {
   const handleLeadSubmitSuccess = () => {
     setLeadSubmitted(true);
     setShowLeadForm(false);
-    // Add a thank you message from the assistant
     setMessages(prev => [...prev, {
       role: 'assistant',
       content: "Awesome! 🎉 I've got your details. Our team will reach out within 24 hours to discuss your project.\n\nIn the meantime, feel free to ask me anything else about our services!"
     }]);
+  };
+
+  const clearChatHistory = () => {
+    const initialMessage: Message = { role: 'assistant', content: "Hey there! 👋 Welcome to **SANZOX**!\n\nI'm here to help you build something amazing. Whether it's **AI Automation**, **Web Development**, **Video Editing**, **Shopify Solutions**, or **YouTube Automation** — we've got you covered.\n\nWhat would you like to create or automate today?" };
+    setMessages([initialMessage]);
+    setShowQuickReplies(true);
+    setShowLeadForm(false);
+    localStorage.removeItem(STORAGE_KEY);
   };
 
   const handleGetQuote = () => {
@@ -301,14 +349,26 @@ export function ChatWidget() {
           >
             {/* Header */}
             <div className="p-4 border-b border-border bg-primary/5">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
-                  <Bot className="w-5 h-5 text-primary" />
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
+                    <Bot className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-foreground">AI Support</h3>
+                    <p className="text-xs text-muted-foreground">Powered by Google Gemini</p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-semibold text-foreground">AI Support</h3>
-                  <p className="text-xs text-muted-foreground">Powered by Google Gemini</p>
-                </div>
+                {messages.length > 1 && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={clearChatHistory}
+                    className="text-xs text-muted-foreground hover:text-foreground"
+                  >
+                    Clear
+                  </Button>
+                )}
               </div>
             </div>
 
