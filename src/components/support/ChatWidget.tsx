@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, X, Send, Bot, User, Loader2, FileText } from 'lucide-react';
@@ -8,6 +8,15 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { toast } from 'sonner';
 import ReactMarkdown from 'react-markdown';
 import { ChatLeadForm } from './ChatLeadForm';
+
+// Typing effect configuration for human-like delays
+const TYPING_CONFIG = {
+  baseDelay: 12,        // Base ms between characters
+  variance: 20,         // Random variance added
+  wordPauseChance: 0.08, // 8% chance to pause after a word
+  wordPauseDelay: 60,   // Extra ms when pausing after word
+  punctuationDelay: 80, // Extra ms after punctuation
+};
 
 type Message = {
   role: 'user' | 'assistant';
@@ -82,8 +91,76 @@ export function ChatWidget() {
   const [isLoading, setIsLoading] = useState(false);
   const [showLeadForm, setShowLeadForm] = useState(false);
   const [leadSubmitted, setLeadSubmitted] = useState(getLeadSubmitted);
+  const [streamedContent, setStreamedContent] = useState('');
+  const [displayedContent, setDisplayedContent] = useState('');
+  const [isTypingEffect, setIsTypingEffect] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const typingIndexRef = useRef(0);
+  const typingTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Human-like typing effect
+  const getTypingDelay = useCallback((char: string): number => {
+    let delay = TYPING_CONFIG.baseDelay + Math.random() * TYPING_CONFIG.variance;
+    
+    if (['.', '!', '?', ',', ';', ':'].includes(char)) {
+      delay += TYPING_CONFIG.punctuationDelay;
+    }
+    if (char === ' ' && Math.random() < TYPING_CONFIG.wordPauseChance) {
+      delay += TYPING_CONFIG.wordPauseDelay;
+    }
+    if (char === '\n') {
+      delay += TYPING_CONFIG.wordPauseDelay * 1.5;
+    }
+    
+    return delay;
+  }, []);
+
+  // Process typing effect
+  useEffect(() => {
+    if (!isTypingEffect || typingIndexRef.current >= streamedContent.length) {
+      if (typingIndexRef.current >= streamedContent.length && streamedContent.length > 0 && !isLoading) {
+        // Typing complete, update final message
+        setMessages(prev => {
+          const last = prev[prev.length - 1];
+          if (last?.role === 'assistant') {
+            return prev.map((m, i) => 
+              i === prev.length - 1 ? { ...m, content: streamedContent } : m
+            );
+          }
+          return prev;
+        });
+        setIsTypingEffect(false);
+      }
+      return;
+    }
+
+    const currentChar = streamedContent[typingIndexRef.current];
+    const delay = getTypingDelay(currentChar);
+
+    typingTimerRef.current = setTimeout(() => {
+      typingIndexRef.current += 1;
+      const newDisplayed = streamedContent.slice(0, typingIndexRef.current);
+      setDisplayedContent(newDisplayed);
+      
+      // Update the message with typing progress
+      setMessages(prev => {
+        const last = prev[prev.length - 1];
+        if (last?.role === 'assistant' && prev.length > 1) {
+          return prev.map((m, i) => 
+            i === prev.length - 1 ? { ...m, content: newDisplayed } : m
+          );
+        }
+        return [...prev, { role: 'assistant', content: newDisplayed }];
+      });
+    }, delay);
+
+    return () => {
+      if (typingTimerRef.current) {
+        clearTimeout(typingTimerRef.current);
+      }
+    };
+  }, [streamedContent, displayedContent, isTypingEffect, isLoading, getTypingDelay]);
 
   // Persist messages to localStorage
   useEffect(() => {
@@ -146,6 +223,12 @@ export function ChatWidget() {
   }, [isOpen]);
 
   const streamChat = async (userMessages: Message[]) => {
+    // Reset typing effect state
+    typingIndexRef.current = 0;
+    setStreamedContent('');
+    setDisplayedContent('');
+    setIsTypingEffect(true);
+
     const resp = await fetch(`${SUPABASE_URL}/functions/v1/ai-chat`, {
       method: "POST",
       headers: {
@@ -196,15 +279,8 @@ export function ChatWidget() {
           const content = parsed.choices?.[0]?.delta?.content as string | undefined;
           if (content) {
             assistantContent += content;
-            setMessages(prev => {
-              const last = prev[prev.length - 1];
-              if (last?.role === "assistant" && prev.length > 1) {
-                return prev.map((m, i) => 
-                  i === prev.length - 1 ? { ...m, content: assistantContent } : m
-                );
-              }
-              return [...prev, { role: "assistant", content: assistantContent }];
-            });
+            // Feed content to typing effect instead of directly updating
+            setStreamedContent(assistantContent);
           }
         } catch {
           textBuffer = line + "\n" + textBuffer;
@@ -229,6 +305,7 @@ export function ChatWidget() {
     } catch (error) {
       console.error('Chat error:', error);
       toast.error(error instanceof Error ? error.message : 'Failed to get response');
+      setIsTypingEffect(false);
       setMessages(prev => [...prev, { 
         role: 'assistant', 
         content: "I'm sorry, I'm having trouble connecting right now. Please try again or contact us via WhatsApp." 
@@ -258,6 +335,7 @@ export function ChatWidget() {
         .catch((error) => {
           console.error('Chat error:', error);
           toast.error(error instanceof Error ? error.message : 'Failed to get response');
+          setIsTypingEffect(false);
           setMessages(prev => [...prev, { 
             role: 'assistant', 
             content: "I'm sorry, I'm having trouble connecting right now. Please try again or contact us via WhatsApp." 
