@@ -277,42 +277,52 @@ export function HeroSection() {
                   y: [-20, 20, -20],
                   x: [-8, 8, -8],
                   rotateZ: [-4, 4, -4],
-                  rotateY: [-8, 8, -8],
-                  rotateX: [-3, 3, -3],
                 }}
                 transition={{ 
                   y: { duration: 6, repeat: Infinity, ease: "easeInOut" },
                   x: { duration: 7, repeat: Infinity, ease: "easeInOut", delay: 0.5 },
                   rotateZ: { duration: 8, repeat: Infinity, ease: "easeInOut" },
-                  rotateY: { duration: 10, repeat: Infinity, ease: "easeInOut", delay: 0.3 },
-                  rotateX: { duration: 9, repeat: Infinity, ease: "easeInOut", delay: 0.7 },
                 }}
                 className="relative z-10"
-                style={{ transformStyle: 'preserve-3d', perspective: '1000px' }}
+                style={{ transformStyle: 'preserve-3d' }}
               >
                 {/* Hover scale effect */}
                 <motion.div
                   whileHover={{ scale: 1.08 }}
                   transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                  className="relative"
                 >
-                  {/* Inner subtle breathing animation */}
-                  <motion.img 
-                    src={heroAstronaut} 
-                    alt="3D Astronaut floating in space" 
-                    className="w-full max-w-md lg:max-w-lg xl:max-w-xl h-auto object-contain drop-shadow-[0_0_80px_hsl(var(--primary)/0.5)]"
+                  {/* Animated glow behind astronaut */}
+                  <motion.div
                     animate={{
-                      scale: [1, 1.02, 1],
-                      filter: [
-                        'drop-shadow(0 0 60px hsl(280 70% 50% / 0.4))',
-                        'drop-shadow(0 0 100px hsl(200 80% 50% / 0.5))',
-                        'drop-shadow(0 0 60px hsl(280 70% 50% / 0.4))',
-                      ],
+                      opacity: [0.4, 0.7, 0.4],
+                      scale: [0.95, 1.05, 0.95],
                     }}
                     transition={{
-                      scale: { duration: 4, repeat: Infinity, ease: "easeInOut" },
-                      filter: { duration: 3, repeat: Infinity, ease: "easeInOut" },
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut",
                     }}
+                    className="absolute inset-0 bg-gradient-radial from-primary/40 via-primary/20 to-transparent blur-3xl rounded-full"
                   />
+                  
+                  {/* Inner breathing animation wrapper */}
+                  <motion.div
+                    animate={{
+                      scale: [1, 1.03, 1],
+                    }}
+                    transition={{
+                      duration: 4,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                  >
+                    <img 
+                      src={heroAstronaut} 
+                      alt="3D Astronaut floating in space" 
+                      className="w-full max-w-md lg:max-w-lg xl:max-w-xl h-auto object-contain drop-shadow-[0_0_80px_hsl(var(--primary)/0.5)]"
+                    />
+                  </motion.div>
                 </motion.div>
                 
                 {/* Floating particles around astronaut */}
@@ -320,24 +330,27 @@ export function HeroSection() {
                   animate={{ 
                     opacity: [0.4, 0.8, 0.4],
                     scale: [0.8, 1.2, 0.8],
+                    y: [-5, 5, -5],
                   }}
-                  transition={{ duration: 3, repeat: Infinity, delay: 0 }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                   className="absolute top-10 left-10 w-2 h-2 bg-primary rounded-full blur-[2px]"
                 />
                 <motion.div
                   animate={{ 
                     opacity: [0.3, 0.7, 0.3],
                     scale: [1, 0.6, 1],
+                    x: [-5, 5, -5],
                   }}
-                  transition={{ duration: 4, repeat: Infinity, delay: 1 }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
                   className="absolute bottom-20 right-10 w-3 h-3 bg-primary rounded-full blur-[3px]"
                 />
                 <motion.div
                   animate={{ 
                     opacity: [0.5, 1, 0.5],
                     scale: [0.9, 1.3, 0.9],
+                    y: [3, -3, 3],
                   }}
-                  transition={{ duration: 2.5, repeat: Infinity, delay: 0.5 }}
+                  transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
                   className="absolute top-1/3 right-0 w-1.5 h-1.5 bg-accent rounded-full blur-[1px]"
                 />
               </motion.div>
