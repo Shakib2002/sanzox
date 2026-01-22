@@ -23,6 +23,9 @@ export interface SiteSettings {
   social_linkedin: string;
   social_instagram: string;
   social_youtube: string;
+  social_facebook: string;
+  social_fiverr: string;
+  social_upwork: string;
   
   // Footer
   footer_description: string;
@@ -59,6 +62,9 @@ export const defaultSiteSettings: SiteSettings = {
   social_linkedin: '',
   social_instagram: '',
   social_youtube: '',
+  social_facebook: '',
+  social_fiverr: '',
+  social_upwork: '',
   
   // Footer
   footer_description: 'Your pro team for automation-driven growth. We specialize in AI, YouTube, and digital solutions that transform brands.',
