@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play } from 'lucide-react';
+import { LazyImage } from './LazyImage';
 
 interface VideoThumbnailProps {
   thumbnail: string | null;
@@ -41,16 +42,20 @@ export function VideoThumbnail({ thumbnail, videoUrl, title, className = '' }: V
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Static thumbnail */}
+      {/* Static thumbnail with lazy loading */}
       {thumbnail ? (
-        <img
-          src={thumbnail}
-          alt={title}
-          className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ${
+        <div
+          className={`absolute inset-0 transition-all duration-700 ${
             isHovering && videoUrl && isVideoLoaded ? 'opacity-0 scale-105' : 'opacity-100 scale-100'
           } group-hover:scale-110`}
-          loading="lazy"
-        />
+        >
+          <LazyImage
+            src={thumbnail}
+            alt={title}
+            fill
+            placeholderColor="hsl(var(--secondary))"
+          />
+        </div>
       ) : (
         <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-primary/10 to-secondary/50">
           <div className="absolute inset-0 flex items-center justify-center">
