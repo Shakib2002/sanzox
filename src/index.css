@@ -239,6 +239,39 @@
   .animate-pulse-glow {
     animation: pulse-glow 3s ease-in-out infinite;
   }
+
+  /* Radial gradient for glow effects */
+  .bg-gradient-radial {
+    background: radial-gradient(circle, var(--tw-gradient-stops));
+  }
+
+  /* Clip path reveal animation */
+  @keyframes clip-reveal {
+    from {
+      clip-path: inset(100% 0 0 0);
+      opacity: 0;
+    }
+    to {
+      clip-path: inset(0 0 0 0);
+      opacity: 1;
+    }
+  }
+
+  .animate-clip-reveal {
+    animation: clip-reveal 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  /* Smooth card lift on hover */
+  .card-lift {
+    @apply transition-all duration-300;
+  }
+
+  .card-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 
+      0 20px 40px -15px hsl(var(--primary) / 0.15),
+      0 10px 20px -10px hsl(var(--background) / 0.5);
+  }
 }
 
 @layer utilities {
