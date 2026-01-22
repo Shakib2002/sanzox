@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageCircle, X, Send, Bot, User, Loader2 } from 'lucide-react';
+import { MessageCircle, X, Send, Bot, User, Loader2, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -15,14 +16,20 @@ const SUPABASE_URL = "https://qksdhteorfupfxtmrlxw.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFrc2RodGVvcmZ1cGZ4dG1ybHh3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg5OTYxNzQsImV4cCI6MjA4NDU3MjE3NH0.rTUhVmqB19vD6JrLkLmfGd9XOezcosrp24Yso53GjvQ";
 
 export function ChatWidget() {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', content: "Hi! 👋 I'm your AI assistant. How can I help you today?" }
+    { role: 'assistant', content: "Hi! 👋 I'm your SANZOX AI assistant. How can I help you today?" }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleGetQuote = () => {
+    setIsOpen(false);
+    navigate('/contact');
+  };
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -276,6 +283,18 @@ export function ChatWidget() {
                 )}
               </div>
             </ScrollArea>
+
+            {/* Get Free Quote Button */}
+            <div className="px-4 py-2 border-t border-border/50">
+              <Button
+                onClick={handleGetQuote}
+                variant="outline"
+                className="w-full gap-2 rounded-full border-primary/30 hover:bg-primary/10 hover:border-primary/50 text-primary"
+              >
+                <FileText className="w-4 h-4" />
+                Get Free Quote
+              </Button>
+            </div>
 
             {/* Input */}
             <div className="p-4 border-t border-border bg-background">
