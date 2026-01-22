@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useAnimationControls } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { useSiteSettings } from '@/hooks/useSiteSettings';
@@ -20,71 +20,91 @@ interface MarqueeRowProps {
 }
 
 function MarqueeRow({ works, direction, speed, className = '' }: MarqueeRowProps) {
-  const [isPaused, setIsPaused] = useState(false);
+  const controls = useAnimationControls();
   
   // Duplicate works for seamless loop
   const duplicatedWorks = [...works, ...works, ...works];
   
   const animationDuration = works.length * speed;
+
+  const startAnimation = () => {
+    controls.start({
+      x: direction === 'left' ? ['0%', '-33.33%'] : ['-33.33%', '0%'],
+      transition: {
+        repeat: Infinity,
+        repeatType: 'loop',
+        duration: animationDuration,
+        ease: 'linear',
+      },
+    });
+  };
+
+  useEffect(() => {
+    startAnimation();
+  }, [works.length]);
+
+  const handleMouseEnter = () => {
+    controls.stop();
+  };
+
+  const handleMouseLeave = () => {
+    startAnimation();
+  };
   
   return (
     <div 
       className={`relative overflow-hidden ${className}`}
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <motion.div
         className="flex gap-4"
-        initial={false}
-        animate={{
-          x: direction === 'left' ? ['0%', '-33.33%'] : ['-33.33%', '0%'],
-        }}
-        transition={{
-          x: {
-            repeat: Infinity,
-            repeatType: 'loop',
-            duration: animationDuration,
-            ease: 'linear',
-          },
-        }}
-        style={{
-          animationPlayState: isPaused ? 'paused' : 'running',
-        }}
-        onHoverStart={() => setIsPaused(true)}
-        onHoverEnd={() => setIsPaused(false)}
+        animate={controls}
+        style={{ willChange: 'transform' }}
       >
         {duplicatedWorks.map((work, index) => (
           <Link
             key={`${work.id}-${index}`}
             to={`/works/${work.slug}`}
             className="group relative flex-shrink-0 w-64 md:w-80 aspect-video rounded-xl overflow-hidden bg-secondary/50"
+            style={{ perspective: '1000px' }}
           >
-            {work.thumbnail ? (
-              <img
-                src={work.thumbnail}
-                alt={work.title}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                loading="lazy"
-              />
-            ) : (
-              <div className="w-full h-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
-                <span className="text-4xl font-bold text-primary/30">{work.title[0]}</span>
+            <motion.div
+              className="w-full h-full"
+              whileHover={{ 
+                scale: 1.05, 
+                rotateY: 5,
+                z: 50
+              }}
+              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+            >
+              {work.thumbnail ? (
+                <img
+                  src={work.thumbnail}
+                  alt={work.title}
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              ) : (
+                <div className="w-full h-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
+                  <span className="text-4xl font-bold text-primary/30">{work.title[0]}</span>
+                </div>
+              )}
+              
+              {/* Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="absolute bottom-0 left-0 right-0 p-4">
+                  <p className="text-xs text-primary font-medium mb-1">{work.industry || 'Project'}</p>
+                  <h4 className="text-sm font-semibold text-foreground">{work.title}</h4>
+                </div>
               </div>
-            )}
-            
-            {/* Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <div className="absolute bottom-0 left-0 right-0 p-4">
-                <p className="text-xs text-primary font-medium mb-1">{work.industry || 'Project'}</p>
-                <h4 className="text-sm font-semibold text-foreground">{work.title}</h4>
+              
+              {/* Glow effect on hover */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                <div className="absolute inset-0 bg-primary/10" />
+                <div className="absolute -inset-1 bg-gradient-to-r from-primary/0 via-primary/20 to-primary/0 blur-xl" />
               </div>
-            </div>
-            
-            {/* Glow effect on hover */}
-            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-              <div className="absolute inset-0 bg-primary/10" />
-              <div className="absolute -inset-1 bg-gradient-to-r from-primary/0 via-primary/20 to-primary/0 blur-xl" />
-            </div>
+            </motion.div>
           </Link>
         ))}
       </motion.div>
