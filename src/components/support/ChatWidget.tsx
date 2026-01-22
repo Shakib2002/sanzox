@@ -7,10 +7,32 @@ import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { toast } from 'sonner';
 import ReactMarkdown from 'react-markdown';
+import { ChatLeadForm } from './ChatLeadForm';
 
 type Message = {
   role: 'user' | 'assistant';
   content: string;
+};
+
+// Keywords that indicate buying intent - triggers lead form
+const BUYING_INTENT_KEYWORDS = [
+  'pricing', 'price', 'cost', 'quote', 'budget',
+  'hire', 'need', 'want', 'looking for', 'interested',
+  'start', 'begin', 'get started', 'book', 'schedule',
+  'how much', 'rates', 'packages', 'deal', 'offer',
+  'ready', 'asap', 'urgent', 'deadline', 'project'
+];
+
+const detectBuyingIntent = (messages: Message[]): boolean => {
+  // Check last 3 user messages for buying intent
+  const recentUserMessages = messages
+    .filter(m => m.role === 'user')
+    .slice(-3)
+    .map(m => m.content.toLowerCase());
+  
+  return recentUserMessages.some(msg =>
+    BUYING_INTENT_KEYWORDS.some(keyword => msg.includes(keyword))
+  );
 };
 
 const SUPABASE_URL = "https://qksdhteorfupfxtmrlxw.supabase.co";
@@ -34,8 +56,29 @@ export function ChatWidget() {
   ];
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [showLeadForm, setShowLeadForm] = useState(false);
+  const [leadSubmitted, setLeadSubmitted] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  // Check for buying intent after messages change
+  useEffect(() => {
+    if (!leadSubmitted && messages.length > 2 && detectBuyingIntent(messages)) {
+      // Show form after a short delay for better UX
+      const timer = setTimeout(() => setShowLeadForm(true), 500);
+      return () => clearTimeout(timer);
+    }
+  }, [messages, leadSubmitted]);
+
+  const handleLeadSubmitSuccess = () => {
+    setLeadSubmitted(true);
+    setShowLeadForm(false);
+    // Add a thank you message from the assistant
+    setMessages(prev => [...prev, {
+      role: 'assistant',
+      content: "Awesome! 🎉 I've got your details. Our team will reach out within 24 hours to discuss your project.\n\nIn the meantime, feel free to ask me anything else about our services!"
+    }]);
+  };
 
   const handleGetQuote = () => {
     setIsOpen(false);
@@ -355,6 +398,17 @@ export function ChatWidget() {
                         {reply.label}
                       </motion.button>
                     ))}
+                  </motion.div>
+                )}
+
+                {/* Lead Capture Form - appears on buying intent */}
+                {showLeadForm && !leadSubmitted && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="mt-3"
+                  >
+                    <ChatLeadForm onSubmitSuccess={handleLeadSubmitSuccess} />
                   </motion.div>
                 )}
               </div>
