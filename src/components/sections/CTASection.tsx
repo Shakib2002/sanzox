@@ -5,8 +5,22 @@ import { Button } from '@/components/ui/button';
 import { MagneticButton } from '@/components/ui/MagneticButton';
 import { ParticleField } from '@/components/ui/ParticleField';
 import { fadeUpVariants } from '@/hooks/useScrollAnimation';
+import { useSiteSettings } from '@/hooks/useSiteSettings';
 
 export function CTASection() {
+  const { data: settings } = useSiteSettings();
+
+  const badge = settings?.cta_badge || 'Ready to Transform?';
+  const headline = settings?.cta_headline || "Let's start";
+  const headlineHighlight = settings?.cta_headline_highlight || 'building brands';
+  const headlineSuffix = settings?.cta_headline_suffix || 'that matter';
+  const description = settings?.cta_description || 'Ready to transform your business with automation-driven growth? Book a free strategy call and discover your potential.';
+  const primaryButtonText = settings?.cta_primary_button_text || 'Get Free Proposal';
+  const primaryButtonLink = settings?.cta_primary_button_link || '/contact';
+  const secondaryButtonText = settings?.cta_secondary_button_text || 'View Our Work';
+  const secondaryButtonLink = settings?.cta_secondary_button_link || '/works';
+  const trustIndicators = settings?.cta_trust_indicators || ['Free Consultation', 'No Commitment', '24h Response'];
+
   return (
     <section className="py-32 relative overflow-hidden">
       {/* Particle background */}
@@ -39,7 +53,7 @@ export function CTASection() {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-8 backdrop-blur-sm"
           >
             <Sparkles className="w-4 h-4" />
-            Ready to Transform?
+            {badge}
           </motion.div>
           
           {/* Headline */}
@@ -50,10 +64,10 @@ export function CTASection() {
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
           >
-            Let's start{' '}
-            <span className="gradient-text shimmer-text">building brands</span>
+            {headline}{' '}
+            <span className="gradient-text shimmer-text">{headlineHighlight}</span>
             <br />
-            <span className="text-muted-foreground">that matter</span>
+            <span className="text-muted-foreground">{headlineSuffix}</span>
           </motion.h2>
           
           {/* Description */}
@@ -64,8 +78,7 @@ export function CTASection() {
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            Ready to transform your business with automation-driven growth? 
-            Book a free strategy call and discover your potential.
+            {description}
           </motion.p>
           
           {/* CTA Buttons */}
@@ -91,8 +104,8 @@ export function CTASection() {
                   }}
                 />
                 <Button size="lg" asChild className="relative btn-glow group text-base px-8">
-                  <Link to="/contact">
-                    Get Free Proposal 
+                  <Link to={primaryButtonLink}>
+                    {primaryButtonText}
                     <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </Button>
@@ -100,7 +113,7 @@ export function CTASection() {
             </MagneticButton>
             <MagneticButton magneticStrength={0.2}>
               <Button size="lg" variant="outline" asChild className="text-base px-8 border-primary/30 hover:border-primary/60">
-                <Link to="/works">View Our Work</Link>
+                <Link to={secondaryButtonLink}>{secondaryButtonText}</Link>
               </Button>
             </MagneticButton>
           </motion.div>
@@ -113,18 +126,12 @@ export function CTASection() {
             viewport={{ once: true }}
             transition={{ delay: 0.5 }}
           >
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-success" />
-              <span>Free Consultation</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-success" />
-              <span>No Commitment</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-success" />
-              <span>24h Response</span>
-            </div>
+            {trustIndicators.map((indicator, index) => (
+              <div key={index} className="flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-success" />
+                <span>{indicator}</span>
+              </div>
+            ))}
           </motion.div>
         </motion.div>
       </div>
