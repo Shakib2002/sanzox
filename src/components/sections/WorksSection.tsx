@@ -5,6 +5,7 @@ import { ArrowRight, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { GlassCard } from '@/components/ui/GlassCard';
+import { ProjectMarquee } from '@/components/ui/ProjectMarquee';
 import { fadeUpVariants, staggerContainerVariants } from '@/hooks/useScrollAnimation';
 
 // Demo works data
@@ -75,13 +76,16 @@ export function WorksSection() {
     : works.filter(w => w.industry === activeFilter).slice(0, 4);
 
   return (
-    <section className="section-padding relative">
+    <section className="section-padding relative overflow-hidden">
       <div className="container-custom">
         <SectionHeading
           badge="Portfolio"
           title={<>Explore Our <span className="gradient-text">Works</span></>}
           description="Case studies showcasing the transformative results we've delivered for our clients."
         />
+
+        {/* Project Marquee */}
+        <ProjectMarquee />
 
         {/* Filter chips */}
         <motion.div
