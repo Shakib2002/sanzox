@@ -1,119 +1,15 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { BentoGrid } from '@/components/ui/BentoGrid';
+import { WorksSkeleton } from '@/components/ui/WorksSkeleton';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 import { fadeUpVariants } from '@/hooks/useScrollAnimation';
 import { useSiteSettings } from '@/hooks/useSiteSettings';
-
-// Import generated thumbnails
-import aiAutomation from '@/assets/works/ai-automation.jpg';
-import youtubeGrowth from '@/assets/works/youtube-growth.jpg';
-import shopifyStore from '@/assets/works/shopify-store.jpg';
-import saasLanding from '@/assets/works/saas-landing.jpg';
-import videoSeries from '@/assets/works/video-series.jpg';
-import agencyWebsite from '@/assets/works/agency-website.jpg';
-
-// Demo works data
-const works = [
-  // AI Automation
-  {
-    id: '1',
-    slug: 'ai-workflow-automation',
-    title: 'AI Workflow Automation',
-    industry: 'AI Automation',
-    tags: ['AI Automation', 'Process Optimization'],
-    thumbnail: aiAutomation,
-    featured: true,
-  },
-  {
-    id: '7',
-    slug: 'ai-customer-support',
-    title: 'AI Customer Support System',
-    industry: 'AI Automation',
-    tags: ['AI Automation', 'Chatbot'],
-    thumbnail: aiAutomation,
-    featured: false,
-  },
-  // Youtube Automation
-  {
-    id: '2',
-    slug: 'youtube-channel-growth',
-    title: 'YouTube Channel Growth System',
-    industry: 'Youtube Automation',
-    tags: ['YouTube Automation', 'Growth'],
-    thumbnail: youtubeGrowth,
-    featured: true,
-  },
-  {
-    id: '8',
-    slug: 'youtube-content-pipeline',
-    title: 'YouTube Content Pipeline',
-    industry: 'Youtube Automation',
-    tags: ['YouTube Automation', 'Content Strategy'],
-    thumbnail: youtubeGrowth,
-    featured: false,
-  },
-  // Video Editing
-  {
-    id: '5',
-    slug: 'video-series-production',
-    title: 'Educational Video Series',
-    industry: 'Video Editing',
-    tags: ['Video Editing', 'Production'],
-    thumbnail: videoSeries,
-    featured: true,
-  },
-  {
-    id: '9',
-    slug: 'brand-video-campaign',
-    title: 'Brand Video Campaign',
-    industry: 'Video Editing',
-    tags: ['Video Editing', 'Branding'],
-    thumbnail: videoSeries,
-    featured: false,
-  },
-  // Shopify
-  {
-    id: '3',
-    slug: 'shopify-store-launch',
-    title: 'Premium Shopify Store',
-    industry: 'Shopify',
-    tags: ['Shopify', 'eCommerce'],
-    thumbnail: shopifyStore,
-    featured: true,
-  },
-  {
-    id: '10',
-    slug: 'shopify-dropshipping',
-    title: 'Dropshipping Store Setup',
-    industry: 'Shopify',
-    tags: ['Shopify', 'Dropshipping'],
-    thumbnail: shopifyStore,
-    featured: false,
-  },
-  // Website & Application
-  {
-    id: '4',
-    slug: 'saas-landing-page',
-    title: 'SaaS Landing Page',
-    industry: 'Website & Application',
-    tags: ['Website Development', 'Design'],
-    thumbnail: saasLanding,
-    featured: true,
-  },
-  {
-    id: '6',
-    slug: 'agency-website',
-    title: 'Creative Agency Website',
-    industry: 'Website & Application',
-    tags: ['Website Development', 'Branding'],
-    thumbnail: agencyWebsite,
-    featured: false,
-  },
-];
+import { useWorks } from '@/hooks/useWorks';
 
 const defaultIndustries = ['AI Automation', 'Youtube Automation', 'Video Editing', 'Shopify', 'Website & Application'];
 
@@ -125,9 +21,11 @@ export function WorksSection() {
     ? siteSettings.works_industries 
     : defaultIndustries)];
 
-  const filteredWorks = activeFilter === 'All' 
-    ? works.slice(0, 6)
-    : works.filter(w => w.industry === activeFilter).slice(0, 6);
+  // Fetch works from database with filter
+  const { data: works, isLoading, error } = useWorks({
+    industry: activeFilter,
+    limit: 6,
+  });
 
   return (
     <section className="section-padding relative overflow-hidden">
@@ -161,15 +59,37 @@ export function WorksSection() {
           ))}
         </motion.div>
 
-        {/* Bento Grid */}
-        <motion.div
-          variants={fadeUpVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-        >
-          <BentoGrid works={filteredWorks} />
-        </motion.div>
+        {/* Error state */}
+        {error && (
+          <Alert variant="destructive" className="mb-8">
+            <AlertCircle className="h-4 w-4" />
+            <AlertDescription>
+              Failed to load works. Please try again later.
+            </AlertDescription>
+          </Alert>
+        )}
+
+        {/* Loading state */}
+        {isLoading && <WorksSkeleton count={6} />}
+
+        {/* Works Grid */}
+        {!isLoading && !error && works && works.length > 0 && (
+          <motion.div
+            variants={fadeUpVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+          >
+            <BentoGrid works={works} />
+          </motion.div>
+        )}
+
+        {/* Empty state */}
+        {!isLoading && !error && works?.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground">No works found for this category.</p>
+          </div>
+        )}
 
         {/* View all button */}
         <motion.div

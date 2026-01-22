@@ -1,4 +1,4 @@
-import { useRef, useState, type ReactNode, type MouseEvent } from 'react';
+import { useRef, useState, forwardRef, type ReactNode, type MouseEvent } from 'react';
 import { motion } from 'framer-motion';
 
 interface TiltCardProps {
@@ -8,21 +8,22 @@ interface TiltCardProps {
   tiltAmount?: number;
 }
 
-export function TiltCard({ 
+export const TiltCard = forwardRef<HTMLDivElement, TiltCardProps>(({ 
   children, 
   className = '', 
   glareEnabled = true,
   tiltAmount = 15 
-}: TiltCardProps) {
+}, ref) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [transform, setTransform] = useState({ rotateX: 0, rotateY: 0 });
   const [glarePosition, setGlarePosition] = useState({ x: 50, y: 50 });
   const [isHovering, setIsHovering] = useState(false);
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
+    const element = cardRef.current;
+    if (!element) return;
 
-    const rect = cardRef.current.getBoundingClientRect();
+    const rect = element.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
     
@@ -52,7 +53,15 @@ export function TiltCard({
 
   return (
     <motion.div
-      ref={cardRef}
+      ref={(node) => {
+        // Handle both refs
+        (cardRef as React.MutableRefObject<HTMLDivElement | null>).current = node;
+        if (typeof ref === 'function') {
+          ref(node);
+        } else if (ref) {
+          ref.current = node;
+        }
+      }}
       className={`relative ${className}`}
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
@@ -99,4 +108,6 @@ export function TiltCard({
       )}
     </motion.div>
   );
-}
+});
+
+TiltCard.displayName = 'TiltCard';
