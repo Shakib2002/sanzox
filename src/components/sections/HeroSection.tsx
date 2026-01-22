@@ -7,7 +7,7 @@ import { WordReveal } from '@/components/ui/WordReveal';
 import { MagneticButton } from '@/components/ui/MagneticButton';
 import { ParallaxBadge } from '@/components/hero/ParallaxBadge';
 import { HeroVideoBackground } from '@/components/hero/HeroVideoBackground';
-import { AuroraBackground } from '@/components/hero/AuroraBackground';
+import { SpaceParallaxHero } from '@/components/hero/SpaceParallaxHero';
 import { TiltCard } from '@/components/hero/TiltCard';
 import { FloatingIcons } from '@/components/hero/FloatingIcons';
 import { BentoStats } from '@/components/hero/BentoStats';
@@ -56,7 +56,7 @@ export function HeroSection() {
         </div>
       ) : (
         <>
-          <AuroraBackground />
+          <SpaceParallaxHero />
           <FloatingIcons />
         </>
       )}
