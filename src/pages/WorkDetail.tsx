@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, ExternalLink } from 'lucide-react';
 import { Layout } from '@/components/layout/Layout';
+import { SEOHead } from '@/components/SEOHead';
 import { GlassCard } from '@/components/ui/GlassCard';
 import { Button } from '@/components/ui/button';
 import { WorkGallery } from '@/components/WorkGallery';
@@ -88,6 +89,11 @@ export default function WorkDetailPage() {
 
   return (
     <Layout>
+      <SEOHead 
+        title={`${work.title} | Works | SANZOX`}
+        description={work.challenge_md?.slice(0, 155) || `Explore ${work.title} - a project by SANZOX`}
+        image={work.thumbnail || undefined}
+      />
       {/* Hero */}
       <section className="pt-20 pb-16 relative">
         <div className="absolute inset-0 bg-hero-gradient opacity-50 pointer-events-none" />

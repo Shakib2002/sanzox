@@ -2,6 +2,7 @@ import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Calendar, Clock, Share2, Twitter, Linkedin } from 'lucide-react';
 import { Layout } from '@/components/layout/Layout';
+import { SEOHead } from '@/components/SEOHead';
 import { Button } from '@/components/ui/button';
 import ReactMarkdown from 'react-markdown';
 
@@ -121,6 +122,11 @@ export default function BlogDetailPage() {
 
   return (
     <Layout>
+      <SEOHead 
+        title={`${post.title} | Blog | SANZOX`}
+        description={post.excerpt}
+        type="article"
+      />
       {/* Hero */}
       <section className="pt-20 pb-8 relative">
         <div className="absolute inset-0 bg-hero-gradient opacity-50 pointer-events-none" />

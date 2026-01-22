@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Upload, Video, Image, Loader2, Trash2, Type, Link as LinkIcon, Globe, Search } from 'lucide-react';
+import { Upload, Video, Image, Loader2, Trash2, Type, Link as LinkIcon, Globe, Search, Plus, X } from 'lucide-react';
 import { toast } from 'sonner';
 import { GlassCard } from '@/components/ui/GlassCard';
 import { Button } from '@/components/ui/button';
@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Badge } from '@/components/ui/badge';
 import { useSiteSettings, useUpdateSiteSettings, defaultSiteSettings, SiteSettings } from '@/hooks/useSiteSettings';
 import { supabase } from '@/integrations/supabase/client';
 
@@ -20,15 +21,27 @@ export default function AdminSettings() {
   const [uploadingHeroImage, setUploadingHeroImage] = useState(false);
   const [uploadingVideo, setUploadingVideo] = useState(false);
   const [uploadingOgImage, setUploadingOgImage] = useState(false);
-
+  const [newServiceWord, setNewServiceWord] = useState('');
   useEffect(() => {
     if (settings) {
       setFormData(settings);
     }
   }, [settings]);
 
-  const handleChange = (field: keyof SiteSettings, value: string | boolean | null) => {
+  const handleChange = (field: keyof SiteSettings, value: string | boolean | string[] | null) => {
     setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const addServiceWord = () => {
+    if (!newServiceWord.trim()) return;
+    const words = [...(formData.hero_service_words || []), newServiceWord.trim()];
+    handleChange('hero_service_words', words);
+    setNewServiceWord('');
+  };
+
+  const removeServiceWord = (index: number) => {
+    const words = formData.hero_service_words.filter((_, i) => i !== index);
+    handleChange('hero_service_words', words);
   };
 
   const handleFileUpload = async (
@@ -237,6 +250,47 @@ export default function AdminSettings() {
                     placeholder="We specialize in..."
                     className="max-w-lg min-h-[100px]"
                   />
+                </div>
+              </div>
+
+              {/* Service Words Editor */}
+              <div className="space-y-4 border-t border-border pt-6">
+                <div className="space-y-2">
+                  <Label>Service Words (Typewriter Effect)</Label>
+                  <p className="text-sm text-muted-foreground">
+                    These words cycle in the hero headline animation
+                  </p>
+                </div>
+                
+                <div className="flex flex-wrap gap-2">
+                  {formData.hero_service_words?.map((word, index) => (
+                    <Badge 
+                      key={index} 
+                      variant="secondary" 
+                      className="px-3 py-1.5 text-sm flex items-center gap-2"
+                    >
+                      {word}
+                      <button
+                        type="button"
+                        onClick={() => removeServiceWord(index)}
+                        className="hover:text-destructive transition-colors"
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
+                    </Badge>
+                  ))}
+                </div>
+
+                <div className="flex gap-2 max-w-md">
+                  <Input
+                    value={newServiceWord}
+                    onChange={(e) => setNewServiceWord(e.target.value)}
+                    placeholder="Add new service word..."
+                    onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), addServiceWord())}
+                  />
+                  <Button type="button" variant="outline" size="icon" onClick={addServiceWord}>
+                    <Plus className="w-4 h-4" />
+                  </Button>
                 </div>
               </div>
 

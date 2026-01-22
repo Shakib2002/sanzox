@@ -13,6 +13,7 @@ export interface SiteSettings {
   hero_image_url: string | null;
   hero_video_enabled: boolean;
   hero_video_url: string | null;
+  hero_service_words: string[];
   
   // Social Links
   social_twitter: string;
@@ -45,6 +46,7 @@ export const defaultSiteSettings: SiteSettings = {
   hero_image_url: null,
   hero_video_enabled: false,
   hero_video_url: null,
+  hero_service_words: ['AI Automation', 'Web Development', 'Video Editing', 'Shopify Solutions'],
   
   // Social Links
   social_twitter: '',

@@ -2,6 +2,7 @@ import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, CheckCircle2, Bot, Youtube, Video, Globe, ShoppingBag } from 'lucide-react';
 import { Layout } from '@/components/layout/Layout';
+import { SEOHead } from '@/components/SEOHead';
 import { GlassCard } from '@/components/ui/GlassCard';
 import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
@@ -130,6 +131,10 @@ export default function ServiceDetailPage() {
 
   return (
     <Layout>
+      <SEOHead 
+        title={`${service.title} | SANZOX`}
+        description={service.longDescription}
+      />
       {/* Hero */}
       <section className="pt-20 pb-16 relative">
         <div className="absolute inset-0 bg-hero-gradient opacity-50 pointer-events-none" />

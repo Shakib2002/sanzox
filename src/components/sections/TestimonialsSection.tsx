@@ -44,9 +44,10 @@ export function TestimonialsSection() {
             opts={{
               align: 'start',
               loop: true,
+              dragFree: true,
             }}
             plugins={[autoplayPlugin.current]}
-            className="w-full"
+            className="w-full cursor-grab active:cursor-grabbing"
           >
             <CarouselContent className="-ml-4">
               {testimonials.map((t) => (
