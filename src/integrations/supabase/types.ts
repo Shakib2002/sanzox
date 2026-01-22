@@ -290,6 +290,7 @@ export type Database = {
           thumbnail: string | null
           title: string
           updated_at: string
+          video_preview: string | null
         }
         Insert: {
           challenge_md?: string | null
@@ -308,6 +309,7 @@ export type Database = {
           thumbnail?: string | null
           title: string
           updated_at?: string
+          video_preview?: string | null
         }
         Update: {
           challenge_md?: string | null
@@ -326,6 +328,7 @@ export type Database = {
           thumbnail?: string | null
           title?: string
           updated_at?: string
+          video_preview?: string | null
         }
         Relationships: []
       }

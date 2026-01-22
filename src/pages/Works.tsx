@@ -18,6 +18,7 @@ interface Work {
   tags: string[];
   thumbnail: string | null;
   featured: boolean;
+  video_preview?: string | null;
 }
 
 // Fallback demo data
@@ -42,11 +43,11 @@ export default function WorksPage() {
     async function fetchWorks() {
       const { data, error } = await supabase
         .from('works')
-        .select('id, slug, title, industry, tags, thumbnail, featured')
+        .select('id, slug, title, industry, tags, thumbnail, featured, video_preview')
         .order('created_at', { ascending: false });
 
       if (!error && data && data.length > 0) {
-        setWorks(data);
+        setWorks(data as unknown as Work[]);
       }
       setIsLoading(false);
     }

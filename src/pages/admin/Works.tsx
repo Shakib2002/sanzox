@@ -26,6 +26,7 @@ const workSchema = z.object({
   slug: z.string().trim().min(1, 'Slug is required').max(100).regex(/^[a-z0-9-]+$/, 'Slug must be lowercase with hyphens'),
   industry: z.string().trim().max(50).optional(),
   thumbnail: z.string().optional(),
+  video_preview: z.string().url('Must be a valid URL').optional().or(z.literal('')),
   gallery: z.array(z.string()).optional(),
   live_url: z.string().url('Must be a valid URL').optional().or(z.literal('')),
   tags: z.string().optional(),
@@ -50,6 +51,7 @@ interface Work {
   slug: string;
   industry: string | null;
   thumbnail: string | null;
+  video_preview: string | null;
   gallery: string[] | null;
   live_url: string | null;
   tags: string[] | null;
@@ -71,7 +73,7 @@ export default function AdminWorks() {
 
   const form = useForm<WorkFormData>({
     resolver: zodResolver(workSchema),
-    defaultValues: { title: '', slug: '', industry: '', thumbnail: '', gallery: [], live_url: '', tags: '', tech_stack: '', featured: false, challenge_md: '', solution_md: '', result_md: '' },
+    defaultValues: { title: '', slug: '', industry: '', thumbnail: '', video_preview: '', gallery: [], live_url: '', tags: '', tech_stack: '', featured: false, challenge_md: '', solution_md: '', result_md: '' },
   });
 
   useEffect(() => {
@@ -90,7 +92,7 @@ export default function AdminWorks() {
         ...work,
         metrics: parseMetrics(work.metrics),
       }));
-      setWorks(parsedWorks as Work[]);
+      setWorks(parsedWorks as unknown as Work[]);
     }
     setLoading(false);
   };
@@ -105,7 +107,7 @@ export default function AdminWorks() {
 
   const openCreateDialog = () => {
     setEditingWork(null);
-    form.reset({ title: '', slug: '', industry: '', thumbnail: '', gallery: [], live_url: '', tags: '', tech_stack: '', metrics: [], featured: false, challenge_md: '', solution_md: '', result_md: '' });
+    form.reset({ title: '', slug: '', industry: '', thumbnail: '', video_preview: '', gallery: [], live_url: '', tags: '', tech_stack: '', metrics: [], featured: false, challenge_md: '', solution_md: '', result_md: '' });
     setDialogOpen(true);
   };
 
@@ -116,6 +118,7 @@ export default function AdminWorks() {
       slug: work.slug,
       industry: work.industry || '',
       thumbnail: work.thumbnail || '',
+      video_preview: work.video_preview || '',
       gallery: work.gallery || [],
       live_url: work.live_url || '',
       tags: work.tags?.join(', ') || '',
@@ -138,6 +141,7 @@ export default function AdminWorks() {
       slug: data.slug,
       industry: data.industry || null,
       thumbnail: data.thumbnail || null,
+      video_preview: data.video_preview || null,
       gallery: data.gallery || [],
       live_url: data.live_url || null,
       tags,
@@ -317,6 +321,17 @@ export default function AdminWorks() {
                       onChange={field.onChange}
                     />
                   </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )} />
+
+              <FormField control={form.control} name="video_preview" render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Video Preview URL</FormLabel>
+                  <FormControl>
+                    <Input placeholder="https://example.com/preview.mp4" {...field} />
+                  </FormControl>
+                  <p className="text-xs text-muted-foreground">Short video clip (5-10s) that autoplays on hover</p>
                   <FormMessage />
                 </FormItem>
               )} />

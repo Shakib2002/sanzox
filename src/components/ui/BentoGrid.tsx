@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { motion, useInView } from 'framer-motion';
 import { ArrowUpRight, TrendingUp } from 'lucide-react';
 import { TiltCard } from './TiltCard';
+import { VideoThumbnail } from './VideoThumbnail';
 import { useRef } from 'react';
 
 interface Work {
@@ -12,6 +13,7 @@ interface Work {
   tags: string[];
   thumbnail: string | null;
   featured?: boolean;
+  video_preview?: string | null;
 }
 
 interface BentoGridProps {
@@ -103,23 +105,13 @@ export function BentoGrid({ works }: BentoGridProps) {
                 to={`/works/${work.slug}`}
                 className="group relative block w-full h-full rounded-xl overflow-hidden bg-secondary/30 border border-border/30 hover:border-primary/50 transition-all duration-300"
               >
-                {/* Background image or gradient */}
-                {work.thumbnail ? (
-                  <img
-                    src={work.thumbnail}
-                    alt={work.title}
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    loading="lazy"
-                  />
-                ) : (
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-primary/10 to-secondary/50">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-6xl md:text-8xl font-bold text-primary/20">
-                        {work.title[0]}
-                      </span>
-                    </div>
-                  </div>
-                )}
+                {/* Background image or video thumbnail */}
+                <VideoThumbnail
+                  thumbnail={work.thumbnail}
+                  videoUrl={work.video_preview || null}
+                  title={work.title}
+                  className="absolute inset-0"
+                />
                 
                 {/* Overlay gradient */}
                 <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300" />
