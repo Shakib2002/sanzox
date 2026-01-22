@@ -81,24 +81,6 @@ export function Footer() {
             <p className="text-muted-foreground text-sm leading-relaxed mb-6">
               {s.footer_description}
             </p>
-            
-            {/* Social Links */}
-            {socialLinks.length > 0 && (
-              <div className="flex items-center gap-3">
-                {socialLinks.map((social) => (
-                  <a
-                    key={social.name}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-lg bg-secondary/50 flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-colors"
-                    aria-label={social.name}
-                  >
-                    <social.icon size={18} />
-                  </a>
-                ))}
-              </div>
-            )}
           </div>
 
           {/* Company Links */}
@@ -159,6 +141,27 @@ export function Footer() {
                 </li>
               )}
             </ul>
+
+            {/* Social Links - Below Contact */}
+            {socialLinks.length > 0 && (
+              <div className="mt-6">
+                <h5 className="text-sm font-medium text-foreground mb-3">Follow Us</h5>
+                <div className="flex items-center gap-2 flex-wrap">
+                  {socialLinks.map((social) => (
+                    <a
+                      key={social.name}
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-9 h-9 rounded-lg bg-secondary/50 flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-colors"
+                      aria-label={social.name}
+                    >
+                      <social.icon size={16} />
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* CTA */}
             <Link
