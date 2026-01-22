@@ -25,6 +25,7 @@ import AdminTestimonials from '@/pages/admin/Testimonials';
 import AdminBlog from '@/pages/admin/Blog';
 import AdminLeads from '@/pages/admin/Leads';
 import AdminSettings from '@/pages/admin/Settings';
+import AdminTeam from '@/pages/admin/Team';
 import { AdminLayout } from '@/components/admin/AdminLayout';
 
 export function AnimatedRoutes() {
@@ -54,6 +55,7 @@ export function AnimatedRoutes() {
           <Route path="testimonials" element={<AdminTestimonials />} />
           <Route path="blog" element={<AdminBlog />} />
           <Route path="leads" element={<AdminLeads />} />
+          <Route path="team" element={<AdminTeam />} />
           <Route path="settings" element={<AdminSettings />} />
         </Route>
         

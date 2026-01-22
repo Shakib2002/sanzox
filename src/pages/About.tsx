@@ -1,22 +1,21 @@
 import { motion } from 'framer-motion';
-import { CheckCircle2 } from 'lucide-react';
+import { CheckCircle2, Zap, Target, Users, Globe } from 'lucide-react';
 import { Layout } from '@/components/layout/Layout';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { GlassCard } from '@/components/ui/GlassCard';
 import { fadeUpVariants, staggerContainerVariants, slideInLeftVariants, slideInRightVariants } from '@/hooks/useScrollAnimation';
 import { CTASection } from '@/components/sections/CTASection';
 import { TeamMemberCard } from '@/components/ui/TeamMemberCard';
+import { useTeamMembers } from '@/hooks/useTeamMembers';
 import heroAboutImage from '@/assets/hero-about.jpg';
 
-// Team photos
+// Fallback team photos for when database is empty
 import founderImage from '@/assets/team/founder.jpg';
 import creativeLeadImage from '@/assets/team/creative-lead.jpg';
 import techLeadImage from '@/assets/team/tech-lead.jpg';
 import automationExpertImage from '@/assets/team/automation-expert.jpg';
 import videoLeadImage from '@/assets/team/video-lead.jpg';
 import growthLeadImage from '@/assets/team/growth-lead.jpg';
-
-import { Zap, Target, Users, Globe } from 'lucide-react';
 
 const values = [
   { icon: Zap, title: 'Move Fast', description: 'We deliver results quickly without compromising quality.' },
@@ -25,65 +24,81 @@ const values = [
   { icon: Globe, title: 'Remote-First', description: 'Global talent, flexible processes, exceptional results.' },
 ];
 
-// Company social links
-const companySocials = {
-  linkedin: 'https://linkedin.com/company/sanzox',
-  twitter: 'https://twitter.com/sanzox',
-  email: 'hello@sanzox.com'
-};
-
-const team = [
+// Fallback team data when database is empty
+const fallbackTeam = [
   { 
+    id: '1',
     name: 'John Doe', 
     role: 'CEO & Strategy', 
-    image: founderImage,
-    bio: 'Visionary leader with 10+ years in digital transformation. Passionate about helping businesses scale through innovation.',
-    socials: companySocials
+    image_url: founderImage,
+    bio: 'Visionary leader with 10+ years in digital transformation.',
+    linkedin_url: 'https://linkedin.com/company/sanzox',
+    twitter_url: 'https://twitter.com/sanzox',
+    email: 'hello@sanzox.com'
   },
   { 
+    id: '2',
     name: 'Jane Smith', 
     role: 'Creative Director', 
-    image: creativeLeadImage,
-    bio: 'Award-winning designer crafting brand experiences that captivate and convert. Former lead at top agencies.',
-    socials: companySocials
+    image_url: creativeLeadImage,
+    bio: 'Award-winning designer crafting brand experiences.',
+    linkedin_url: 'https://linkedin.com/company/sanzox',
+    twitter_url: 'https://twitter.com/sanzox',
+    email: 'hello@sanzox.com'
   },
   { 
+    id: '3',
     name: 'Michael Johnson', 
     role: 'Tech Lead', 
-    image: techLeadImage,
-    bio: 'Full-stack architect building scalable solutions. Open source contributor and performance optimization expert.',
-    socials: companySocials
+    image_url: techLeadImage,
+    bio: 'Full-stack architect building scalable solutions.',
+    linkedin_url: 'https://linkedin.com/company/sanzox',
+    twitter_url: null,
+    email: 'hello@sanzox.com'
   },
   { 
+    id: '4',
     name: 'Emily Davis', 
     role: 'AI & Automation', 
-    image: automationExpertImage,
-    bio: 'AI specialist transforming workflows with intelligent automation. Making businesses 10x more efficient.',
-    socials: companySocials
+    image_url: automationExpertImage,
+    bio: 'AI specialist transforming workflows with intelligent automation.',
+    linkedin_url: 'https://linkedin.com/company/sanzox',
+    twitter_url: 'https://twitter.com/sanzox',
+    email: 'hello@sanzox.com'
   },
   { 
+    id: '5',
     name: 'David Williams', 
     role: 'Video Production', 
-    image: videoLeadImage,
-    bio: 'Cinematic storyteller creating content that drives engagement. 50M+ views across client projects.',
-    socials: companySocials
+    image_url: videoLeadImage,
+    bio: 'Cinematic storyteller creating engaging content.',
+    linkedin_url: 'https://linkedin.com/company/sanzox',
+    twitter_url: 'https://twitter.com/sanzox',
+    email: 'hello@sanzox.com'
   },
   { 
+    id: '6',
     name: 'Sarah Brown', 
     role: 'Growth Marketing', 
-    image: growthLeadImage,
-    bio: 'Data-driven marketer scaling brands from startup to enterprise. Expert in conversion optimization.',
-    socials: companySocials
+    image_url: growthLeadImage,
+    bio: 'Data-driven marketer scaling brands.',
+    linkedin_url: 'https://linkedin.com/company/sanzox',
+    twitter_url: 'https://twitter.com/sanzox',
+    email: 'hello@sanzox.com'
   },
 ];
 
 export default function AboutPage() {
+  const { data: dbTeam } = useTeamMembers(true);
+  
+  // Use database team if available, otherwise fallback
+  const team = dbTeam && dbTeam.length > 0 ? dbTeam : fallbackTeam;
+
   return (
     <Layout>
       {/* Hero */}
       <section className="pt-20 pb-16 relative overflow-hidden">
         <div className="absolute inset-0 bg-hero-gradient opacity-50 pointer-events-none" />
-        {/* Hero background image */}
         <div className="absolute inset-0 opacity-20 pointer-events-none">
           <img src={heroAboutImage} alt="" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-b from-background via-background/80 to-background" />
@@ -177,16 +192,20 @@ export default function AboutPage() {
           >
             {team.map((member, index) => (
               <motion.div
-                key={member.name}
+                key={member.id}
                 variants={fadeUpVariants}
                 custom={index}
               >
                 <TeamMemberCard
                   name={member.name}
                   role={member.role}
-                  bio={member.bio}
-                  image={member.image}
-                  socials={member.socials}
+                  bio={member.bio || ''}
+                  image={member.image_url || ''}
+                  socials={{
+                    linkedin: member.linkedin_url || undefined,
+                    twitter: member.twitter_url || undefined,
+                    email: member.email || undefined,
+                  }}
                 />
               </motion.div>
             ))}
