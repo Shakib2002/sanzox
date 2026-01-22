@@ -1,37 +1,79 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Search, AlertCircle } from 'lucide-react';
+import { Search } from 'lucide-react';
 import { Layout } from '@/components/layout/Layout';
 import { Input } from '@/components/ui/input';
 import { fadeUpVariants } from '@/hooks/useScrollAnimation';
+import { supabase } from '@/integrations/supabase/client';
 import { CTASection } from '@/components/sections/CTASection';
 import { BentoGrid } from '@/components/ui/BentoGrid';
 import { ProjectMarquee } from '@/components/ui/ProjectMarquee';
-import { WorksSkeleton } from '@/components/ui/WorksSkeleton';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { LazyImage } from '@/components/ui/LazyImage';
 import { useSiteSettings } from '@/hooks/useSiteSettings';
-import { useWorks } from '@/hooks/useWorks';
 import heroWorksImage from '@/assets/hero-works.jpg';
+
+interface Work {
+  id: string;
+  slug: string;
+  title: string;
+  industry: string | null;
+  tags: string[];
+  thumbnail: string | null;
+  featured: boolean;
+  video_preview?: string | null;
+}
+
+// Fallback demo data
+const demoWorks: Work[] = [
+  // AI Automation
+  { id: '1', slug: 'ai-workflow-automation', title: 'AI Workflow Automation', industry: 'AI Automation', tags: ['AI Automation', 'Process Optimization'], thumbnail: null, featured: true },
+  { id: '7', slug: 'ai-customer-support', title: 'AI Customer Support System', industry: 'AI Automation', tags: ['AI Automation', 'Chatbot'], thumbnail: null, featured: false },
+  // Youtube Automation
+  { id: '2', slug: 'youtube-channel-growth', title: 'YouTube Channel Growth System', industry: 'Youtube Automation', tags: ['YouTube Automation', 'Growth'], thumbnail: null, featured: true },
+  { id: '8', slug: 'youtube-content-pipeline', title: 'YouTube Content Pipeline', industry: 'Youtube Automation', tags: ['YouTube Automation', 'Content Strategy'], thumbnail: null, featured: false },
+  // Video Editing
+  { id: '5', slug: 'video-series-production', title: 'Educational Video Series', industry: 'Video Editing', tags: ['Video Editing', 'Production'], thumbnail: null, featured: true },
+  { id: '9', slug: 'brand-video-campaign', title: 'Brand Video Campaign', industry: 'Video Editing', tags: ['Video Editing', 'Branding'], thumbnail: null, featured: false },
+  // Shopify
+  { id: '3', slug: 'shopify-store-launch', title: 'Premium Shopify Store', industry: 'Shopify', tags: ['Shopify', 'eCommerce'], thumbnail: null, featured: true },
+  { id: '10', slug: 'shopify-dropshipping', title: 'Dropshipping Store Setup', industry: 'Shopify', tags: ['Shopify', 'Dropshipping'], thumbnail: null, featured: false },
+  // Website & Application
+  { id: '4', slug: 'saas-landing-page', title: 'SaaS Landing Page', industry: 'Website & Application', tags: ['Website Development', 'Design'], thumbnail: null, featured: true },
+  { id: '6', slug: 'agency-website', title: 'Creative Agency Website', industry: 'Website & Application', tags: ['Website Development', 'Branding'], thumbnail: null, featured: false },
+];
 
 const defaultIndustries = ['AI Automation', 'Youtube Automation', 'Video Editing', 'Shopify', 'Website & Application'];
 
 export default function WorksPage() {
+  const [works, setWorks] = useState<Work[]>(demoWorks);
   const [activeFilter, setActiveFilter] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
   const { data: siteSettings } = useSiteSettings();
-  
-  // Fetch works from database
-  const { data: works = [], isLoading, error } = useWorks({ industry: activeFilter });
   
   const industries = ['All', ...(siteSettings?.works_industries?.length 
     ? siteSettings.works_industries 
     : defaultIndustries)];
 
+  useEffect(() => {
+    async function fetchWorks() {
+      const { data, error } = await supabase
+        .from('works')
+        .select('id, slug, title, industry, tags, thumbnail, featured, video_preview')
+        .order('created_at', { ascending: false });
+
+      if (!error && data && data.length > 0) {
+        setWorks(data as unknown as Work[]);
+      }
+      setIsLoading(false);
+    }
+    fetchWorks();
+  }, []);
+
   const filteredWorks = works.filter((work) => {
+    const matchesFilter = activeFilter === 'All' || work.industry === activeFilter;
     const matchesSearch = work.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      work.tags?.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
-    return matchesSearch;
+      work.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+    return matchesFilter && matchesSearch;
   });
 
   return (
@@ -39,9 +81,9 @@ export default function WorksPage() {
       {/* Hero */}
       <section className="pt-20 pb-12 relative overflow-hidden">
         <div className="absolute inset-0 bg-hero-gradient opacity-50 pointer-events-none" />
-        {/* Hero background image with lazy loading */}
+        {/* Hero background image */}
         <div className="absolute inset-0 opacity-20 pointer-events-none">
-          <LazyImage src={heroWorksImage} alt="" fill priority />
+          <img src={heroWorksImage} alt="" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-b from-background via-background/80 to-background" />
         </div>
         <div className="container-custom relative">
@@ -113,21 +155,7 @@ export default function WorksPage() {
       {/* Works Bento Grid */}
       <section className="section-padding pt-4">
         <div className="container-custom">
-          {/* Error state */}
-          {error && (
-            <Alert variant="destructive" className="mb-8">
-              <AlertCircle className="h-4 w-4" />
-              <AlertDescription>
-                Failed to load works. Please try again later.
-              </AlertDescription>
-            </Alert>
-          )}
-
-          {/* Loading state */}
-          {isLoading && <WorksSkeleton count={6} />}
-
-          {/* Empty state */}
-          {!isLoading && !error && filteredWorks.length === 0 && (
+          {filteredWorks.length === 0 ? (
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -144,10 +172,7 @@ export default function WorksPage() {
                 Clear filters
               </button>
             </motion.div>
-          )}
-
-          {/* Works grid */}
-          {!isLoading && !error && filteredWorks.length > 0 && (
+          ) : (
             <BentoGrid works={filteredWorks} />
           )}
         </div>
