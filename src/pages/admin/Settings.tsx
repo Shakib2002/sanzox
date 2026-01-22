@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Upload, Video, Image, Loader2, Trash2, Type, Link as LinkIcon, Globe, Search, Plus, X } from 'lucide-react';
+import { Upload, Video, Image, Loader2, Trash2, Type, Link as LinkIcon, Globe, Search, Plus, X, Briefcase } from 'lucide-react';
 import { toast } from 'sonner';
 import { GlassCard } from '@/components/ui/GlassCard';
 import { Button } from '@/components/ui/button';
@@ -121,6 +121,7 @@ export default function AdminSettings() {
         <TabsList className="bg-secondary/50 flex-wrap">
           <TabsTrigger value="branding">Branding</TabsTrigger>
           <TabsTrigger value="hero">Hero Section</TabsTrigger>
+          <TabsTrigger value="works">Works Section</TabsTrigger>
           <TabsTrigger value="social">Social Links</TabsTrigger>
           <TabsTrigger value="footer">Footer</TabsTrigger>
           <TabsTrigger value="seo">SEO</TabsTrigger>
@@ -398,6 +399,51 @@ export default function AdminSettings() {
                     </label>
                   )}
                 </div>
+              </div>
+            </div>
+          </GlassCard>
+        </TabsContent>
+
+        {/* Works Section Tab */}
+        <TabsContent value="works">
+          <GlassCard>
+            <div className="flex items-center gap-3 mb-6">
+              <Briefcase className="w-5 h-5 text-primary" />
+              <h2 className="text-lg font-semibold">Works Section</h2>
+            </div>
+
+            <div className="space-y-6">
+              <div className="space-y-3">
+                <Label>Project Marquee Rows</Label>
+                <p className="text-sm text-muted-foreground">
+                  Choose how many rows of projects to display in the scrolling marquee
+                </p>
+                
+                <div className="flex gap-3">
+                  <Button
+                    type="button"
+                    variant={(formData as any).works_marquee_rows === 2 ? 'default' : 'outline'}
+                    onClick={() => handleChange('works_marquee_rows' as keyof typeof formData, 2 as any)}
+                    className="flex-1 max-w-[120px]"
+                  >
+                    2 Rows
+                  </Button>
+                  <Button
+                    type="button"
+                    variant={(formData as any).works_marquee_rows === 3 || !(formData as any).works_marquee_rows ? 'default' : 'outline'}
+                    onClick={() => handleChange('works_marquee_rows' as keyof typeof formData, 3 as any)}
+                    className="flex-1 max-w-[120px]"
+                  >
+                    3 Rows
+                  </Button>
+                </div>
+              </div>
+
+              <div className="p-4 rounded-lg bg-secondary/30 border border-border">
+                <p className="text-sm text-muted-foreground">
+                  <strong>Tip:</strong> The marquee displays your portfolio works in an animated, scrolling layout. 
+                  Each row scrolls in alternating directions at different speeds for a dynamic effect.
+                </p>
               </div>
             </div>
           </GlassCard>
