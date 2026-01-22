@@ -8,6 +8,7 @@ import { CTASection } from '@/components/sections/CTASection';
 import { TeamMemberCard } from '@/components/ui/TeamMemberCard';
 import { useTeamMembers } from '@/hooks/useTeamMembers';
 import heroAboutImage from '@/assets/hero-about.jpg';
+import ourStoryTeam from '@/assets/our-story-team.jpg';
 
 // Fallback team photos for when database is empty
 import founderImage from '@/assets/team/founder.jpg';
@@ -146,10 +147,15 @@ export default function AboutPage() {
             </motion.div>
 
             <motion.div variants={slideInRightVariants} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-              <div className="aspect-square rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 border border-border/50 flex items-center justify-center">
-                <div className="text-center">
-                  <div className="text-8xl font-bold gradient-text mb-4">S</div>
-                  <p className="text-muted-foreground">SANZOX</p>
+              <div className="aspect-square rounded-2xl overflow-hidden border border-border/50 relative group">
+                <img 
+                  src={ourStoryTeam} 
+                  alt="SANZOX Team at work" 
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
+                <div className="absolute bottom-4 left-4 px-3 py-1 rounded-full bg-background/80 backdrop-blur-sm border border-primary/30 text-xs font-medium text-primary">
+                  13+ Team Members
                 </div>
               </div>
             </motion.div>
