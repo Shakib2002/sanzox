@@ -29,7 +29,7 @@ const App = () => {
                 <AnimatedRoutes />
               </BrowserRouter>
               <SupportWidgets 
-                whatsappNumber="1234567890"
+                whatsappNumber="8801516522978"
                 whatsappMessage="Hi! I'm interested in your services."
               />
             </>
