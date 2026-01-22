@@ -263,8 +263,8 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Email Us</h3>
-                    <a href="mailto:hello@sanzox.com" className="text-muted-foreground hover:text-primary transition-colors">
-                      hello@sanzox.com
+                    <a href="mailto:hello.sanzox@gmail.com" className="text-muted-foreground hover:text-primary transition-colors">
+                      hello.sanzox@gmail.com
                     </a>
                   </div>
                 </div>
