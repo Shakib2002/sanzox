@@ -20,7 +20,7 @@ export function ChatWidget() {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', content: "Hi! 👋 I'm your SANZOX AI assistant. How can I help you today?" }
+    { role: 'assistant', content: "Hey there! 👋 Welcome to **SANZOX**!\n\nI'm here to help you build something amazing. Whether it's **AI Automation**, **Web Development**, **Video Editing**, **Shopify Solutions**, or **YouTube Automation** — we've got you covered.\n\nWhat would you like to create or automate today?" }
   ]);
   const [showQuickReplies, setShowQuickReplies] = useState(true);
 
