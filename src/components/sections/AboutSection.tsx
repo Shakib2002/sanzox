@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { GlassCard } from '@/components/ui/GlassCard';
 import { fadeUpVariants, staggerContainerVariants, slideInLeftVariants, slideInRightVariants } from '@/hooks/useScrollAnimation';
-import aiRobotHero from '@/assets/ai-robot-hero.jpg';
+import teamCollaboration from '@/assets/team-collaboration.jpg';
 
 const benefits = [
   {
@@ -125,51 +125,21 @@ export function AboutSplitSection() {
             viewport={{ once: true, amount: 0.3 }}
             className="relative"
           >
-            <div className="relative aspect-square lg:aspect-[4/3] rounded-2xl overflow-hidden border border-border/50 group">
+            <div className="relative aspect-square lg:aspect-[4/3] rounded-2xl overflow-hidden border border-border/50">
               <img 
-                src={aiRobotHero} 
-                alt="SANZOX AI Automation" 
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                src={teamCollaboration} 
+                alt="SANZOX Team Collaboration" 
+                className="w-full h-full object-cover"
               />
               {/* Overlay gradient */}
-              <div className="absolute inset-0 bg-gradient-to-br from-background/20 via-transparent to-primary/10" />
-              
-              {/* Floating badges like Zentexx */}
-              <motion.div 
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3 }}
-                className="absolute top-4 right-4 px-3 py-1.5 rounded-full bg-background/80 backdrop-blur-sm border border-primary/30 text-xs font-medium text-primary shadow-lg shadow-primary/20"
-              >
-                AI Powered
-              </motion.div>
-              
-              <motion.div 
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.4 }}
-                className="absolute top-1/3 left-4 px-3 py-1.5 rounded-full bg-background/80 backdrop-blur-sm border border-primary/30 text-xs font-medium text-primary shadow-lg shadow-primary/20"
-              >
-                24/7 Support
-              </motion.div>
-              
-              <motion.div 
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.5 }}
-                className="absolute bottom-1/4 left-4 px-3 py-1.5 rounded-full bg-background/80 backdrop-blur-sm border border-primary/30 text-xs font-medium text-primary shadow-lg shadow-primary/20"
-              >
-                Automation
-              </motion.div>
-              
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 }}
-                className="absolute bottom-4 left-4 px-3 py-1.5 rounded-full bg-background/80 backdrop-blur-sm border border-primary/30 text-xs font-medium text-primary shadow-lg shadow-primary/20"
-              >
+              <div className="absolute inset-0 bg-gradient-to-br from-background/30 via-transparent to-primary/10" />
+              {/* Decorative elements */}
+              <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-background/80 backdrop-blur-sm border border-primary/30 text-xs font-medium text-primary">
+                Remote-First
+              </div>
+              <div className="absolute bottom-4 left-4 px-3 py-1 rounded-full bg-background/80 backdrop-blur-sm border border-primary/30 text-xs font-medium text-primary">
                 13+ Team Members
-              </motion.div>
+              </div>
             </div>
           </motion.div>
         </div>
