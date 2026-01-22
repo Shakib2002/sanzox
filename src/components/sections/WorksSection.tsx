@@ -73,7 +73,7 @@ const works = [
   },
 ];
 
-const industries = ['All', 'SaaS', 'Creator', 'eCommerce', 'Agency', 'Education'];
+const industries = ['All', 'AI Automation', 'Creator', 'eCommerce', 'Agency', 'Education'];
 
 export function WorksSection() {
   const [activeFilter, setActiveFilter] = useState('All');
