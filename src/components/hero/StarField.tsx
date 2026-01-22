@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 interface Star {
@@ -9,6 +9,7 @@ interface Star {
   delay: number;
   duration: number;
   opacity: number;
+  parallaxSpeed: number; // Each star has its own parallax speed for depth
 }
 
 interface ShootingStar {
@@ -17,7 +18,7 @@ interface ShootingStar {
   startY: number;
   delay: number;
   duration: number;
-  angle: number; // degrees
+  angle: number;
   distance: number;
   tailLength: number;
 }
@@ -28,6 +29,8 @@ interface StarFieldProps {
 }
 
 export function StarField({ count = 80, shootingStarCount = 6 }: StarFieldProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+
   const stars = useMemo<Star[]>(() => {
     return Array.from({ length: count }, (_, i) => ({
       id: i,
@@ -37,33 +40,61 @@ export function StarField({ count = 80, shootingStarCount = 6 }: StarFieldProps)
       delay: Math.random() * 3,
       duration: Math.random() * 2 + 1.5,
       opacity: Math.random() * 0.5 + 0.3,
+      parallaxSpeed: Math.random() * 0.15 + 0.05, // 0.05-0.2 speed variance for depth
     }));
   }, [count]);
 
   const shootingStars = useMemo<ShootingStar[]>(() => {
     return Array.from({ length: shootingStarCount }, (_, i) => {
-      const angle = Math.random() * 40 + 25; // 25-65 degrees
-      const distance = Math.random() * 150 + 100; // 100-250px travel
+      const angle = Math.random() * 40 + 25;
+      const distance = Math.random() * 150 + 100;
       return {
         id: i,
-        startX: Math.random() * 70 + 10, // Start between 10-80%
-        startY: Math.random() * 40, // Start in top 40%
-        delay: Math.random() * 5 + i * 2, // Staggered delays
-        duration: Math.random() * 0.6 + 0.4, // 0.4-1s duration (faster)
+        startX: Math.random() * 70 + 10,
+        startY: Math.random() * 40,
+        delay: Math.random() * 5 + i * 2,
+        duration: Math.random() * 0.6 + 0.4,
         angle,
         distance,
-        tailLength: Math.random() * 40 + 40, // 40-80px tail
+        tailLength: Math.random() * 40 + 40,
       };
     });
   }, [shootingStarCount]);
 
+  // Parallax scroll effect
+  useEffect(() => {
+    let ticking = false;
+
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const scrollY = window.scrollY;
+          const starElements = containerRef.current?.querySelectorAll('[data-parallax-speed]');
+          
+          starElements?.forEach((el) => {
+            const speed = parseFloat(el.getAttribute('data-parallax-speed') || '0');
+            const yOffset = scrollY * speed;
+            (el as HTMLElement).style.transform = `translateY(${yOffset}px)`;
+          });
+
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {/* Static twinkling stars */}
+    <div ref={containerRef} className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* Twinkling stars with parallax */}
       {stars.map((star) => (
         <motion.div
           key={star.id}
-          className="absolute rounded-full bg-white"
+          data-parallax-speed={star.parallaxSpeed}
+          className="absolute rounded-full bg-white will-change-transform"
           style={{
             left: `${star.x}%`,
             top: `${star.y}%`,
@@ -108,14 +139,12 @@ export function StarField({ count = 80, shootingStarCount = 6 }: StarFieldProps)
               duration: shootingStar.duration,
               delay: shootingStar.delay,
               repeat: Infinity,
-              repeatDelay: 4 + Math.random() * 5, // Wait 4-9s between appearances
+              repeatDelay: 4 + Math.random() * 5,
               ease: 'easeOut',
             }}
           >
-            {/* Shooting star head with glow */}
             <div className="relative">
               <div className="w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_8px_3px_rgba(255,255,255,0.9)]" />
-              {/* Gradient tail */}
               <div 
                 className="absolute top-1/2 right-full -translate-y-1/2 h-0.5 origin-right"
                 style={{
