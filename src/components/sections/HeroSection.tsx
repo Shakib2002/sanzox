@@ -213,6 +213,64 @@ export function HeroSection() {
                 }}
               />
 
+              {/* Orbit Rings Container */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none" style={{ perspective: '1000px' }}>
+                
+                {/* Primary Orbit - Large outer ring */}
+                <motion.div
+                  animate={{ 
+                    rotateZ: [0, 360],
+                    opacity: [0.3, 0.6, 0.3],
+                  }}
+                  transition={{ 
+                    rotateZ: { duration: 20, repeat: Infinity, ease: "linear" },
+                    opacity: { duration: 3, repeat: Infinity, ease: "easeInOut" },
+                  }}
+                  className="absolute w-[110%] h-[75%] rounded-full border-2"
+                  style={{ 
+                    transform: 'rotateX(75deg)',
+                    borderColor: 'hsl(280 70% 50% / 0.4)',
+                    boxShadow: '0 0 20px hsl(280 70% 50% / 0.3), inset 0 0 20px hsl(280 70% 50% / 0.1)',
+                  }}
+                />
+                
+                {/* Secondary Orbit - Medium ring, opposite direction */}
+                <motion.div
+                  animate={{ 
+                    rotateZ: [360, 0],
+                    scale: [0.98, 1.02, 0.98],
+                  }}
+                  transition={{ 
+                    rotateZ: { duration: 15, repeat: Infinity, ease: "linear" },
+                    scale: { duration: 4, repeat: Infinity, ease: "easeInOut" },
+                  }}
+                  className="absolute w-[95%] h-[60%] rounded-full border"
+                  style={{ 
+                    transform: 'rotateX(65deg) rotateY(10deg)',
+                    borderColor: 'hsl(200 80% 50% / 0.35)',
+                    boxShadow: '0 0 15px hsl(200 80% 50% / 0.25)',
+                  }}
+                />
+                
+                {/* Tertiary Orbit - Small inner ring with dashed style */}
+                <motion.div
+                  animate={{ 
+                    rotateZ: [0, 360],
+                    opacity: [0.25, 0.5, 0.25],
+                  }}
+                  transition={{ 
+                    rotateZ: { duration: 10, repeat: Infinity, ease: "linear" },
+                    opacity: { duration: 2, repeat: Infinity, ease: "easeInOut" },
+                  }}
+                  className="absolute w-[75%] h-[45%] rounded-full border border-dashed"
+                  style={{ 
+                    transform: 'rotateX(70deg) rotateY(-5deg)',
+                    borderColor: 'hsl(280 60% 60% / 0.3)',
+                  }}
+                />
+                
+              </div>
+
               {/* 3D Floating Astronaut */}
               <motion.div
                 animate={{ 
