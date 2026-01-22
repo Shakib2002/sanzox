@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { motion, useInView } from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, TrendingUp } from 'lucide-react';
 import { TiltCard } from './TiltCard';
 import { useRef } from 'react';
 
@@ -28,11 +28,21 @@ const bentoPatterns = [
   { colSpan: 1, rowSpan: 1 }, // Small
 ];
 
+// Result metrics for demo purposes - in production, fetch from DB
+const resultMetrics: Record<string, string> = {
+  'ai-workflow-automation': '+250% Efficiency',
+  'youtube-channel-growth': '+150K Subscribers',
+  'shopify-store-launch': '3x Revenue',
+  'saas-landing-page': '+180% Conversions',
+  'video-series-production': '2M+ Views',
+  'agency-website': '+400% Traffic',
+};
+
 const containerVariants = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.1,
+      staggerChildren: 0.08,
       delayChildren: 0.1,
     },
   },
@@ -41,16 +51,18 @@ const containerVariants = {
 const cardVariants = {
   hidden: { 
     opacity: 0, 
-    y: 40,
-    scale: 0.95,
+    y: 60,
+    scale: 0.9,
+    rotateX: -10,
   },
   visible: { 
     opacity: 1, 
     y: 0,
     scale: 1,
+    rotateX: 0,
     transition: {
       type: 'spring',
-      stiffness: 100,
+      stiffness: 80,
       damping: 15,
       mass: 1,
     },
@@ -59,18 +71,19 @@ const cardVariants = {
 
 export function BentoGrid({ works }: BentoGridProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(containerRef, { once: true, amount: 0.2 });
+  const isInView = useInView(containerRef, { once: true, amount: 0.1 });
 
   return (
     <motion.div 
       ref={containerRef}
-      className="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[180px] md:auto-rows-[200px]"
+      className="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[160px] md:auto-rows-[180px]"
       variants={containerVariants}
       initial="hidden"
       animate={isInView ? 'visible' : 'hidden'}
     >
       {works.map((work, index) => {
         const pattern = bentoPatterns[index % bentoPatterns.length];
+        const resultMetric = resultMetrics[work.slug];
         
         return (
           <motion.div
@@ -82,19 +95,20 @@ export function BentoGrid({ works }: BentoGridProps) {
             `}
           >
             <TiltCard
-              tiltAmount={8}
+              tiltAmount={10}
+              glareEnabled={true}
               className="w-full h-full"
             >
               <Link
                 to={`/works/${work.slug}`}
-                className="group relative block w-full h-full rounded-xl overflow-hidden bg-secondary/30 border border-border/30 hover:border-primary/50 transition-colors"
+                className="group relative block w-full h-full rounded-xl overflow-hidden bg-secondary/30 border border-border/30 hover:border-primary/50 transition-all duration-300"
               >
                 {/* Background image or gradient */}
                 {work.thumbnail ? (
                   <img
                     src={work.thumbnail}
                     alt={work.title}
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     loading="lazy"
                   />
                 ) : (
@@ -108,7 +122,29 @@ export function BentoGrid({ works }: BentoGridProps) {
                 )}
                 
                 {/* Overlay gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
+                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300" />
+                
+                {/* Animated glow on hover */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/10" />
+                </div>
+                
+                {/* Result metrics badge - appears on hover */}
+                {resultMetric && (
+                  <motion.div 
+                    className="absolute top-4 left-4 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/90 backdrop-blur-sm text-primary-foreground text-xs font-semibold opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0"
+                  >
+                    <TrendingUp className="w-3 h-3" />
+                    {resultMetric}
+                  </motion.div>
+                )}
+
+                {/* Featured badge */}
+                {work.featured && !resultMetric && (
+                  <span className="absolute top-4 left-4 px-2.5 py-1 rounded-full bg-primary/90 backdrop-blur-sm text-primary-foreground text-xs font-medium">
+                    Featured
+                  </span>
+                )}
                 
                 {/* Content */}
                 <div className="absolute inset-0 p-4 md:p-6 flex flex-col justify-end">
@@ -128,7 +164,7 @@ export function BentoGrid({ works }: BentoGridProps) {
                   </div>
                   
                   {/* Title */}
-                  <h3 className={`font-semibold text-foreground group-hover:text-primary transition-colors ${
+                  <h3 className={`font-semibold text-foreground group-hover:text-primary transition-colors duration-300 ${
                     pattern.colSpan >= 2 ? 'text-lg md:text-xl' : 'text-sm md:text-base'
                   }`}>
                     {work.title}
@@ -136,16 +172,17 @@ export function BentoGrid({ works }: BentoGridProps) {
                   
                   {/* Arrow indicator */}
                   <motion.div
-                    className="absolute top-4 right-4 w-8 h-8 rounded-full bg-primary/20 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
-                    whileHover={{ scale: 1.1 }}
+                    className="absolute top-4 right-4 w-10 h-10 rounded-full bg-primary/20 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 scale-75 group-hover:scale-100"
+                    whileHover={{ scale: 1.15, rotate: 45 }}
+                    transition={{ type: 'spring', stiffness: 400, damping: 20 }}
                   >
-                    <ArrowUpRight className="w-4 h-4 text-primary" />
+                    <ArrowUpRight className="w-5 h-5 text-primary" />
                   </motion.div>
                 </div>
                 
                 {/* Hover glow border */}
-                <div className="absolute inset-0 rounded-xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity">
-                  <div className="absolute inset-0 rounded-xl ring-1 ring-inset ring-primary/30" />
+                <div className="absolute inset-0 rounded-xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="absolute inset-0 rounded-xl ring-1 ring-inset ring-primary/40" />
                   <div className="absolute -inset-px rounded-xl bg-gradient-to-br from-primary/10 via-transparent to-primary/5" />
                 </div>
               </Link>

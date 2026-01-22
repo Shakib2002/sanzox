@@ -1,15 +1,13 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, ExternalLink, Search } from 'lucide-react';
+import { Search } from 'lucide-react';
 import { Layout } from '@/components/layout/Layout';
-import { SectionHeading } from '@/components/ui/SectionHeading';
-import { GlassCard } from '@/components/ui/GlassCard';
 import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { fadeUpVariants, staggerContainerVariants } from '@/hooks/useScrollAnimation';
+import { fadeUpVariants } from '@/hooks/useScrollAnimation';
 import { supabase } from '@/integrations/supabase/client';
 import { CTASection } from '@/components/sections/CTASection';
+import { BentoGrid } from '@/components/ui/BentoGrid';
+import { ProjectMarquee } from '@/components/ui/ProjectMarquee';
 import heroWorksImage from '@/assets/hero-works.jpg';
 
 interface Work {
@@ -65,7 +63,7 @@ export default function WorksPage() {
   return (
     <Layout>
       {/* Hero */}
-      <section className="pt-20 pb-16 relative overflow-hidden">
+      <section className="pt-20 pb-12 relative overflow-hidden">
         <div className="absolute inset-0 bg-hero-gradient opacity-50 pointer-events-none" />
         {/* Hero background image */}
         <div className="absolute inset-0 opacity-20 pointer-events-none">
@@ -85,104 +83,81 @@ export default function WorksPage() {
         </div>
       </section>
 
-      {/* Filters & Search */}
+      {/* Project Marquee Showcase */}
+      <section className="pb-8 overflow-hidden">
+        <ProjectMarquee />
+      </section>
+
+      {/* Animated Filter Tabs & Search */}
       <section className="pb-8">
         <div className="container-custom">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            {/* Filter chips */}
-            <div className="flex flex-wrap items-center justify-center gap-2">
+          <motion.div 
+            variants={fadeUpVariants}
+            initial="hidden"
+            animate="visible"
+            className="flex flex-col md:flex-row items-center justify-between gap-6"
+          >
+            {/* Animated filter tabs */}
+            <div className="relative flex flex-wrap items-center justify-center gap-1 p-1 rounded-full bg-secondary/30 backdrop-blur-sm border border-border/30">
               {industries.map((industry) => (
                 <button
                   key={industry}
                   onClick={() => setActiveFilter(industry)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                    activeFilter === industry
-                      ? 'bg-primary text-primary-foreground'
-                      : 'bg-secondary/50 text-muted-foreground hover:bg-secondary hover:text-foreground'
-                  }`}
+                  className="relative px-4 py-2 rounded-full text-sm font-medium transition-colors z-10"
                 >
-                  {industry}
+                  {activeFilter === industry && (
+                    <motion.div
+                      layoutId="activeFilterPill"
+                      className="absolute inset-0 bg-primary rounded-full"
+                      transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                    />
+                  )}
+                  <span className={`relative z-10 ${activeFilter === industry ? 'text-primary-foreground' : 'text-muted-foreground hover:text-foreground'}`}>
+                    {industry}
+                  </span>
                 </button>
               ))}
             </div>
 
-            {/* Search */}
-            <div className="relative w-full md:w-64">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              <Input
-                placeholder="Search works..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10"
-              />
+            {/* Search with glow effect */}
+            <div className="relative w-full md:w-72 group">
+              <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 via-primary/10 to-primary/20 rounded-lg blur opacity-0 group-focus-within:opacity-100 transition-opacity duration-300" />
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <Input
+                  placeholder="Search works..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-10 bg-secondary/50 border-border/30 focus:border-primary/50 transition-colors"
+                />
+              </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Works Grid */}
-      <section className="section-padding pt-8">
+      {/* Works Bento Grid */}
+      <section className="section-padding pt-4">
         <div className="container-custom">
           {filteredWorks.length === 0 ? (
-            <div className="text-center py-12">
-              <p className="text-muted-foreground">No works found matching your criteria.</p>
-            </div>
-          ) : (
-            <motion.div
-              variants={staggerContainerVariants}
-              initial="hidden"
-              animate="visible"
-              className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-center py-16"
             >
-              {filteredWorks.map((work) => (
-                <GlassCard key={work.id} variants={fadeUpVariants} className="group overflow-hidden">
-                  {/* Thumbnail */}
-                  <div className="relative aspect-video bg-gradient-to-br from-primary/20 to-primary/5 rounded-lg mb-4 overflow-hidden">
-                    {work.thumbnail ? (
-                      <img src={work.thumbnail} alt={work.title} className="w-full h-full object-cover" />
-                    ) : (
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="text-4xl font-bold text-primary/30">{work.title[0]}</span>
-                      </div>
-                    )}
-                    <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
-                      <ExternalLink className="w-8 h-8 text-primary" />
-                    </div>
-                    {work.featured && (
-                      <span className="absolute top-2 right-2 px-2 py-1 rounded-md bg-primary/90 text-primary-foreground text-xs font-medium">
-                        Featured
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Content */}
-                  <div className="flex flex-wrap gap-2 mb-3">
-                    {work.industry && (
-                      <span className="px-2 py-1 rounded-md bg-primary/10 text-primary text-xs font-medium">
-                        {work.industry}
-                      </span>
-                    )}
-                    {work.tags.slice(0, 2).map((tag) => (
-                      <span key={tag} className="px-2 py-1 rounded-md bg-secondary text-muted-foreground text-xs">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors mb-2">
-                    <Link to={`/works/${work.slug}`}>{work.title}</Link>
-                  </h3>
-
-                  <Link
-                    to={`/works/${work.slug}`}
-                    className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    View Case Study
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </GlassCard>
-              ))}
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-secondary/50 mb-4">
+                <Search className="w-6 h-6 text-muted-foreground" />
+              </div>
+              <p className="text-lg text-muted-foreground">No works found matching your criteria.</p>
+              <button 
+                onClick={() => { setActiveFilter('All'); setSearchQuery(''); }}
+                className="mt-4 text-primary hover:underline"
+              >
+                Clear filters
+              </button>
             </motion.div>
+          ) : (
+            <BentoGrid works={filteredWorks} />
           )}
         </div>
       </section>
