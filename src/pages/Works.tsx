@@ -31,7 +31,7 @@ const demoWorks: Work[] = [
   { id: '6', slug: 'agency-website', title: 'Creative Agency Website', industry: 'Agency', tags: ['Website Development', 'Branding'], thumbnail: null, featured: false },
 ];
 
-const industries = ['All', 'AI Automation', 'Creator', 'eCommerce', 'Agency', 'Education'];
+const industries = ['All', 'AI Automation', 'Youtube Automation', 'Video Editing', 'Shopify', 'Website & Application'];
 
 export default function WorksPage() {
   const [works, setWorks] = useState<Work[]>(demoWorks);
