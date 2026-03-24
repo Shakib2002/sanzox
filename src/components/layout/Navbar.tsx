@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -17,43 +17,23 @@ const navLinks = [
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
   const { data: settings } = useSiteSettings();
 
   const s = settings || defaultSiteSettings;
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
     setIsOpen(false);
   }, [location.pathname]);
 
   return (
-    <motion.header
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      className={cn(
-        'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
-        isScrolled 
-          ? 'bg-background/80 backdrop-blur-xl border-b border-border/50' 
-          : 'bg-transparent'
-      )}
-    >
+    <header className="sticky top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/50">
       <nav className="container-custom">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <Link 
-            to="/" 
-            className="flex items-center gap-2 font-display text-2xl font-bold tracking-tight"
+          <Link
+            to="/"
+            className="flex items-center gap-2 font-display text-3xl font-bold tracking-tight"
           >
             {s.logo_url ? (
               <img src={s.logo_url} alt={s.site_name} className="h-8 md:h-10 w-auto" />
@@ -69,9 +49,9 @@ export function Navbar() {
                 key={link.name}
                 to={link.href}
                 className={cn(
-                  'text-sm font-medium transition-colors hover:text-primary',
-                  location.pathname === link.href 
-                    ? 'text-primary' 
+                  'text-[15px] font-semibold transition-colors hover:text-primary',
+                  location.pathname === link.href
+                    ? 'text-primary'
                     : 'text-muted-foreground'
                 )}
               >
@@ -120,8 +100,8 @@ export function Navbar() {
                     to={link.href}
                     className={cn(
                       'block py-3 px-4 rounded-lg text-base font-medium transition-colors',
-                      location.pathname === link.href 
-                        ? 'bg-primary/10 text-primary' 
+                      location.pathname === link.href
+                        ? 'bg-primary/10 text-primary'
                         : 'text-muted-foreground hover:bg-secondary'
                     )}
                   >
@@ -143,6 +123,6 @@ export function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.header>
+    </header>
   );
 }

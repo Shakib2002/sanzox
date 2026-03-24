@@ -22,7 +22,7 @@ export function CTASection() {
   const trustIndicators = settings?.cta_trust_indicators || ['Free Consultation', 'No Commitment', '24h Response'];
 
   return (
-    <section className="py-32 relative overflow-hidden">
+    <section className="pb-4 md:pb-8 relative overflow-hidden">
       {/* Particle background */}
       <ParticleField count={40} />
       

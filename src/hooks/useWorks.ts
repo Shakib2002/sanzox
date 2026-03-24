@@ -88,4 +88,6 @@ export function useWork(slug: string) {
     },
     enabled: !!slug,
   });
+
+  console.log({ works, isLoading, error });
 }

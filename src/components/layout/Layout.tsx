@@ -29,7 +29,7 @@ export function Layout({ children, title, description, image }: LayoutProps) {
 
       <Navbar />
       
-      <main className="flex-1 pt-16 md:pt-20">
+      <main className="flex-1 ">
         {children}
       </main>
       
