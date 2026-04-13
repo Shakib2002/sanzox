@@ -6,6 +6,8 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useSiteSettings, defaultSiteSettings } from '@/hooks/useSiteSettings';
 
+import logo from "../../assets/6092db2a-794a-45a3-a93e-8de0007250db.png"
+
 const navLinks = [
   { name: 'Home', href: '/' },
   { name: 'Services', href: '/services' },
@@ -27,7 +29,7 @@ export function Navbar() {
   }, [location.pathname]);
 
   return (
-    <header className="sticky top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/50">
+    <header className="sticky top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/50 py-2">
       <nav className="container-custom">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
@@ -35,11 +37,14 @@ export function Navbar() {
             to="/"
             className="flex items-center gap-2 font-display text-3xl font-bold tracking-tight"
           >
-            {s.logo_url ? (
-              <img src={s.logo_url} alt={s.site_name} className="h-8 md:h-10 w-auto" />
+
+             <img src={logo} alt={s.site_name} className="h-14 md:h-20 w-auto" />
+
+            {/* {s.logo_url ? (
+             <></>
             ) : (
               <span className="gradient-text">{s.site_name}</span>
-            )}
+            )} */}
           </Link>
 
           {/* Desktop Navigation */}
@@ -49,9 +54,9 @@ export function Navbar() {
                 key={link.name}
                 to={link.href}
                 className={cn(
-                  'text-[15px] font-semibold transition-colors hover:text-primary',
+                  'text-[16px] font-bold transition-colors hover:gradient-text',
                   location.pathname === link.href
-                    ? 'text-primary'
+                    ? 'gradient-text'
                     : 'text-muted-foreground'
                 )}
               >
@@ -62,7 +67,14 @@ export function Navbar() {
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <Button asChild className="btn-glow">
+            <Button asChild             
+            className="btn-glow relative px-6 py-3.5 rounded-lg font-semibold text-base tracking-wide transition-transform duration-300 hover:scale-105 active:scale-95"
+            style={{
+              background: "linear-gradient(135deg, hsl(217 91% 60%), hsl(280 70% 55%))",
+              color: "hsl(222 47% 6%)",
+              boxShadow: "0 0 30px hsl(217 91% 60% / 0.4)",
+              willChange: "transform",
+            }}>
               <Link to="/contact">Get Proposal</Link>
             </Button>
           </div>
@@ -115,7 +127,14 @@ export function Navbar() {
                 transition={{ delay: 0.3 }}
                 className="pt-4"
               >
-                <Button asChild className="w-full btn-glow">
+                <Button asChild             
+                className="w-full btn-glow relative py-3.5 rounded-lg font-semibold text-base tracking-wide transition-transform duration-300 hover:scale-105 active:scale-95"
+                style={{
+                  background: "linear-gradient(135deg, hsl(217 91% 60%), hsl(280 70% 55%))",
+                  color: "hsl(222 47% 6%)",
+                  boxShadow: "0 0 30px hsl(217 91% 60% / 0.4)",
+                  willChange: "transform",
+                }}>
                   <Link to="/contact">Get Proposal</Link>
                 </Button>
               </motion.div>

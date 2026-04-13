@@ -21,11 +21,11 @@ const Index = () => {
       <ServicesSection />
       <WhySanzoxSection />
       <StatsSection />
-      <AboutSplitSection />
-      <TechStackSection />
       <WorksSection />
       <IndustriesSection />
       <TestimonialsSection />
+      <AboutSplitSection />
+      {/* <TechStackSection /> */}
       <CTASection />
       <FAQSection />
     </Layout>

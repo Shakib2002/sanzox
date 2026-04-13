@@ -38,7 +38,7 @@ export function TestimonialsSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="relative px-12"
+          className="relative"
         >
           <Carousel
             opts={{

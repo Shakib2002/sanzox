@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight, Bot, Youtube, Video, Globe, ShoppingBag } from 'lucide-react';
+import { ChevronRight, Bot, Youtube, Video, Globe,  Megaphone } from 'lucide-react';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { fadeUpVariants, staggerContainerVariants } from '@/hooks/useScrollAnimation';
 
@@ -27,19 +27,19 @@ const services = [
     description: 'Professional video editing that captivates your audience and tells your brand story.',
     features: ['Professional Editing', 'Motion Graphics', 'Color Grading', 'Sound Design'],
   },
-  {
+{
     id: 'website-development',
     icon: Globe,
     title: 'Website Development',
-    description: 'Custom websites built with modern technologies that convert visitors into customers.',
-    features: ['Custom Design', 'Responsive Development', 'SEO Optimization', 'Performance'],
+    description: 'We design and develop fast, responsive websites with CMS integration, including Shopify, for scalable business growth.',
+    features: ['Custom Design', 'Responsive Development', 'CMS Integration', 'SEO Optimization', 'Shopify Setup'],
   },
   {
-    id: 'shopify',
-    icon: ShoppingBag,
-    title: 'Shopify Development',
-    description: 'End-to-end Shopify solutions that help you launch and scale your eCommerce business.',
-    features: ['Store Setup', 'Theme Customization', 'App Integration', 'Conversion Optimization'],
+    id: 'digital-marketing',
+    icon: Megaphone,
+    title: 'Digital Marketing',
+    description: 'We help businesses grow online with data-driven marketing strategies that improve reach, engagement, and conversions.',
+    features: ['Social Media Marketing', 'SEO', 'Paid Ads', 'Conversion Optimization'],
   },
 ];
 

@@ -6,10 +6,10 @@ import { fadeUpVariants, staggerContainerVariants } from '@/hooks/useScrollAnima
 import { DynamicGlow } from '@/components/ui/DynamicGlow';
 
 const stats = [
-  { value: 30, suffix: '+', label: 'Projects Delivered' },
-  { value: 13, suffix: '+', label: 'Team Members' },
-  { value: 250, suffix: '+', label: 'Deliverables' },
-  { value: 5, suffix: 'M+', label: 'Views Generated' },
+  { value: 100, suffix: '%', label: 'Client Satisfaction' },
+  { value: 24, suffix: 'h', label: 'Response Time' },
+  { value: 99, suffix: '%', label: 'Automation Reliability' },
+  { value: 24, suffix: '/7', label: 'Support Availability' },
 ];
 
 function StatItem({ value, suffix, label, index }: { value: number; suffix: string; label: string; index: number }) {

@@ -1,23 +1,31 @@
 import { TextReveal } from '@/components/ui/TextReveal';
 import {
-  Zap, Rocket, Globe, Layers, Sparkles,
-  Code2, Cpu, Cloud, Palette, TrendingUp
+  ShoppingCart,
+  Store,
+  Users,
+  Briefcase,
+  Video,
+  Globe,
+  Smartphone,
+  Megaphone,
+  TrendingUp,
+  Building2
 } from 'lucide-react';
 
 const logosRow1 = [
-  { name: 'TechFlow', icon: Zap, color: 'text-blue-400' },
-  { name: 'LaunchPad', icon: Rocket, color: 'text-orange-400' },
-  { name: 'GlobalSync', icon: Globe, color: 'text-green-400' },
-  { name: 'StackBuild', icon: Layers, color: 'text-purple-400' },
-  { name: 'SparkAI', icon: Sparkles, color: 'text-yellow-400' },
+  { name: 'E-commerce Brands', icon: ShoppingCart, color: 'text-blue-400' },
+  { name: 'Local Businesses', icon: Store, color: 'text-green-400' },
+  { name: 'SaaS Startups', icon: Globe, color: 'text-purple-400' },
+  { name: 'Digital Agencies', icon: Briefcase, color: 'text-orange-400' },
+  { name: 'Content Creators', icon: Video, color: 'text-pink-400' },
 ];
 
 const logosRow2 = [
-  { name: 'CodeNest', icon: Code2, color: 'text-cyan-400' },
-  { name: 'ChipWorks', icon: Cpu, color: 'text-rose-400' },
-  { name: 'CloudBase', icon: Cloud, color: 'text-sky-400' },
-  { name: 'DesignCo', icon: Palette, color: 'text-pink-400' },
-  { name: 'GrowthLab', icon: TrendingUp, color: 'text-emerald-400' },
+  { name: 'Freelance Teams', icon: Users, color: 'text-cyan-400' },
+  { name: 'Mobile Businesses', icon: Smartphone, color: 'text-sky-400' },
+  { name: 'Marketing Teams', icon: Megaphone, color: 'text-rose-400' },
+  { name: 'Growth Startups', icon: TrendingUp, color: 'text-emerald-400' },
+  { name: 'Enterprise Solutions', icon: Building2, color: 'text-yellow-400' },
 ];
 
 const marqueeStyles = `
@@ -31,7 +39,7 @@ const marqueeStyles = `
   }
 `;
 
-// 4 copies render করা হচ্ছে, animation সরে মাত্র ১ copy এর width
+
 const REPEAT = 4;
 
 function BrandCard({ brand }: any) {
@@ -56,7 +64,7 @@ export function TrustedBySection() {
       <div className="container-custom mb-8">
         <TextReveal>
           <p className="text-center text-sm uppercase tracking-widest text-muted-foreground">
-            Trusted by innovative brands worldwide
+            Trusted by growing businesses and innovators worldwide
           </p>
         </TextReveal>
       </div>
