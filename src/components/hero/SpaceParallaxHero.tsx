@@ -1,11 +1,3 @@
-/**
- * SpaceParallaxHero — Smooth scroll parallax
- *
- * FIX: scroll listener এখন requestAnimationFrame দিয়ে throttle করা।
- * আগে প্রতিটা scroll event-এ setState হত → React re-render → jitter।
- * এখন browser যখন paint করতে প্রস্তুত তখনই update হয়।
- */
-
 import { useEffect, useRef, useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 

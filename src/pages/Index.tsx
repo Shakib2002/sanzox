@@ -10,11 +10,13 @@ import { IndustriesSection } from '@/components/sections/IndustriesSection';
 import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
 import { CTASection } from '@/components/sections/CTASection';
 import { FAQSection } from '@/components/sections/FAQSection';
+import NewHeroSection from '@/components/sections/NewHeroSection';
 
 const Index = () => {
   return (
     <Layout>
-      <HeroSection />
+      <NewHeroSection/>
+      {/* <HeroSection /> */}
       <TrustedBySection />
       <ServicesSection />
       <WhySanzoxSection />

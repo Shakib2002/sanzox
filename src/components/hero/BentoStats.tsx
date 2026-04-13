@@ -35,7 +35,7 @@ export function BentoStats() {
       variants={containerVariants}
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
-      className="mt-12 grid grid-cols-3 gap-3 max-w-md mx-auto lg:mx-0"
+      className="mt-4 grid grid-cols-3 gap-3 max-w-2xl mx-auto lg:mx-0"
     >
       {stats.map((stat, index) => (
         <motion.div
