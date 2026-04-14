@@ -4,7 +4,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { fadeUpVariants } from '@/hooks/useScrollAnimation';
 
 const faqs = [
-  { q: 'What services does SANZOX offer?', a: 'We specialize in AI Automation, YouTube Automation, Video Editing, Website Development, and Shopify solutions.' },
+  { q: 'What services does SANZOX offer?', a: 'We specialize in AI Automation, YouTube Automation, Video Editing, Website Development, and Digital Marketing.' },
   { q: 'How long does a typical project take?', a: 'Project timelines vary based on scope. Most projects are completed within 2-8 weeks.' },
   { q: 'Do you offer ongoing support?', a: 'Yes! We provide 24/7 support and maintenance packages for all our solutions.' },
   { q: 'What is your pricing model?', a: 'We offer project-based and retainer pricing. Contact us for a custom quote.' },

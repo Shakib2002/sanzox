@@ -22,7 +22,7 @@ export function CTASection() {
   const trustIndicators = settings?.cta_trust_indicators || ['Free Consultation', 'No Commitment', '24h Response'];
 
   return (
-    <section className="pb-4 md:pb-8 relative overflow-hidden">
+    <section className="py-4 md:py-8 relative overflow-hidden">
       {/* Particle background */}
       <ParticleField count={40} />
       
@@ -103,7 +103,14 @@ export function CTASection() {
                     ease: 'easeInOut',
                   }}
                 />
-                <Button size="lg" asChild className="relative btn-glow group text-base px-8">
+                <Button size="lg" asChild               
+                  className="btn-glow relative px-8 py-3.5 rounded-lg font-semibold text-base tracking-wide transition-transform duration-300 hover:scale-105 active:scale-95"
+                  style={{
+                    background: "linear-gradient(135deg, hsl(217 91% 60%), hsl(280 70% 55%))",
+                    color: "hsl(222 47% 6%)",
+                    boxShadow: "0 0 30px hsl(217 91% 60% / 0.4)",
+                    willChange: "transform",
+                  }}>
                   <Link to={primaryButtonLink}>
                     {primaryButtonText}
                     <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
@@ -112,7 +119,13 @@ export function CTASection() {
               </div>
             </MagneticButton>
             <MagneticButton magneticStrength={0.2}>
-              <Button size="lg" variant="outline" asChild className="text-base px-8 border-primary/30 hover:border-primary/60">
+              <Button size="lg" variant="outline" asChild 
+                  className="px-8 py-3.5 rounded-lg font-semibold text-base tracking-wide border backdrop-blur-sm transition-all duration-300 hover:scale-105 active:scale-95"
+                  style={{
+                    borderColor: "hsl(217 91% 60% / 0.3)",
+                    color: "hsl(210 40% 98%)",
+                    background: "transparent",
+                  }}>
                 <Link to={secondaryButtonLink}>{secondaryButtonText}</Link>
               </Button>
             </MagneticButton>

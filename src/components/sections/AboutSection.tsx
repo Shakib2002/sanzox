@@ -91,7 +91,7 @@ export function AboutSplitSection() {
             </h2>
             <p className="text-muted-foreground text-lg mb-8">
               SANZOX is a remote-first digital agency bringing together the brightest minds 
-              in automation, design, and development. We're not just building websites—we're 
+              in automation, design, and development. We're not just building websites, we're 
               engineering growth systems.
             </p>
 
@@ -109,7 +109,14 @@ export function AboutSplitSection() {
               ))}
             </ul>
 
-            <Button asChild>
+            <Button asChild               
+                className="btn-glow relative px-6 py-5 rounded-lg font-semibold text-base tracking-wide transition-transform duration-300 hover:scale-105 active:scale-95"
+                style={{
+                  background: "linear-gradient(135deg, hsl(217 91% 60%), hsl(280 70% 55%))",
+                  color: "hsl(222 47% 6%)",
+                  boxShadow: "0 0 30px hsl(217 91% 60% / 0.4)",
+                  willChange: "transform",
+                }}>
               <Link to="/about">
                 Learn More About Us
                 <ArrowRight className="ml-2 h-4 w-4" />

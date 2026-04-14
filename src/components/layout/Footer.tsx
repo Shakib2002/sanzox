@@ -10,11 +10,21 @@ import {
   ArrowUpRight
 } from 'lucide-react';
 import { useSiteSettings, defaultSiteSettings } from '@/hooks/useSiteSettings';
+import logo from "../../assets/6092db2a-794a-45a3-a93e-8de0007250db.png"
 
 // Custom icons for platforms not in Lucide
-const FiverrIcon = ({ size = 18 }: { size?: number }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M23.004 15.588a.995.995 0 1 0-.002-1.99.995.995 0 0 0 .002 1.99zm-.996-3.705h-.85c-.546 0-.84.41-.84 1.092v2.466h-1.61v-3.558h-.684c-.547 0-.84.41-.84 1.092v2.466h-1.61v-4.874h1.61v.74c.264-.574.626-.74 1.163-.74h1.972v.74c.264-.574.625-.74 1.162-.74h1.527v1.316zm-6.786 1.501h-3.359c.088.546.43.858 1.006.858.43 0 .732-.175.878-.478l1.346.617c-.41.858-1.258 1.32-2.225 1.32-1.724 0-2.66-1.178-2.66-2.563 0-1.39.936-2.563 2.537-2.563 1.527 0 2.537 1.106 2.537 2.563 0 .088-.015.175-.015.263l-.045-.017zm-1.582-.82c-.088-.5-.404-.832-.957-.832-.547 0-.87.304-.957.832h1.914zm-3.95-2.137h1.597v4.862h-1.596v-4.862zm.802-2.282a.986.986 0 1 1-.002 1.971.986.986 0 0 1 .002-1.971zM6.08 13.67l1.56-.615c.15.41.463.62.85.62.34 0 .55-.135.55-.347 0-.38-.615-.41-.992-.497-1.068-.264-1.752-.673-1.752-1.602 0-.922.79-1.656 2.02-1.656 1.073 0 1.752.468 2.05 1.19l-1.498.54c-.107-.322-.37-.483-.69-.483-.254 0-.42.117-.42.322 0 .33.566.38.942.468 1.09.264 1.8.644 1.8 1.602 0 .995-.877 1.64-2.195 1.64-1.14 0-1.965-.468-2.225-1.18z"/>
+const FiverrIcon = ({ size = 20 }: { size?: number }) => (
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    viewBox="0 0 508.02 508.02"
+    width={size}
+    height={size}
+  >
+    <circle cx="315.97" cy="162.19" r="26.87" fill="currentColor" />
+    <path 
+      d="M345.87,207.66h-123V199.6c0-15.83,15.83-16.13,23.89-16.13,9.25,0,13.44.9,13.44.9v-43.6a155.21,155.21,0,0,0-19.71-1.19c-25.68,0-73.16,7.16-73.16,61.51V208h-22.4v40.31h22.4v85.1h-20.9v40.31H247.34V333.37H222.85v-85.1H290v85.1H269.13v40.31h97.65V333.37H345.87Z"
+      fill="currentColor"
+    />
   </svg>
 );
 
@@ -36,7 +46,7 @@ const footerLinks = {
     { name: 'YouTube Automation', href: '/services/youtube-automation' },
     { name: 'Video Editing', href: '/services/video-editing' },
     { name: 'Website Development', href: '/services/website-development' },
-    { name: 'Shopify', href: '/services/shopify' },
+    { name: 'Digital Marketing', href: '/services/digital-marketing' },
   ],
   legal: [
     { name: 'Privacy Policy', href: '/privacy' },
@@ -56,7 +66,7 @@ export function Footer() {
     { name: 'YouTube', href: s.social_youtube, icon: Youtube },
     { name: 'Fiverr', href: s.social_fiverr, icon: FiverrIcon },
     { name: 'Upwork', href: s.social_upwork, icon: UpworkIcon },
-  ].filter(link => link.href); // Only show links that have URLs
+  ] 
 
   return (
     <footer className="relative bg-background border-t border-border/50">
@@ -71,15 +81,16 @@ export function Footer() {
         <div className="py-16 lg:py-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand Column */}
           <div className="lg:col-span-1">
-            <Link to="/" className="inline-block mb-4">
-              {s.logo_url ? (
-                <img src={s.logo_url} alt={s.site_name} className="h-8 w-auto" />
+            <Link to="/" className="inline-block mb-1">
+              <img src={logo} alt={s.site_name} className="h-14 md:h-20 w-auto" />
+              {/* {s.logo_url ? (
+                
               ) : (
                 <span className="font-display text-2xl font-bold gradient-text">{s.site_name}</span>
-              )}
+              )} */}
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed mb-6">
-              {s.footer_description}
+              Your pro team for automation-driven growth. We specialize in AI automation, YouTube growth, and digital solutions that transform brands.
             </p>
           </div>
 
@@ -156,7 +167,7 @@ export function Footer() {
                       className="w-9 h-9 rounded-lg bg-secondary/50 flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-colors"
                       aria-label={social.name}
                     >
-                      <social.icon size={16} />
+                      <social.icon size={18} />
                     </a>
                   ))}
                 </div>
