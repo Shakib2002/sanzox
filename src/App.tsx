@@ -9,13 +9,32 @@ import { CursorFollower } from "@/components/ui/CursorFollower";
 import { Preloader } from "@/components/ui/Preloader";
 import { SupportWidgets } from "@/components/support/SupportWidgets";
 import { ErrorBoundary } from "@/components/ui/ErrorBoundary";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const queryClient = new QueryClient();
 
 const App = () => {
   const [isLoaded, setIsLoaded] = useState(false);
 
+  useEffect(() => {
+  const interval = setInterval(async () => {
+    try {
+      await fetch(
+        `https://qksdhteorfupfxtmrlxw.supabase.co/rest/v1/works?select=id&limit=1`,
+        {
+          headers: {
+            apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+            Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+          },
+        }
+      );
+    } catch (err) {
+      console.log("keep-alive failed", err);
+    }
+  }, 300000);
+
+  return () => clearInterval(interval);
+}, []);
   return (
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
