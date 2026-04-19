@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight, Bot, Youtube, Video, Globe,  Megaphone } from 'lucide-react';
+import { ChevronRight, Bot, Youtube, Video, Globe,  Megaphone, Smartphone } from 'lucide-react';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { fadeUpVariants, staggerContainerVariants } from '@/hooks/useScrollAnimation';
 
@@ -27,7 +27,7 @@ const services = [
     description: 'Professional video editing that captivates your audience and tells your brand story.',
     features: ['Professional Editing', 'Motion Graphics', 'Color Grading', 'Sound Design'],
   },
-{
+  {
     id: 'website-development',
     icon: Globe,
     title: 'Website Development',
@@ -40,6 +40,19 @@ const services = [
     title: 'Digital Marketing',
     description: 'We help businesses grow online with data-driven marketing strategies that improve reach, engagement, and conversions.',
     features: ['Social Media Marketing', 'SEO', 'Paid Ads', 'Conversion Optimization'],
+  },
+  {
+    id: 'flutter-app-development',
+    icon: Smartphone,
+    title: 'Flutter App Development',
+    description: 'Build high-performance cross-platform mobile applications using Flutter for both Android and iOS with a single codebase.',
+    features: [
+      'Cross-Platform Apps',
+      'Custom UI/UX Design',
+      'API Integration',
+      'Firebase Integration',
+      'App Deployment'
+    ],
   },
 ];
 
