@@ -1,73 +1,76 @@
-# Welcome to your Lovable project
+# SANZOX
 
-## Project info
+Welcome to **SANZOX** a modern digital agency focused on building smart, scalable, and impactful digital solutions.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## 🌐 About SANZOX
 
-## How can I edit this code?
+SANZOX is a full-service digital agency offering cutting-edge solutions in web development, automation, and digital growth. Our mission is to help businesses grow faster using technology, creativity, and data-driven strategies.
 
-There are several ways of editing your application.
+---
 
-**Use Lovable**
+## Services We Offer
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+### AI Automation
+- Workflow Automation
+- AI Chatbots
+- Process Optimization
+- Data Analysis & Insights
 
-Changes made via Lovable will be committed automatically to this repo.
+### YouTube Automation
+- Channel Setup & Strategy
+- Script Writing
+- Video Editing
+- Thumbnail Design
+- SEO Optimization
 
-**Use your preferred IDE**
+### Video Editing
+- Social Media Videos
+- YouTube Content Editing
+- Motion Graphics
+- Color Grading
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Website Development
+- Custom Website Development
+- E-commerce (Shopify / Custom)
+- Responsive Design
+- Performance Optimization
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Digital Marketing
+- Social Media Marketing
+- Search Engine Optimization (SEO)
+- Paid Advertising Campaigns
+- Content Marketing
 
-Follow these steps:
+### Flutter App Development
+- Cross-platform Mobile Apps
+- UI/UX Design
+- API Integration
+- App Deployment
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+---
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+## Tech Stack
 
-# Step 3: Install the necessary dependencies.
-npm i
+- **Frontend:** Next.js, Tailwind CSS, TypeScript
+- **Backend:** Node.js, Express.js
+- **Database:** MongoDB
+- **Mobile:** Flutter
+- **Tools:** Firebase, Git, REST APIs
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+---
 
-**Edit a file directly in GitHub**
+## Our Goal
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+We aim to deliver high-quality digital solutions that:
+- Save time through automation
+- Increase online visibility
+- Boost business growth
+- Enhance user experience
 
-**Use GitHub Codespaces**
+---
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Contact
 
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Have a project in mind? Let’s work together.
+Email: hello.sanzox@gmail.com
+Website: SANZOX(https://sanzox.vercel.app/)
