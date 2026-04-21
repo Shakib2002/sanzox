@@ -11,6 +11,7 @@ import { SupportWidgets } from "@/components/support/SupportWidgets";
 import { ErrorBoundary } from "@/components/ui/ErrorBoundary";
 import { useState } from "react";
 import { NewPreloader } from "./components/ui/NewPreloader";
+import ScrollToTop from "./components/ui/ScrollToTop";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +29,7 @@ const App = () => {
                 <Toaster />
                 <Sonner />
                 <BrowserRouter>
+                  <ScrollToTop/>
                   <AnimatedRoutes />
                   <SupportWidgets 
                     whatsappNumber="8801516522978"
