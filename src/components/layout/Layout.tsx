@@ -17,7 +17,7 @@ export function Layout({ children, title, description, image }: LayoutProps) {
       <SEOHead title={title} description={description} image={image} />
       
       {/* Scroll progress indicator */}
-      <ScrollProgress />
+      {/* <ScrollProgress /> */}
       
       {/* Star background */}
       <div className="fixed inset-0 stars-bg opacity-50 pointer-events-none" />

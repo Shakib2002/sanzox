@@ -10,6 +10,7 @@ import { Preloader } from "@/components/ui/Preloader";
 import { SupportWidgets } from "@/components/support/SupportWidgets";
 import { ErrorBoundary } from "@/components/ui/ErrorBoundary";
 import { useState } from "react";
+import { NewPreloader } from "./components/ui/NewPreloader";
 
 const queryClient = new QueryClient();
 
@@ -20,7 +21,7 @@ const App = () => {
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
           <TooltipProvider>
-            <Preloader onLoadComplete={() => setIsLoaded(true)} />
+            <NewPreloader onLoadComplete={() => setIsLoaded(true)} />
             {isLoaded && (
               <>
                 <CursorFollower />

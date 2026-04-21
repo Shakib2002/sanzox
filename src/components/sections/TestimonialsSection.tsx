@@ -20,6 +20,10 @@ const testimonials = [
   { id: '5', name: 'Michael Park', role: 'CTO', company: 'InnovateTech', quote: 'Best investment we made. The automation tools they delivered exceeded expectations.', rating: 5 },
 ];
 
+function getInitials(name: string) {
+  return name.split(' ').map((n) => n[0]).join('').slice(0, 2).toUpperCase();
+}
+
 export function TestimonialsSection() {
   const autoplayPlugin = useRef(
     Autoplay({ delay: 4000, stopOnInteraction: true, stopOnMouseEnter: true })
@@ -28,11 +32,11 @@ export function TestimonialsSection() {
   return (
     <section className="section-padding overflow-hidden">
       <div className="container-custom">
-        <SectionHeading 
-          badge="Testimonials" 
-          title={<>What Our <span className="gradient-text">Clients Say</span></>} 
+        <SectionHeading
+          badge="Testimonials"
+          title={<>What our <span className="gradient-text">clients say</span></>}
         />
-        
+
         <motion.div
           variants={fadeUpVariants}
           initial="hidden"
@@ -41,11 +45,7 @@ export function TestimonialsSection() {
           className="relative"
         >
           <Carousel
-            opts={{
-              align: 'start',
-              loop: true,
-              dragFree: true,
-            }}
+            opts={{ align: 'start', loop: true, dragFree: true }}
             plugins={[autoplayPlugin.current]}
             className="w-full cursor-grab active:cursor-grabbing"
           >
@@ -56,8 +56,9 @@ export function TestimonialsSection() {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="left-0 bg-card/80 backdrop-blur-md border-white/10 hover:bg-card hover:border-primary/50 transition-all" />
-            <CarouselNext className="right-0 bg-card/80 backdrop-blur-md border-white/10 hover:bg-card hover:border-primary/50 transition-all" />
+
+            <CarouselPrevious className="left-0 bg-background/80 backdrop-blur-md border-border/40 hover:border-primary/40 transition-all" />
+            <CarouselNext className="right-0 bg-background/80 backdrop-blur-md border-border/40 hover:border-primary/40 transition-all" />
           </Carousel>
         </motion.div>
       </div>
@@ -78,54 +79,45 @@ interface TestimonialCardProps {
 
 function TestimonialCard({ testimonial }: TestimonialCardProps) {
   return (
-    <motion.div
-      whileHover={{ y: -5, scale: 1.02 }}
-      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-      className="h-full"
-    >
-      <div className="relative h-full p-6 rounded-2xl bg-card/40 backdrop-blur-xl border border-white/10 hover:border-primary/30 transition-all duration-300 group overflow-hidden">
-        {/* Gradient glow effect */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-        
-        {/* Quote icon */}
-        <div className="absolute top-4 right-4 opacity-10 group-hover:opacity-20 transition-opacity">
-          <Quote className="w-12 h-12 text-primary" />
+    <div className="h-full p-6 rounded-2xl border border-border/40 bg-secondary/20 hover:border-border/70 hover:bg-secondary/30 transition-all duration-300 flex flex-col gap-5">
+
+      {/* Stars + quote icon row */}
+      <div className="flex items-center justify-between">
+        <div className="flex gap-0.5">
+          {Array.from({ length: testimonial.rating }).map((_, i) => (
+            <Star
+              key={i}
+              className="w-4 h-4 fill-amber-400 text-amber-400"
+            />
+          ))}
         </div>
-        
-        {/* Content */}
-        <div className="relative z-10">
-          {/* Stars */}
-          <div className="flex gap-1 mb-4">
-            {[...Array(testimonial.rating)].map((_, i) => (
-              <Star 
-                key={i} 
-                className="w-4 h-4 fill-primary text-primary drop-shadow-[0_0_6px_hsl(var(--primary)/0.5)]" 
-              />
-            ))}
-          </div>
-          
-          {/* Quote */}
-          <p className="text-muted-foreground mb-6 leading-relaxed">
-            "{testimonial.quote}"
-          </p>
-          
-          {/* Author */}
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary/30 to-accent/30 flex items-center justify-center text-primary font-bold text-lg border border-white/10 shadow-lg">
-              {testimonial.name[0]}
-            </div>
-            <div>
-              <p className="font-semibold text-foreground">{testimonial.name}</p>
-              <p className="text-sm text-muted-foreground">
-                {testimonial.role}, {testimonial.company}
-              </p>
-            </div>
-          </div>
-        </div>
-        
-        {/* Animated border gradient */}
-        <div className="absolute inset-0 rounded-2xl border border-transparent bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ padding: '1px', mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)', maskComposite: 'xor' }} />
+        <Quote className="w-6 h-6 text-border/60" />
       </div>
-    </motion.div>
+
+      {/* Quote */}
+      <p className="text-sm text-muted-foreground leading-relaxed flex-1">
+        "{testimonial.quote}"
+      </p>
+
+      {/* Author */}
+      <div className="flex items-center gap-3 pt-2 border-t border-border/30">
+        <div
+          className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold shrink-0"
+          style={{
+            background: 'linear-gradient(135deg, hsl(217 91% 60% / 0.15), hsl(280 70% 55% / 0.15))',
+            border: '1px solid hsl(217 91% 60% / 0.25)',
+            color: 'hsl(217 91% 60%)',
+          }}
+        >
+          {getInitials(testimonial.name)}
+        </div>
+        <div>
+          <p className="text-sm font-semibold leading-tight">{testimonial.name}</p>
+          <p className="text-xs text-muted-foreground mt-0.5">
+            {testimonial.role} · {testimonial.company}
+          </p>
+        </div>
+      </div>
+    </div>
   );
 }

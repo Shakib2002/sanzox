@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowRight, Sparkles, CheckCircle2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { MagneticButton } from '@/components/ui/MagneticButton';
 import { ParticleField } from '@/components/ui/ParticleField';
@@ -22,130 +22,129 @@ export function CTASection() {
   const trustIndicators = settings?.cta_trust_indicators || ['Free Consultation', 'No Commitment', '24h Response'];
 
   return (
-    <section className="py-4 md:py-8 relative overflow-hidden">
-      {/* Particle background */}
-      <ParticleField count={40} />
-      
-      {/* Gradient overlays */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
-      <motion.div 
-        animate={{ 
-          opacity: [0.3, 0.5, 0.3],
-          scale: [1, 1.1, 1],
+    <section className="py-20 md:py-28 relative overflow-hidden">
+      <ParticleField count={30} />
+
+      {/* Soft radial glow */}
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[360px] pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse at center, hsl(217 91% 60% / 0.12) 0%, transparent 70%)',
         }}
-        transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary/10 rounded-full blur-[120px]" 
       />
-      
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background pointer-events-none" />
+
       <div className="container-custom relative z-10">
-        <motion.div 
-          variants={fadeUpVariants} 
-          initial="hidden" 
-          whileInView="visible" 
-          viewport={{ once: true }} 
-          className="text-center max-w-4xl mx-auto"
+        <motion.div
+          variants={fadeUpVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="max-w-3xl mx-auto text-center"
         >
           {/* Badge */}
           <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4 }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium mb-7"
+            style={{
+              background: 'hsl(217 91% 60% / 0.1)',
+              border: '1px solid hsl(217 91% 60% / 0.25)',
+              color: 'hsl(217 91% 60%)',
+            }}
+          >
+            <Sparkles className="w-3.5 h-3.5" />
+            {badge}
+          </motion.div>
+
+          {/* Headline */}
+          <motion.h2
+            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-5 leading-[1.15] tracking-tight"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-8 backdrop-blur-sm"
-          >
-            <Sparkles className="w-4 h-4" />
-            {badge}
-          </motion.div>
-          
-          {/* Headline */}
-          <motion.h2 
-            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
+            transition={{ delay: 0.08, duration: 0.45 }}
           >
             {headline}{' '}
             <span className="gradient-text shimmer-text">{headlineHighlight}</span>
             <br />
-            <span className="text-muted-foreground">{headlineSuffix}</span>
+            <span className="text-muted-foreground font-medium">{headlineSuffix}</span>
           </motion.h2>
-          
+
           {/* Description */}
-          <motion.p 
-            className="text-muted-foreground text-lg md:text-xl mb-10 max-w-2xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
+          <motion.p
+            className="text-muted-foreground text-lg leading-relaxed mb-10 max-w-xl mx-auto"
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
+            transition={{ delay: 0.16, duration: 0.4 }}
           >
             {description}
           </motion.p>
-          
-          {/* CTA Buttons */}
-          <motion.div 
-            className="flex flex-col sm:flex-row gap-4 justify-center"
-            initial={{ opacity: 0, y: 20 }}
+
+          {/* Buttons */}
+          <motion.div
+            className="flex flex-col sm:flex-row gap-3 justify-center"
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.3 }}
+            transition={{ delay: 0.24, duration: 0.4 }}
           >
             <MagneticButton>
-              <div className="relative">
-                <motion.div
-                  className="absolute -inset-1 rounded-lg bg-gradient-to-r from-primary via-primary/80 to-primary blur-md opacity-60"
-                  animate={{
-                    opacity: [0.4, 0.8, 0.4],
-                    scale: [0.98, 1.02, 0.98],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: 'easeInOut',
-                  }}
-                />
-                <Button size="lg" asChild               
-                  className="btn-glow relative px-8 py-3.5 rounded-lg font-semibold text-base tracking-wide transition-transform duration-300 hover:scale-105 active:scale-95"
-                  style={{
-                    background: "linear-gradient(135deg, hsl(217 91% 60%), hsl(280 70% 55%))",
-                    color: "hsl(222 47% 6%)",
-                    boxShadow: "0 0 30px hsl(217 91% 60% / 0.4)",
-                    willChange: "transform",
-                  }}>
-                  <Link to={primaryButtonLink}>
-                    {primaryButtonText}
-                    <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                </Button>
-              </div>
+              <Button
+                size="lg"
+                asChild
+                className="btn-glow relative px-8 py-3.5 rounded-xl font-semibold text-base tracking-wide transition-transform duration-300 hover:scale-[1.03] active:scale-95"
+                style={{
+                  background: 'linear-gradient(135deg, hsl(217 91% 60%), hsl(280 70% 55%))',
+                  color: 'hsl(222 47% 6%)',
+                  boxShadow: '0 0 28px hsl(217 91% 60% / 0.35)',
+                  willChange: 'transform',
+                }}
+              >
+                <Link to={primaryButtonLink} className="flex items-center gap-2">
+                  {primaryButtonText}
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </Button>
             </MagneticButton>
+
             <MagneticButton magneticStrength={0.2}>
-              <Button size="lg" variant="outline" asChild 
-                  className="px-8 py-3.5 rounded-lg font-semibold text-base tracking-wide border backdrop-blur-sm transition-all duration-300 hover:scale-105 active:scale-95"
-                  style={{
-                    borderColor: "hsl(217 91% 60% / 0.3)",
-                    color: "hsl(210 40% 98%)",
-                    background: "transparent",
-                  }}>
+              <Button
+                size="lg"
+                variant="outline"
+                asChild
+                className="px-8 py-3.5 rounded-xl font-semibold text-base tracking-wide transition-all duration-300 hover:scale-[1.03] active:scale-95"
+                style={{
+                  borderColor: 'hsl(217 91% 60% / 0.3)',
+                  background: 'transparent',
+                  color: "hsl(210 40% 98%)",
+                }}
+              >
                 <Link to={secondaryButtonLink}>{secondaryButtonText}</Link>
               </Button>
             </MagneticButton>
           </motion.div>
-          
+
           {/* Trust indicators */}
-          <motion.div 
-            className="mt-12 flex flex-wrap items-center justify-center gap-8 text-sm text-muted-foreground"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.5 }}
-          >
-            {trustIndicators.map((indicator, index) => (
-              <div key={index} className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-success" />
-                <span>{indicator}</span>
-              </div>
-            ))}
-          </motion.div>
+          {trustIndicators.length > 0 && (
+            <motion.div
+              className="mt-10 flex flex-wrap items-center justify-center gap-6"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.36, duration: 0.4 }}
+            >
+              {trustIndicators.map((indicator, index) => (
+                <div key={index} className="flex items-center gap-1.5 text-sm text-muted-foreground">
+                  <CheckCircle2 className="w-4 h-4 text-primary shrink-0" style={{ color: 'hsl(217 91% 60%)' }} />
+                  <span>{indicator}</span>
+                </div>
+              ))}
+            </motion.div>
+          )}
         </motion.div>
       </div>
     </section>
