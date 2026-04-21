@@ -72,5 +72,6 @@ We aim to deliver high-quality digital solutions that:
 ## Contact
 
 Have a project in mind? Let’s work together.
+
 Email: hello.sanzox@gmail.com
-Website: SANZOX(https://sanzox.vercel.app/)
+Website: [SANZOX](https://sanzox.vercel.app/)
