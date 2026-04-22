@@ -13,7 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
-import { fadeUpVariants, slideInLeftVariants, slideInRightVariants } from '@/hooks/useScrollAnimation';
+import { slideInLeftVariants, slideInRightVariants } from '@/hooks/useScrollAnimation';
 import { FAQSection } from '@/components/sections/FAQSection';
 import heroContactImage from '@/assets/hero-contact.jpg';
 
@@ -22,7 +22,6 @@ const contactSchema = z.object({
   email: z.string().trim().email('Please enter a valid email').max(255, 'Email must be less than 255 characters'),
   company: z.string().trim().max(100, 'Company must be less than 100 characters').optional(),
   service_interest: z.string().optional(),
-  budget_range: z.string().optional(),
   message: z.string().trim().min(10, 'Message must be at least 10 characters').max(2000, 'Message must be less than 2000 characters'),
 });
 
@@ -33,16 +32,9 @@ const services = [
   { value: 'youtube-automation', label: 'YouTube Automation' },
   { value: 'video-editing', label: 'Video Editing' },
   { value: 'website-development', label: 'Website Development' },
-  { value: 'shopify', label: 'Shopify Development' },
+  { value: 'digital-marketing', label: 'Digital Marketing' },
+  { value: 'flutter-app-development', label: 'Flutter App Development' },
   { value: 'other', label: 'Other' },
-];
-
-const budgets = [
-  { value: 'under-5k', label: 'Under $5,000' },
-  { value: '5k-10k', label: '$5,000 - $10,000' },
-  { value: '10k-25k', label: '$10,000 - $25,000' },
-  { value: '25k-50k', label: '$25,000 - $50,000' },
-  { value: 'over-50k', label: 'Over $50,000' },
 ];
 
 export default function ContactPage() {
@@ -57,14 +49,13 @@ export default function ContactPage() {
       email: '',
       company: '',
       service_interest: '',
-      budget_range: '',
       message: '',
     },
   });
 
   const onSubmit = async (data: ContactFormData) => {
     setIsSubmitting(true);
-    
+
     try {
       const response = await supabase.functions.invoke('submit-lead', {
         body: {
@@ -72,7 +63,6 @@ export default function ContactPage() {
           email: data.email,
           company: data.company || null,
           service_interest: data.service_interest || null,
-          budget_range: data.budget_range || null,
           message: data.message,
           source: 'contact_page',
         },
@@ -82,7 +72,6 @@ export default function ContactPage() {
         throw new Error(response.error.message || 'Failed to submit');
       }
 
-      // Check for rate limit or validation errors
       if (response.data?.error) {
         toast({
           title: 'Submission failed',
@@ -115,13 +104,16 @@ export default function ContactPage() {
       {/* Hero */}
       <section className="pt-20 pb-16 relative overflow-hidden">
         <div className="absolute inset-0 bg-hero-gradient opacity-50 pointer-events-none" />
-        {/* Hero background image */}
         <div className="absolute inset-0 opacity-20 pointer-events-none">
           <img src={heroContactImage} alt="" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-b from-background via-background/80 to-background" />
         </div>
         <div className="container-custom relative">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center max-w-3xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-center max-w-3xl mx-auto"
+          >
             <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-4">
               Contact Us
             </span>
@@ -139,8 +131,15 @@ export default function ContactPage() {
       <section className="section-padding pt-0">
         <div className="container-custom">
           <div className="grid lg:grid-cols-5 gap-12">
+
             {/* Form */}
-            <motion.div variants={slideInLeftVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} className="lg:col-span-3">
+            <motion.div
+              variants={slideInLeftVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="lg:col-span-3"
+            >
               <GlassCard className="p-8">
                 {isSubmitted ? (
                   <div className="text-center py-12">
@@ -148,12 +147,15 @@ export default function ContactPage() {
                       <CheckCircle2 size={32} />
                     </div>
                     <h3 className="heading-md mb-2">Thank you!</h3>
-                    <p className="text-muted-foreground mb-6">We've received your message and will be in touch soon.</p>
+                    <p className="text-muted-foreground mb-6">
+                      We've received your message and will be in touch soon.
+                    </p>
                     <Button onClick={() => setIsSubmitted(false)}>Send Another Message</Button>
                   </div>
                 ) : (
                   <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+
                       <div className="grid sm:grid-cols-2 gap-6">
                         <FormField
                           control={form.control}
@@ -183,21 +185,20 @@ export default function ContactPage() {
                         />
                       </div>
 
-                      <FormField
-                        control={form.control}
-                        name="company"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Company</FormLabel>
-                            <FormControl>
-                              <Input placeholder="Your company name" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-
                       <div className="grid sm:grid-cols-2 gap-6">
+                        <FormField
+                          control={form.control}
+                          name="company"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Company</FormLabel>
+                              <FormControl>
+                                <Input placeholder="Your company name" {...field} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
                         <FormField
                           control={form.control}
                           name="service_interest"
@@ -220,28 +221,6 @@ export default function ContactPage() {
                             </FormItem>
                           )}
                         />
-                        <FormField
-                          control={form.control}
-                          name="budget_range"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Budget Range</FormLabel>
-                              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                <FormControl>
-                                  <SelectTrigger>
-                                    <SelectValue placeholder="Select budget" />
-                                  </SelectTrigger>
-                                </FormControl>
-                                <SelectContent>
-                                  {budgets.map(b => (
-                                    <SelectItem key={b.value} value={b.value}>{b.label}</SelectItem>
-                                  ))}
-                                </SelectContent>
-                              </Select>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
                       </div>
 
                       <FormField
@@ -251,17 +230,27 @@ export default function ContactPage() {
                           <FormItem>
                             <FormLabel>Message *</FormLabel>
                             <FormControl>
-                              <Textarea placeholder="Tell us about your project..." rows={5} {...field} />
+                              <Textarea
+                                placeholder="Tell us about your project..."
+                                rows={5}
+                                {...field}
+                              />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
                         )}
                       />
 
-                      <Button type="submit" size="lg" className="w-full btn-glow" disabled={isSubmitting}>
+                      <Button
+                        type="submit"
+                        size="lg"
+                        className="w-full btn-glow"
+                        disabled={isSubmitting}
+                      >
                         {isSubmitting ? 'Sending...' : 'Send Message'}
                         <Send className="ml-2 h-5 w-5" />
                       </Button>
+
                     </form>
                   </Form>
                 )}
@@ -269,7 +258,13 @@ export default function ContactPage() {
             </motion.div>
 
             {/* Contact Info */}
-            <motion.div variants={slideInRightVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} className="lg:col-span-2 space-y-6">
+            <motion.div
+              variants={slideInRightVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="lg:col-span-2 space-y-6"
+            >
               <GlassCard>
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
@@ -277,14 +272,64 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Email Us</h3>
-                    <a href="mailto:hello.sanzox@gmail.com" className="text-muted-foreground hover:text-primary transition-colors">
+                    <a
+                      href="mailto:hello.sanzox@gmail.com"
+                      className="text-muted-foreground hover:text-primary transition-colors"
+                    >
                       hello.sanzox@gmail.com
                     </a>
                   </div>
                 </div>
               </GlassCard>
 
+
+                 {/* social */}
               <GlassCard>
+                  <h3 className="font-semibold mb-3">Follow Us</h3>
+                  <div className="flex items-center gap-3 flex-wrap">
+                    {[
+                      { href: '#', label: 'LinkedIn', icon: (
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/>
+                        </svg>
+                      )},
+                      { href: '#', label: 'Facebook', icon: (
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                        </svg>
+                      )},
+                      { href: '#', label: 'Instagram', icon: (
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+                        </svg>
+                      )},
+                      { href: '#', label: 'X', icon: (
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.213 5.567 5.95-5.567Zm-1.161 17.52h1.833L7.084 4.126H5.117Z"/>
+                        </svg>
+                      )},
+                      { href: '#', label: 'YouTube', icon: (
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white"/>
+                        </svg>
+                      )},
+             
+                    ].map(({ href, label, icon }) => (
+                      <a
+                        key={label}
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={label}
+                        className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-primary/20 hover:border-primary/40 transition-all duration-200"
+                      >
+                        {icon}
+                      </a>
+                    ))}
+                  </div>
+              </GlassCard>
+
+              {/* <GlassCard>
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
                     <MapPin size={24} />
@@ -297,16 +342,18 @@ export default function ContactPage() {
                     </p>
                   </div>
                 </div>
-              </GlassCard>
+              </GlassCard> */}
 
               <GlassCard className="bg-gradient-to-br from-primary/20 to-primary/5">
                 <h3 className="font-semibold mb-2">Response Time</h3>
                 <p className="text-muted-foreground text-sm">
-                  We typically respond within 24 hours during business days. For urgent matters, 
+                  We typically respond within 24 hours during business days. For urgent matters,
                   please indicate in your message.
                 </p>
               </GlassCard>
+           
             </motion.div>
+
           </div>
         </div>
       </section>

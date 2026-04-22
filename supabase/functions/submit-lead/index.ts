@@ -5,12 +5,9 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 }
 
-// In-memory rate limiting store (resets on function cold start)
-// For production, consider using Redis or database-backed rate limiting
 const rateLimitStore = new Map<string, { count: number; resetTime: number }>()
-
-const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000 // 1 hour
-const MAX_REQUESTS_PER_WINDOW = 5 // 5 submissions per hour per IP
+const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000
+const MAX_REQUESTS_PER_WINDOW = 5
 
 function isRateLimited(ip: string): boolean {
   const now = Date.now()
@@ -29,7 +26,6 @@ function isRateLimited(ip: string): boolean {
   return false
 }
 
-// Input validation
 function validateLeadData(data: unknown): { valid: boolean; error?: string; sanitized?: Record<string, unknown> } {
   if (!data || typeof data !== 'object') {
     return { valid: false, error: 'Invalid request body' }
@@ -37,7 +33,6 @@ function validateLeadData(data: unknown): { valid: boolean; error?: string; sani
 
   const body = data as Record<string, unknown>
 
-  // Required fields
   if (typeof body.name !== 'string' || body.name.trim().length === 0) {
     return { valid: false, error: 'Name is required' }
   }
@@ -51,13 +46,11 @@ function validateLeadData(data: unknown): { valid: boolean; error?: string; sani
   if (body.email.length > 255) {
     return { valid: false, error: 'Email must be less than 255 characters' }
   }
-  // Basic email validation
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   if (!emailRegex.test(body.email.trim())) {
     return { valid: false, error: 'Invalid email format' }
   }
 
-  // Optional fields with length limits
   if (body.company !== undefined && body.company !== null && typeof body.company !== 'string') {
     return { valid: false, error: 'Company must be a string' }
   }
@@ -83,15 +76,6 @@ function validateLeadData(data: unknown): { valid: boolean; error?: string; sani
     }
   }
 
-  if (body.budget_range !== undefined && body.budget_range !== null) {
-    if (typeof body.budget_range !== 'string') {
-      return { valid: false, error: 'Budget range must be a string' }
-    }
-    if (body.budget_range.length > 50) {
-      return { valid: false, error: 'Budget range must be less than 50 characters' }
-    }
-  }
-
   if (body.source !== undefined && body.source !== null) {
     if (typeof body.source !== 'string') {
       return { valid: false, error: 'Source must be a string' }
@@ -101,9 +85,7 @@ function validateLeadData(data: unknown): { valid: boolean; error?: string; sani
     }
   }
 
-  // Honeypot field check - if this field has a value, it's likely a bot
   if (body.website && typeof body.website === 'string' && body.website.trim().length > 0) {
-    // Silently reject bot submissions without revealing why
     return { valid: false, error: 'submission_blocked' }
   }
 
@@ -115,14 +97,85 @@ function validateLeadData(data: unknown): { valid: boolean; error?: string; sani
       company: body.company ? (body.company as string).trim() : null,
       message: body.message ? (body.message as string).trim() : null,
       service_interest: body.service_interest ? (body.service_interest as string).trim() : null,
-      budget_range: body.budget_range ? (body.budget_range as string).trim() : null,
       source: body.source ? (body.source as string).trim() : 'website',
     }
   }
 }
 
+async function sendEmailNotification(data: Record<string, unknown>): Promise<void> {
+  const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY')
+  if (!RESEND_API_KEY) {
+    console.warn('RESEND_API_KEY not set — skipping email notification')
+    return
+  }
+
+  const name = data.name as string
+  const email = data.email as string
+  const company = data.company as string | null
+  const message = data.message as string | null
+  const service_interest = data.service_interest as string | null
+
+  const serviceLabel = service_interest
+    ? service_interest.replace(/-/g, ' ').replace(/\b\w/g, (l: string) => l.toUpperCase())
+    : 'Not specified'
+
+  const htmlBody = `
+    <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 32px; background: #f9f9f9; border-radius: 8px;">
+      <h2 style="margin: 0 0 24px; font-size: 20px; color: #111;">New contact form submission</h2>
+
+      <table style="width: 100%; border-collapse: collapse; background: #fff; border-radius: 8px; overflow: hidden;">
+        <tr style="border-bottom: 1px solid #eee;">
+          <td style="padding: 12px 16px; font-size: 13px; color: #888; width: 130px;">Name</td>
+          <td style="padding: 12px 16px; font-size: 14px; color: #111; font-weight: 500;">${name}</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #eee;">
+          <td style="padding: 12px 16px; font-size: 13px; color: #888;">Email</td>
+          <td style="padding: 12px 16px; font-size: 14px;"><a href="mailto:${email}" style="color: #3b82f6;">${email}</a></td>
+        </tr>
+        <tr style="border-bottom: 1px solid #eee;">
+          <td style="padding: 12px 16px; font-size: 13px; color: #888;">Company</td>
+          <td style="padding: 12px 16px; font-size: 14px; color: #111;">${company || '—'}</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #eee;">
+          <td style="padding: 12px 16px; font-size: 13px; color: #888;">Service</td>
+          <td style="padding: 12px 16px; font-size: 14px; color: #111;">${serviceLabel}</td>
+        </tr>
+        <tr>
+          <td style="padding: 12px 16px; font-size: 13px; color: #888; vertical-align: top;">Message</td>
+          <td style="padding: 12px 16px; font-size: 14px; color: #111; line-height: 1.6;">${message ? message.replace(/\n/g, '<br>') : '—'}</td>
+        </tr>
+      </table>
+
+      <p style="margin: 24px 0 0; font-size: 12px; color: #aaa; text-align: center;">
+        Sent via Sanzox contact form
+      </p>
+    </div>
+  `
+
+  const res = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${RESEND_API_KEY}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      from: 'Sanzox Contact <onboarding@resend.dev>',
+      to: ['hello.sanzox@gmail.com'],
+      reply_to: email,
+      subject: `New message from ${name} — ${serviceLabel}`,
+      html: htmlBody,
+    }),
+  })
+
+  if (!res.ok) {
+    const err = await res.text()
+    console.error('Resend error:', err)
+  } else {
+    console.log('Email notification sent successfully')
+  }
+}
+
 Deno.serve(async (req) => {
-  // Handle CORS preflight
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders })
   }
@@ -135,13 +188,11 @@ Deno.serve(async (req) => {
   }
 
   try {
-    // Get client IP for rate limiting
-    const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 
-               req.headers.get('cf-connecting-ip') || 
-               req.headers.get('x-real-ip') || 
+    const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
+               req.headers.get('cf-connecting-ip') ||
+               req.headers.get('x-real-ip') ||
                'unknown'
 
-    // Check rate limit
     if (isRateLimited(ip)) {
       console.log(`Rate limit exceeded for IP: ${ip}`)
       return new Response(
@@ -150,7 +201,6 @@ Deno.serve(async (req) => {
       )
     }
 
-    // Parse and validate request body
     let body: unknown
     try {
       body = await req.json()
@@ -163,7 +213,6 @@ Deno.serve(async (req) => {
 
     const validation = validateLeadData(body)
     if (!validation.valid) {
-      // For honeypot blocks, return success to avoid revealing detection
       if (validation.error === 'submission_blocked') {
         console.log(`Bot detected from IP: ${ip}`)
         return new Response(
@@ -177,12 +226,10 @@ Deno.serve(async (req) => {
       )
     }
 
-    // Create Supabase client with service role for insert
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!
     const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
     const supabase = createClient(supabaseUrl, supabaseServiceKey)
 
-    // Insert lead into database
     const { data, error } = await supabase.from('leads').insert(validation.sanitized).select().single()
 
     if (error) {
@@ -194,6 +241,10 @@ Deno.serve(async (req) => {
     }
 
     console.log(`Lead submitted successfully from IP: ${ip}, ID: ${data?.id}`)
+
+    // Email notification — database fail করলেও এটা চলবে
+    await sendEmailNotification(validation.sanitized!)
+
     return new Response(
       JSON.stringify({ success: true, id: data?.id }),
       { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }

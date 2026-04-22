@@ -15,6 +15,12 @@ interface TeamMemberCardProps {
   socials?: SocialLinks;
 }
 
+const X = ({ size = 18 }: { size?: number }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
+       <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.213 5.567 5.95-5.567Zm-1.161 17.52h1.833L7.084 4.126H5.117Z"/>
+      </svg>
+);
+
 export function TeamMemberCard({ name, role, bio, image, socials }: TeamMemberCardProps) {
   return (
     <motion.div
@@ -64,7 +70,7 @@ export function TeamMemberCard({ name, role, bio, image, socials }: TeamMemberCa
                   rel="noopener noreferrer"
                   className="w-10 h-10 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-colors duration-200"
                 >
-                  <Twitter size={18} />
+                  <X size={18} />
                 </a>
               )}
               {socials.email && (
