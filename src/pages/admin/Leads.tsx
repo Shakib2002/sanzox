@@ -60,7 +60,7 @@ export default function AdminLeads() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold mb-1">Leads</h1>
+          <h1 className="text-2xl font-bold mb-1">Messages From Client</h1>
           <p className="text-muted-foreground">Contact form submissions from your website</p>
         </div>
       </div>
