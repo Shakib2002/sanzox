@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { GlassCard } from '@/components/ui/GlassCard';
 import { fadeUpVariants, staggerContainerVariants, slideInLeftVariants, slideInRightVariants } from '@/hooks/useScrollAnimation';
-import teamCollaboration from '@/assets/team-collaboration.jpg';
+import teamCollaboration from '@/assets/team/team-image-1.webp';
 
 const benefits = [
   {
@@ -86,21 +86,19 @@ export function AboutSplitSection() {
               About SANZOX
             </span>
             <h2 className="heading-lg mb-6">
-              We are from{' '}
-              <span className="gradient-text">another space</span>
+             Building smarter solutions,{' '}
+              <span className="gradient-text">together.</span>
             </h2>
             <p className="text-muted-foreground text-lg mb-8">
-              SANZOX is a remote-first digital agency bringing together the brightest minds 
-              in automation, design, and development. We're not just building websites, we're 
-              engineering growth systems.
+              SANZOX is a remote-first digital agency where automation, design, and development come together to create systems that scale businesses, not just websites.
             </p>
 
             <ul className="space-y-4 mb-8">
               {[
-                'Fast delivery without compromising quality',
-                'Transparent process with clear milestones',
-                'Measurable outcomes with data-driven insights',
-                'Dedicated team for every project',
+                'Fast delivery without cutting corners',
+                'Full transparency with clear milestones',
+                'Data-driven decisions, measurable results',
+                'A dedicated team focused on your growth',
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3">
                   <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" />
@@ -144,9 +142,9 @@ export function AboutSplitSection() {
               <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-background/80 backdrop-blur-sm border border-primary/30 text-xs font-medium text-primary">
                 Remote-First
               </div>
-              <div className="absolute bottom-4 left-4 px-3 py-1 rounded-full bg-background/80 backdrop-blur-sm border border-primary/30 text-xs font-medium text-primary">
+              {/* <div className="absolute bottom-4 left-4 px-3 py-1 rounded-full bg-background/80 backdrop-blur-sm border border-primary/30 text-xs font-medium text-primary">
                 13+ Team Members
-              </div>
+              </div> */}
             </div>
           </motion.div>
         </div>

@@ -11,6 +11,7 @@ import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
 import { CTASection } from '@/components/sections/CTASection';
 import { FAQSection } from '@/components/sections/FAQSection';
 import NewHeroSection from '@/components/sections/NewHeroSection';
+import { ContactSection } from '@/components/sections/ContactSection';
 
 const Index = () => {
   return (
@@ -26,8 +27,9 @@ const Index = () => {
       <TestimonialsSection />
       <AboutSplitSection />
       {/* <TechStackSection /> */}
-      <CTASection />
+      {/* <CTASection /> */}
       <FAQSection />
+      <ContactSection/>
     </Layout>
   );
 };
