@@ -12,6 +12,7 @@ import { CTASection } from '@/components/sections/CTASection';
 import { FAQSection } from '@/components/sections/FAQSection';
 import NewHeroSection from '@/components/sections/NewHeroSection';
 import { ContactSection } from '@/components/sections/ContactSection';
+import ProductsSection from '@/components/sections/ProductSection';
 
 const Index = () => {
   return (
@@ -19,6 +20,7 @@ const Index = () => {
       <NewHeroSection/>
       {/* <HeroSection /> */}
       <TrustedBySection />
+      <ProductsSection/>
       <ServicesSection />
       <WhySanzoxSection />
       <StatsSection />

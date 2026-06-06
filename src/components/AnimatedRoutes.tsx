@@ -27,6 +27,7 @@ import AdminLeads from '@/pages/admin/Leads';
 import AdminSettings from '@/pages/admin/Settings';
 import AdminTeam from '@/pages/admin/Team';
 import { AdminLayout } from '@/components/admin/AdminLayout';
+import PrivacyPolicy from './appPages/MaxDrive/PrivacyPolicy';
 
 export function AnimatedRoutes() {
   const location = useLocation();
@@ -58,7 +59,10 @@ export function AnimatedRoutes() {
           <Route path="team" element={<AdminTeam />} />
           <Route path="settings" element={<AdminSettings />} />
         </Route>
-        
+
+        {/* app routes */}
+        <Route path="/maxdrive/privacy-policy" element={<PrivacyPolicy />} />
+
         <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
       </Routes>
     </AnimatePresence>
