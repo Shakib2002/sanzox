@@ -254,14 +254,14 @@ const DeleteForm: React.FC<{ appKey: "maxdrive" | "deepfocus" }> = ({ appKey }) 
             <span style={{ color:T.text }}>hello.sanzox@gmail.com</span>.
           </p>
           <a
-            href="?"
+            href="/"
             style={{
               background:"transparent", border:`1px solid ${T.border}`,
               borderRadius:10, padding:"10px 24px", color:T.muted,
               fontSize:"0.85rem", textDecoration:"none", display:"inline-block",
             }}
           >
-            Back to home
+            Meet Sanzox
           </a>
         </div>
       </div>
