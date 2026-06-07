@@ -141,7 +141,7 @@ const DeepFocusPrivacyPolicy: React.FC = () => (
         Privacy Policy
       </h1>
       <p style={{ color: T.muted, fontSize: "0.95rem" }}>
-        Deep Focus — 21-Day Deep Work Challenge Tracker
+        Deep Focus 21-Day Deep Work Challenge Tracker
       </p>
       <p style={{ color: T.muted, fontSize: "0.85rem", marginTop: 8 }}>
         Effective Date: June 6, 2026 &nbsp;·&nbsp; Last Updated: June 6, 2026
@@ -284,7 +284,7 @@ const DeepFocusPrivacyPolicy: React.FC = () => (
         <MutedLi>
           <B>Web-based Deletion Request:</B> If you have uninstalled the App and want to delete
           your cloud data, visit{" "}
-          <Link href="https://www.sanzox.com/delete-account">www.sanzox.com/delete-account</Link>{" "}
+          <Link href="/delete-account?app=deepfocus">www.sanzox.com/delete-account</Link>{" "}
           or email us at{" "}
           <a href="mailto:hello.sanzox@gmail.com" style={{ color: T.accent }}>hello.sanzox@gmail.com</a>{" "}
           with your username. All associated server records will be permanently purged within 7

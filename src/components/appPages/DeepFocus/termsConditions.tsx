@@ -141,7 +141,7 @@ const DeepFocusTerms: React.FC = () => (
         Terms & Conditions
       </h1>
       <p style={{ color: T.muted, fontSize: "0.95rem" }}>
-        Deep Focus — 21-Day Deep Work Challenge Tracker
+        Deep Focus 21-Day Deep Work Challenge Tracker
       </p>
       <p style={{ color: T.muted, fontSize: "0.85rem", marginTop: 8 }}>
         Effective Date: June 6, 2026 &nbsp;·&nbsp; Last Updated: June 6, 2026

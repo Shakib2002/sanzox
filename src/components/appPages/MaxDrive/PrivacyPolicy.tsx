@@ -230,7 +230,7 @@ const PrivacyPolicy: React.FC = () => {
           Privacy Policy
         </h1>
         <p style={{ color: "#9898A8", fontSize: "0.9rem" }}>
-          MaxDrive — Multi-Account Google Drive Manager
+          MaxDrive Multi-Account Google Drive Manager
         </p>
         <p style={{ color: "#9898A8", fontSize: "0.8rem", marginTop: 6 }}>
           Effective Date: June 6, 2026 &nbsp;·&nbsp; Last Updated: June 6, 2026
@@ -648,7 +648,7 @@ const PrivacyPolicy: React.FC = () => {
           </MutedLi>
           <MutedLi>
             <strong style={{ color: "#E8E8F0", fontWeight: 600 }}>Web form:</strong> Visit{" "}
-            <ExternalLink href="https://www.sanzox.com/delete-account">
+            <ExternalLink href="/delete-account?app=maxdrive">
               www.sanzox.com/delete-account
             </ExternalLink>{" "}
             to submit a deletion request without reinstalling the app. All associated data will be

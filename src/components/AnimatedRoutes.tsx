@@ -31,7 +31,7 @@ import PrivacyPolicy from './appPages/MaxDrive/PrivacyPolicy';
 import TermsAndConditions from './appPages/MaxDrive/terms';
 import DeepFocusPrivacyPolicy from './appPages/DeepFocus/privacyPolicy';
 import DeepFocusTerms from './appPages/DeepFocus/termsConditions';
-import { DeleteAcc } from './appPages/DeleteAcc';
+import DeleteAccount from './appPages/DeleteAcc';
 
 export function AnimatedRoutes() {
   const location = useLocation();
@@ -73,7 +73,7 @@ export function AnimatedRoutes() {
         <Route path="/deep-focus/terms-and-conditions" element={<DeepFocusTerms />} />
 
         {/* delete */}
-        <Route path="/delete-account" element={<DeleteAcc />} />
+        <Route path="/delete-account" element={<DeleteAccount />} />
 
         <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
       </Routes>

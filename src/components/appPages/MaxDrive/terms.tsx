@@ -157,7 +157,7 @@ const TermsAndConditions: React.FC = () => {
           Terms & Conditions
         </h1>
         <p style={{ color: "#9898A8", fontSize: "0.9rem" }}>
-          MaxDrive — Multi-Account Google Drive Manager
+          MaxDrive Multi-Account Google Drive Manager
         </p>
         <p style={{ color: "#9898A8", fontSize: "0.8rem", marginTop: 6 }}>
           Effective Date: June 6, 2026 &nbsp;·&nbsp; Last Updated: June 6, 2026
