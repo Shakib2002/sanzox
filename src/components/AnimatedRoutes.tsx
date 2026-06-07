@@ -28,6 +28,10 @@ import AdminSettings from '@/pages/admin/Settings';
 import AdminTeam from '@/pages/admin/Team';
 import { AdminLayout } from '@/components/admin/AdminLayout';
 import PrivacyPolicy from './appPages/MaxDrive/PrivacyPolicy';
+import TermsAndConditions from './appPages/MaxDrive/terms';
+import DeepFocusPrivacyPolicy from './appPages/DeepFocus/privacyPolicy';
+import DeepFocusTerms from './appPages/DeepFocus/termsConditions';
+import { DeleteAcc } from './appPages/DeleteAcc';
 
 export function AnimatedRoutes() {
   const location = useLocation();
@@ -61,7 +65,15 @@ export function AnimatedRoutes() {
         </Route>
 
         {/* app routes */}
+        {/* max drive */}
         <Route path="/maxdrive/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/maxdrive/terms-and-conditions" element={<TermsAndConditions />} />
+        {/* deep focus */}
+        <Route path="/deep-focus/privacy-policy" element={<DeepFocusPrivacyPolicy />} />
+        <Route path="/deep-focus/terms-and-conditions" element={<DeepFocusTerms />} />
+
+        {/* delete */}
+        <Route path="/delete-account" element={<DeleteAcc />} />
 
         <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
       </Routes>

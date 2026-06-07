@@ -1,6 +1,6 @@
+import { list } from "postcss";
 import React from "react";
 
-// ─── Types ────────────────────────────────────────────────────────────────────
 
 type TagVariant = "green" | "red" | "blue";
 
@@ -8,7 +8,6 @@ interface TableRow {
   cells: React.ReactNode[];
 }
 
-// ─── Sub-components ───────────────────────────────────────────────────────────
 
 const Tag: React.FC<{ variant: TagVariant; children: React.ReactNode }> = ({
   variant,
@@ -243,10 +242,10 @@ const PrivacyPolicy: React.FC = () => {
 
         {/* At a Glance */}
         <Card highlight>
-          <CardLabel>🔒 Privacy at a Glance</CardLabel>
+          <CardLabel>Privacy at a Glance</CardLabel>
           <Muted>
             MaxDrive is a <strong style={{ color: "#E8E8F0", fontWeight: 600 }}>local-first</strong> app.
-            Your files stay in your Google Drive accounts — we never operate our own cloud servers to store
+            Your files stay in your Google Drive accounts, we never operate our own cloud servers to store
             your data. All sensitive information (tokens, encryption keys, biometric data) is stored{" "}
             <strong style={{ color: "#E8E8F0", fontWeight: 600 }}>only on your device</strong> using
             Android's hardware-backed Keystore encryption.
@@ -324,7 +323,7 @@ const PrivacyPolicy: React.FC = () => {
           MaxDrive syncs your file metadata (not file contents) from Google Drive to provide file
           browsing, search, and organization features:
         </Muted>
-        <ul style={{ paddingLeft: 24, marginBottom: 14 }}>
+        <ul style={{ paddingLeft: 24, marginBottom: 14, listStyleType: "disc" }}>
           <MutedLi>File name, size, MIME type, creation/modification dates</MutedLi>
           <MutedLi>Folder hierarchy and parent-child relationships</MutedLi>
           <MutedLi>Thumbnail URLs and file owner names</MutedLi>
@@ -344,7 +343,7 @@ const PrivacyPolicy: React.FC = () => {
           <code>READ_MEDIA_VIDEO</code> permissions) to upload new photos and videos to your Google
           Drive. We:
         </Muted>
-        <ul style={{ paddingLeft: 24, marginBottom: 14 }}>
+        <ul style={{ paddingLeft: 24, marginBottom: 14, listStyleType: "disc" }}>
           <MutedLi>
             <strong style={{ color: "#E8E8F0", fontWeight: 600 }}>Do not</strong> upload photos
             without your explicit consent
@@ -364,7 +363,7 @@ const PrivacyPolicy: React.FC = () => {
           We use <strong style={{ color: "#E8E8F0", fontWeight: 600 }}>Firebase Crashlytics</strong>{" "}
           (by Google) to collect anonymous crash reports in production builds. This includes:
         </Muted>
-        <ul style={{ paddingLeft: 24, marginBottom: 14 }}>
+        <ul style={{ paddingLeft: 24, marginBottom: 14, listStyleType: "disc" }}>
           <MutedLi>Stack traces and exception details</MutedLi>
           <MutedLi>Device model, OS version, and app version</MutedLi>
           <MutedLi>Crash timestamps</MutedLi>
@@ -385,7 +384,7 @@ const PrivacyPolicy: React.FC = () => {
           to receive real-time sync notifications when your Google Drive files change. Your FCM device
           token is:
         </Muted>
-        <ul style={{ paddingLeft: 24, marginBottom: 14 }}>
+        <ul style={{ paddingLeft: 24, marginBottom: 14,listStyleType: "disc"  }}>
           <MutedLi>Stored locally on your device</MutedLi>
           <MutedLi>Used only to deliver Drive change notifications</MutedLi>
           <MutedLi>Not shared with third parties for advertising</MutedLi>
@@ -411,7 +410,7 @@ const PrivacyPolicy: React.FC = () => {
           </strong>{" "}
           via Flutter Secure Storage. This key:
         </Muted>
-        <ul style={{ paddingLeft: 24, marginBottom: 14 }}>
+        <ul style={{ paddingLeft: 24, marginBottom: 14,listStyleType: "disc" }}>
           <MutedLi>Never leaves your device</MutedLi>
           <MutedLi>Is not transmitted to any server</MutedLi>
           <MutedLi>Is not accessible to us or any third party</MutedLi>
@@ -420,7 +419,7 @@ const PrivacyPolicy: React.FC = () => {
         {/* 3. Data We Do NOT Collect */}
         <SectionHeading num="3.">Data We Do NOT Collect</SectionHeading>
         <Card>
-          <ul style={{ paddingLeft: 24, marginBottom: 0 }}>
+          <ul style={{ paddingLeft: 24, marginBottom: 0}}>
             {[
               "Your Google password or credentials",
               "Contents of your files (documents, photos, videos)",
@@ -459,14 +458,14 @@ const PrivacyPolicy: React.FC = () => {
           MaxDrive includes an intelligent file tagging system ("NeuralMesh") that automatically
           categorizes your files into smart tags (e.g., "Invoice," "Identity," "Media"). This system:
         </Muted>
-        <ul style={{ paddingLeft: 24, marginBottom: 14 }}>
+        <ul style={{ paddingLeft: 24, marginBottom: 14,listStyleType: "disc" }}>
           <MutedLi>
-            Runs{" "}
+           Runs{" "}
             <strong style={{ color: "#E8E8F0", fontWeight: 600 }}>entirely on your device</strong>{" "}
             (in a background isolate)
           </MutedLi>
           <MutedLi>
-            Analyzes only{" "}
+           Analyzes only{" "}
             <strong style={{ color: "#E8E8F0", fontWeight: 600 }}>
               file names and MIME types
             </strong>{" "}
@@ -530,7 +529,7 @@ const PrivacyPolicy: React.FC = () => {
         {/* 7. Data Storage & Security */}
         <SectionHeading num="7.">Data Storage & Security</SectionHeading>
         <SubHeading>7.1 Local Storage</SubHeading>
-        <ul style={{ paddingLeft: 24, marginBottom: 14 }}>
+        <ul style={{ paddingLeft: 24, marginBottom: 14,listStyleType: "disc" }}>
           <MutedLi>
             <strong style={{ color: "#E8E8F0", fontWeight: 600 }}>Isar Database:</strong> File
             metadata, account info, upload sessions, and partitions
@@ -543,38 +542,38 @@ const PrivacyPolicy: React.FC = () => {
         </ul>
 
         <SubHeading>7.2 Security Measures</SubHeading>
-        <ul style={{ paddingLeft: 24, marginBottom: 14 }}>
+        <ul style={{ paddingLeft: 24, marginBottom: 14,listStyleType: "disc" }}>
           <MutedLi>All OAuth tokens are stored in Android's hardware-backed Keystore</MutedLi>
           <MutedLi>Vault files are encrypted with AES-256-GCM with unique per-chunk IVs</MutedLi>
           <MutedLi>Per-account mutex locks prevent token race conditions</MutedLi>
           <MutedLi>
-            API credentials are loaded at runtime via Firebase Remote Config — never compiled into
+           API credentials are loaded at runtime via Firebase Remote Config — never compiled into
             the APK
           </MutedLi>
           <MutedLi>Network communication uses HTTPS/TLS exclusively</MutedLi>
           <MutedLi>R8 code shrinking and ProGuard obfuscation in production builds</MutedLi>
-          <MutedLi>
+          <MutedLi> 
             <code>android:allowBackup="false"</code> prevents backup extraction of sensitive data
           </MutedLi>
         </ul>
 
         {/* 8. Data Retention */}
         <SectionHeading num="8.">Data Retention</SectionHeading>
-        <ul style={{ paddingLeft: 24, marginBottom: 14 }}>
+        <ul style={{ paddingLeft: 24, marginBottom: 14,listStyleType: "disc" }}>
           <MutedLi>
             <strong style={{ color: "#E8E8F0", fontWeight: 600 }}>Account data:</strong> Retained
             until you disconnect the account or uninstall the app
           </MutedLi>
-          <MutedLi>
+          <MutedLi> 
             <strong style={{ color: "#E8E8F0", fontWeight: 600 }}>File metadata cache:</strong>{" "}
             Synced and refreshed periodically; cleared on account disconnect
           </MutedLi>
-          <MutedLi>
+          <MutedLi> 
             <strong style={{ color: "#E8E8F0", fontWeight: 600 }}>Upload sessions:</strong>{" "}
             Automatically cleaned after 24 hours of inactivity
           </MutedLi>
           <MutedLi>
-            <strong style={{ color: "#E8E8F0", fontWeight: 600 }}>Crash reports:</strong> Retained
+           <strong style={{ color: "#E8E8F0", fontWeight: 600 }}>Crash reports:</strong> Retained
             by Firebase Crashlytics for 90 days per Google's policy
           </MutedLi>
           <MutedLi>
@@ -591,7 +590,7 @@ const PrivacyPolicy: React.FC = () => {
         </Muted>
         <Card>
           <CardLabel>User Rights</CardLabel>
-          <ul style={{ paddingLeft: 24, marginBottom: 0 }}>
+          <ul style={{ paddingLeft: 24, marginBottom: 0,listStyleType: "disc" }}>
             <MutedLi>
               <strong style={{ color: "#E8E8F0", fontWeight: 600 }}>Access:</strong> View all data
               stored by the app (available in Settings)
@@ -630,7 +629,7 @@ const PrivacyPolicy: React.FC = () => {
         <Muted>
           You can request complete data deletion through any of these methods:
         </Muted>
-        <ol style={{ paddingLeft: 24, marginBottom: 14 }}>
+        <ol style={{ paddingLeft: 24, marginBottom: 14, listStyleType: "disc" }}>
           <MutedLi>
             <strong style={{ color: "#E8E8F0", fontWeight: 600 }}>In-app:</strong> Disconnect your
             Google account in Settings → all local data for that account is immediately deleted
@@ -648,9 +647,17 @@ const PrivacyPolicy: React.FC = () => {
             </ExternalLink>
           </MutedLi>
           <MutedLi>
+            <strong style={{ color: "#E8E8F0", fontWeight: 600 }}>Web form:</strong> Visit{" "}
+            <ExternalLink href="https://www.sanzox.com/delete-account">
+              www.sanzox.com/delete-account
+            </ExternalLink>{" "}
+            to submit a deletion request without reinstalling the app. All associated data will be
+            permanently purged within 7 business days.
+          </MutedLi>
+          <MutedLi>
             <strong style={{ color: "#E8E8F0", fontWeight: 600 }}>Email:</strong> Contact us at{" "}
-            <a href="mailto:privacy@sanzox.com" style={{ color: "#4A8BFF" }}>
-              privacy@sanzox.com
+            <a href="mailto:hello.sanzox@gmail.com" style={{ color: "#4A8BFF" }}>
+              hello.sanzox@gmail.com
             </a>{" "}
             for any data deletion requests
           </MutedLi>
@@ -677,7 +684,7 @@ const PrivacyPolicy: React.FC = () => {
             <strong style={{ color: "#E8E8F0", fontWeight: 600 }}>Limited Use</strong> requirements.
           </Muted>
           <Muted>Specifically, MaxDrive:</Muted>
-          <ul style={{ paddingLeft: 24, marginBottom: 0 }}>
+          <ul style={{ paddingLeft: 24, marginBottom: 0,listStyleType: "disc" }}>
             <MutedLi>
               Only uses Google Drive data to provide and improve app features visible to you
             </MutedLi>
@@ -708,7 +715,7 @@ const PrivacyPolicy: React.FC = () => {
           We may update this Privacy Policy from time to time. When we make significant changes, we
           will:
         </Muted>
-        <ul style={{ paddingLeft: 24, marginBottom: 14 }}>
+        <ul style={{ paddingLeft: 24, marginBottom: 14,listStyleType: "disc" }}>
           <MutedLi>Update the "Last Updated" date at the top of this page</MutedLi>
           <MutedLi>
             Notify you through an in-app notification or the app's update notes on Google Play
@@ -729,8 +736,8 @@ const PrivacyPolicy: React.FC = () => {
           </Muted>
           <Muted style={{ marginBottom: 4 }}>
             Email:{" "}
-            <a href="mailto:privacy@sanzox.com" style={{ color: "#4A8BFF" }}>
-              privacy@sanzox.com
+            <a href="mailto:hello.sanzox@gmail.com" style={{ color: "#4A8BFF" }}>
+              hello.sanzox@gmail.com
             </a>
           </Muted>
           <Muted style={{ marginBottom: 4 }}>App: MaxDrive (com.sanzox.maxdrive)</Muted>
@@ -751,7 +758,7 @@ const PrivacyPolicy: React.FC = () => {
         <p>&copy; 2026 Sanzox. All rights reserved.</p>
         <p style={{ marginTop: 6 }}>
           MaxDrive v1.2.0 &nbsp;·&nbsp;{" "}
-          <a href="/max-drive/terms-and-conditions" style={{ color: "#4A8BFF" }}>
+          <a href="/maxdrive/terms-and-conditions" style={{ color: "#4A8BFF" }}>
             Terms & Conditions
           </a>
         </p>
