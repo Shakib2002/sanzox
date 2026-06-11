@@ -96,23 +96,23 @@ const PRODUCTS: Product[] = [
   },
 ];
 
-const COMING_SOON: { name: string; icon: string; desc: string }[] = [
-  {
-    name: "AI Writing Assistant",
-    icon: "✍️",
-    desc: "Context-aware writing with long-form memory and tone adaption.",
-  },
-  {
-    name: "TaskFlow Planner",
-    icon: "📋",
-    desc: "Project management reimagined with AI prioritization.",
-  },
-  {
-    name: "Smart CRM",
-    icon: "🤝",
-    desc: "Relationship intelligence for modern sales teams.",
-  },
-];
+// const COMING_SOON: { name: string; icon: string; desc: string }[] = [
+//   {
+//     name: "AI Writing Assistant",
+//     icon: "✍️",
+//     desc: "Context-aware writing with long-form memory and tone adaption.",
+//   },
+//   {
+//     name: "TaskFlow Planner",
+//     icon: "📋",
+//     desc: "Project management reimagined with AI prioritization.",
+//   },
+//   {
+//     name: "Smart CRM",
+//     icon: "🤝",
+//     desc: "Relationship intelligence for modern sales teams.",
+//   },
+// ];
 
 const FILTERS: { key: FilterKey; label: string }[] = [
   { key: "all", label: "All" },
@@ -358,7 +358,7 @@ export default function ProductPage() {
 
       
 
-      {/* ── CTA ──────────────────────────────────────────── */}
+      {/* ── CTA  */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
