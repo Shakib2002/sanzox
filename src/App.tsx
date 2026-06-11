@@ -20,26 +20,8 @@ const App = () => {
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
           <TooltipProvider>
-<<<<<<< HEAD
-            <NewPreloader onLoadComplete={() => setIsLoaded(true)} />
-            {isLoaded && (
-              <>
-                {/* <CursorFollower /> */}
-                <Toaster />
-                <Sonner />
-                <BrowserRouter>
-                  <ScrollToTop/>
-                  <AnimatedRoutes />
-                  <SupportWidgets 
-                    whatsappNumber="8801516522978"
-                    whatsappMessage="Hi! I'm interested in your services."
-                  />
-                </BrowserRouter>
-              </>
-            )}
-=======
             <NewPreloader />
-            <CursorFollower />
+            {/* <CursorFollower /> */}
             <Toaster />
             <Sonner />
             <BrowserRouter>
@@ -50,7 +32,6 @@ const App = () => {
                 whatsappMessage="Hi! I'm interested in your services."
               />
             </BrowserRouter>
->>>>>>> c19233a4a0b29057bb23f0336e6ae91cff2f59dd
           </TooltipProvider>
         </AuthProvider>
       </QueryClientProvider>
