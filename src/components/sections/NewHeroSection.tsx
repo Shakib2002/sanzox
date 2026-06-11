@@ -161,8 +161,7 @@ export default function NewHeroSection() {
             color: "hsl(210 40% 98%)",
           }}
         >
-                   Innovating Your Digital World
- Build{" "}
+          Turning Ideas Into{" "}
           <span
             className="gradient-text shimmer-text"
             style={{
@@ -171,11 +170,11 @@ export default function NewHeroSection() {
               backgroundSize: "200% 100%",
             }}
           >
-            Smarter
+            Scalable
           </span>
-          ,{" "}
+          {" "}
           <br className="hidden sm:block" />
-          Launch{" "}
+          Digital{" "}
           <span
             className="gradient-text shimmer-text"
             style={{
@@ -184,13 +183,13 @@ export default function NewHeroSection() {
               backgroundSize: "200% 100%",
             }}
           >
-            Faster
+            Products
           </span>
         </h1>
 
         {/* Subtitle */}
         <p
-          className={`max-w-xl text-lg leading-relaxed transition-all duration-700 ${
+          className={`max-w-2xl text-lg leading-relaxed transition-all duration-700 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
           }`}
           style={{
@@ -198,7 +197,7 @@ export default function NewHeroSection() {
             transitionDelay: "240ms",
           }}
         >
-          We build smart automation systems and digital solutions to save time, reduce costs, improve efficiency, and help your business grow faster with scalable technology
+          Empowering businesses with AI-driven software, modern SaaS platforms, and high-performance mobile applications designed to automate processes, increase productivity, and accelerate long-term growth.
         </p>
 
         {/* CTA Buttons */}
@@ -254,14 +253,14 @@ export default function NewHeroSection() {
         </motion.div>
 
         {/* YouTube Video Frame */}
-        <div
+        {/* <div
           className={`relative w-full max-w-4xl mt-8 transition-all duration-1000 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
           }`}
           style={{ transitionDelay: "600ms" }}
-        >
+        > */}
           {/* Glow behind frame */}
-          <div
+          {/* <div
             className="absolute -inset-6 rounded-[3rem] pointer-events-none"
             style={{
               background:
@@ -270,10 +269,10 @@ export default function NewHeroSection() {
               transform: "translateZ(0)",
               zIndex: 0,
             }}
-          />
+          /> */}
 
           {/* Monitor bezel */}
-          <div
+          {/* <div
             className="relative rounded-[1.5rem]"
             style={{
               background: "hsl(217 91% 60% / 0.15)",
@@ -309,10 +308,10 @@ export default function NewHeroSection() {
                 }}
               />
             </div>
-          </div>
+          </div> */}
 
           {/* Floor reflection */}
-          <div
+          {/* <div
             className="pointer-events-none mx-auto mt-1"
             style={{
               width: "70%",
@@ -322,7 +321,7 @@ export default function NewHeroSection() {
               transform: "translateZ(0)",
             }}
           />
-        </div>
+        </div> */}
 
         {/* Scroll indicator */}
         <div
