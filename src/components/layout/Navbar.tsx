@@ -9,13 +9,10 @@ import { useSiteSettings, defaultSiteSettings } from '@/hooks/useSiteSettings';
 import logo from "../../assets/6092db2a-794a-45a3-a93e-8de0007250db.png"
 
 const services = [
-  { name: 'AI Automation', href: '/services/ai-automation' },
-  { name: 'Youtube Automation', href: '/services/youtube-automation' },
-  { name: 'Video Editing', href: '/services/video-editing' },
-  { name: 'Website Development', href: '/services/website-development' },
-  { name: 'Digital Marketing', href: '/services/digital-marketing' },
-  { name: 'Flutter App Development', href: '/services/flutter-app-development' },
-  
+  { name: 'Android Development', href: '/services/android-development' },
+  { name: 'SaaS Engineering', href: '/services/saas-engineering' },
+  { name: 'AI & LLM Integrations', href: '/services/ai-integrations' },
+  { name: 'UI/UX Design Systems', href: '/services/design-systems' },
 ];
 
 const navLinks = [

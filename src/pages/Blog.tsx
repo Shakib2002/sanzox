@@ -23,12 +23,12 @@ interface BlogPost {
 
 // Demo data
 const demoPosts: BlogPost[] = [
-  { id: '1', slug: 'ai-automation-guide', title: 'The Complete Guide to AI Automation in 2024', excerpt: 'Learn how AI automation can transform your business operations and save countless hours.', cover: null, author: 'SANZOX Team', tags: ['AI', 'Automation'], published_at: '2024-01-15', created_at: '2024-01-15' },
-  { id: '2', slug: 'youtube-growth-strategies', title: '10 YouTube Growth Strategies That Actually Work', excerpt: 'Discover proven strategies to grow your YouTube channel and build a loyal audience.', cover: null, author: 'SANZOX Team', tags: ['YouTube', 'Growth'], published_at: '2024-01-10', created_at: '2024-01-10' },
-  { id: '3', slug: 'shopify-conversion-tips', title: 'Boost Your Shopify Conversion Rate by 50%', excerpt: 'Practical tips to optimize your Shopify store and increase sales.', cover: null, author: 'SANZOX Team', tags: ['Shopify', 'eCommerce'], published_at: '2024-01-05', created_at: '2024-01-05' },
+  { id: '1', slug: 'offline-first-android-apps-guide', title: 'Building Offline-First Android Apps: Room, SQLite, and WorkManager Guide', excerpt: 'Learn how to architect high-performance, offline-first native Android applications using Kotlin, Room database, and WorkManager.', cover: null, author: 'SANZOX Team', tags: ['Android', 'Mobile Development'], published_at: '2026-06-01', created_at: '2026-06-01' },
+  { id: '2', slug: 'multi-tenant-saas-architecture', title: 'How to Architect a Multi-Tenant SaaS App with Next.js and Supabase', excerpt: 'Discover step-by-step how to design and build a scalable multi-tenant SaaS application with Next.js, Postgres schema partitioning, and Supabase auth.', cover: null, author: 'SANZOX Team', tags: ['SaaS', 'Web Engineering'], published_at: '2026-05-25', created_at: '2026-05-25' },
+  { id: '3', slug: 'stripe-saas-subscription-billing', title: 'Stripe Subscription Billing for SaaS: Pitfalls and Best Practices', excerpt: 'A complete software engineering guide to implementing Stripe billing, webhook handlers, and coupon systems in B2B SaaS platforms.', cover: null, author: 'SANZOX Team', tags: ['SaaS', 'Stripe Integration'], published_at: '2026-05-18', created_at: '2026-05-18' },
 ];
 
-const allTags = ['All', 'AI', 'Automation', 'YouTube', 'Growth', 'Shopify', 'eCommerce', 'Web Development'];
+const allTags = ['All', 'Android', 'SaaS', 'Mobile Development', 'Web Engineering', 'Stripe Integration', 'AI'];
 
 export default function BlogPage() {
   const [posts, setPosts] = useState<BlogPost[]>(demoPosts);

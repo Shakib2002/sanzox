@@ -9,35 +9,29 @@ import { CursorFollower } from "@/components/ui/CursorFollower";
 import { Preloader } from "@/components/ui/Preloader";
 import { SupportWidgets } from "@/components/support/SupportWidgets";
 import { ErrorBoundary } from "@/components/ui/ErrorBoundary";
-import { useState } from "react";
 import { NewPreloader } from "./components/ui/NewPreloader";
 import ScrollToTop from "./components/ui/ScrollToTop";
 
 const queryClient = new QueryClient();
 
 const App = () => {
-  const [isLoaded, setIsLoaded] = useState(false);
   return (
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
           <TooltipProvider>
-            <NewPreloader onLoadComplete={() => setIsLoaded(true)} />
-            {isLoaded && (
-              <>
-                <CursorFollower />
-                <Toaster />
-                <Sonner />
-                <BrowserRouter>
-                  <ScrollToTop/>
-                  <AnimatedRoutes />
-                  <SupportWidgets 
-                    whatsappNumber="8801516522978"
-                    whatsappMessage="Hi! I'm interested in your services."
-                  />
-                </BrowserRouter>
-              </>
-            )}
+            <NewPreloader />
+            <CursorFollower />
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <ScrollToTop/>
+              <AnimatedRoutes />
+              <SupportWidgets 
+                whatsappNumber="8801516522978"
+                whatsappMessage="Hi! I'm interested in your services."
+              />
+            </BrowserRouter>
           </TooltipProvider>
         </AuthProvider>
       </QueryClientProvider>

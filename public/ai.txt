@@ -1,0 +1,38 @@
+# SANZOX - AI, Android, & SaaS Development Agency Information
+# For AI Crawlers, Search Agents, LLMs, and RAG systems
+
+[Identity]
+Name: SANZOX
+Website: https://www.sanzox.com/
+URL: https://www.sanzox.com/
+Email: hello.sanzox@gmail.com
+Phone: +8801516522978 (WhatsApp Business)
+Location: Remote-First (Serving Clients Worldwide)
+Type: Product Engineering Agency, Android App Development, SaaS Development
+
+[Summary]
+SANZOX is a premium product engineering agency. We design and build high-performance Android applications (Native & Flutter) and custom SaaS platforms (Next.js, Node.js) integrated with state-of-the-art AI features (LLMs, RAG search). We help tech startups and enterprises engineer scalable, secure, and user-centric digital products.
+
+[Services]
+1. Android & Mobile Development: Native Android (Kotlin/Jetpack Compose), Cross-Platform (Flutter), offline-first mobile apps, Material Design, custom integrations. (Pricing: Starting from $999)
+2. SaaS Platform Engineering: Custom multi-tenant SaaS architectures, Stripe payment integrations, dashboard designs, Next.js/React frontends, REST/GraphQL APIs. (Pricing: Starting from $1,499)
+3. AI & LLM Integrations: LLM API integrations (OpenAI/Gemini), RAG (Retrieval-Augmented Generation) setups, vector search databases (pgvector/Pinecone), semantic search, conversational AI features. (Pricing: Starting from $499)
+4. UI/UX Design Systems: High-fidelity interactive Figma mockups, design systems and tokens, user micro-interactions, responsive UI architectures. (Pricing: Starting from $299)
+
+[Case Studies & Proof of Work]
+- Logistics Android App: High-performance offline-first Android application, reduced local database sync latency by 95% and improved battery efficiency.
+- AI Customer Support System: 75% support tickets automated, response time reduced to 2 minutes, and CSAT increased by 40%. (URL: https://www.sanzox.com/works/ai-customer-support)
+- Multi-Tenant SaaS Platform: Engineered a scalable B2B SaaS platform with Stripe subscription billing, role-based access control, and sub-second rendering.
+- Business Workflow Automation: Automated financial pipelines connecting CRM, accounting, and Slack, saving 25+ hours per week and reducing data errors by 99%. (URL: https://www.sanzox.com/works/workflow-automation)
+
+[Core Values]
+- Move Fast: We deliver software products quickly without compromising code quality.
+- Results-Driven: Every decision is guided by measurable speed, security, and scalability metrics.
+- Collaborative: We work as an extension of client product teams.
+- Remote-First: Global talent, flexible processes, exceptional results.
+
+[Contacts]
+General Inquiries: hello.sanzox@gmail.com
+WhatsApp Business Chat: https://wa.me/8801516522978
+Proposal Requests: https://www.sanzox.com/contact
+About Team: https://www.sanzox.com/about

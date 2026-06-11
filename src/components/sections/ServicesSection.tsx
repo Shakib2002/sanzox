@@ -1,58 +1,38 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight, Bot, Youtube, Video, Globe,  Megaphone, Smartphone } from 'lucide-react';
+import { ChevronRight, Bot, Globe, Smartphone, Layers } from 'lucide-react';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { fadeUpVariants, staggerContainerVariants } from '@/hooks/useScrollAnimation';
 
 const services = [
   {
-    id: 'ai-automation',
-    icon: Bot,
-    title: 'AI Automation',
-    description: 'Streamline your operations with intelligent automation solutions that save time and boost efficiency.',
-    features: ['Workflow Automation', 'AI Chatbots', 'Process Optimization', 'Data Analytics'],
-  },
-  {
-    id: 'youtube-automation',
-    icon: Youtube,
-    title: 'YouTube Automation',
-    description: 'Scale your YouTube presence with automated content strategies, scheduling, and growth systems.',
-    features: ['Content Strategy', 'Upload Automation', 'Analytics Dashboard', 'Growth Systems'],
-  },
-  {
-    id: 'video-editing',
-    icon: Video,
-    title: 'Video Editing',
-    description: 'Professional video editing that captivates your audience and tells your brand story.',
-    features: ['Professional Editing', 'Motion Graphics', 'Color Grading', 'Sound Design'],
-  },
-  {
-    id: 'website-development',
-    icon: Globe,
-    title: 'Website Development',
-    description: 'We design and develop fast, responsive websites with CMS integration, including Shopify, for scalable business growth.',
-    features: ['Custom Design', 'Responsive Development', 'CMS Integration', 'SEO Optimization', 'Shopify Setup'],
-  },
-  {
-    id: 'digital-marketing',
-    icon: Megaphone,
-    title: 'Digital Marketing',
-    description: 'We help businesses grow online with data-driven marketing strategies that improve reach, engagement, and conversions.',
-    features: ['Social Media Marketing', 'SEO', 'Paid Ads', 'Conversion Optimization'],
-  },
-  {
-    id: 'flutter-app-development',
+    id: 'android-development',
     icon: Smartphone,
-    title: 'Flutter App Development',
-    description: 'Build high-performance cross-platform mobile applications using Flutter for both Android and iOS with a single codebase.',
-    features: [
-      'Cross-Platform Apps',
-      'Custom UI/UX Design',
-      'API Integration',
-      'Firebase Integration',
-      'App Deployment'
-    ],
+    title: 'Android & Mobile Development',
+    description: 'High-performance native and cross-platform mobile applications engineered for security, speed, and seamless user experiences.',
+    features: ['Native Android (Kotlin)', 'Cross-Platform (Flutter)', 'Material Design Systems', 'Offline-First Architecture', 'Firebase/Cloud Integration', 'App Store Publishing'],
+  },
+  {
+    id: 'saas-engineering',
+    icon: Globe,
+    title: 'SaaS Platform Engineering',
+    description: 'Custom multi-tenant Software-as-a-Service platforms built with scalable backend architectures, stripe billing, and modern dashboards.',
+    features: ['Next.js & React Frontends', 'Multi-tenant DB Architectures', 'Stripe Billing & Subscriptions', 'JWT & OAuth Authentication', 'RESTful & GraphQL APIs', 'Cloud Hosting & CI/CD'],
+  },
+  {
+    id: 'ai-integrations',
+    icon: Bot,
+    title: 'AI & LLM Integrations',
+    description: 'Supercharge your mobile apps and SaaS products with cutting-edge artificial intelligence, custom chatbots, and vector search capabilities.',
+    features: ['OpenAI / Gemini API Integration', 'Retrieval-Augmented Generation (RAG)', 'Vector DBs (Pinecone/pgvector)', 'Conversational Agents', 'Semantic Search Systems', 'Predictive Modeling'],
+  },
+  {
+    id: 'design-systems',
+    icon: Layers,
+    title: 'UI/UX Design Systems',
+    description: 'Interactive high-fidelity design prototypes, comprehensive design tokens, and state-of-the-art interactive component libraries.',
+    features: ['Figma Design Systems', 'Interactive Prototyping', 'Responsive UI Layouts', 'Micro-interactions & Motion', 'Brand Identity Assets', 'Accessibility (A11y)'],
   },
 ];
 

@@ -22,11 +22,10 @@ interface Work {
 }
 
 const defaultIndustries = [
-  'AI Automation',
-  'Youtube Automation',
-  'Video Editing',
-  'Shopify',
-  'Website & Application',
+  'Android App Development',
+  'SaaS Platform Engineering',
+  'AI & LLM Integrations',
+  'UI/UX Design Systems',
 ];
 
 export default function WorksPage() {

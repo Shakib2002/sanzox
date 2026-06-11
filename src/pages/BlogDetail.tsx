@@ -16,88 +16,342 @@ const postsData: Record<string, {
   published_at: string;
   readTime: string;
 }> = {
-  'ai-automation-guide': {
-    title: 'The Complete Guide to AI Automation in 2024',
-    excerpt: 'Learn how AI automation can transform your business operations.',
+  'offline-first-android-apps-guide': {
+    title: 'Building Offline-First Android Apps: Room, SQLite, and WorkManager Guide',
+    excerpt: 'Learn how to architect high-performance, offline-first native Android applications using Kotlin, Room database, and WorkManager.',
     content: `
 ## Introduction
 
-AI automation is revolutionizing how businesses operate. In this comprehensive guide, we'll explore the key concepts, tools, and strategies you need to implement AI automation in your organization.
+In modern mobile app development, building an app that requires a continuous internet connection results in a poor user experience. Whether users are in a subway, a remote region, or experiencing network latency, your application should remain fully responsive and functional. 
 
-## What is AI Automation?
+An **offline-first architecture** caches data locally and synchronizes changes in the background when connection is restored. In this guide, we'll walk through the process of building an offline-first native Android application using Kotlin, the Room database persistence library, and WorkManager for background sync operations.
 
-AI automation combines artificial intelligence with traditional automation to create systems that can learn, adapt, and improve over time. Unlike rule-based automation, AI automation can handle complex, unstructured tasks.
+---
 
-## Key Benefits
+## 1. Core Principles of Offline-First Architecture
 
-1. **Time Savings** - Automate repetitive tasks and free up your team
-2. **Reduced Errors** - AI systems maintain consistent accuracy
-3. **Scalability** - Handle increased workload without proportional cost increases
-4. **24/7 Operations** - AI systems never sleep
+To design a robust offline-first app, you must implement the repository pattern as the single source of truth:
 
-## Getting Started
+1. **Local Database First:** The UI always queries data from the local database (Room/SQLite), never directly from the network API.
+2. **Reactive UI Hydration:** The UI observes the local database using Flow, LiveData, or Compose State. Any update to the DB automatically propagates to the screen.
+3. **Background Sync:** Network calls fetch fresh data, write it to the database, and enqueue upload jobs. The UI updates Reactively.
 
-The first step in implementing AI automation is identifying the right use cases. Look for tasks that are:
+\`\`\`
+[Jetpack Compose UI] ──> Observes Flow ──> [Room Local DB]
+[Repository] ──> Writes data ──> [Room Local DB]
+[Repository] ──> Enqueues Sync ──> [WorkManager] ──> Remote REST API
+\`\`\`
 
-- Repetitive and time-consuming
-- Rule-based or pattern-based
-- High-volume
-- Currently prone to human error
+---
 
-## Popular Tools
+## 2. Setting Up Room for Local Persistence
 
-Here are some tools we recommend for AI automation:
+The Room library acts as an abstraction layer over SQLite. First, define your entities and data access objects (DAOs).
 
-- **Make.com** - Visual workflow automation
-- **Zapier** - Connect apps and automate workflows
-- **OpenAI API** - Add AI capabilities to your automations
-- **n8n** - Self-hosted automation platform
+### Step A: The Entity Definition
+
+\`\`\`kotlin
+@Entity(tableName = "projects")
+data class ProjectEntity(
+    @PrimaryKey val id: String,
+    val name: String,
+    val description: String,
+    val updatedAt: Long,
+    val isPendingSync: Boolean = false
+)
+\`\`\`
+
+### Step B: The DAO Interface
+
+\`\`\`kotlin
+@Dao
+interface ProjectDao {
+    @Query("SELECT * FROM projects ORDER BY updatedAt DESC")
+    fun getProjectsFlow(): Flow<List<ProjectEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertProjects(projects: List<ProjectEntity>)
+
+    @Query("SELECT * FROM projects WHERE isPendingSync = 1")
+    suspend fun getPendingProjects(): List<ProjectEntity>
+}
+\`\`\`
+
+---
+
+## 3. Scheduling Background Sync with WorkManager
+
+WorkManager is the recommended Android API for deferrable, guaranteed background work. It handles constraint checks (e.g., waiting for an active internet connection or device charging) and manages system battery optimization.
+
+### Step A: Create the Sync Worker
+
+\`\`\`kotlin
+class DataSyncWorker(
+    context: Context,
+    params: WorkerParameters
+) : CoroutineWorker(context, params) {
+
+    override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
+        val database = AppDatabase.getInstance(applicationContext)
+        val apiService = RetrofitClient.apiService
+        
+        try {
+            // Retrieve data pending upload
+            val pendingData = database.projectDao().getPendingProjects()
+            for (project in pendingData) {
+                apiService.uploadProject(project.toNetworkModel())
+                database.projectDao().insertProjects(
+                    listOf(project.copy(isPendingSync = false))
+                )
+            }
+            Result.success()
+        } catch (e: Exception) {
+            Result.retry()
+        }
+    }
+}
+\`\`\`
+
+### Step B: Enqueueing the Work with Network Constraints
+
+\`\`\`kotlin
+val constraints = Constraints.Builder()
+    .setRequiredNetworkType(NetworkType.CONNECTED)
+    .setRequiresBatteryNotLow(true)
+    .build()
+
+val syncRequest = OneTimeWorkRequestBuilder<DataSyncWorker>()
+    .setConstraints(constraints)
+    .setBackoffCriteria(
+        BackoffPolicy.EXPONENTIAL,
+        WorkRequest.MIN_BACKOFF_MILLIS,
+        TimeUnit.MILLISECONDS
+    )
+    .build()
+
+WorkManager.getInstance(context).enqueueUniqueWork(
+    "unique_data_sync",
+    ExistingWorkPolicy.REPLACE,
+    syncRequest
+)
+\`\`\`
+
+---
 
 ## Conclusion
 
-AI automation is not just a trend—it's the future of business operations. Start small, measure results, and scale what works.
+Building offline-first Android apps requires shifting from standard network call paradigms to a local database-first methodology. Utilizing **Kotlin Coroutines**, **Room**, and **WorkManager** ensures your app remains lightning fast, network-independent, and optimized for battery consumption.
     `,
     author: 'SANZOX Team',
-    tags: ['AI', 'Automation'],
-    published_at: '2024-01-15',
-    readTime: '8 min read',
+    tags: ['Android', 'Mobile Development'],
+    published_at: '2026-06-01',
+    readTime: '10 min read',
   },
-  'youtube-growth-strategies': {
-    title: '10 YouTube Growth Strategies That Actually Work',
-    excerpt: 'Discover proven strategies to grow your YouTube channel.',
+  'multi-tenant-saas-architecture': {
+    title: 'How to Architect a Multi-Tenant SaaS App with Next.js and Supabase',
+    excerpt: 'Discover step-by-step how to design and build a scalable multi-tenant SaaS application with Next.js, Postgres schema partitioning, and Supabase auth.',
     content: `
 ## Introduction
 
-Growing a YouTube channel requires strategy, consistency, and the right techniques. Here are 10 proven strategies that actually work.
+Software-as-a-Service (SaaS) products must isolate user data while remaining scalable and easy to maintain. The choice of **multi-tenancy architecture** dictates how databases partition client records. 
 
-## 1. Optimize Your Titles and Thumbnails
+In this guide, we'll design a modern multi-tenant SaaS architecture using **Next.js** for subdomain routing and **Supabase (PostgreSQL)** for tenant isolation.
 
-Your title and thumbnail are the first things viewers see. Make them compelling and clickable without being misleading.
+---
 
-## 2. Post Consistently
+## 1. Database Tenant Isolation Models
 
-The YouTube algorithm favors channels that post regularly. Find a schedule you can maintain and stick to it.
+There are three primary models to partition tenant data in PostgreSQL:
 
-## 3. Engage With Your Audience
+| Model | Description | Pros | Cons |
+| :--- | :--- | :--- | :--- |
+| **Database-Per-Tenant** | Each client gets a dedicated database server. | Maximum security | High hosting cost, hard schema updates. |
+| **Schema-Per-Tenant** | One database with separate namespaces (schemas) per tenant. | Clean separation | Difficult to run cross-tenant queries. |
+| **Shared Database (Row-Level Security)** | Single schema; every table has a \`tenant_id\` column. | Lowest cost, easy schema updates | Risks data leaks if security rules fail. |
 
-Reply to comments, ask questions, and build a community around your channel.
+For most startups, **Shared Database with Supabase Row-Level Security (RLS)** offers the best ROI, scaling to millions of records with near-zero overhead.
 
-## 4. Use Analytics
+---
 
-Study your YouTube Analytics to understand what's working and what isn't.
+## 2. Implementing Row-Level Security in Supabase
 
-## 5. Collaborate With Others
+Row-Level Security allows you to attach access control rules directly to database tables. This acts as a fireproof barrier preventing Tenant A from reading Tenant B's data.
 
-Cross-promotion through collaborations can expose your channel to new audiences.
+### Step A: Enable RLS on the Table
+
+\`\`\`sql
+ALTER TABLE projects ENABLE ROW LEVEL SECURITY;
+\`\`\`
+
+### Step B: Create a User Tenant Mapping Table
+
+\`\`\`sql
+CREATE TABLE tenant_members (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  tenant_id UUID REFERENCES tenants(id) ON DELETE CASCADE,
+  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
+  role TEXT CHECK (role IN ('owner', 'admin', 'member'))
+);
+\`\`\`
+
+### Step C: Define the Access Policy
+
+\`\`\`sql
+CREATE POLICY "Users can only access their tenant's data"
+ON public.projects
+FOR ALL
+USING (
+  tenant_id IN (
+    SELECT tenant_id 
+    FROM public.tenant_members 
+    WHERE user_id = auth.uid()
+  )
+);
+\`\`\`
+
+Now, any client query generated by Supabase client libraries (e.g., \`supabase.from('projects').select('*')\`) automatically appends this filter on the database server.
+
+---
+
+## 3. Subdomain and Domain Routing in Next.js
+
+A premium B2B SaaS needs to serve tenants on custom subdomains (e.g., \`client-a.yourdomain.com\`) or dedicated custom domains (e.g., \`app.client-a.com\`). 
+
+Next.js Middleware intercepts incoming requests and rewrites the path based on the host header.
+
+\`\`\`typescript
+// middleware.ts
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+
+export function middleware(request: NextRequest) {
+  const url = request.nextUrl.clone();
+  const hostname = request.headers.get('host') || '';
+
+  // Exclude assets
+  if (url.pathname.startsWith('/_next') || url.pathname.includes('.')) {
+    return NextResponse.next();
+  }
+
+  // Detect subdomains
+  const currentHost = hostname.replace('.localhost:3000', '').replace('.sanzox.com', '');
+  
+  if (currentHost && currentHost !== 'www' && currentHost !== 'app') {
+    // Rewrite internal route to dynamic folder structure
+    url.pathname = \`/_tenants/\${currentHost}\${url.pathname}\`;
+    return NextResponse.rewrite(url);
+  }
+
+  return NextResponse.next();
+}
+\`\`\`
+
+---
 
 ## Conclusion
 
-Growth takes time, but with consistent effort and the right strategies, you can build a successful YouTube channel.
+By combining **Supabase's Row-Level Security (RLS)** with **Next.js Middleware routing**, you get a highly secure, scalable, and cost-efficient B2B SaaS boilerplate. You can onboard new customers instantly with dynamic subdomains and guaranteed database isolation.
     `,
     author: 'SANZOX Team',
-    tags: ['YouTube', 'Growth'],
-    published_at: '2024-01-10',
-    readTime: '6 min read',
+    tags: ['SaaS', 'Web Engineering'],
+    published_at: '2026-05-25',
+    readTime: '9 min read',
+  },
+  'stripe-saas-subscription-billing': {
+    title: 'Stripe Subscription Billing for SaaS: Pitfalls and Best Practices',
+    excerpt: 'A complete software engineering guide to implementing Stripe billing, webhook handlers, and coupon systems in B2B SaaS platforms.',
+    content: `
+## Introduction
+
+A SaaS product is only as good as its billing infrastructure. While Stripe makes payment processing simple, engineering a robust subscription engine with coupon codes, billing portals, webhook handlers, and multi-tier pricing requires careful architectural planning.
+
+In this guide, we'll design a reliable, production-ready Stripe integration workflow for subscription-based B2B platforms.
+
+---
+
+## 1. The Stripe Subscription Lifecycle
+
+A common mistake is updating user subscription states directly in response to API requests. Payments can fail, cards expire, and trials expire asynchronously. You must synchronize your database states solely through **Stripe Webhooks**.
+
+\`\`\`
+[Client] ──> Upgrade Plan ──> [SaaS App]
+[SaaS App] ──> Create Checkout ──> [Stripe API]
+[Stripe API] ──> Redirect to Checkout ──> [Client]
+[Client] ──> Complete Payment ──> [Stripe Checkout]
+[Stripe Checkout] ──> Webhook: subscription.created ──> [SaaS App Webhook]
+[SaaS App Webhook] ──> Update DB ──> [Database]
+\`\`\`
+
+---
+
+## 2. Implementing a Secure Stripe Webhook Handler
+
+Webhooks must be protected against tampering and payload spoofing. Stripe provides signature validation to guarantee the event originated from their servers.
+
+\`\`\`typescript
+// pages/api/webhooks/stripe.ts
+import { buffer } from 'micro';
+import Stripe from 'stripe';
+import { supabaseAdmin } from '@/lib/supabaseAdmin';
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+  apiVersion: '2023-10-16',
+});
+
+export const config = {
+  api: { bodyParser: false },
+};
+
+export default async function handler(req: any, res: any) {
+  if (req.method !== 'POST') return res.status(405).end();
+
+  const buf = await buffer(req);
+  const sig = req.headers['stripe-signature']!;
+  let event: Stripe.Event;
+
+  try {
+    event = stripe.webhooks.constructEvent(
+      buf,
+      sig,
+      process.env.STRIPE_WEBHOOK_SECRET!
+    );
+  } catch (err: any) {
+    return res.status(400).send(\`Webhook Error: \${err.message}\`);
+  }
+
+  // Handle billing events
+  switch (event.type) {
+    case 'customer.subscription.updated':
+    case 'customer.subscription.deleted':
+      const subscription = event.data.object as Stripe.Subscription;
+      await updateSubscriptionStatus(subscription);
+      break;
+    default:
+      console.log(\`Unhandled event type: \${event.type}\`);
+  }
+
+  res.json({ received: true });
+}
+\`\`\`
+
+---
+
+## 3. Best Practices for Stripe Subscriptions
+
+* **Idempotency Keys:** Always pass an idempotency key (e.g. \`uuid\`) when invoking Stripe payment requests to avoid double billing clients during latency spikes.
+* **Avoid Storing Card Details:** Never write raw credit card numbers to your local database. Save only the Stripe \`customer_id\`, \`subscription_id\`, and \`price_id\`.
+* **Utilize Customer Portal:** Instead of coding custom UI components for card updates, plan cancellations, or receipt history, redirect users to the pre-built **Stripe Customer Portal**. It handles security compliance and updates automatically.
+
+---
+
+## Conclusion
+
+By centering subscription status synchronization around Stripe webhooks, validating signatures, and decoupling card storage, you build a resilient, enterprise-grade billing machine that protects transactions and maintains accurate tenant access states.
+    `,
+    author: 'SANZOX Team',
+    tags: ['SaaS', 'Stripe Integration'],
+    published_at: '2026-05-18',
+    readTime: '7 min read',
   },
 };
 
