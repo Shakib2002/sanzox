@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import logo from '../../../assets/maxdrive-logo.png';
+import AppSlider from "./appSlider";
 
 
 const styles = `
@@ -1229,7 +1230,10 @@ const MaxDrive: React.FC = () => {
             Explore Features
           </a>
         </div>
-        <ResponsiveMockup />
+        {/* <ResponsiveMockup /> */}
+        <div className="flex justify-center items-center">
+          <AppSlider/>
+        </div>
       </section>
 
       {/* Features */}
