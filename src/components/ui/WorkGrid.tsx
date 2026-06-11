@@ -1,5 +1,5 @@
 import React from 'react';
-import { Work } from '@/pages/Works'; // type import
+import { Work } from '@/types/work';
 import { WorkCard } from '@/components/ui/WorkCard';
 
 interface WorkGridProps {

@@ -3,7 +3,7 @@ import { Dialog, DialogOverlay, DialogContent, DialogHeader, DialogTitle, Dialog
 import { GlassCard } from '@/components/ui/GlassCard';
 import { VideoThumbnail } from '@/components/ui/VideoThumbnail';
 import { cn } from '@/lib/utils';
-import { Work } from '@/pages/Works'; // type import
+import { Work } from '@/types/work';
 
 interface QuickViewModalProps {
   work: Work;

@@ -11,17 +11,7 @@ import { WorksFilterBar } from '@/components/ui/WorksFilterBar';
 import { QuickViewModal } from '@/components/ui/QuickViewModal';
 import { ProjectMarquee } from '@/components/ui/ProjectMarquee';
 import { useSiteSettings } from '@/hooks/useSiteSettings';
-
-interface Work {
-  id: string;
-  slug: string;
-  title: string;
-  industry: string | null;
-  tags: string[];
-  thumbnail: string | null;
-  featured: boolean;
-  video_preview?: string | null;
-}
+import { Work } from '@/types/work';
 
 const defaultIndustries = [
   'Android App Development',
@@ -123,7 +113,6 @@ export default function WorksPage() {
                   className="pl-9 h-9 bg-secondary/50 border-border/30 focus:border-primary/50 rounded-full text-sm transition-colors"
                 />
               </div> */}
-            </div>
 
             {/* Result count */}
             {/* {!isLoading && (
@@ -205,6 +194,15 @@ export default function WorksPage() {
           </AnimatePresence>
         </div>
       </section>
+
+      {/* Quick-view modal */}
+      {selectedWork && (
+        <QuickViewModal
+          work={selectedWork}
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+        />
+      )}
 
       <CTASection />
     </Layout>

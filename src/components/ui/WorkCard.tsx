@@ -4,7 +4,7 @@ import { GlassCard } from '@/components/ui/GlassCard';
 import { TiltCard } from '@/components/ui/TiltCard';
 import { VideoThumbnail } from '@/components/ui/VideoThumbnail';
 import { cn } from '@/lib/utils';
-import { Work } from '@/pages/Works'; // type import
+import { Work } from '@/types/work';
 
 interface WorkCardProps {
   work: Work;
