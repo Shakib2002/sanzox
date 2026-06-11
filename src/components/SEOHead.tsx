@@ -65,6 +65,8 @@ export function SEOHead({ title, description, image, type = 'website' }: SEOHead
       updateMeta('twitter:image', finalImage);
     }
 
+    
+
     // Canonical URL
     let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement;
     if (!canonical) {
