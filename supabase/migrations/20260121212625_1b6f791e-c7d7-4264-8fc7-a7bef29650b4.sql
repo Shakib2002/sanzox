@@ -1,110 +1,96 @@
 -- Seed Services
 INSERT INTO public.services (slug, title, short_desc, icon, highlights, featured, display_order, long_desc_md, process_steps, faqs) VALUES
-('ai-automation', 'AI Automation', 'Streamline your operations with intelligent automation solutions that save time and boost efficiency.', 'Bot', ARRAY['Workflow Automation', 'AI Chatbots', 'Process Optimization', 'Data Analytics', 'Custom Integrations', 'Reporting Dashboards'], true, 1, 
-'## Transform Your Business with AI
+('android-development', 'Android & Mobile Development', 'High-performance native and cross-platform mobile applications engineered for security, speed, and seamless user experiences.', 'Smartphone', ARRAY['Native Android (Kotlin)', 'Cross-Platform (Flutter)', 'Material Design Systems', 'Offline-First Architecture', 'Firebase/Cloud Integration', 'App Store Publishing'], true, 1, 
+'## High-Performance Android & Mobile Applications
 
-Harness the power of artificial intelligence to automate repetitive tasks, make smarter decisions, and scale your operations efficiently.
-
-### What We Offer
-
-- **Intelligent Workflow Automation**: Automate complex business processes with AI-powered workflows that learn and adapt.
-- **Custom AI Chatbots**: Deploy conversational AI that handles customer inquiries 24/7.
-- **Predictive Analytics**: Leverage machine learning to forecast trends and make data-driven decisions.
-- **Process Mining**: Identify bottlenecks and optimization opportunities in your existing workflows.',
-'[{"step": 1, "title": "Discovery", "description": "We analyze your current processes and identify automation opportunities."}, {"step": 2, "title": "Strategy", "description": "We design a custom AI solution tailored to your needs."}, {"step": 3, "title": "Development", "description": "Our team builds and tests your automation solution."}, {"step": 4, "title": "Deployment", "description": "We launch and monitor your AI systems for optimal performance."}]'::jsonb,
-'[{"question": "How long does implementation take?", "answer": "Typically 4-8 weeks depending on complexity."}, {"question": "Do I need technical expertise?", "answer": "No, we handle everything and provide training."}]'::jsonb),
-
-('youtube-automation', 'YouTube Automation', 'Scale your YouTube presence with automated content strategies, scheduling, and growth systems.', 'Youtube', ARRAY['Content Strategy', 'Upload Automation', 'Analytics Dashboard', 'Growth Systems', 'SEO Optimization', 'Thumbnail Generation'], true, 2,
-'## Grow Your YouTube Channel on Autopilot
-
-Our YouTube automation services help creators and businesses scale their video content without burning out.
+Build scalable, secure, and intuitive mobile products with modern frameworks. We specialize in native Kotlin development and cross-platform Flutter solutions.
 
 ### What We Offer
 
-- **Content Calendar Automation**: Never miss an upload with automated scheduling and reminders.
-- **AI-Powered SEO**: Optimize titles, descriptions, and tags for maximum visibility.
-- **Performance Analytics**: Track what works and double down on winning content.
-- **Faceless Channel Systems**: Build profitable YouTube channels without being on camera.',
-'[{"step": 1, "title": "Audit", "description": "We analyze your channel performance and growth potential."}, {"step": 2, "title": "Strategy", "description": "We create a content and growth roadmap."}, {"step": 3, "title": "Setup", "description": "We implement automation tools and workflows."}, {"step": 4, "title": "Scale", "description": "We continuously optimize for growth."}]'::jsonb,
-'[{"question": "Can you help with faceless channels?", "answer": "Yes, we specialize in automated faceless YouTube channels."}, {"question": "What niches work best?", "answer": "We have experience across education, finance, tech, and entertainment."}]'::jsonb),
+- **Native Android Development**: Clean, resource-efficient apps written in Kotlin with Jetpack Compose.
+- **Cross-Platform Engineering**: Reach both Android and iOS audiences with a single, highly-optimized Flutter codebase.
+- **Offline-First Architectures**: Sync engines and local databases (Room, SQLite, Hive) to ensure your app works seamlessly offline.
+- **Store Publishing & Maintenance**: End-to-end management from beta testing in Google Play Console to publishing and updates.',
+'[{"step": 1, "title": "Discovery", "description": "We analyze your target audience and map out the user journeys."}, {"step": 2, "title": "Wireframing", "description": "We build high-fidelity interactive wireframes for mobile UI/UX approval."}, {"step": 3, "title": "Engineering", "description": "Our developers write clean, modular Kotlin/Flutter code with complete test coverage."}, {"step": 4, "title": "QA & Release", "description": "We run manual and automated tests on physical devices and publish to Play Store."}]'::jsonb,
+'[{"question": "Do you support cross-platform apps?", "answer": "Yes, we specialize in high-performance Flutter applications."}, {"question": "How do you handle background operations?", "answer": "We use Android WorkManager and foreground services for robust background scheduling."}]'::jsonb),
 
-('video-editing', 'Video Editing', 'Professional video editing that captivates your audience and tells your brand story.', 'Video', ARRAY['Professional Editing', 'Motion Graphics', 'Color Grading', 'Sound Design', 'Subtitles & Captions', 'Multi-format Export'], true, 3,
-'## Cinematic Video Production
+('saas-engineering', 'SaaS Platform Engineering', 'Custom multi-tenant Software-as-a-Service platforms built with scalable backend architectures, stripe billing, and modern dashboards.', 'Globe', ARRAY['Next.js & React Frontends', 'Multi-tenant DB Architectures', 'Stripe Billing & Subscriptions', 'JWT & OAuth Authentication', 'RESTful & GraphQL APIs', 'Cloud Hosting & CI/CD'], true, 2,
+'## Custom SaaS Engineering
 
-Transform raw footage into compelling stories that engage your audience and drive results.
-
-### What We Offer
-
-- **Professional Editing**: Clean cuts, pacing, and storytelling that keeps viewers watching.
-- **Motion Graphics**: Eye-catching animations and visual effects.
-- **Color Grading**: Cinematic color that matches your brand aesthetic.
-- **Sound Design**: Professional audio mixing and music selection.',
-'[{"step": 1, "title": "Brief", "description": "Share your vision and raw footage."}, {"step": 2, "title": "Edit", "description": "We craft your story with professional editing."}, {"step": 3, "title": "Review", "description": "Provide feedback on the first cut."}, {"step": 4, "title": "Deliver", "description": "Receive your polished final video."}]'::jsonb,
-'[{"question": "What formats do you deliver?", "answer": "We export in any format you need - 4K, 1080p, vertical, square, etc."}, {"question": "How fast is turnaround?", "answer": "Standard turnaround is 3-5 business days."}]'::jsonb),
-
-('website-development', 'Website Development', 'Custom websites built with modern technologies that convert visitors into customers.', 'Globe', ARRAY['Custom Design', 'Responsive Development', 'SEO Optimization', 'Performance', 'CMS Integration', 'Analytics Setup'], true, 4,
-'## Modern Web Development
-
-We build fast, beautiful websites that drive conversions and grow your business.
+Launch and scale your business with custom multi-tenant Software-as-a-Service architectures. We handle frontends, backends, databases, and billing integrations.
 
 ### What We Offer
 
-- **Custom Design**: Unique designs that stand out from templates.
-- **Responsive Development**: Perfect experience on all devices.
-- **Performance Optimization**: Lightning-fast load times.
-- **SEO Foundation**: Built-in search engine optimization.',
-'[{"step": 1, "title": "Discovery", "description": "We learn about your business and goals."}, {"step": 2, "title": "Design", "description": "We create mockups and get your approval."}, {"step": 3, "title": "Development", "description": "We build your site with modern technologies."}, {"step": 4, "title": "Launch", "description": "We deploy and provide ongoing support."}]'::jsonb,
-'[{"question": "What technologies do you use?", "answer": "React, Next.js, TypeScript, and modern frameworks."}, {"question": "Do you provide hosting?", "answer": "Yes, we offer managed hosting solutions."}]'::jsonb),
+- **Multi-Tenant Architectures**: Secure database isolation for tenants via Row-Level Security (RLS) or separate database schematics.
+- **Stripe Subscription Engines**: Custom pricing plans, metered billing, customer portals, and automatic webhook synchronization.
+- **API Development**: Fast, documented RESTful or GraphQL endpoints built with NestJS, Node.js, or Go.
+- **Cloud Infrastructure**: Scalable containerized deployments (Docker, AWS, Vercel, Supabase) with zero-downtime CI/CD pipelines.',
+'[{"step": 1, "title": "Database Design", "description": "We model the database schema and security policies."}, {"step": 2, "title": "Backend Engineering", "description": "We write the API core, authorization logic, and Stripe hooks."}, {"step": 3, "title": "Frontend Integration", "description": "We develop the interactive React/Next.js client interface and charts."}, {"step": 4, "title": "Cloud Scale", "description": "We deploy to global cloud servers and configure monitoring tools."}]'::jsonb,
+'[{"question": "Can you integrate multiple payment processors?", "answer": "Yes, we support Stripe, PayPal, Paddle, and local gateways."}, {"question": "How is data isolated?", "answer": "We use PostgreSQL RLS or schema-based tenant isolation to ensure complete data security."}]'::jsonb),
 
-('shopify', 'Shopify Development', 'End-to-end Shopify solutions that help you launch and scale your eCommerce business.', 'ShoppingBag', ARRAY['Store Setup', 'Theme Customization', 'App Integration', 'Conversion Optimization', 'Payment Setup', 'Inventory Management'], true, 5,
-'## Shopify Expertise
+('ai-integrations', 'AI & LLM Integrations', 'Supercharge your mobile apps and SaaS products with cutting-edge artificial intelligence, custom chatbots, and vector search capabilities.', 'Bot', ARRAY['OpenAI / Gemini API Integration', 'Retrieval-Augmented Generation (RAG)', 'Vector DBs (Pinecone/pgvector)', 'Conversational Agents', 'Semantic Search Systems', 'Predictive Modeling'], true, 3,
+'## AI & LLM Integrations
 
-Launch and scale your eCommerce store with our full-service Shopify development.
+Make your software smart by integrating large language models, retrieval pipelines, semantic search engines, and automated workflows.
 
 ### What We Offer
 
-- **Store Setup**: Complete store configuration from scratch.
-- **Custom Themes**: Unique designs that convert.
-- **App Integration**: Connect the tools you need.
-- **Conversion Optimization**: Increase sales with proven strategies.',
-'[{"step": 1, "title": "Planning", "description": "We map out your store structure and features."}, {"step": 2, "title": "Design", "description": "We customize your theme and branding."}, {"step": 3, "title": "Build", "description": "We set up products, payments, and shipping."}, {"step": 4, "title": "Launch", "description": "We go live and optimize for sales."}]'::jsonb,
-'[{"question": "Can you migrate from another platform?", "answer": "Yes, we handle migrations from WooCommerce, Magento, etc."}, {"question": "Do you build custom apps?", "answer": "Yes, we develop custom Shopify apps when needed."}]'::jsonb);
+- **LLM API Integrations**: Customized prompting and API hookups for OpenAI GPT-4, Google Gemini, and Anthropic Claude.
+- **RAG Systems**: Feed your proprietary documentation to LLMs securely using embeddings and vector search databases.
+- **Conversational Agents**: Advanced customer support bots that can call API functions and take action.
+- **Vector Search Engine**: Set up pgvector or Pinecone for high-dimensional semantic search engines.',
+'[{"step": 1, "title": "Use Case Analysis", "description": "We identify which AI features will bring the most value to your platform."}, {"step": 2, "title": "Prompt Engineering", "description": "We design and test prompts, system logs, and agent structures."}, {"step": 3, "title": "Integration", "description": "We write vector embedding scripts and database connection endpoints."}, {"step": 4, "title": "Evaluation", "description": "We test agent accuracy and configure rate limiters to optimize API costs."}]'::jsonb,
+'[{"question": "Do you support local LLMs?", "answer": "Yes, we can deploy open-source models like Llama or Mistral on your cloud servers."}, {"question": "How do you protect private data?", "answer": "We filter private data and ensure LLMs do not use your proprietary documents for training."}]'::jsonb),
+
+('design-systems', 'UI/UX Design Systems', 'Interactive high-fidelity design prototypes, comprehensive design tokens, and state-of-the-art interactive component libraries.', 'Layers', ARRAY['Figma Design Systems', 'Interactive Prototyping', 'Responsive UI Layouts', 'Micro-interactions & Motion', 'Brand Identity Assets', 'Accessibility (A11y)'], true, 4,
+'## UI/UX Design Systems
+
+We craft custom Figma design systems, interactive prototypes, and reusable UI components that make your SaaS and mobile products feel premium.
+
+### What We Offer
+
+- **Figma Design Systems**: Comprehensive typography, color palettes, and component states designed for easy developer handoff.
+- **High-Fidelity Prototyping**: Interactive clickable clickthroughs to simulate user journeys before writing code.
+- **Micro-interactions**: Subtle hover states, loading transitions, and page animations that wow users.
+- **Accessibility Compliance**: Ensuring contrast ratios, keyboard accessibility, and screen reader compatibility.',
+'[{"step": 1, "title": "Research", "description": "We analyze your brand guidelines and competitor designs."}, {"step": 2, "title": "UX Wireframing", "description": "We map out user flows and structure information layouts."}, {"step": 3, "title": "UI Design", "description": "We apply typography, colors, and gradients to wireframes."}, {"step": 4, "title": "Design System Handoff", "description": "We document Figma variables and compile react tokens."}]'::jsonb,
+'[{"question": "Do you provide Figma files?", "answer": "Yes, you receive complete access to the raw Figma files and variables."}, {"question": "Are designs mobile-responsive?", "answer": "Absolutely. All layouts are designed for mobile, tablet, and desktop views."}]'::jsonb);
 
 -- Seed Works/Portfolio
 INSERT INTO public.works (slug, title, thumbnail, industry, tags, tech_stack, featured, challenge_md, solution_md, result_md, metrics, live_url) VALUES
-('ai-customer-support', 'AI Customer Support System', 'https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=800', 'SaaS', ARRAY['AI', 'Automation', 'Chatbot'], ARRAY['Python', 'OpenAI', 'React', 'Node.js'], true,
+('ai-customer-support', 'AI Customer Support System', 'https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=800', 'AI & LLM Integrations', ARRAY['AI', 'Automation', 'Chatbot'], ARRAY['Python', 'OpenAI', 'React', 'Node.js'], true,
 'A fast-growing SaaS company was overwhelmed with customer support tickets. Their team spent 80% of time answering repetitive questions, leaving complex issues unresolved.',
 'We built an AI-powered support system that automatically handles common queries, routes complex issues to the right team members, and learns from every interaction.',
 'The AI now handles 75% of all support tickets automatically, response time dropped from 4 hours to 2 minutes, and customer satisfaction increased by 40%.',
 '[{"label": "Tickets Automated", "value": "75%"}, {"label": "Response Time", "value": "2 min"}, {"label": "CSAT Increase", "value": "+40%"}]'::jsonb,
 'https://example.com'),
 
-('youtube-growth-system', 'YouTube Channel Growth System', 'https://images.unsplash.com/photo-1611162616475-46b635cb6868?w=800', 'Media', ARRAY['YouTube', 'Automation', 'Content'], ARRAY['n8n', 'Make', 'Airtable', 'AI Tools'], true,
-'A content creator wanted to scale from 1 channel to 5 faceless YouTube channels but lacked the time and systems to manage content production.',
-'We designed an end-to-end automation system: AI script generation, automated video production, scheduled uploads, and performance analytics dashboard.',
-'All 5 channels now produce 20+ videos per week with minimal manual intervention, generating over 10M monthly views combined.',
-'[{"label": "Channels", "value": "5"}, {"label": "Videos/Week", "value": "20+"}, {"label": "Monthly Views", "value": "10M+"}]'::jsonb,
+('logistics-offline-app', 'Offline-First Logistics App', 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800', 'Android App Development', ARRAY['Android', 'Kotlin', 'Room', 'Offline-First'], ARRAY['Kotlin', 'Jetpack Compose', 'Room', 'WorkManager', 'Supabase'], true,
+'Logistics company drivers struggled to update shipment statuses in rural regions with unstable mobile networks, leading to delayed tracking updates.',
+'Built a native Android app with an offline-first SQLite database using Room. Enqueued background status updates via WorkManager when connection is restored.',
+'Eliminated status sync drop-offs, reduced local database sync latency by 95%, and saved driver device battery consumption by 30%.',
+'[{"label": "Sync Latency", "value": "-95%"}, {"label": "Battery Optimization", "value": "+30%"}, {"label": "ROI", "value": "500%"}]'::jsonb,
 'https://example.com'),
 
-('ecommerce-redesign', 'E-Commerce Store Redesign', 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800', 'eCommerce', ARRAY['Shopify', 'Design', 'Conversion'], ARRAY['Shopify', 'Liquid', 'JavaScript', 'Figma'], true,
-'An established fashion brand had an outdated Shopify store with poor mobile experience and low conversion rates despite strong traffic.',
-'We redesigned the entire store with a mobile-first approach, implemented one-click checkout, and optimized the product pages for conversions.',
-'Conversion rate increased from 1.2% to 3.8%, mobile revenue grew by 150%, and average order value increased by 25%.',
-'[{"label": "Conversion Rate", "value": "3.8%"}, {"label": "Mobile Revenue", "value": "+150%"}, {"label": "AOV Increase", "value": "+25%"}]'::jsonb,
+('native-android-ecommerce', 'Native Android E-Commerce App', 'https://images.unsplash.com/photo-1601972599720-36938d4ecd31?w=800', 'Android App Development', ARRAY['E-Commerce', 'Android', 'Kotlin', 'Material Design'], ARRAY['Kotlin', 'Jetpack Compose', 'Google Pay', 'Firebase'], true,
+'Retail brand experienced extremely high checkout abandonment rates on mobile browsers.',
+'Built a native Android e-commerce application using Jetpack Compose with Google Pay integration for one-tap checkout.',
+'Increased mobile conversions by 48% and achieved a 4.8-star rating on the Google Play Store.',
+'[{"label": "Mobile Conversions", "value": "+48%"}, {"label": "App Store Rating", "value": "4.8"}, {"label": "AOV Increase", "value": "+25%"}]'::jsonb,
 'https://example.com'),
 
-('saas-landing-page', 'SaaS Landing Page', 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800', 'SaaS', ARRAY['Web Development', 'Design', 'Conversion'], ARRAY['React', 'TypeScript', 'Tailwind', 'Framer Motion'], false,
+('saas-landing-page', 'SaaS Landing Page', 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800', 'SaaS Platform Engineering', ARRAY['Web Development', 'Design', 'Conversion'], ARRAY['React', 'TypeScript', 'Tailwind', 'Framer Motion'], false,
 'A B2B SaaS startup needed a high-converting landing page to launch their product and attract enterprise customers.',
 'We designed and developed a stunning landing page with clear value proposition, social proof, interactive demos, and optimized lead capture forms.',
 'The landing page achieved a 12% demo booking rate, well above the 3% industry average, helping them close their first 50 enterprise customers.',
 '[{"label": "Demo Booking Rate", "value": "12%"}, {"label": "Enterprise Clients", "value": "50+"}, {"label": "Load Time", "value": "<1s"}]'::jsonb,
 'https://example.com'),
 
-('workflow-automation', 'Business Workflow Automation', 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800', 'Finance', ARRAY['Automation', 'Integration', 'Workflow'], ARRAY['Zapier', 'Make', 'Airtable', 'Slack'], false,
-'A financial services firm was drowning in manual data entry, with employees spending 20+ hours weekly on repetitive tasks.',
-'We mapped their entire workflow and built automated pipelines connecting their CRM, accounting software, and communication tools.',
-'The automation saves 25+ hours per week, eliminated data entry errors, and freed the team to focus on high-value client work.',
-'[{"label": "Hours Saved/Week", "value": "25+"}, {"label": "Error Reduction", "value": "99%"}, {"label": "ROI", "value": "500%"}]'::jsonb,
+('ai-saas-document-search', 'AI-Integrated SaaS Document Search', 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800', 'AI & LLM Integrations', ARRAY['AI', 'SaaS', 'RAG', 'Vector Search'], ARRAY['Next.js', 'OpenAI API', 'Pgvector', 'Supabase'], false,
+'Legal firm took hours querying unstructured documents and case files for exact clauses.',
+'Engineered a semantic RAG (Retrieval-Augmented Generation) document search tool using OpenAI embeddings and pgvector storage.',
+'Increased search precision by 92% and reduced query lookup latency to under 200ms.',
+'[{"label": "Search Precision", "value": "92%"}, {"label": "Query Latency", "value": "<200ms"}, {"label": "ROI", "value": "500%"}]'::jsonb,
 'https://example.com');
 
 -- Seed Testimonials
@@ -118,117 +104,318 @@ INSERT INTO public.testimonials (name, role, company, quote, rating, featured, a
 
 -- Seed Blog Posts
 INSERT INTO public.blog_posts (slug, title, excerpt, author, tags, published, published_at, content_md, cover) VALUES
-('ai-automation-guide-2024', 'The Complete Guide to AI Automation in 2024', 'Learn how AI automation can transform your business operations and save countless hours of manual work.', 'SANZOX Team', ARRAY['AI', 'Automation', 'Business'], true, NOW() - INTERVAL '5 days',
-'## Introduction to AI Automation
+('offline-first-android-apps-guide', 'Building Offline-First Android Apps: Room, SQLite, and WorkManager Guide', 'Learn how to architect high-performance, offline-first native Android applications using Kotlin, Room database, and WorkManager.', 'SANZOX Team', ARRAY['Android', 'Mobile Development'], true, NOW() - INTERVAL '5 days',
+'## Introduction
 
-Artificial Intelligence is no longer a futuristic concept—it''s here, and it''s transforming how businesses operate. In this comprehensive guide, we''ll explore how you can leverage AI automation to streamline your operations.
+In modern mobile app development, building an app that requires a continuous internet connection results in a poor user experience. Whether users are in a subway, a remote region, or experiencing network latency, your application should remain fully responsive and functional. 
 
-### What is AI Automation?
+An **offline-first architecture** caches data locally and synchronizes changes in the background when connection is restored. In this guide, we''ll walk through the process of building an offline-first native Android application using Kotlin, the Room database persistence library, and WorkManager for background sync operations.
 
-AI automation combines artificial intelligence with process automation to handle tasks that previously required human intervention. Unlike traditional automation that follows rigid rules, AI automation can learn, adapt, and make decisions.
+---
 
-### Key Benefits
+## 1. Core Principles of Offline-First Architecture
 
-1. **Time Savings**: Automate repetitive tasks and free up your team
-2. **Cost Reduction**: Lower operational costs by up to 40%
-3. **Improved Accuracy**: Eliminate human error in routine processes
-4. **Scalability**: Handle increased workload without proportional cost increases
+To design a robust offline-first app, you must implement the repository pattern as the single source of truth:
 
-### Getting Started
+1. **Local Database First:** The UI always queries data from the local database (Room/SQLite), never directly from the network API.
+2. **Reactive UI Hydration:** The UI observes the local database using Flow, LiveData, or Compose State. Any update to the DB automatically propagates to the screen.
+3. **Background Sync:** Network calls fetch fresh data, write it to the database, and enqueue upload jobs. The UI updates Reactively.
 
-The first step is identifying processes in your business that are repetitive, time-consuming, and rule-based. These are prime candidates for AI automation.
+```
+[Jetpack Compose UI] ──> Observes Flow ──> [Room Local DB]
+[Repository] ──> Writes data ──> [Room Local DB]
+[Repository] ──> Enqueues Sync ──> [WorkManager] ──> Remote REST API
+```
 
-### Common Use Cases
+---
 
-- Customer support chatbots
-- Data entry and processing
-- Email management and responses
-- Report generation
-- Lead qualification
+## 2. Setting Up Room for Local Persistence
 
-### Conclusion
+The Room library acts as an abstraction layer over SQLite. First, define your entities and data access objects (DAOs).
 
-AI automation is not just for large enterprises. Businesses of all sizes can benefit from implementing intelligent automation solutions.',
-'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800'),
+### Step A: The Entity Definition
 
-('youtube-growth-strategies', '10 YouTube Growth Strategies That Actually Work', 'Discover proven strategies to grow your YouTube channel and build a loyal audience in 2024.', 'SANZOX Team', ARRAY['YouTube', 'Growth', 'Content'], true, NOW() - INTERVAL '10 days',
-'## Growing Your YouTube Channel in 2024
+```kotlin
+@Entity(tableName = "projects")
+data class ProjectEntity(
+    @PrimaryKey val id: String,
+    val name: String,
+    val description: String,
+    val updatedAt: Long,
+    val isPendingSync: Boolean = false
+)
+```
 
-YouTube remains one of the most powerful platforms for content creators and businesses. Here are 10 strategies that actually work.
+### Step B: The DAO Interface
 
-### 1. Optimize Your Titles and Thumbnails
+```kotlin
+@Dao
+interface ProjectDao {
+    @Query("SELECT * FROM projects ORDER BY updatedAt DESC")
+    fun getProjectsFlow(): Flow<List<ProjectEntity>>
 
-Your title and thumbnail are the first things viewers see. Spend 50% of your time on these elements. Use curiosity gaps, numbers, and emotional triggers.
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertProjects(projects: List<ProjectEntity>)
 
-### 2. Master YouTube SEO
+    @Query("SELECT * FROM projects WHERE isPendingSync = 1")
+    suspend fun getPendingProjects(): List<ProjectEntity>
+}
+```
 
-Research keywords using tools like VidIQ or TubeBuddy. Include your target keyword in the title, description, and tags.
+---
 
-### 3. Hook Viewers in the First 30 Seconds
+## 3. Scheduling Background Sync with WorkManager
 
-The first 30 seconds determine whether viewers stay or leave. Start with a compelling hook that promises value.
+WorkManager is the recommended Android API for deferrable, guaranteed background work. It handles constraint checks (e.g., waiting for an active internet connection or device charging) and manages system battery optimization.
 
-### 4. Create Content Series
+### Step A: Create the Sync Worker
 
-Playlists and series keep viewers watching longer, improving your session time and algorithmic favor.
+```kotlin
+class DataSyncWorker(
+    context: Context,
+    params: WorkerParameters
+) : CoroutineWorker(context, params) {
 
-### 5. Post Consistently
+    override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
+        val database = AppDatabase.getInstance(applicationContext)
+        val apiService = RetrofitClient.apiService
+        
+        try {
+            // Retrieve data pending upload
+            val pendingData = database.projectDao().getPendingProjects()
+            for (project in pendingData) {
+                apiService.uploadProject(project.toNetworkModel())
+                database.projectDao().insertProjects(
+                    listOf(project.copy(isPendingSync = false))
+                )
+            }
+            Result.success()
+        } catch (e: Exception) {
+            Result.retry()
+        }
+    }
+}
+```
 
-Consistency beats frequency. It''s better to post once a week reliably than sporadically post multiple times.
+### Step B: Enqueueing the Work with Network Constraints
 
-### 6. Engage With Your Community
+```kotlin
+val constraints = Constraints.Builder()
+    .setRequiredNetworkType(NetworkType.CONNECTED)
+    .setRequiresBatteryNotLow(true)
+    .build()
 
-Reply to comments, especially in the first hour after posting. This signals engagement to the algorithm.
+val syncRequest = OneTimeWorkRequestBuilder<DataSyncWorker>()
+    .setConstraints(constraints)
+    .setBackoffCriteria(
+        BackoffPolicy.EXPONENTIAL,
+        WorkRequest.MIN_BACKOFF_MILLIS,
+        TimeUnit.MILLISECONDS
+    )
+    .build()
 
-### 7. Collaborate With Other Creators
+WorkManager.getInstance(context).enqueueUniqueWork(
+    "unique_data_sync",
+    ExistingWorkPolicy.REPLACE,
+    syncRequest
+)
+```
 
-Cross-promotion exposes you to new audiences and builds relationships in your niche.
+---
 
-### 8. Analyze and Iterate
+## Conclusion
 
-Use YouTube Analytics to understand what works. Double down on successful content types.
+Building offline-first Android apps requires shifting from standard network call paradigms to a local database-first methodology. Utilizing **Kotlin Coroutines**, **Room**, and **WorkManager** ensures your app remains lightning fast, network-independent, and optimized for battery consumption.',
+'https://images.unsplash.com/photo-1607799279861-4dd421887fb3?w=800'),
 
-### 9. Repurpose Content
+('multi-tenant-saas-architecture', 'How to Architect a Multi-Tenant SaaS App with Next.js and Supabase', 'Discover step-by-step how to design and build a scalable multi-tenant SaaS application with Next.js, Postgres schema partitioning, and Supabase auth.', 'SANZOX Team', ARRAY['SaaS', 'Web Engineering'], true, NOW() - INTERVAL '10 days',
+'## Introduction
 
-Turn long videos into shorts, clips, and social media posts to maximize reach.
+Software-as-a-Service (SaaS) products must isolate user data while remaining scalable and easy to maintain. The choice of **multi-tenancy architecture** dictates how databases partition client records. 
 
-### 10. Build Systems
+In this guide, we''ll design a modern multi-tenant SaaS architecture using **Next.js** for subdomain routing and **Supabase (PostgreSQL)** for tenant isolation.
 
-Create templates, workflows, and processes that allow you to produce content efficiently.',
-'https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=800'),
+---
 
-('shopify-conversion-tips', 'Boost Your Shopify Conversion Rate by 50%', 'Practical tips and strategies to optimize your Shopify store and dramatically increase sales.', 'SANZOX Team', ARRAY['Shopify', 'eCommerce', 'Conversion'], true, NOW() - INTERVAL '15 days',
-'## Optimizing Your Shopify Store for Conversions
+## 1. Database Tenant Isolation Models
 
-If you''re getting traffic but not sales, your store likely has conversion issues. Here''s how to fix them.
+There are three primary models to partition tenant data in PostgreSQL:
 
-### Understanding Conversion Rate
+| Model | Description | Pros | Cons |
+| :--- | :--- | :--- | :--- |
+| **Database-Per-Tenant** | Each client gets a dedicated database server. | Maximum security | High hosting cost, hard schema updates. |
+| **Schema-Per-Tenant** | One database with separate namespaces (schemas) per tenant. | Clean separation | Difficult to run cross-tenant queries. |
+| **Shared Database (Row-Level Security)** | Single schema; every table has a \`tenant_id\` column. | Lowest cost, easy schema updates | Risks data leaks if security rules fail. |
 
-The average Shopify store converts at 1.4%. Top stores convert at 3-5%. Every 0.1% improvement can mean thousands in additional revenue.
+For most startups, **Shared Database with Supabase Row-Level Security (RLS)** offers the best ROI, scaling to millions of records with near-zero overhead.
 
-### Quick Wins
+---
 
-1. **Simplify your checkout**: Remove unnecessary form fields
-2. **Add trust badges**: SSL, payment icons, money-back guarantee
-3. **Speed up your site**: Every second of delay costs 7% in conversions
+## 2. Implementing Row-Level Security in Supabase
 
-### Product Page Optimization
+Row-Level Security allows you to attach access control rules directly to database tables. This acts as a fireproof barrier preventing Tenant A from reading Tenant B''s data.
 
-Your product page is where decisions happen. Include:
-- High-quality images from multiple angles
-- Clear, benefit-focused descriptions
-- Social proof (reviews, testimonials)
-- Urgency elements (stock levels, limited time offers)
+### Step A: Enable RLS on the Table
 
-### Mobile Experience
+```sql
+ALTER TABLE projects ENABLE ROW LEVEL SECURITY;
+```
 
-Over 70% of traffic is mobile. Test your store on various devices and ensure:
-- Fast loading times
-- Easy navigation
-- Large, tappable buttons
-- Streamlined checkout
+### Step B: Create a User Tenant Mapping Table
 
-### Conclusion
+```sql
+CREATE TABLE tenant_members (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  tenant_id UUID REFERENCES tenants(id) ON DELETE CASCADE,
+  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
+  role TEXT CHECK (role IN (''owner'', ''admin'', ''member''))
+);
+```
 
-Conversion optimization is an ongoing process. Test one change at a time, measure results, and keep iterating.',
+### Step C: Define the Access Policy
+
+```sql
+CREATE POLICY "Users can only access their tenant''s data"
+ON public.projects
+FOR ALL
+USING (
+  tenant_id IN (
+    SELECT tenant_id 
+    FROM public.tenant_members 
+    WHERE user_id = auth.uid()
+  )
+);
+```
+
+Now, any client query generated by Supabase client libraries (e.g., \`supabase.from(''projects'').select(''*'')\`) automatically appends this filter on the database server.
+
+---
+
+## 3. Subdomain and Domain Routing in Next.js
+
+A premium B2B SaaS needs to serve tenants on custom subdomains (e.g., \`client-a.yourdomain.com\`) or dedicated custom domains (e.g., \`app.client-a.com\`). 
+
+Next.js Middleware intercepts incoming requests and rewrites the path based on the host header.
+
+```typescript
+// middleware.ts
+import { NextResponse } from ''next/server'';
+import type { NextRequest } from ''next/server'';
+
+export function middleware(request: NextRequest) {
+  const url = request.nextUrl.clone();
+  const hostname = request.headers.get(''host'') || '''';
+
+  // Exclude assets
+  if (url.pathname.startsWith(''/_next'') || url.pathname.includes(''.'')) {
+    return NextResponse.next();
+  }
+
+  // Detect subdomains
+  const currentHost = hostname.replace(''.localhost:3000'', '''').replace(''.sanzox.com'', '''');
+  
+  if (currentHost && currentHost !== ''www'' && currentHost !== ''app'') {
+    // Rewrite internal route to dynamic folder structure
+    url.pathname = \`/_tenants/\${currentHost}\${url.pathname}\`;
+    return NextResponse.rewrite(url);
+  }
+
+  return NextResponse.next();
+}
+```
+
+---
+
+## Conclusion
+
+By combining **Supabase''s Row-Level Security (RLS)** with **Next.js Middleware routing**, you get a highly secure, scalable, and cost-efficient B2B SaaS boilerplate. You can onboard new customers instantly with dynamic subdomains and guaranteed database isolation.',
+'https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=800'),
+
+('stripe-saas-subscription-billing', 'Stripe Subscription Billing for SaaS: Pitfalls and Best Practices', 'A complete software engineering guide to implementing Stripe billing, webhook handlers, and coupon systems in B2B SaaS platforms.', 'SANZOX Team', ARRAY['SaaS', 'Stripe Integration'], true, NOW() - INTERVAL '15 days',
+'## Introduction
+
+A SaaS product is only as good as its billing infrastructure. While Stripe makes payment processing simple, engineering a robust subscription engine with coupon codes, billing portals, webhook handlers, and multi-tier pricing requires careful architectural planning.
+
+In this guide, we''ll design a reliable, production-ready Stripe integration workflow for subscription-based B2B platforms.
+
+---
+
+## 1. The Stripe Subscription Lifecycle
+
+A common mistake is updating user subscription states directly in response to API requests. Payments can fail, cards expire, and trials expire asynchronously. You must synchronize your database states solely through **Stripe Webhooks**.
+
+```
+[Client] ──> Upgrade Plan ──> [SaaS App]
+[SaaS App] ──> Create Checkout ──> [Stripe API]
+[Stripe API] ──> Redirect to Checkout ──> [Client]
+[Client] ──> Complete Payment ──> [Stripe Checkout]
+[Stripe Checkout] ──> Webhook: subscription.created ──> [SaaS App Webhook]
+[SaaS App Webhook] ──> Update DB ──> [Database]
+```
+
+---
+
+## 2. Implementing a Secure Stripe Webhook Handler
+
+Webhooks must be protected against tampering and payload spoofing. Stripe provides signature validation to guarantee the event originated from their servers.
+
+```typescript
+// pages/api/webhooks/stripe.ts
+import { buffer } from ''micro'';
+import Stripe from ''stripe'';
+import { supabaseAdmin } from ''@/lib/supabaseAdmin'';
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+  apiVersion: ''2023-10-16'',
+});
+
+export const config = {
+  api: { bodyParser: false },
+};
+
+export default async function handler(req: any, res: any) {
+  if (req.method !== ''POST'') return res.status(405).end();
+
+  const buf = await buffer(req);
+  const sig = req.headers[''stripe-signature'']!;
+  let event: Stripe.Event;
+
+  try {
+    event = stripe.webhooks.constructEvent(
+      buf,
+      sig,
+      process.env.STRIPE_WEBHOOK_SECRET!
+    );
+  } catch (err: any) {
+    return res.status(400).send(\`Webhook Error: \${err.message}\`);
+  }
+
+  // Handle billing events
+  switch (event.type) {
+    case ''customer.subscription.updated'':
+    case ''customer.subscription.deleted'':
+      const subscription = event.data.object as Stripe.Subscription;
+      await updateSubscriptionStatus(subscription);
+      break;
+    default:
+      console.log(\`Unhandled event type: \${event.type}\`);
+  }
+
+  res.json({ received: true });
+}
+```
+
+---
+
+## 3. Best Practices for Stripe Subscriptions
+
+* **Idempotency Keys:** Always pass an idempotency key (e.g. \`uuid\`) when invoking Stripe payment requests to avoid double billing clients during latency spikes.
+* **Avoid Storing Card Details:** Never write raw credit card numbers to your local database. Save only the Stripe \`customer_id\`, \`subscription_id\`, and \`price_id\`.
+* **Utilize Customer Portal:** Instead of coding custom UI components for card updates, plan cancellations, or receipt history, redirect users to the pre-built **Stripe Customer Portal**. It handles security compliance and updates automatically.
+
+---
+
+## Conclusion
+
+By centering subscription status synchronization around Stripe webhooks, validating signatures, and decoupling card storage, you build a resilient, enterprise-grade billing machine that protects transactions and maintains accurate tenant access states.',
 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800');

@@ -57,31 +57,31 @@ export const defaultSiteSettings: SiteSettings = {
   // Branding
   logo_url: null,
   site_name: 'SANZOX',
-  tagline: 'AI-Powered Digital Agency',
+  tagline: 'Android & SaaS Product Engineering',
   
   // Hero Section
   hero_headline: 'Your Pro Team for',
-  hero_description: 'We specialize in AI Automation, YouTube Automation, Video Editing, Website Development, and Shopify solutions that transform your brand.',
+  hero_description: 'We specialize in engineering high-performance Android applications, custom SaaS platforms, and cutting-edge AI integrations for high-growth startups.',
   hero_image_url: null,
   hero_video_enabled: false,
   hero_video_url: null,
-  hero_service_words: ['AI Automation', 'Web Development', 'Video Editing', 'Shopify Solutions'],
+  hero_service_words: ['Android Apps', 'SaaS Platforms', 'AI Integrations', 'UI/UX Design'],
   
   // Works Section
   works_marquee_rows: 3,
-  works_industries: ['AI Automation', 'Youtube Automation', 'Video Editing', 'Shopify', 'Website & Application'],
+  works_industries: ['Android & Mobile', 'SaaS & Web', 'AI Integrations', 'Design Systems'],
   
   // CTA Section
-  cta_badge: 'Ready to Transform?',
+  cta_badge: 'Ready to Build?',
   cta_headline: "Let's start",
-  cta_headline_highlight: 'building brands',
-  cta_headline_suffix: 'that matter',
-  cta_description: 'Ready to transform your business with automation-driven growth? Book a free strategy call and discover your potential.',
-  cta_primary_button_text: 'Get Free Proposal',
+  cta_headline_highlight: 'engineering products',
+  cta_headline_suffix: 'that scale',
+  cta_description: 'Ready to build your next custom software product? Get in touch to discuss your Android app or SaaS project with our engineers.',
+  cta_primary_button_text: 'Request Proposal',
   cta_primary_button_link: '/contact',
-  cta_secondary_button_text: 'View Our Work',
+  cta_secondary_button_text: 'View Projects',
   cta_secondary_button_link: '/works',
-  cta_trust_indicators: ['Free Consultation', 'No Commitment', '24h Response'],
+  cta_trust_indicators: ['Free Consultation', 'No Commitment', 'Secure Architecture'],
   
   // Social Links
   social_twitter: '',
@@ -93,15 +93,15 @@ export const defaultSiteSettings: SiteSettings = {
   social_upwork: '',
   
   // Footer
-  footer_description: 'Your pro team for automation-driven growth. We specialize in AI, YouTube, and digital solutions that transform brands.',
+  footer_description: 'Your pro engineering team for custom Android applications, multi-tenant SaaS platforms, and intelligent AI-integrated software.',
   footer_email: 'hello@sanzox.com',
   footer_location: 'Remote-First Agency\nServing clients worldwide',
   footer_copyright: 'SANZOX. All rights reserved.',
   
   // SEO
-  seo_title: 'SANZOX | AI-Powered Digital Agency',
-  seo_description: 'We specialize in AI Automation, YouTube Automation, Video Editing, Website Development, and Shopify solutions that transform your brand.',
-  seo_keywords: 'AI automation, digital agency, web development, video editing, YouTube automation, Shopify',
+  seo_title: 'SANZOX | Android Apps & SaaS Product Engineering',
+  seo_description: 'We build high-performance Android applications, custom SaaS platforms, and intelligent AI integrations that scale your business.',
+  seo_keywords: 'Android development, SaaS engineering, Kotlin apps, Flutter developer, custom software agency, AI SaaS, SaaS platform developer',
   seo_og_image: null,
 };
 

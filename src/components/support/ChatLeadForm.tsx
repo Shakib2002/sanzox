@@ -21,11 +21,10 @@ type ChatLeadFormProps = {
 };
 
 const services = [
-  { value: 'ai-automation', label: '🤖 AI Automation' },
-  { value: 'web-development', label: '🌐 Web Development' },
-  { value: 'video-editing', label: '🎬 Video Editing' },
-  { value: 'shopify', label: '🛍️ Shopify Solutions' },
-  { value: 'youtube', label: '📈 YouTube Automation' },
+  { value: 'android-development', label: '📱 Android App Dev' },
+  { value: 'saas-engineering', label: '🌐 SaaS Engineering' },
+  { value: 'ai-integrations', label: '🤖 AI & LLM Integrations' },
+  { value: 'design-systems', label: '🎨 UI/UX Design Systems' },
 ];
 
 const budgets = [

@@ -57,8 +57,8 @@ export function TestimonialsSection() {
               ))}
             </CarouselContent>
 
-            <CarouselPrevious className="left-0 bg-background/80 backdrop-blur-md border-border/40 hover:border-primary/40 transition-all" />
-            <CarouselNext className="right-0 bg-background/80 backdrop-blur-md border-border/40 hover:border-primary/40 transition-all" />
+            <CarouselPrevious className="hidden md:flex left-0 bg-background/80 backdrop-blur-md border-border/40 hover:border-primary/40 transition-all" />
+            <CarouselNext className="hidden md:flex right-0 bg-background/80 backdrop-blur-md border-border/40 hover:border-primary/40 transition-all" />
           </Carousel>
         </motion.div>
       </div>
@@ -95,7 +95,7 @@ function TestimonialCard({ testimonial }: TestimonialCardProps) {
       </div>
 
       {/* Quote */}
-      <p className="text-sm text-muted-foreground leading-relaxed flex-1">
+      <p className="text-sm md:text-[15px] italic text-muted-foreground/90 leading-relaxed flex-1">
         "{testimonial.quote}"
       </p>
 

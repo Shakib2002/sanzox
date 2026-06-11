@@ -13,7 +13,7 @@ interface LayoutProps {
 
 export function Layout({ children, title, description, image }: LayoutProps) {
   return (
-    <div className="relative min-h-screen flex flex-col">
+    <div className="relative min-h-screen flex flex-col overflow-x-hidden">
       <SEOHead title={title} description={description} image={image} />
       
       {/* Scroll progress indicator */}

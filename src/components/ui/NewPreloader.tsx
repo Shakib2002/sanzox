@@ -14,7 +14,7 @@ export function NewPreloader({ onLoadComplete }: PreloaderProps) {
     const timer = setTimeout(() => {
       setIsLoading(false);
       onLoadComplete?.();
-    }, 2600);
+    }, 1600);
     return () => clearTimeout(timer);
   }, [onLoadComplete]);
 

@@ -6,27 +6,18 @@ import { Input } from '@/components/ui/input';
 import { fadeUpVariants, staggerContainerVariants } from '@/hooks/useScrollAnimation';
 import { supabase } from '@/integrations/supabase/client';
 import { CTASection } from '@/components/sections/CTASection';
-import { BentoGrid } from '@/components/ui/BentoGrid';
+import { WorkGrid } from '@/components/ui/WorkGrid';
+import { WorksFilterBar } from '@/components/ui/WorksFilterBar';
+import { QuickViewModal } from '@/components/ui/QuickViewModal';
 import { ProjectMarquee } from '@/components/ui/ProjectMarquee';
 import { useSiteSettings } from '@/hooks/useSiteSettings';
-
-interface Work {
-  id: string;
-  slug: string;
-  title: string;
-  industry: string | null;
-  tags: string[];
-  thumbnail: string | null;
-  featured: boolean;
-  video_preview?: string | null;
-}
+import { Work } from '@/types/work';
 
 const defaultIndustries = [
-  'AI Automation',
-  'Youtube Automation',
-  'Video Editing',
-  'Shopify',
-  'Website & Application',
+  'Android App Development',
+  'SaaS Platform Engineering',
+  'AI & LLM Integrations',
+  'UI/UX Design Systems',
 ];
 
 export default function WorksPage() {
@@ -35,6 +26,8 @@ export default function WorksPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const { data: siteSettings } = useSiteSettings();
+  const [selectedWork, setSelectedWork] = useState<Work | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const industries = [
     'All',
@@ -108,30 +101,7 @@ export default function WorksPage() {
             className="flex flex-col gap-5"
           >
             {/* Filter pills */}
-            <div className="flex flex-wrap items-center gap-2">
-              {industries.map((industry) => (
-                <button
-                  key={industry}
-                  onClick={() => setActiveFilter(industry)}
-                  className="relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-200"
-                  style={
-                    activeFilter === industry
-                      ? {
-                          background:
-                            'linear-gradient(135deg, hsl(217 91% 60%), hsl(280 70% 55%))',
-                          color: 'hsl(222 47% 6%)',
-                          boxShadow: '0 0 18px hsl(217 91% 60% / 0.3)',
-                        }
-                      : {
-                          background: 'hsl(var(--secondary) / 0.5)',
-                          color: 'hsl(var(--muted-foreground))',
-                          border: '1px solid hsl(var(--border) / 0.4)',
-                        }
-                  }
-                >
-                  {industry}
-                </button>
-              ))}
+            <WorksFilterBar industries={industries} active={activeFilter} onChange={setActiveFilter} />
 
               {/* Search — inline with pills on md+ */}
               {/* <div className="relative ml-auto w-full sm:w-64 group">
@@ -143,7 +113,6 @@ export default function WorksPage() {
                   className="pl-9 h-9 bg-secondary/50 border-border/30 focus:border-primary/50 rounded-full text-sm transition-colors"
                 />
               </div> */}
-            </div>
 
             {/* Result count */}
             {/* {!isLoading && (
@@ -219,12 +188,21 @@ export default function WorksPage() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
               >
-                <BentoGrid works={filteredWorks} />
+                <WorkGrid works={filteredWorks} onOpen={(work) => { setSelectedWork(work); setIsModalOpen(true); }} />
               </motion.div>
             )}
           </AnimatePresence>
         </div>
       </section>
+
+      {/* Quick-view modal */}
+      {selectedWork && (
+        <QuickViewModal
+          work={selectedWork}
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+        />
+      )}
 
       <CTASection />
     </Layout>

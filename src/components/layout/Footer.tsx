@@ -47,11 +47,10 @@ const footerLinks = {
     { name: 'Contact', href: '/contact' },
   ],
   services: [
-    { name: 'AI Automation', href: '/services/ai-automation' },
-    { name: 'YouTube Automation', href: '/services/youtube-automation' },
-    { name: 'Video Editing', href: '/services/video-editing' },
-    { name: 'Website Development', href: '/services/website-development' },
-    { name: 'Digital Marketing', href: '/services/digital-marketing' },
+    { name: 'Android Development', href: '/services/android-development' },
+    { name: 'SaaS Engineering', href: '/services/saas-engineering' },
+    { name: 'AI & LLM Integrations', href: '/services/ai-integrations' },
+    { name: 'UI/UX Design Systems', href: '/services/design-systems' },
   ],
   legal: [
     { name: 'Privacy Policy', href: '/privacy' },
@@ -95,7 +94,7 @@ export function Footer() {
               )} */}
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed mb-6">
-              Your pro team for automation-driven growth. We specialize in AI automation, YouTube growth, and digital solutions that transform brands.
+              We engineer custom Android applications and scalable SaaS products for high-growth startups and enterprises.
             </p>
           </div>
 

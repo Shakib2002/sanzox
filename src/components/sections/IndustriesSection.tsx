@@ -66,7 +66,7 @@ export function IndustriesSection() {
               variants={fadeUpVariants}
               className="group text-center"
             >
-              <div className={`w-14 h-14 mx-auto rounded-xl bg-secondary/50 flex items-center justify-center ${industry.color} mb-4 group-hover:scale-110 transition-transform`}>
+              <div className={`w-14 h-14 mx-auto rounded-xl bg-secondary/50 border border-border/40 flex items-center justify-center ${industry.color} mb-4 group-hover:scale-110 group-hover:bg-primary/10 group-hover:border-primary/30 transition-all duration-300`}>
                 <industry.icon size={28} />
               </div>
               <h3 className="text-lg font-semibold text-foreground mb-2">

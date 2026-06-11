@@ -12,11 +12,13 @@ interface SEOHeadProps {
 export function SEOHead({ title, description, image, type = 'website' }: SEOHeadProps) {
   const location = useLocation();
   const { data: settings } = useSiteSettings();
-  const s = settings || defaultSiteSettings;
+  // Merge defaults with fetched settings, but always prioritize default SEO values to avoid stale DB data
+  const s = { ...defaultSiteSettings, ...(settings || {}) };
 
-  const finalTitle = title || s.seo_title;
-  const finalDescription = description || s.seo_description;
-  const finalImage = image || s.seo_og_image;
+  // Use default SEO values for title/description/image unless explicitly overridden via props
+  const finalTitle = title || defaultSiteSettings.seo_title;
+  const finalDescription = description || defaultSiteSettings.seo_description;
+  const finalImage = image || defaultSiteSettings.seo_og_image;
   const siteUrl = window.location.origin;
   const currentUrl = `${siteUrl}${location.pathname}`;
 
@@ -41,8 +43,9 @@ export function SEOHead({ title, description, image, type = 'website' }: SEOHead
 
     // Basic meta tags
     updateMeta('description', finalDescription);
-    updateMeta('keywords', s.seo_keywords);
-    
+    // Use default keywords to avoid stale DB values
+    updateMeta('keywords', defaultSiteSettings.seo_keywords);
+
     // Open Graph tags
     updateMeta('og:title', finalTitle, true);
     updateMeta('og:description', finalDescription, true);

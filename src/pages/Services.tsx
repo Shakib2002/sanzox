@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, Bot, Youtube, Video, Globe, ShoppingBag, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, Bot, Globe, Smartphone, Layers, CheckCircle2 } from 'lucide-react';
 import { Layout } from '@/components/layout/Layout';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { GlassCard } from '@/components/ui/GlassCard';
@@ -11,44 +11,36 @@ import heroServicesImage from '@/assets/hero-services.jpg';
 
 const services = [
   {
-    id: 'ai-automation',
-    icon: Bot,
-    title: 'AI Automation',
-    description: 'Streamline your operations with intelligent automation solutions that save time and boost efficiency.',
-    features: ['Workflow Automation', 'AI Chatbots', 'Process Optimization', 'Data Analytics', 'Custom Integrations', 'Reporting Dashboards'],
-    benefits: ['Save 20+ hours per week', 'Reduce human error by 90%', 'Scale operations effortlessly'],
+    id: 'android-development',
+    icon: Smartphone,
+    title: 'Android & Mobile Development',
+    description: 'High-performance native and cross-platform mobile applications engineered for security, speed, and seamless user experiences.',
+    features: ['Native Android (Kotlin)', 'Cross-Platform (Flutter)', 'Material Design Systems', 'Offline-First Architecture', 'Firebase/Cloud Integration', 'App Store Publishing'],
+    benefits: ['Smooth 60fps performance', 'Offline caching & local database', 'Optimized resource & battery usage'],
   },
   {
-    id: 'youtube-automation',
-    icon: Youtube,
-    title: 'YouTube Automation',
-    description: 'Scale your YouTube presence with automated content strategies, scheduling, and growth systems.',
-    features: ['Content Strategy', 'Upload Automation', 'Analytics Dashboard', 'Growth Systems', 'SEO Optimization', 'Thumbnail Generation'],
-    benefits: ['Consistent upload schedule', 'Data-driven content decisions', 'Faster channel growth'],
-  },
-  {
-    id: 'video-editing',
-    icon: Video,
-    title: 'Video Editing',
-    description: 'Professional video editing that captivates your audience and tells your brand story.',
-    features: ['Professional Editing', 'Motion Graphics', 'Color Grading', 'Sound Design', 'Subtitles & Captions', 'Multi-format Export'],
-    benefits: ['Engaging content', 'Brand consistency', 'Quick turnaround'],
-  },
-  {
-    id: 'website-development',
+    id: 'saas-engineering',
     icon: Globe,
-    title: 'Website Development',
-    description: 'Custom websites built with modern technologies that convert visitors into customers.',
-    features: ['Custom Design', 'Responsive Development', 'SEO Optimization', 'Performance', 'CMS Integration', 'Analytics Setup'],
-    benefits: ['Higher conversion rates', 'Better user experience', 'Faster load times'],
+    title: 'SaaS Platform Engineering',
+    description: 'Custom multi-tenant Software-as-a-Service platforms built with scalable backend architectures, stripe billing, and modern dashboards.',
+    features: ['Next.js & React Frontends', 'Multi-tenant DB Architectures', 'Stripe Billing & Subscriptions', 'JWT & OAuth Authentication', 'RESTful & GraphQL APIs', 'Cloud Hosting & CI/CD'],
+    benefits: ['Sub-second page loads', 'Secure financial operations', 'Fully scalable infrastructure'],
   },
   {
-    id: 'shopify',
-    icon: ShoppingBag,
-    title: 'Shopify Development',
-    description: 'End-to-end Shopify solutions that help you launch and scale your eCommerce business.',
-    features: ['Store Setup', 'Theme Customization', 'App Integration', 'Conversion Optimization', 'Payment Setup', 'Inventory Management'],
-    benefits: ['Launch faster', 'Increase sales', 'Reduce cart abandonment'],
+    id: 'ai-integrations',
+    icon: Bot,
+    title: 'AI & LLM Integrations',
+    description: 'Supercharge your mobile apps and SaaS products with cutting-edge artificial intelligence, custom chatbots, and vector search capabilities.',
+    features: ['OpenAI / Gemini API Integration', 'Retrieval-Augmented Generation (RAG)', 'Vector DBs (Pinecone/pgvector)', 'Conversational Agents', 'Semantic Search Systems', 'Predictive Modeling'],
+    benefits: ['Automated complex tasks', 'Personalized user experiences', 'Semantic search precision'],
+  },
+  {
+    id: 'design-systems',
+    icon: Layers,
+    title: 'UI/UX Design Systems',
+    description: 'Interactive high-fidelity design prototypes, comprehensive design tokens, and state-of-the-art interactive component libraries.',
+    features: ['Figma Design Systems', 'Interactive Prototyping', 'Responsive UI Layouts', 'Micro-interactions & Motion', 'Brand Identity Assets', 'Accessibility (A11y)'],
+    benefits: ['Premium design feeling', 'Accelerated development handover', 'Higher user conversion rates'],
   },
 ];
 

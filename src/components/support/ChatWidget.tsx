@@ -44,8 +44,8 @@ const detectBuyingIntent = (messages: Message[]): boolean => {
   );
 };
 
-const SUPABASE_URL = "https://qksdhteorfupfxtmrlxw.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFrc2RodGVvcmZ1cGZ4dG1ybHh3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg5OTYxNzQsImV4cCI6MjA4NDU3MjE3NH0.rTUhVmqB19vD6JrLkLmfGd9XOezcosrp24Yso53GjvQ";
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || "https://qksdhteorfupfxtmrlxw.supabase.co";
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFrc2RodGVvcmZ1cGZ4dG1ybHh3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg5OTYxNzQsImV4cCI6MjA4NDU3MjE3NH0.rTUhVmqB19vD6JrLkLmfGd9XOezcosrp24Yso53GjvQ";
 
 const STORAGE_KEY = 'sanzox_chat_history';
 const LEAD_SUBMITTED_KEY = 'sanzox_lead_submitted';
@@ -62,7 +62,7 @@ const getStoredMessages = (): Message[] => {
   } catch (e) {
     console.error('Failed to parse stored messages:', e);
   }
-  return [{ role: 'assistant', content: "Hey there! 👋 Welcome to **SANZOX**!\n\nI'm here to help you build something amazing. Whether it's **AI Automation**, **Web Development**, **Video Editing**, **Shopify Solutions**, or **YouTube Automation** — we've got you covered.\n\nWhat would you like to create or automate today?" }];
+  return [{ role: 'assistant', content: "Hey there! 👋 Welcome to **SANZOX**!\n\nI'm here to help you build something amazing. Whether it's **Android App Development**, **SaaS Platform Engineering**, **AI & LLM Integrations**, or **UI/UX Design Systems** — we've got you covered.\n\nWhat would you like to create today?" }];
 };
 
 const getLeadSubmitted = (): boolean => {
@@ -80,11 +80,10 @@ export function ChatWidget() {
   const [showQuickReplies, setShowQuickReplies] = useState(() => getStoredMessages().length === 1);
 
   const quickReplies = [
-    { label: '🤖 AI Automation', message: 'Tell me about your AI Automation services' },
-    { label: '🌐 Web Dev', message: 'What web development services do you offer?' },
-    { label: '🎬 Video Editing', message: 'Tell me about your video editing services' },
-    { label: '🛍 Shopify', message: 'What Shopify solutions do you provide?' },
-    { label: '📈 YouTube', message: 'Tell me about YouTube Automation services' },
+    { label: '📱 Android App Dev', message: 'Tell me about your Android & mobile development services' },
+    { label: '🌐 SaaS Engineering', message: 'What SaaS platform engineering services do you offer?' },
+    { label: '🤖 AI Integrations', message: 'Tell me about your AI & LLM integration capabilities' },
+    { label: '🎨 UI/UX Design', message: 'What UI/UX Design services do you provide?' },
     { label: '💰 Pricing', message: 'What are your pricing packages?' },
   ];
   const [input, setInput] = useState('');
@@ -198,7 +197,7 @@ export function ChatWidget() {
   };
 
   const clearChatHistory = () => {
-    const initialMessage: Message = { role: 'assistant', content: "Hey there! 👋 Welcome to **SANZOX**!\n\nI'm here to help you build something amazing. Whether it's **AI Automation**, **Web Development**, **Video Editing**, **Shopify Solutions**, or **YouTube Automation** — we've got you covered.\n\nWhat would you like to create or automate today?" };
+    const initialMessage: Message = { role: 'assistant', content: "Hey there! 👋 Welcome to **SANZOX**!\n\nI'm here to help you build something amazing. Whether it's **Android App Development**, **SaaS Platform Engineering**, **AI & LLM Integrations**, or **UI/UX Design Systems** — we've got you covered.\n\nWhat would you like to create today?" };
     setMessages([initialMessage]);
     setShowQuickReplies(true);
     setShowLeadForm(false);

@@ -71,15 +71,15 @@ export function BentoStats() {
             </div>
             
             {/* Content */}
-            <div className="relative z-10 text-center">
+            <div className="relative z-10 text-center font-display">
               <motion.div 
-                className="text-2xl sm:text-3xl font-bold"
+                className="text-3xl sm:text-4xl font-extrabold tracking-tight"
                 key={stat.animatedValue}
               >
                 <span className="gradient-text">{stat.animatedValue}</span>
                 <span className="text-primary">{stat.suffix}</span>
               </motion.div>
-              <div className="text-xs sm:text-sm text-muted-foreground mt-1 font-medium">
+              <div className="text-xs sm:text-sm text-muted-foreground mt-1.5 font-medium tracking-wide">
                 {stat.label}
               </div>
             </div>

@@ -13,7 +13,7 @@ export function WhatsAppButton({
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
 
   return (
-    <div className="fixed bottom-24 right-6 z-[9999]">
+    <div className="fixed bottom-6 left-6 z-[9999] md:bottom-8 md:left-8">
       {/* Pulsing glow effect */}
       <motion.div
         className="absolute inset-0 rounded-full bg-[#25D366]"

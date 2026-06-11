@@ -25,12 +25,10 @@ const contactSchema = z.object({
 type ContactFormData = z.infer<typeof contactSchema>;
 
 const services = [
-  { value: 'ai-automation', label: 'AI Automation' },
-  { value: 'youtube-automation', label: 'YouTube Automation' },
-  { value: 'video-editing', label: 'Video Editing' },
-  { value: 'website-development', label: 'Website Development' },
-  { value: 'digital-marketing', label: 'Digital Marketing' },
-  { value: 'flutter-app-development', label: 'Flutter App Development' },
+  { value: 'android-development', label: 'Android & Mobile Development' },
+  { value: 'saas-engineering', label: 'SaaS Platform Engineering' },
+  { value: 'ai-integrations', label: 'AI & LLM Integrations' },
+  { value: 'design-systems', label: 'UI/UX Design Systems' },
   { value: 'other', label: 'Other' },
 ];
 

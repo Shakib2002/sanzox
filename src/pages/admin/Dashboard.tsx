@@ -30,31 +30,52 @@ export default function AdminDashboard() {
   });
   const [recentLeads, setRecentLeads] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchStats() {
-      const [services, works, testimonials, blogPosts, leads, recentLeadsData] = await Promise.all([
-        supabase.from('services').select('id', { count: 'exact', head: true }),
-        supabase.from('works').select('id', { count: 'exact', head: true }),
-        supabase.from('testimonials').select('id', { count: 'exact', head: true }),
-        supabase.from('blog_posts').select('id', { count: 'exact', head: true }),
-        supabase.from('leads').select('id', { count: 'exact', head: true }),
-        supabase.from('leads').select('*').order('created_at', { ascending: false }).limit(5),
-      ]);
+      try {
+        const [services, works, testimonials, blogPosts, leads, recentLeadsData] = await Promise.all([
+          supabase.from('services').select('id', { count: 'exact', head: true }),
+          supabase.from('works').select('id', { count: 'exact', head: true }),
+          supabase.from('testimonials').select('id', { count: 'exact', head: true }),
+          supabase.from('blog_posts').select('id', { count: 'exact', head: true }),
+          supabase.from('leads').select('id', { count: 'exact', head: true }),
+          supabase.from('leads').select('*').order('created_at', { ascending: false }).limit(5),
+        ]);
 
-      setStats({
-        services: services.count || 0,
-        works: works.count || 0,
-        testimonials: testimonials.count || 0,
-        blogPosts: blogPosts.count || 0,
-        leads: leads.count || 0,
-      });
+        // Check for any query errors
+        const errors = [
+          services.error,
+          works.error,
+          testimonials.error,
+          blogPosts.error,
+          leads.error,
+          recentLeadsData.error,
+        ].filter(Boolean);
 
-      if (recentLeadsData.data) {
-        setRecentLeads(recentLeadsData.data);
+        if (errors.length > 0) {
+          console.error('Errors fetching dashboard stats:', errors);
+          setError('Some statistics could not be fully loaded.');
+        }
+
+        setStats({
+          services: services.count || 0,
+          works: works.count || 0,
+          testimonials: testimonials.count || 0,
+          blogPosts: blogPosts.count || 0,
+          leads: leads.count || 0,
+        });
+
+        if (recentLeadsData.data) {
+          setRecentLeads(recentLeadsData.data);
+        }
+      } catch (err) {
+        console.error('Unexpected error fetching stats:', err);
+        setError('An unexpected error occurred while loading dashboard statistics.');
+      } finally {
+        setLoading(false);
       }
-      
-      setLoading(false);
     }
 
     fetchStats();
@@ -66,6 +87,12 @@ export default function AdminDashboard() {
         <h1 className="text-2xl font-bold mb-2">Dashboard</h1>
         <p className="text-muted-foreground">Welcome back! Here's an overview of your content.</p>
       </div>
+
+      {error && (
+        <div className="p-4 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive text-sm flex items-center gap-2">
+          <span>⚠️</span> {error}
+        </div>
+      )}
 
       {/* Stats Grid */}
       <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">

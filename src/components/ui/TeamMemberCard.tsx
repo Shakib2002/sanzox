@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Linkedin, Twitter, Mail } from 'lucide-react';
 
@@ -22,9 +23,13 @@ const X = ({ size = 18 }: { size?: number }) => (
 );
 
 export function TeamMemberCard({ name, role, bio, image, socials }: TeamMemberCardProps) {
+  const [isTapped, setIsTapped] = useState(false);
+
   return (
     <motion.div
-      className="group relative rounded-2xl overflow-hidden bg-card border border-border/50 hover:border-primary/30 transition-colors duration-300"
+      onClick={() => setIsTapped(!isTapped)}
+      data-cursor-text="BIO"
+      className="group relative rounded-2xl overflow-hidden bg-card border border-border/50 hover:border-primary/30 transition-colors duration-300 cursor-pointer"
       whileHover={{ y: -5 }}
       transition={{ duration: 0.3 }}
     >
@@ -39,11 +44,14 @@ export function TeamMemberCard({ name, role, bio, image, socials }: TeamMemberCa
         {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300" />
         
-        {/* Hover info overlay */}
+        {/* Hover/Tap info overlay */}
         <motion.div
           initial={{ opacity: 0 }}
+          animate={{ opacity: isTapped ? 1 : undefined }}
           whileHover={{ opacity: 1 }}
-          className="absolute inset-0 bg-background/90 backdrop-blur-sm flex flex-col items-center justify-center p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          className={`absolute inset-0 bg-background/90 backdrop-blur-sm flex flex-col items-center justify-center p-6 transition-opacity duration-300 md:opacity-0 md:group-hover:opacity-100 ${
+            isTapped ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none md:pointer-events-auto'
+          }`}
         >
           {/* Bio */}
           <p className="text-sm text-muted-foreground text-center mb-6 line-clamp-4">
@@ -58,6 +66,7 @@ export function TeamMemberCard({ name, role, bio, image, socials }: TeamMemberCa
                   href={socials.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
                   className="w-10 h-10 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-colors duration-200"
                 >
                   <Linkedin size={18} />
@@ -68,6 +77,7 @@ export function TeamMemberCard({ name, role, bio, image, socials }: TeamMemberCa
                   href={socials.twitter}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
                   className="w-10 h-10 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-colors duration-200"
                 >
                   <X size={18} />
@@ -76,6 +86,7 @@ export function TeamMemberCard({ name, role, bio, image, socials }: TeamMemberCa
               {socials.email && (
                 <a
                   href={`mailto:${socials.email}`}
+                  onClick={(e) => e.stopPropagation()}
                   className="w-10 h-10 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-colors duration-200"
                 >
                   <Mail size={18} />

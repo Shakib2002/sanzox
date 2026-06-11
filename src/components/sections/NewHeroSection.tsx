@@ -3,6 +3,7 @@ import { SpaceParallaxHero } from "@/components/hero/SpaceParallaxHero";
 import { BentoStats } from "../hero/BentoStats";
 import { motion } from 'framer-motion';
 import { Link } from "react-router-dom";
+import { MagneticButton } from "../ui/MagneticButton";
 
 export default function NewHeroSection() {
   const [isVisible, setIsVisible] = useState(false);
@@ -129,7 +130,7 @@ export default function NewHeroSection() {
       </div>
 
       {/* ── Content */}
-      <div className="max-w-[1400px] relative z-10 flex flex-col items-center text-center gap-6 pt-16 pb-16">
+      <div className="max-w-[1400px] relative z-10 flex flex-col items-center text-center gap-6 pt-16 pb-16 px-4 sm:px-6 lg:px-8">
 
         {/* Badge */}
         <div
@@ -207,44 +208,48 @@ export default function NewHeroSection() {
           }`}
           style={{ transitionDelay: "360ms" }}
         >
-          <Link to={'/contact'}>
-            <button
-              className="btn-glow relative px-8 py-3.5 rounded-lg font-semibold text-base tracking-wide transition-transform duration-300 hover:scale-105 active:scale-95"
-              style={{
-                background: "linear-gradient(135deg, hsl(217 91% 60%), hsl(280 70% 55%))",
-                color: "hsl(222 47% 6%)",
-                boxShadow: "0 0 30px hsl(217 91% 60% / 0.4)",
-                willChange: "transform",
-              }}
-            >
-              Get Started →
-            </button>
-          </Link>
+          <MagneticButton>
+            <Link to={'/contact'}>
+              <button
+                className="btn-glow relative px-8 py-3.5 rounded-lg font-semibold text-base tracking-wide transition-transform duration-300 hover:scale-105 active:scale-95"
+                style={{
+                  background: "linear-gradient(135deg, hsl(217 91% 60%), hsl(280 70% 55%))",
+                  color: "hsl(222 47% 6%)",
+                  boxShadow: "0 0 30px hsl(217 91% 60% / 0.4)",
+                  willChange: "transform",
+                }}
+              >
+                Get Started →
+              </button>
+            </Link>
+          </MagneticButton>
 
-         <Link to={'/works'}>
-               <button
-                  className="px-8 py-3.5 rounded-lg font-semibold text-base tracking-wide border backdrop-blur-sm transition-all duration-300 hover:scale-105 active:scale-95"
-                  style={{
-                    borderColor: "hsl(217 91% 60% / 0.3)",
-                    color: "hsl(210 40% 98%)",
-                    background: "transparent",
-                  }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLButtonElement).style.borderColor =
-                      "hsl(217 91% 60% / 0.6)";
-                    (e.currentTarget as HTMLButtonElement).style.background =
-                      "hsl(217 91% 60% / 0.06)";
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLButtonElement).style.borderColor =
-                      "hsl(217 91% 60% / 0.3)";
-                    (e.currentTarget as HTMLButtonElement).style.background =
-                      "transparent";
-                  }}
-                >
-                  View Projects
-               </button>
-         </Link>
+          <MagneticButton>
+            <Link to={'/works'}>
+                 <button
+                    className="px-8 py-3.5 rounded-lg font-semibold text-base tracking-wide border backdrop-blur-sm transition-all duration-300 hover:scale-105 active:scale-95"
+                    style={{
+                      borderColor: "hsl(217 91% 60% / 0.3)",
+                      color: "hsl(210 40% 98%)",
+                      background: "transparent",
+                    }}
+                    onMouseEnter={(e) => {
+                      (e.currentTarget as HTMLButtonElement).style.borderColor =
+                        "hsl(217 91% 60% / 0.6)";
+                      (e.currentTarget as HTMLButtonElement).style.background =
+                        "hsl(217 91% 60% / 0.06)";
+                    }}
+                    onMouseLeave={(e) => {
+                      (e.currentTarget as HTMLButtonElement).style.borderColor =
+                        "hsl(217 91% 60% / 0.3)";
+                      (e.currentTarget as HTMLButtonElement).style.background =
+                        "transparent";
+                    }}
+                  >
+                    View Projects
+                 </button>
+            </Link>
+          </MagneticButton>
         </div>
 
         {/* Stats */}
