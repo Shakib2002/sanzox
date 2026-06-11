@@ -28,6 +28,7 @@ export function TeamMemberCard({ name, role, bio, image, socials }: TeamMemberCa
   return (
     <motion.div
       onClick={() => setIsTapped(!isTapped)}
+      data-cursor-text="BIO"
       className="group relative rounded-2xl overflow-hidden bg-card border border-border/50 hover:border-primary/30 transition-colors duration-300 cursor-pointer"
       whileHover={{ y: -5 }}
       transition={{ duration: 0.3 }}

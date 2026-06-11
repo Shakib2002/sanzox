@@ -102,6 +102,7 @@ export const BentoGrid = forwardRef<HTMLDivElement, BentoGridProps>(({ works }, 
             >
               <Link
                 to={`/works/${work.slug}`}
+                data-cursor-text="VIEW"
                 className="group relative block w-full h-full rounded-xl overflow-hidden bg-secondary/30 border border-border/30 hover:border-primary/50 transition-all duration-300"
               >
                 {/* Background image or video thumbnail */}
