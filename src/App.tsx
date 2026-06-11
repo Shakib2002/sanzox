@@ -25,7 +25,7 @@ const App = () => {
             <NewPreloader onLoadComplete={() => setIsLoaded(true)} />
             {isLoaded && (
               <>
-                <CursorFollower />
+                {/* <CursorFollower /> */}
                 <Toaster />
                 <Sonner />
                 <BrowserRouter>

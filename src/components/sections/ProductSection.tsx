@@ -5,78 +5,44 @@ import { SectionHeading } from "../ui/SectionHeading";
 const products = [
   {
     id: 1,
-    name: "MentalCouch",
-    tagline: "AI wellness & journaling",
+    name: "RedditLens",
+    tagline: "Reddit intelligence & trend platform",
     description:
-      "AI-powered mental wellness platform with mood tracking, intelligent coaching, and productivity insights for modern minds.",
-    categories: ["saas"],
-    tags: ["Wellness", "AI coaching", "Journaling"],
-    icon: Brain,
-    link: "#",
+      "AI-powered Reddit analytics platform that helps you discover market trends, user pain points, startup ideas, and business opportunities in real time.",
+    categories: ["saas", "analytics"],
+    tags: ["Research", "AI insights", "Trend tracking"],
+    icon: Search,
+    link: "https://redditlens.cc",
   },
   {
     id: 2,
-    name: "Rechly",
-    tagline: "AI outreach automation",
+    name: "Deep Focus",
+    tagline: "Focus & deep work productivity app",
     description:
-      "Cold email automation and lead generation platform with intelligent follow-up systems and smart workflow management.",
-    categories: ["saas", "automation"],
-    tags: ["Lead gen", "Automation", "Outreach"],
-    icon: Zap,
-    link: "#",
-  },
-  {
-    id: 3,
-    name: "Reditlens",
-    tagline: "Reddit intelligence platform",
-    description:
-      "Discover pain points, startup ideas, and market opportunities through AI-powered Reddit analysis and trend tracking.",
-    categories: ["saas"],
-    tags: ["Research", "AI insights", "Trends"],
-    icon: Search,
-    link: "#",
-  },
-  {
-    id: 4,
-    name: "Deepwork",
-    tagline: "Focus & productivity app",
-    description:
-      "Productivity platform designed for deep focus, intelligent planning, and distraction-free work sessions.",
-    categories: ["app"],
+      "A distraction-free productivity app designed for deep work, intelligent planning, and performance tracking with gamified focus sessions.",
+    categories: ["app", "productivity"],
     tags: ["Focus", "Pomodoro", "Planning"],
     icon: Target,
     link: "#",
   },
   {
-    id: 5,
-    name: "Flowcore",
-    tagline: "Workflow automation engine",
+    id: 3,
+    name: "MaxDrive",
+    tagline: "Unified cloud storage manager",
     description:
-      "Build intelligent workflows, automate repetitive operations, and connect business systems with AI actions.",
-    categories: ["automation"],
-    tags: ["Workflow", "Integrations", "AI actions"],
+      "A multi-account Google Drive manager that unifies all storage in one dashboard with smart upload, encryption, and file intelligence features.",
+    categories: ["app", "storage"],
+    tags: ["Cloud", "Security", "Sync"],
     icon: RefreshCw,
-    link: "#",
-  },
-  {
-    id: 6,
-    name: "Novafolio",
-    tagline: "Personal brand platform",
-    description:
-      "Minimal personal branding and portfolio platform for creators, developers, and modern digital professionals.",
-    categories: ["personal"],
-    tags: ["Portfolio", "Branding", "Creator"],
-    icon: Sparkles,
-    link: "#",
+    link: "/maxdrive",
   },
 ];
 
 const filters = [
   { key: "all", label: "All" },
   { key: "saas", label: "SaaS" },
-  { key: "app", label: "Apps" },
-  { key: "automation", label: "Automation" },
-  { key: "personal", label: "Personal" },
+  { key: "app", label: "Mobile Apps" },
+ 
 ];
 
 export default function ProductsSection() {
@@ -217,7 +183,18 @@ export default function ProductsSection() {
             );
           })}
         </div>
+        
       </div>
+     <div className="max-w-2xl mx-auto pt-10">
+       <a href="/products"  className="w-1/4 mx-auto flex justify-center items-center border py-3.5 px-6 rounded-lg font-semibold text-base tracking-wide transition-transform duration-300 hover:scale-105 active:scale-95"
+          style={{
+                    background: 'linear-gradient(135deg, hsl(217 91% 60%), hsl(280 70% 55%))',
+                    
+                    boxShadow: '0 0 30px hsl(217 91% 60% / 0.4)',
+                    willChange: 'transform',
+                  }}
+                  >Explore More</a>
+     </div>
     </section>
   );
 }

@@ -15,6 +15,8 @@ import About from '@/pages/About';
 import Contact from '@/pages/Contact';
 import Privacy from '@/pages/Privacy';
 import Terms from '@/pages/Terms';
+import ProductPage from '@/pages/ProductPage';
+
 
 // Admin
 import AdminLogin from '@/pages/admin/Login';
@@ -34,6 +36,7 @@ import DeepFocusTerms from './appPages/DeepFocus/termsConditions';
 import DeleteAccount from './appPages/DeleteAcc';
 import MaxDrive from './appPages/MaxDrive/maxdrive';
 
+
 export function AnimatedRoutes() {
   const location = useLocation();
 
@@ -49,6 +52,7 @@ export function AnimatedRoutes() {
         <Route path="/blog/:slug" element={<PageTransition><BlogDetail /></PageTransition>} />
         <Route path="/about" element={<PageTransition><About /></PageTransition>} />
         <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
+        <Route path="/products" element={<PageTransition><ProductPage /></PageTransition>} />
         <Route path="/privacy" element={<PageTransition><Privacy /></PageTransition>} />
         <Route path="/terms" element={<PageTransition><Terms /></PageTransition>} />
         

@@ -20,10 +20,10 @@ const services = [
 
 const navLinks = [
   { name: 'Home', href: '/' },
-  { name: 'Services', href: null, dropdown: services },
+  { name: 'Solutions', href: null, dropdown: services },
+  { name: 'Products', href: '/products' },
   { name: 'Works', href: '/works' },
   { name: 'About', href: '/about' },
-  { name: 'Blog', href: '/blog' },
   { name: 'Contact', href: '/contact' },
 ];
 
@@ -65,7 +65,7 @@ export function Navbar() {
             to="/"
             className="flex items-center gap-2 font-display text-3xl font-bold tracking-tight"
           >
-            <img src={logo} alt={s.site_name} className="h-14 md:h-20 w-auto" />
+            <img src={logo} alt={s.site_name} className="h-14 md:h-16 w-auto" />
           </Link>
  
           {/* Desktop Navigation */}
@@ -286,7 +286,7 @@ export function Navbar() {
                   className="w-full btn-glow relative py-3.5 rounded-lg font-semibold text-base tracking-wide transition-transform duration-300 hover:scale-105 active:scale-95"
                   style={{
                     background: 'linear-gradient(135deg, hsl(217 91% 60%), hsl(280 70% 55%))',
-                    color: 'hsl(222 47% 6%)',
+                    
                     boxShadow: '0 0 30px hsl(217 91% 60% / 0.4)',
                     willChange: 'transform',
                   }}
