@@ -15,25 +15,14 @@ serve(async (req) => {
     const { messages } = await req.json();
     
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
-    if (!LOVABLE_API_KEY) {
-      console.error("LOVABLE_API_KEY is not configured");
-      throw new Error("LOVABLE_API_KEY is not configured");
-    }
+    const GEMINI_API_KEY = Deno.env.get("GEMINI_API_KEY");
+    const OPENAI_API_KEY = Deno.env.get("OPENAI_API_KEY");
 
-    console.log("Processing AI chat request with", messages?.length, "messages");
+    let url = "";
+    let authHeader = "";
+    let bodyPayload = {};
 
-    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${LOVABLE_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: "google/gemini-3-flash-preview",
-        messages: [
-          { 
-            role: "system", 
-            content: `You are a real human support rep named "Sam" from SANZOX digital agency. You're chatting casually with website visitors.
+    const systemPrompt = `You are a real human support rep named "Sam" from SANZOX digital agency. You're chatting casually with website visitors.
 
 ## Your Personality
 - You're genuinely curious about people's projects and problems
@@ -53,12 +42,18 @@ serve(async (req) => {
 - Vary your responses - don't repeat the same phrases
 
 ## What You Know (use naturally, don't recite)
-SANZOX offers:
-- AI Automation: chatbots, CRM automation, custom AI tools, workflow automation (from $49)
-- Web Development: landing pages, business sites, e-commerce, React/Next.js (from $99)
-- Video Editing: shorts, reels, YouTube videos, motion graphics (from $15/video)
-- Shopify: full store setup, customization, optimization (from $99)
-- YouTube Automation: editing, thumbnails, SEO, content strategy (from $199/mo)
+SANZOX is a premium remote-first software engineering agency. We offer:
+- Android App Development: native apps in Kotlin/Jetpack Compose, cross-platform apps in Flutter, offline-first architectures, local storage caching, Material Design systems, and Google Play Store publishing.
+- SaaS Platform Engineering: multi-tenant architectures, custom admin dashboards (Next.js, React, Tailwind), secure database partitioning (Supabase, Postgres), automated Stripe subscription billing integrations, and scalable cloud hosting.
+- AI & LLM Integrations: Generative AI orchestration, custom conversational bots, Retrieval-Augmented Generation (RAG) engines for custom documentation, semantic search, and vector databases (Pinecone, pgvector).
+- UI/UX Design Systems: visually stunning interactive Figma design systems, component libraries, visual assets, and developer handover specs.
+
+## Pricing Guideline
+We provide custom quotes based on product scope and requirements. Casual guidelines:
+- Custom Mobile Apps & SaaS platforms typically start around $2,500 - $5,000+ depending on features.
+- AI integrations and workflow setups start from $1,500.
+- Interactive UI/UX Design System assets start from $1,000.
+Be helpful first, rather than pushing prices immediately.
 
 ## Your Goal
 Have a genuine conversation. Understand their actual problem. If they're interested in working together, naturally ask for contact info (name, email/WhatsApp) so the team can follow up. Don't force it.
@@ -66,13 +61,54 @@ Have a genuine conversation. Understand their actual problem. If they're interes
 ## Important
 - Never say you're an AI, chatbot, or assistant
 - If asked something unrelated, casually steer back: "Haha that's a bit outside my wheelhouse, but hey - what brings you to SANZOX today?"
-- Be helpful first, salesy second
-- Match their energy - if they're brief, be brief. If they're chatty, chat back.`
-          },
-          ...messages,
-        ],
+- Match their energy - if they're brief, be brief. If they're chatty, chat back.`;
+
+    const messagesWithSystem = [
+      { role: "system", content: systemPrompt },
+      ...messages,
+    ];
+
+    if (LOVABLE_API_KEY) {
+      url = "https://ai.gateway.lovable.dev/v1/chat/completions";
+      authHeader = `Bearer ${LOVABLE_API_KEY}`;
+      bodyPayload = {
+        model: "google/gemini-2.5-flash",
+        messages: messagesWithSystem,
         stream: true,
-      }),
+      };
+    } else if (GEMINI_API_KEY) {
+      url = "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions";
+      authHeader = `Bearer ${GEMINI_API_KEY}`;
+      bodyPayload = {
+        model: "gemini-1.5-flash",
+        messages: messagesWithSystem,
+        stream: true,
+      };
+    } else if (OPENAI_API_KEY) {
+      url = "https://api.openai.com/v1/chat/completions";
+      authHeader = `Bearer ${OPENAI_API_KEY}`;
+      bodyPayload = {
+        model: "gpt-4o-mini",
+        messages: messagesWithSystem,
+        stream: true,
+      };
+    } else {
+      console.error("No API key configured (LOVABLE_API_KEY, GEMINI_API_KEY, or OPENAI_API_KEY)");
+      return new Response(
+        JSON.stringify({ error: "AI chatbot is not configured. Please set GEMINI_API_KEY or OPENAI_API_KEY secrets in your Supabase dashboard." }),
+        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    console.log("Processing AI chat request using URL:", url);
+
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        Authorization: authHeader,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(bodyPayload),
     });
 
     if (!response.ok) {

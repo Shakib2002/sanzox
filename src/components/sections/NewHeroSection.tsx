@@ -129,7 +129,7 @@ export default function NewHeroSection() {
       </div>
 
       {/* ── Content */}
-      <div className="max-w-[1400px] relative z-10 flex flex-col items-center text-center gap-6 pt-16 pb-16">
+      <div className="max-w-[1400px] relative z-10 flex flex-col items-center text-center gap-6 pt-16 pb-16 px-4 sm:px-6 lg:px-8">
 
         {/* Badge */}
         <div

@@ -76,7 +76,7 @@ export const BentoGrid = forwardRef<HTMLDivElement, BentoGridProps>(({ works }, 
           ref.current = node;
         }
       }}
-      className="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[160px] md:auto-rows-[180px]"
+      className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[220px] sm:auto-rows-[160px] md:auto-rows-[180px]"
       variants={containerVariants}
       initial="hidden"
       animate={isInView ? 'visible' : 'hidden'}
@@ -91,8 +91,8 @@ export const BentoGrid = forwardRef<HTMLDivElement, BentoGridProps>(({ works }, 
             key={work.id}
             variants={cardVariants}
             className={`
-              ${pattern.colSpan === 2 ? 'col-span-2' : 'col-span-1'}
-              ${pattern.rowSpan === 2 ? 'row-span-2' : 'row-span-1'}
+              ${pattern.colSpan === 2 ? 'col-span-1 sm:col-span-2' : 'col-span-1'}
+              ${pattern.rowSpan === 2 ? 'row-span-1 sm:row-span-2' : 'row-span-1'}
             `}
           >
             <TiltCard

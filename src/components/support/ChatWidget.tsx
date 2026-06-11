@@ -44,8 +44,8 @@ const detectBuyingIntent = (messages: Message[]): boolean => {
   );
 };
 
-const SUPABASE_URL = "https://qksdhteorfupfxtmrlxw.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFrc2RodGVvcmZ1cGZ4dG1ybHh3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg5OTYxNzQsImV4cCI6MjA4NDU3MjE3NH0.rTUhVmqB19vD6JrLkLmfGd9XOezcosrp24Yso53GjvQ";
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || "https://qksdhteorfupfxtmrlxw.supabase.co";
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFrc2RodGVvcmZ1cGZ4dG1ybHh3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg5OTYxNzQsImV4cCI6MjA4NDU3MjE3NH0.rTUhVmqB19vD6JrLkLmfGd9XOezcosrp24Yso53GjvQ";
 
 const STORAGE_KEY = 'sanzox_chat_history';
 const LEAD_SUBMITTED_KEY = 'sanzox_lead_submitted';

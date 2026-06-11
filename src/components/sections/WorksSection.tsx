@@ -42,13 +42,13 @@ export function WorksSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="flex flex-wrap items-center justify-center gap-2 mb-10"
+          className="flex overflow-x-auto scrollbar-hide whitespace-nowrap gap-2 pb-3 mb-10 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap sm:justify-center sm:pb-0"
         >
           {industries.map((industry) => (
             <button
               key={industry}
               onClick={() => setActiveFilter(industry)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all shrink-0 ${
                 activeFilter === industry
                   ? 'bg-primary text-primary-foreground'
                   : 'bg-secondary/50 text-muted-foreground hover:bg-secondary hover:text-foreground'

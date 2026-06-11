@@ -107,12 +107,12 @@ export default function WorksPage() {
             className="flex flex-col gap-5"
           >
             {/* Filter pills */}
-            <div className="flex flex-wrap items-center gap-2">
+            <div className="flex overflow-x-auto scrollbar-hide whitespace-nowrap gap-2 pb-3 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap sm:pb-0">
               {industries.map((industry) => (
                 <button
                   key={industry}
                   onClick={() => setActiveFilter(industry)}
-                  className="relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-200"
+                  className="relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 shrink-0"
                   style={
                     activeFilter === industry
                       ? {
