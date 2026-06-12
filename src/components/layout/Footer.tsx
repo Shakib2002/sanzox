@@ -1,12 +1,10 @@
 import { Link } from 'react-router-dom';
 import { 
-  Twitter, 
   Linkedin, 
   Instagram, 
   Youtube, 
   Facebook,
   Mail, 
-  MapPin,
   ArrowUpRight
 } from 'lucide-react';
 import { useSiteSettings, defaultSiteSettings } from '@/hooks/useSiteSettings';
@@ -34,7 +32,7 @@ const UpworkIcon = ({ size = 18 }: { size?: number }) => (
   </svg>
 );
 const X = ({ size = 18 }: { size?: number }) => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+    <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.213 5.567 5.95-5.567Zm-1.161 17.52h1.833L7.084 4.126H5.117Z"/>
       </svg>
 );
@@ -63,14 +61,14 @@ export function Footer() {
   const s = settings || defaultSiteSettings;
 
   const socialLinks = [
-    { name: 'LinkedIn', href: s.social_linkedin, icon: Linkedin },
-    { name: 'Facebook', href: s.social_facebook, icon: Facebook },
-    { name: 'Twitter', href: s.social_twitter, icon: X },
-    { name: 'Instagram', href: s.social_instagram, icon: Instagram },
-    { name: 'YouTube', href: s.social_youtube, icon: Youtube },
-    { name: 'Fiverr', href: s.social_fiverr, icon: FiverrIcon },
-    { name: 'Upwork', href: s.social_upwork, icon: UpworkIcon },
-  ] 
+    { name: 'LinkedIn', href: s.social_linkedin || '#', icon: Linkedin },
+    { name: 'Facebook', href: s.social_facebook || '#', icon: Facebook },
+    { name: 'Twitter', href: s.social_twitter || '#', icon: X },
+    { name: 'Instagram', href: s.social_instagram || '#', icon: Instagram },
+    { name: 'YouTube', href: s.social_youtube || '#', icon: Youtube },
+    { name: 'Fiverr', href: s.social_fiverr || '#', icon: FiverrIcon },
+    { name: 'Upwork', href: s.social_upwork || '#', icon: UpworkIcon },
+  ];
 
   return (
     <footer className="relative bg-background border-t border-border/50">
@@ -94,7 +92,7 @@ export function Footer() {
               )} */}
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed mb-6">
-              We engineer custom Android applications and scalable SaaS products for high-growth startups and enterprises.
+              {s.footer_description}
             </p>
           </div>
 
@@ -147,14 +145,14 @@ export function Footer() {
                   </a>
                 </li>
               )}
-              {s.footer_location && (
+              {/* {s.footer_location && (
                 <li className="flex items-start gap-3">
                   <MapPin size={18} className="text-primary mt-0.5 shrink-0" />
                   <span className="text-sm text-muted-foreground whitespace-pre-line">
                     {s.footer_location}
                   </span>
                 </li>
-              )}
+              )} */}
             </ul>
 
             {/* Social Links - Below Contact */}

@@ -205,7 +205,7 @@ export function ServicesSection() {
       <div className="container-custom relative">
         <SectionHeading
           badge="Our Services"
-          title={<>What We <span className="gradient-text">Specialize</span> In</>}
+          title={<>Solutions<span className="gradient-text"> We</span>  Deliver</>}
           description="End-to-end digital solutions designed to automate, scale, and transform your business."
         />
 

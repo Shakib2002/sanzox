@@ -347,7 +347,7 @@ export function ChatWidget() {
   return (
     <>
       {/* Chat Toggle Button */}
-      <div className="fixed bottom-6 right-6 z-[9999]">
+      <div className="fixed bottom-4 right-4 z-[9999] md:bottom-8 md:right-8">
         {/* Pulsing glow effect */}
         {!isOpen && (
           <>
@@ -381,7 +381,7 @@ export function ChatWidget() {
         
         <motion.button
           onClick={() => setIsOpen(!isOpen)}
-          className="relative w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-lg flex items-center justify-center hover:scale-110 transition-transform"
+          className="relative w-12 h-12 md:w-14 md:h-14 rounded-full bg-primary text-primary-foreground shadow-lg flex items-center justify-center hover:scale-110 transition-transform"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
           initial={{ scale: 0 }}
@@ -397,7 +397,7 @@ export function ChatWidget() {
                 exit={{ rotate: 90, opacity: 0 }}
                 transition={{ duration: 0.2 }}
               >
-                <X className="w-6 h-6" />
+                <X className="w-5 h-5 md:w-6 md:h-6" />
               </motion.div>
             ) : (
               <motion.div
@@ -407,7 +407,7 @@ export function ChatWidget() {
                 exit={{ rotate: -90, opacity: 0 }}
                 transition={{ duration: 0.2 }}
               >
-                <MessageCircle className="w-6 h-6" />
+                <MessageCircle className="w-5 h-5 md:w-6 md:h-6" />
               </motion.div>
             )}
           </AnimatePresence>
@@ -422,7 +422,7 @@ export function ChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-            className="fixed bottom-24 right-6 z-[9998] w-[360px] max-w-[calc(100vw-48px)] h-[500px] max-h-[calc(100vh-120px)] bg-background border border-border rounded-2xl shadow-2xl flex flex-col overflow-hidden"
+            className="fixed bottom-[136px] right-4 md:bottom-[160px] md:right-8 z-[9998] w-[360px] max-w-[calc(100vw-32px)] h-[500px] max-h-[calc(100vh-160px)] bg-background border border-border rounded-2xl shadow-2xl flex flex-col overflow-hidden"
           >
             {/* Header */}
             <div className="p-4 border-b border-border bg-primary/5">

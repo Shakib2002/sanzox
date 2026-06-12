@@ -13,11 +13,51 @@ import Autoplay from 'embla-carousel-autoplay';
 import { useRef } from 'react';
 
 const testimonials = [
-  { id: '1', name: 'Alex Chen', role: 'CEO', company: 'TechStartup', quote: 'SANZOX transformed our workflow with AI automation. Our team saves 20+ hours weekly.', rating: 5 },
-  { id: '2', name: 'Sarah Miller', role: 'Content Creator', company: 'YouTube', quote: 'The YouTube automation system they built helped me scale to 1M subscribers.', rating: 5 },
-  { id: '3', name: 'James Wilson', role: 'Founder', company: 'eStore', quote: 'Our Shopify store conversions increased by 45% after their redesign.', rating: 5 },
-  { id: '4', name: 'Emily Rodriguez', role: 'Marketing Director', company: 'GrowthCo', quote: 'Their AI solutions streamlined our entire marketing pipeline. Exceptional results.', rating: 5 },
-  { id: '5', name: 'Michael Park', role: 'CTO', company: 'InnovateTech', quote: 'Best investment we made. The automation tools they delivered exceeded expectations.', rating: 5 },
+  {
+    id: "1",
+    name: "Alex Chen",
+    role: "CEO",
+    company: "NovaAI",
+    quote:
+      "SANZOX helped us automate core operations using AI systems. Productivity increased significantly across teams.",
+    rating: 5,
+  },
+  {
+    id: "2",
+    name: "Sarah Miller",
+    role: "Founder",
+    company: "ContentOS",
+    quote:
+      "Their content automation platform completely changed how we produce and distribute content at scale.",
+    rating: 5,
+  },
+  {
+    id: "3",
+    name: "James Wilson",
+    role: "Head of Growth",
+    company: "Shoplytics",
+    quote:
+      "After implementing their system, our conversion funnel became fully optimized and data-driven.",
+    rating: 5,
+  },
+  {
+    id: "4",
+    name: "Emily Rodriguez",
+    role: "Marketing Director",
+    company: "GrowthLab",
+    quote:
+      "SANZOX built our AI-driven marketing workflow. Everything is now faster, smarter, and measurable.",
+    rating: 5,
+  },
+  {
+    id: "5",
+    name: "Michael Park",
+    role: "CTO",
+    company: "InfraNext",
+    quote:
+      "A powerful automation system that integrates seamlessly into our tech stack. Highly scalable and reliable.",
+    rating: 5,
+  },
 ];
 
 function getInitials(name: string) {
@@ -34,7 +74,7 @@ export function TestimonialsSection() {
       <div className="container-custom">
         <SectionHeading
           badge="Testimonials"
-          title={<>What our <span className="gradient-text">clients say</span></>}
+          title={<>Trusted by <span className="gradient-text">modern teams</span></>}
         />
 
         <motion.div

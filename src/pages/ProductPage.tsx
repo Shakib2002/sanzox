@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
-
+import deepfocusImg from "@/assets/products/deepfocus.png";
+import maxdriveImg from "@/assets/products/maxdrive.png";
+import redditlensImg from "@/assets/products/redditlens.png";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 type Status = "available" | "coming-soon" | "beta";
@@ -18,7 +20,7 @@ interface Product {
   features: string[];
   status: Status;
   categories: Category[];
-  icon: string;
+  image: string;
   accentColor: string;
   glowColor: string;
   link: string;
@@ -45,7 +47,7 @@ const PRODUCTS: Product[] = [
     ],
     status: "available",
     categories: ["mobile"],
-    icon: "🎯",
+    image: deepfocusImg,
     accentColor: "#3B82F6",
     glowColor: "rgba(59,130,246,0.35)",
     link: "#",
@@ -67,7 +69,7 @@ const PRODUCTS: Product[] = [
     ],
     status: "available",
     categories: ["mobile"],
-    icon: "☁️",
+    image: maxdriveImg,
     accentColor: "#22C55E",
     glowColor: "rgba(34,197,94,0.35)",
     link: "/maxdrive"
@@ -89,7 +91,7 @@ const PRODUCTS: Product[] = [
     ],
     status: "available",
     categories: ["saas", "ai-tool"],
-    icon: "🔭",
+    image: redditlensImg,
     accentColor: "#A855F7",
     glowColor: "rgba(168,85,247,0.35)",
     link: "https://redditlens.cc"
@@ -185,7 +187,7 @@ function ProductCard({ product }: { product: Product }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {/* Icon */}
+      {/* Image */}
       <div
         style={{
           ...styles.iconWrap,
@@ -193,7 +195,7 @@ function ProductCard({ product }: { product: Product }) {
           border: `1px solid ${product.accentColor}44`,
         }}
       >
-        <span style={{ fontSize: 28 }}>{product.icon}</span>
+        <img src={product.image} alt={product.name} style={{ width: 36, height: 36, objectFit: "contain" }} />
       </div>
 
       {/* Header row */}

@@ -1,6 +1,9 @@
 import { useState } from "react";
-import { ArrowUpRight, Brain, Zap, Search, Target, RefreshCw, Sparkles } from "lucide-react";
+import { ArrowUpRight, Brain, Zap, Search, Target, RefreshCw, Sparkles, icons } from "lucide-react";
 import { SectionHeading } from "../ui/SectionHeading";
+import redditlens from "../../assets/products/redditlens.png"
+import deepfocus from "../../assets/products/deepfocus.png"
+import maxdrive from "../../assets/products/maxdrive.png"
 
 const products = [
   {
@@ -11,7 +14,7 @@ const products = [
       "AI-powered Reddit analytics platform that helps you discover market trends, user pain points, startup ideas, and business opportunities in real time.",
     categories: ["saas", "analytics"],
     tags: ["Research", "AI insights", "Trend tracking"],
-    icon: Search,
+    icon: redditlens,
     link: "https://redditlens.cc",
   },
   {
@@ -22,7 +25,7 @@ const products = [
       "A distraction-free productivity app designed for deep work, intelligent planning, and performance tracking with gamified focus sessions.",
     categories: ["app", "productivity"],
     tags: ["Focus", "Pomodoro", "Planning"],
-    icon: Target,
+    icon: deepfocus,
     link: "#",
   },
   {
@@ -33,7 +36,7 @@ const products = [
       "A multi-account Google Drive manager that unifies all storage in one dashboard with smart upload, encryption, and file intelligence features.",
     categories: ["app", "storage"],
     tags: ["Cloud", "Security", "Sync"],
-    icon: RefreshCw,
+    icon: maxdrive,
     link: "/maxdrive",
   },
 ];
@@ -113,7 +116,7 @@ export default function ProductsSection() {
                   {/* Icon with subtle animation */}
                   <div className="mb-8 transition-transform duration-300 group-hover:scale-105 origin-left">
                     <div className="w-14 h-14 rounded-2xl border border-blue-500/30 bg-blue-500/10 flex items-center justify-center shadow-lg shadow-blue-500/5 backdrop-blur-sm">
-                      <Icon size={28} className="text-blue-400" strokeWidth={1.5} />
+                      <img src={product.icon} alt="" />
                     </div>
                   </div>
 
@@ -186,7 +189,7 @@ export default function ProductsSection() {
         
       </div>
      <div className="max-w-2xl mx-auto pt-10">
-       <a href="/products"  className="w-1/4 mx-auto flex justify-center items-center border py-3.5 px-6 rounded-lg font-semibold text-base tracking-wide transition-transform duration-300 hover:scale-105 active:scale-95"
+       <a href="/products"  className="w-1/3 md:w-1/4 mx-auto flex justify-center items-center border py-3.5 px-4 md:px-6 rounded-lg font-semibold tracking-wide transition-transform duration-300 hover:scale-105 active:scale-95 text-sm"
           style={{
                     background: 'linear-gradient(135deg, hsl(217 91% 60%), hsl(280 70% 55%))',
                     

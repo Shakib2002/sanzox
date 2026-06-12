@@ -1,32 +1,43 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { CheckCircle2, ArrowRight, Zap, Shield, Clock, Target } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { GlassCard } from '@/components/ui/GlassCard';
 import { fadeUpVariants, staggerContainerVariants, slideInLeftVariants, slideInRightVariants } from '@/hooks/useScrollAnimation';
 import teamCollaboration from '@/assets/team/team-image-1.webp';
+import {
+  ArrowRight,
+  Bot,
+  CheckCircle2,
+  Rocket,
+  Shield,
+  TrendingUp,
+} from 'lucide-react';
 
 const benefits = [
   {
-    icon: Zap,
-    title: 'Lightning Fast Delivery',
-    description: 'We move fast without compromising quality. Get your projects delivered on time, every time.',
+    icon: Bot,
+    title: 'AI-Powered Solutions',
+    description:
+      'Leverage AI and automation to reduce manual work, improve efficiency, and accelerate growth.',
+  },
+  {
+    icon: Rocket,
+    title: 'Built for Scale',
+    description:
+      'From startups to enterprises, our products are designed to grow with your business.',
   },
   {
     icon: Shield,
-    title: 'Transparent Process',
-    description: 'No hidden fees, no surprises. Clear communication and visibility into every step.',
+    title: 'Secure & Reliable',
+    description:
+      'Modern architecture, secure development practices, and dependable performance you can trust.',
   },
   {
-    icon: Target,
-    title: 'Measurable Outcomes',
-    description: 'Data-driven approach with clear metrics. Track ROI and see real results.',
-  },
-  {
-    icon: Clock,
-    title: '24/7 Support',
-    description: 'Round-the-clock support to ensure your systems run smoothly at all times.',
+    icon: TrendingUp,
+    title: 'Growth-Focused Approach',
+    description:
+      'Every solution is designed to improve productivity, increase revenue, and create measurable business impact.',
   },
 ];
 
@@ -86,20 +97,22 @@ export function AboutSplitSection() {
               About SANZOX
             </span>
             <h2 className="heading-lg mb-6">
-             Building smarter solutions,{' '}
-              <span className="gradient-text">together.</span>
+              Powering modern{' '}
+              <span className="gradient-text"> businesses.</span>
             </h2>
             <p className="text-muted-foreground text-lg mb-8">
-              SANZOX is a remote-first digital agency where automation, design, and development come together to create systems that scale businesses, not just websites.
+                SANZOX is an AI-powered software company that builds SaaS platforms,
+                mobile applications, automation systems, and digital products designed
+                to help businesses scale faster, operate smarter, and grow sustainably.
             </p>
 
             <ul className="space-y-4 mb-8">
               {[
-                'Fast delivery without cutting corners',
-                'Full transparency with clear milestones',
-                'Data-driven decisions, measurable results',
-                'A dedicated team focused on your growth',
-              ].map((item) => (
+               'AI-powered solutions built for real business challenges',
+                'Scalable products designed for long-term growth',
+                'Transparent collaboration with clear milestones',
+                'Dedicated experts focused on measurable outcomes',
+                ].map((item) => (
                 <li key={item} className="flex items-start gap-3">
                   <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" />
                   <span className="text-foreground">{item}</span>
@@ -108,7 +121,7 @@ export function AboutSplitSection() {
             </ul>
 
             <Button asChild               
-                className="btn-glow relative px-6 py-5 rounded-lg font-semibold text-base tracking-wide transition-transform duration-300 hover:scale-105 active:scale-95"
+                className="btn-glow relative px-5 py-6 rounded-lg font-semibold text-base tracking-wide transition-transform duration-300 hover:scale-105 active:scale-95"
                 style={{
                   background: "linear-gradient(135deg, hsl(217 91% 60%), hsl(280 70% 55%))",
                   color: "hsl(222 47% 6%)",
@@ -116,8 +129,8 @@ export function AboutSplitSection() {
                   willChange: "transform",
                 }}>
               <Link to="/about">
-                Learn More About Us
-                <ArrowRight className="ml-2 h-4 w-4" />
+                Learn More
+                <ArrowRight className="ml-1 h-4 w-4" />
               </Link>
             </Button>
           </motion.div>

@@ -1,31 +1,71 @@
 import { TextReveal } from '@/components/ui/TextReveal';
 import {
+  Bot,
+  Boxes,
   ShoppingCart,
-  Store,
-  Users,
-  Briefcase,
-  Video,
-  Globe,
   Smartphone,
-  Megaphone,
+  Globe,
+  Rocket,
+  Building2,
   TrendingUp,
-  Building2
-} from 'lucide-react';
+  Users,
+  Workflow,
+} from "lucide-react";
 
 const logosRow1 = [
-  { name: 'E-commerce Brands', icon: ShoppingCart, color: 'text-blue-400' },
-  { name: 'Local Businesses', icon: Store, color: 'text-green-400' },
-  { name: 'SaaS Startups', icon: Globe, color: 'text-purple-400' },
-  { name: 'Digital Agencies', icon: Briefcase, color: 'text-orange-400' },
-  { name: 'Content Creators', icon: Video, color: 'text-pink-400' },
+  {
+    name: "AI Products",
+    icon: Bot,
+    color: "text-violet-400",
+  },
+  {
+    name: "SaaS Platforms",
+    icon: Boxes,
+    color: "text-blue-400",
+  },
+  {
+    name: "E-commerce Brands",
+    icon: ShoppingCart,
+    color: "text-green-400",
+  },
+  {
+    name: "Mobile Apps",
+    icon: Smartphone,
+    color: "text-cyan-400",
+  },
+  {
+    name: "Web Applications",
+    icon: Globe,
+    color: "text-purple-400",
+  },
 ];
 
 const logosRow2 = [
-  { name: 'Freelance Teams', icon: Users, color: 'text-cyan-400' },
-  { name: 'Mobile Businesses', icon: Smartphone, color: 'text-sky-400' },
-  { name: 'Marketing Teams', icon: Megaphone, color: 'text-rose-400' },
-  { name: 'Growth Startups', icon: TrendingUp, color: 'text-emerald-400' },
-  { name: 'Enterprise Solutions', icon: Building2, color: 'text-yellow-400' },
+  {
+    name: "Startups",
+    icon: Rocket,
+    color: "text-orange-400",
+  },
+  {
+    name: "Growing Businesses",
+    icon: TrendingUp,
+    color: "text-emerald-400",
+  },
+  {
+    name: "Enterprises",
+    icon: Building2,
+    color: "text-yellow-400",
+  },
+  {
+    name: "Remote Teams",
+    icon: Users,
+    color: "text-pink-400",
+  },
+  {
+    name: "Automation Systems",
+    icon: Workflow,
+    color: "text-rose-400",
+  },
 ];
 
 const marqueeStyles = `
@@ -64,7 +104,7 @@ export function TrustedBySection() {
       <div className="container-custom mb-8">
         <TextReveal>
           <p className="text-center text-sm uppercase tracking-widest text-muted-foreground">
-            Trusted by growing businesses and innovators worldwide
+            Trusted Across Modern Digital Industries
           </p>
         </TextReveal>
       </div>

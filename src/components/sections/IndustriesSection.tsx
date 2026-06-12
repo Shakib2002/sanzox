@@ -2,44 +2,51 @@ import { motion } from 'framer-motion';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { GlassCard } from '@/components/ui/GlassCard';
 import { fadeUpVariants, staggerContainerVariants } from '@/hooks/useScrollAnimation';
-import { Building2, ShoppingBag, Users, Briefcase, GraduationCap, Heart } from 'lucide-react';
+import {
+  Building2,
+  ShoppingBag,
+  GraduationCap,
+  Heart,
+  Landmark,
+  Truck,
+} from "lucide-react";
 
 const industries = [
   {
     icon: Building2,
-    name: 'SaaS',
-    description: 'Automation and growth systems for software companies.',
-    color: 'text-blue-400',
+    name: "SaaS & Startups",
+    description: "Scalable platforms, AI automation, and growth-focused software.",
+    color: "text-blue-400",
   },
   {
     icon: ShoppingBag,
-    name: 'eCommerce',
-    description: 'Shopify stores and conversion optimization.',
-    color: 'text-green-400',
+    name: "E-commerce",
+    description: "Custom stores, mobile apps, and conversion-driven experiences.",
+    color: "text-green-400",
   },
   {
-    icon: Users,
-    name: 'Creators',
-    description: 'YouTube automation and content systems.',
-    color: 'text-red-400',
-  },
-  {
-    icon: Briefcase,
-    name: 'Agencies',
-    description: 'White-label services and process automation.',
-    color: 'text-purple-400',
+    icon: Landmark,
+    name: "Finance",
+    description: "Secure digital products, dashboards, and workflow systems.",
+    color: "text-purple-400",
   },
   {
     icon: GraduationCap,
-    name: 'Education',
-    description: 'Course platforms and learning systems.',
-    color: 'text-yellow-400',
+    name: "Education",
+    description: "Learning platforms, student portals, and digital classrooms.",
+    color: "text-yellow-400",
   },
   {
     icon: Heart,
-    name: 'Healthcare',
-    description: 'Patient engagement and workflow automation.',
-    color: 'text-pink-400',
+    name: "Healthcare",
+    description: "Patient management, appointment systems, and automation.",
+    color: "text-pink-400",
+  },
+  {
+    icon: Truck,
+    name: "Logistics",
+    description: "Operations management, tracking systems, and process automation.",
+    color: "text-cyan-400",
   },
 ];
 
