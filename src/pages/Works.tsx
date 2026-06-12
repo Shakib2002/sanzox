@@ -55,8 +55,8 @@ export default function WorksPage() {
   const filteredWorks = works.filter((work) => {
     const matchesFilter = activeFilter === 'All' || work.industry === activeFilter;
     const matchesSearch =
-      work.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      work.tags.some((tag) => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+      (work.title || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (work.tags || []).some((tag) => (tag || '').toLowerCase().includes(searchQuery.toLowerCase()));
     return matchesFilter && matchesSearch;
   });
 

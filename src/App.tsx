@@ -1,4 +1,3 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
@@ -12,29 +11,25 @@ import { ErrorBoundary } from "@/components/ui/ErrorBoundary";
 import { NewPreloader } from "./components/ui/NewPreloader";
 import ScrollToTop from "./components/ui/ScrollToTop";
 
-const queryClient = new QueryClient();
-
 const App = () => {
   return (
     <ErrorBoundary>
-      <QueryClientProvider client={queryClient}>
-        <AuthProvider>
-          <TooltipProvider>
+      <AuthProvider>
+        <TooltipProvider>
+          {/* <CursorFollower /> */}
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
             <NewPreloader />
-            {/* <CursorFollower /> */}
-            <Toaster />
-            <Sonner />
-            <BrowserRouter>
-              <ScrollToTop/>
-              <AnimatedRoutes />
-              <SupportWidgets 
-                whatsappNumber="8801516522978"
-                whatsappMessage="Hi! I'm interested in your services."
-              />
-            </BrowserRouter>
-          </TooltipProvider>
-        </AuthProvider>
-      </QueryClientProvider>
+            <ScrollToTop />
+            <AnimatedRoutes />
+            <SupportWidgets
+              whatsappNumber="8801516522978"
+              whatsappMessage="Hi! I'm interested in your services."
+            />
+          </BrowserRouter>
+        </TooltipProvider>
+      </AuthProvider>
     </ErrorBoundary>
   );
 };

@@ -10,13 +10,12 @@ import { useTeamMembers } from '@/hooks/useTeamMembers';
 import heroAboutImage from '@/assets/hero-about.jpg';
 import ourStoryTeam from '@/assets/our-story-team.jpg';
 
-// Fallback team photos for when database is empty
-import founderImage from '@/assets/team/founder.jpg';
-import creativeLeadImage from '@/assets/team/creative-lead.jpg';
-import techLeadImage from '@/assets/team/tech-lead.jpg';
-import automationExpertImage from '@/assets/team/automation-expert.jpg';
-import videoLeadImage from '@/assets/team/video-lead.jpg';
-import growthLeadImage from '@/assets/team/growth-lead.jpg';
+
+
+import { useQuery } from '@tanstack/react-query';
+import { supabase } from '@/integrations/supabase/client';
+
+// Removed fallback data to ensure only admin data is shown
 
 const values = [
   { icon: Zap, title: 'Move Fast', description: 'We deliver results quickly without compromising quality.' },
@@ -25,75 +24,27 @@ const values = [
   { icon: Globe, title: 'Remote-First', description: 'Global talent, flexible processes, exceptional results.' },
 ];
 
-// Fallback team data when database is empty
-const fallbackTeam = [
-  { 
-    id: '1',
-    name: 'John Doe', 
-    role: 'CEO & Strategy', 
-    image_url: founderImage,
-    bio: 'Visionary leader with 10+ years in digital transformation.',
-    linkedin_url: 'https://linkedin.com/company/sanzox',
-    twitter_url: 'https://twitter.com/sanzox',
-    email: 'hello@sanzox.com'
-  },
-  { 
-    id: '2',
-    name: 'Jane Smith', 
-    role: 'Creative Director', 
-    image_url: creativeLeadImage,
-    bio: 'Award-winning designer crafting brand experiences.',
-    linkedin_url: 'https://linkedin.com/company/sanzox',
-    twitter_url: 'https://twitter.com/sanzox',
-    email: 'hello@sanzox.com'
-  },
-  { 
-    id: '3',
-    name: 'Michael Johnson', 
-    role: 'Tech Lead', 
-    image_url: techLeadImage,
-    bio: 'Full-stack architect building scalable solutions.',
-    linkedin_url: 'https://linkedin.com/company/sanzox',
-    twitter_url: null,
-    email: 'hello@sanzox.com'
-  },
-  { 
-    id: '4',
-    name: 'Emily Davis', 
-    role: 'AI & Automation', 
-    image_url: automationExpertImage,
-    bio: 'AI specialist transforming workflows with intelligent automation.',
-    linkedin_url: 'https://linkedin.com/company/sanzox',
-    twitter_url: 'https://twitter.com/sanzox',
-    email: 'hello@sanzox.com'
-  },
-  { 
-    id: '5',
-    name: 'David Williams', 
-    role: 'Video Production', 
-    image_url: videoLeadImage,
-    bio: 'Cinematic storyteller creating engaging content.',
-    linkedin_url: 'https://linkedin.com/company/sanzox',
-    twitter_url: 'https://twitter.com/sanzox',
-    email: 'hello@sanzox.com'
-  },
-  { 
-    id: '6',
-    name: 'Sarah Brown', 
-    role: 'Growth Marketing', 
-    image_url: growthLeadImage,
-    bio: 'Data-driven marketer scaling brands.',
-    linkedin_url: 'https://linkedin.com/company/sanzox',
-    twitter_url: 'https://twitter.com/sanzox',
-    email: 'hello@sanzox.com'
-  },
-];
-
 export default function AboutPage() {
-  const { data: dbTeam } = useTeamMembers(true);
-  
-  // Use database team if available, otherwise fallback
-  const team = dbTeam && dbTeam.length > 0 ? dbTeam : fallbackTeam;
+  const { data: dbTeam, error} = useTeamMembers(true);
+  const team = dbTeam || [];
+
+
+
+
+
+
+// component এর ভেতরে
+const { data, isLoading, status, fetchStatus } = useQuery({
+  queryKey: ['test-team'],
+  queryFn: async () => {
+    const { data, error } = await supabase.from('team_members').select('*');
+    console.log('Direct query result:', data, error);
+    if (error) throw error;
+    return data;
+  }
+});
+
+console.log('Query state:', { data, isLoading, status, fetchStatus });
 
   return (
     <Layout>
@@ -223,3 +174,6 @@ export default function AboutPage() {
     </Layout>
   );
 }
+
+
+
