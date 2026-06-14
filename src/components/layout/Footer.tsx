@@ -66,8 +66,8 @@ export function Footer() {
     { name: 'Twitter', href: s.social_twitter || '#', icon: X },
     { name: 'Instagram', href: s.social_instagram || '#', icon: Instagram },
     { name: 'YouTube', href: s.social_youtube || '#', icon: Youtube },
-    { name: 'Fiverr', href: s.social_fiverr || '#', icon: FiverrIcon },
-    { name: 'Upwork', href: s.social_upwork || '#', icon: UpworkIcon },
+    // { name: 'Fiverr', href: s.social_fiverr || '#', icon: FiverrIcon },
+    // { name: 'Upwork', href: s.social_upwork || '#', icon: UpworkIcon },
   ];
 
   return (

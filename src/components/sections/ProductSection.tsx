@@ -189,7 +189,7 @@ export default function ProductsSection() {
         
       </div>
      <div className="max-w-2xl mx-auto pt-10">
-       <a href="/products"  className="w-1/3 md:w-1/4 mx-auto flex justify-center items-center border py-3.5 px-4 md:px-6 rounded-lg font-semibold tracking-wide transition-transform duration-300 hover:scale-105 active:scale-95 text-sm"
+       <a href="/products"  className="w-1/3 md:w-1/4 mx-auto flex justify-center items-center border py-3 md:py-3.5 px-2 md:px-6 rounded-lg font-semibold tracking-wide transition-transform duration-300 hover:scale-105 active:scale-95 text-sm"
           style={{
                     background: 'linear-gradient(135deg, hsl(217 91% 60%), hsl(280 70% 55%))',
                     
