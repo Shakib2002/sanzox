@@ -18,7 +18,7 @@ export function CTASection() {
   const primaryButtonText = settings?.cta_primary_button_text || 'Get Free Proposal';
   const primaryButtonLink = settings?.cta_primary_button_link || '/contact';
   const secondaryButtonText = settings?.cta_secondary_button_text || 'View Our Work';
-  const secondaryButtonLink = settings?.cta_secondary_button_link || '/works';
+  const secondaryButtonLink = settings?.cta_secondary_button_link || '/products';
   const trustIndicators = settings?.cta_trust_indicators || ['Free Consultation', 'No Commitment', '24h Response'];
 
   return (

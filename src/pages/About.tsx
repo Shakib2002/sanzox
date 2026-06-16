@@ -18,10 +18,26 @@ import { supabase } from '@/integrations/supabase/client';
 // Removed fallback data to ensure only admin data is shown
 
 const values = [
-  { icon: Zap, title: 'Move Fast', description: 'We deliver results quickly without compromising quality.' },
-  { icon: Target, title: 'Results-Driven', description: 'Every decision is guided by measurable outcomes.' },
-  { icon: Users, title: 'Collaborative', description: 'We work as an extension of your team.' },
-  { icon: Globe, title: 'Remote-First', description: 'Global talent, flexible processes, exceptional results.' },
+  {
+    icon: Zap,
+    title: 'AI-Powered Innovation',
+    description: 'We leverage artificial intelligence to create smarter and more efficient digital experiences.'
+  },
+  {
+    icon: Target,
+    title: 'Build With Purpose',
+    description: 'Technology should solve real-world challenges and create measurable impact.'
+  },
+  {
+    icon: Users,
+    title: 'People First',
+    description: 'Every decision starts with understanding the needs of our users and customers.'
+  },
+  {
+    icon: Globe,
+    title: 'Future Ready',
+    description: 'We build scalable products designed for the next generation of technology.'
+  },
 ];
 
 export default function AboutPage() {
@@ -58,15 +74,19 @@ console.log('Query state:', { data, isLoading, status, fetchStatus });
         <div className="container-custom relative">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center max-w-3xl mx-auto">
             <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-4">
-              About Us
-            </span>
-            <h1 className="heading-xl mb-6">
-              We're from <span className="gradient-text">another space</span>
-            </h1>
-            <p className="text-xl text-muted-foreground">
-              SANZOX is a remote-first digital agency bringing together the brightest minds 
-              in automation, design, and development to transform how businesses grow.
-            </p>
+            About Us
+          </span>
+
+          <h1 className="heading-xl mb-6">
+           Creating <span className="gradient-text">what's next</span>
+          </h1>
+
+          <p className="text-xl text-muted-foreground">
+            At SANZOX, we design and build AI-powered software, mobile apps, SaaS platforms,
+            and digital experiences that solve real-world problems. We combine innovation,
+            automation, and modern technology to deliver products that create lasting impact.
+          </p>
+
           </motion.div>
         </div>
       </section>
@@ -76,19 +96,28 @@ console.log('Query state:', { data, isLoading, status, fetchStatus });
         <div className="container-custom">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div variants={slideInLeftVariants} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-              <h2 className="heading-lg mb-6">Our Story</h2>
-              <p className="text-muted-foreground text-lg mb-4">
-                SANZOX was founded with a simple mission: help businesses leverage technology to grow faster 
-                and work smarter. We saw too many companies struggling with repetitive tasks, inconsistent 
-                content, and outdated digital presence.
-              </p>
-              <p className="text-muted-foreground text-lg mb-6">
-                Today, we're a team of 13+ experts across automation, video, web development, and growth 
-                strategy. We've delivered 30+ successful projects and generated over 5 million views for 
-                our clients.
-              </p>
+        <h2 className="heading-lg mb-6">Our Story</h2>
+
+          <p className="text-muted-foreground text-lg mb-4">
+            SANZOX started with a vision to build technology that makes everyday work simpler,
+            smarter, and more efficient. We believe software should solve real problems, automate
+            repetitive tasks, and empower people to achieve more with less effort.
+          </p>
+
+          <p className="text-muted-foreground text-lg mb-6">
+            Today, SANZOX develops AI-powered products, SaaS platforms, mobile applications,
+            and custom software solutions designed for modern businesses and individuals. From
+            productivity tools to cloud-based platforms, our focus is creating innovative digital
+            products that deliver real value and lasting impact.
+          </p>
+
               <ul className="space-y-3">
-                {['Fast delivery, no compromises', 'Transparent communication', 'Data-driven decisions', 'Long-term partnerships'].map(item => (
+                {[
+                  'Innovation at every step',
+                  'People-centered development',
+                  'Quality without compromise',
+                  'Technology for global impact'
+                ].map(item => (
                   <li key={item} className="flex items-center gap-3">
                     <CheckCircle2 className="w-5 h-5 text-primary shrink-0" />
                     <span>{item}</span>
@@ -138,7 +167,7 @@ console.log('Query state:', { data, isLoading, status, fetchStatus });
           <SectionHeading 
             badge="Our Team" 
             title={<>Meet the <span className="gradient-text">Crew</span></>} 
-            description="A diverse team of experts passionate about helping businesses grow. Hover to learn more about each team member." 
+            description="The minds behind SANZOX products. Hover to learn more." 
           />
           <motion.div 
             variants={staggerContainerVariants} 

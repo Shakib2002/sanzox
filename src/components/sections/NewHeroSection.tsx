@@ -225,7 +225,7 @@ export default function NewHeroSection() {
           </MagneticButton>
 
           <MagneticButton>
-            <Link to={'/works'}>
+            <Link to={'/products'}>
                  <button
                     className="px-8 py-3.5 rounded-lg font-semibold text-base tracking-wide border backdrop-blur-sm transition-all duration-300 hover:scale-105 active:scale-95"
                     style={{

@@ -37,7 +37,7 @@ const products = [
     categories: ["app", "storage"],
     tags: ["Cloud", "Security", "Sync"],
     icon: maxdrive,
-    link: "/maxdrive",
+    link: "https://www.maxdrive.site",
   },
 ];
 

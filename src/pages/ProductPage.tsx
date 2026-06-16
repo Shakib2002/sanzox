@@ -72,7 +72,7 @@ const PRODUCTS: Product[] = [
     image: maxdriveImg,
     accentColor: "#22C55E",
     glowColor: "rgba(34,197,94,0.35)",
-    link: "/maxdrive"
+    link: "https://www.maxdrive.site"
   },
   {
     id: "redditlens",
@@ -241,6 +241,7 @@ function ProductCard({ product }: { product: Product }) {
       {/* CTA */}
       <a
         href={product.link}
+        target="_blank"
         style={{
           ...styles.ctaButton,
           background: hovered
@@ -413,13 +414,13 @@ const styles: Record<string, React.CSSProperties> = {
   page: {
     position: "relative",
     width: "100%",
-    paddingTop: "60px", 
+     
   },
 
   // Hero
   hero: {
     position: "relative",
-    padding: "10px 24px 80px",
+    padding: "50px 24px 80px",
     textAlign: "center",
     overflow: "hidden",
     zIndex: 1,
