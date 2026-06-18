@@ -1,9 +1,15 @@
 {
-  "cleanUrls": true,
-  "trailingSlash": false,
   "rewrites": [
     {
-      "source": "/((?!deep-focus/).*)",
+      "source": "/deep-focus/privacy-policy",
+      "destination": "/deep-focus/privacy-policy/index.html"
+    },
+    {
+      "source": "/deep-focus/terms-and-conditions",
+      "destination": "/deep-focus/terms-and-conditions/index.html"
+    },
+    {
+      "source": "/(.*)",
       "destination": "/index.html"
     }
   ]
