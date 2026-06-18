@@ -85,8 +85,8 @@ export function AnimatedRoutes() {
           <Route path="/maxdrive/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/maxdrive/terms-and-conditions" element={<TermsAndConditions />} />
           {/* deep focus */}
-          <Route path="/deep-focus/privacy-policy" element={<DeepFocusPrivacyPolicy />} />
-          <Route path="/deep-focus/terms-and-conditions" element={<DeepFocusTerms />} />
+          {/* <Route path="/deep-focus/privacy-policy" element={<DeepFocusPrivacyPolicy />} />
+          <Route path="/deep-focus/terms-and-conditions" element={<DeepFocusTerms />} /> */}
 
           {/* delete */}
           <Route path="/delete-account" element={<DeleteAccount />} />
