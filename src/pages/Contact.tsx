@@ -286,31 +286,37 @@ export default function ContactPage() {
                   <h3 className="font-semibold mb-3">Follow Us</h3>
                   <div className="flex items-center gap-3 flex-wrap">
                     {[
-                      { href: '#', label: 'LinkedIn', icon: (
+                      { href: 'https://www.linkedin.com/company/sanzox', label: 'LinkedIn', icon: (
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                           <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/>
                         </svg>
                       )},
-                      { href: '#', label: 'Facebook', icon: (
+                      { href: 'https://web.facebook.com/profile.php?id=61589067512542', label: 'Facebook', icon: (
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                           <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
                         </svg>
                       )},
-                      { href: '#', label: 'Instagram', icon: (
+                      { href: 'https://www.instagram.com/sanzoxofficial', label: 'Instagram', icon: (
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
                         </svg>
                       )},
-                      { href: '#', label: 'X', icon: (
+                      { href: 'https://x.com/SANZOX26', label: 'X', icon: (
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                           <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.213 5.567 5.95-5.567Zm-1.161 17.52h1.833L7.084 4.126H5.117Z"/>
                         </svg>
                       )},
-                      { href: '#', label: 'YouTube', icon: (
+                      { href: 'https://www.youtube.com/@SANZOX-v7r', label: 'YouTube', icon: (
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                           <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white"/>
                         </svg>
                       )},
+                      { href: 'https://www.tiktok.com/@sanzoxofficial', label: "Tiktok", icon: (
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M16.5 3c.3 2.2 1.6 4 3.5 4.8V11c-1.3 0-2.5-.4-3.5-1.1V16a6 6 0 1 1-6-6c.3 0 .7 0 1 .1v3.2a3 3 0 1 0 2 2.8V3h3z" />
+                    </svg>
+                       )
+                      }
              
                     ].map(({ href, label, icon }) => (
                       <a
