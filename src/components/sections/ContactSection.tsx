@@ -64,7 +64,7 @@ const socials = [
   },
   {
     label: 'YouTube',
-    href: '#',
+    href: 'https://www.youtube.com/@SANZOX-v7r',
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
         <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" />
@@ -83,6 +83,15 @@ const socials = [
       </svg>
     ),
   },
+  {
+  label: 'TikTok',
+  href: 'https://www.tiktok.com/@sanzoxofficial',
+  icon: (
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M16.5 3c.3 2.2 1.6 4 3.5 4.8V11c-1.3 0-2.5-.4-3.5-1.1V16a6 6 0 1 1-6-6c.3 0 .7 0 1 .1v3.2a3 3 0 1 0 2 2.8V3h3z" />
+    </svg>
+  ),
+},
 ];
 
 export function ContactSection() {
