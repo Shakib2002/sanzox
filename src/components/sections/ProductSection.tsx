@@ -26,7 +26,7 @@ const products = [
     categories: ["app", "productivity"],
     tags: ["Focus", "Pomodoro", "Planning"],
     icon: deepfocus,
-    link: "#",
+    link: "https://play.google.com/store/apps/details?id=com.sanzox.deepfocus",
   },
   {
     id: 3,

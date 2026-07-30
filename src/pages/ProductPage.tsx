@@ -50,7 +50,7 @@ const PRODUCTS: Product[] = [
     image: deepfocusImg,
     accentColor: "#3B82F6",
     glowColor: "rgba(59,130,246,0.35)",
-    link: "#",
+    link: "https://play.google.com/store/apps/details?id=com.sanzox.deepfocus",
   },
   {
     id: "maxdrive",
