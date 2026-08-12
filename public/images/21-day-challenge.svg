@@ -1,0 +1,39 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="challengeBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#24173C" />
+      <stop offset="100%" stop-color="#3D2C6D" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" rx="48" fill="url(#challengeBg)" />
+  <rect x="90" y="90" width="1020" height="720" rx="40" fill="#120D21" />
+  <rect x="180" y="160" width="840" height="150" rx="34" fill="#1F1640" />
+  <rect x="240" y="230" width="200" height="40" rx="20" fill="#7E5CFF" />
+  <rect x="240" y="300" width="380" height="34" rx="18" fill="#3F2B75" />
+  <rect x="240" y="354" width="420" height="34" rx="18" fill="#3F2B75" />
+  <rect x="240" y="408" width="320" height="34" rx="18" fill="#3F2B75" />
+  <rect x="240" y="466" width="520" height="44" rx="22" fill="#2E234A" />
+  <rect x="240" y="534" width="76" height="76" rx="22" fill="#7E5CFF" />
+  <rect x="328" y="534" width="76" height="76" rx="22" fill="#7E5CFF" />
+  <rect x="416" y="534" width="76" height="76" rx="22" fill="#7E5CFF" />
+  <rect x="504" y="534" width="76" height="76" rx="22" fill="#7E5CFF" />
+  <rect x="592" y="534" width="76" height="76" rx="22" fill="#7E5CFF" />
+  <rect x="680" y="534" width="76" height="76" rx="22" fill="#7E5CFF" />
+  <rect x="768" y="534" width="76" height="76" rx="22" fill="#FFFFFF" />
+  <rect x="240" y="630" width="76" height="76" rx="22" fill="#2E234A" />
+  <rect x="328" y="630" width="76" height="76" rx="22" fill="#2E234A" />
+  <rect x="416" y="630" width="76" height="76" rx="22" fill="#2E234A" />
+  <rect x="504" y="630" width="76" height="76" rx="22" fill="#2E234A" />
+  <rect x="592" y="630" width="76" height="76" rx="22" fill="#2E234A" />
+  <rect x="680" y="630" width="76" height="76" rx="22" fill="#2E234A" />
+  <rect x="768" y="630" width="76" height="76" rx="22" fill="#2E234A" />
+  <rect x="240" y="726" width="76" height="76" rx="22" fill="#2E234A" />
+  <rect x="328" y="726" width="76" height="76" rx="22" fill="#2E234A" />
+  <rect x="416" y="726" width="76" height="76" rx="22" fill="#2E234A" />
+  <rect x="504" y="726" width="76" height="76" rx="22" fill="#2E234A" />
+  <rect x="592" y="726" width="76" height="76" rx="22" fill="#2E234A" />
+  <rect x="680" y="726" width="76" height="76" rx="22" fill="#2E234A" />
+  <rect x="768" y="726" width="76" height="76" rx="22" fill="#2E234A" />
+  <circle cx="362" cy="224" r="32" fill="#fff" />
+  <path d="M348 226L358 236L382 212" stroke="#7E5CFF" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" />
+</svg>

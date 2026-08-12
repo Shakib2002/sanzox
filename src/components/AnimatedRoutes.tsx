@@ -37,6 +37,7 @@ const PrivacyPolicy = lazy(() => import('./appPages/MaxDrive/PrivacyPolicy'));
 const TermsAndConditions = lazy(() => import('./appPages/MaxDrive/terms'));
 const DeepFocusPrivacyPolicy = lazy(() => import('./appPages/DeepFocus/privacyPolicy'));
 const DeepFocusTerms = lazy(() => import('./appPages/DeepFocus/termsConditions'));
+const DeepFocusPage = lazy(() => import('./appPages/DeepFocus/deepFocus'));
 const DeleteAccount = lazy(() => import('./appPages/DeleteAcc'));
 const MaxDrive = lazy(() => import('./appPages/MaxDrive/maxdrive'));
 
@@ -85,8 +86,9 @@ export function AnimatedRoutes() {
           <Route path="/maxdrive/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/maxdrive/terms-and-conditions" element={<TermsAndConditions />} />
           {/* deep focus */}
-          {/* <Route path="/deep-focus/privacy-policy" element={<DeepFocusPrivacyPolicy />} />
-          <Route path="/deep-focus/terms-and-conditions" element={<DeepFocusTerms />} /> */}
+          <Route path="/deep-focus" element={<PageTransition><DeepFocusPage /></PageTransition>} />
+          <Route path="/deep-focus/privacy-policy" element={<DeepFocusPrivacyPolicy />} />
+          <Route path="/deep-focus/terms-and-conditions" element={<DeepFocusTerms />} />
 
           {/* delete */}
           <Route path="/delete-account" element={<DeleteAccount />} />

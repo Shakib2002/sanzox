@@ -1,0 +1,32 @@
+<svg width="1200" height="1600" viewBox="0 0 1200 1600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="heroBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F8F5FF" />
+      <stop offset="100%" stop-color="#F3E9FF" />
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#7E5CFF" />
+      <stop offset="100%" stop-color="#A074FF" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="1600" rx="40" fill="url(#heroBg)" />
+  <rect x="96" y="160" width="1008" height="1280" rx="36" fill="#ffffff" />
+  <rect x="208" y="256" width="784" height="144" rx="32" fill="#F5F5FF" />
+  <rect x="248" y="360" width="672" height="76" rx="20" fill="#EBE5FF" />
+  <rect x="248" y="468" width="506" height="116" rx="28" fill="#F1ECFF" />
+  <rect x="248" y="616" width="340" height="48" rx="24" fill="#7E5CFF" opacity="0.15" />
+  <rect x="248" y="684" width="340" height="48" rx="24" fill="#E9E2FF" />
+  <rect x="248" y="760" width="560" height="52" rx="26" fill="#F8F5FF" />
+  <rect x="248" y="840" width="340" height="48" rx="24" fill="#E9E2FF" />
+  <rect x="248" y="920" width="560" height="76" rx="28" fill="#F5F1FF" />
+  <rect x="248" y="1024" width="560" height="156" rx="28" fill="#F4EEFF" />
+  <rect x="248" y="1200" width="640" height="224" rx="36" fill="#F8F5FF" />
+  <circle cx="935" cy="920" r="108" fill="#F5F1FF" />
+  <circle cx="935" cy="920" r="72" fill="url(#cardGrad)" />
+  <path d="M847 612H1007C1019.15 612 1029 621.85 1029 634V746C1029 758.15 1019.15 768 1007 768H847C834.85 768 825 758.15 825 746V634C825 621.85 834.85 612 847 612Z" fill="#FDFBFF" stroke="#E9E2FF" stroke-width="2"/>
+  <path d="M859 650H969V708H859V650Z" fill="#7E5CFF" />
+  <path d="M867 668H961V678H867V668Z" fill="#EDE6FF" />
+  <path d="M875 688H953V698H875V688Z" fill="#EDE6FF" />
+  <path d="M902 724H922V744H902V724Z" fill="#FFFFFF" />
+  <rect x="462" y="1384" width="276" height="92" rx="24" fill="#7E5CFF" />
+</svg>

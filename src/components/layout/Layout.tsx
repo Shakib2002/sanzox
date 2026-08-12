@@ -9,9 +9,11 @@ interface LayoutProps {
   title?: string;
   description?: string;
   image?: string;
+  hideNavbar?: boolean;
+  hideFooter?: boolean;
 }
 
-export function Layout({ children, title, description, image }: LayoutProps) {
+export function Layout({ children, title, description, image, hideNavbar, hideFooter }: LayoutProps) {
   return (
     <div className="relative min-h-screen flex flex-col overflow-x-hidden">
       <SEOHead title={title} description={description} image={image} />
@@ -27,13 +29,13 @@ export function Layout({ children, title, description, image }: LayoutProps) {
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-hero-gradient opacity-60" />
       </div>
 
-      <Navbar />
+      {!hideNavbar && <Navbar />}
       
       <main className="flex-1 ">
         {children}
       </main>
       
-      <Footer />
+      {!hideFooter && <Footer />}
     </div>
   );
 }
