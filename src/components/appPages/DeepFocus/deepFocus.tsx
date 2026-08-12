@@ -25,7 +25,6 @@ import {
 import { Layout } from '@/components/layout/Layout';
 
 import deepFocusLogo from '@/assets/products/deep-focus-logo.png'
-import googlePlayBadge from '@/assets/products/google-play.png'
 
 import image1 from '@/assets/products/deep-focus/3.png'
 import image2 from '@/assets/products/deep-focus/5.png'
@@ -334,20 +333,28 @@ export default function DeepFocus() {
                   </p>
                 </div>
 
-                <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-                  <a
-                    href={downloadHref}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label="Get it on Google Play"
-                    className="inline-flex h-12 items-center"
+                <div className="flex  items-center gap-4">
+                  <Button
+                    asChild
+                    className="rounded-full border-2 border-[#04BE81]/30 bg-gray-950 h-12 px-5 flex items-center text-white hover:bg-gray-800 transition-all"
                   >
-                    <img src={googlePlayBadge} alt="Get it on Google Play" className="h-12 w-auto object-contain" />
-                  </a>
+                    <a href={downloadHref} target="_blank" rel="noreferrer" className="inline-flex items-center h-full gap-3 px-3">
+                      <svg viewBox="0 0 512 512" aria-hidden="true" className="h-6 w-6">
+                        <path d="M48 32c-5 3-8 9-8 16v416c0 7 3 13 8 16l218-224L48 32z" fill="#34A853" opacity=".95" />
+                        <path d="M362 188 96 26c-6-4-12-4-17-2l214 220 69-56z" fill="#4285F4" opacity=".7" />
+                        <path d="M362 324 293 268 79 488c5 2 11 2 17-2l266-162z" fill="#FBBC05" opacity=".85" />
+                        <path d="M456 230l-78-46-74 60 74 60 78-46c14-8 14-20 0-28z" fill="#EA4335" />
+                      </svg>
+                      <span className="flex flex-col leading-tight text-left">
+                        <span className="text-[10px] uppercase tracking-[0.25em] text-white/90">Get it on</span>
+                        <span className="text-sm font-semibold">Google Play</span>
+                      </span>
+                    </a>
+                  </Button>
                   <Button
                     asChild
                     variant="outline"
-                    className="rounded-full border-2 border-[#04BE81]/30 bg-[#E7F8F4] h-12 px-6 flex items-center text-base font-semibold text-[#02754F] hover:bg-[#E7F8F4]/70 transition-all"
+                    className="rounded-full border-2 border-[#04BE81]/30 bg-[#E7F8F4] h-12 px-5 py-3 flex items-center text-base font-semibold text-[#02754F] hover:bg-[#E7F8F4]/70 transition-all"
                   >
                     <a href="#features" className="inline-flex items-center h-full">Explore Features</a>
                   </Button>
@@ -367,7 +374,7 @@ export default function DeepFocus() {
                       <img
                         src="/images/focus-timer-.png"
                         alt="Deep Focus app overview"
-                        className="h-[640px] w-full object-cover"
+                        className="h-[500px] md:h-[640px] w-full object-cover"
                       />
                     </div>
                   </div>
