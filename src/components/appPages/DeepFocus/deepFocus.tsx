@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
@@ -26,11 +26,14 @@ import { Layout } from '@/components/layout/Layout';
 
 import deepFocusLogo from '@/assets/products/deep-focus-logo.png'
 
-import image1 from '@/assets/products/deep-focus/3.png'
-import image2 from '@/assets/products/deep-focus/5.png'
-import image3 from '@/assets/products/deep-focus/7.png'
-import image4 from '@/assets/products/deep-focus/8.png'
-import image5 from '@/assets/products/deep-focus/10.png'
+import image1 from '@/assets/deep-focus/1.png'
+import image2 from '@/assets//deep-focus/2.png'
+import image3 from '@/assets//deep-focus/3.png'
+import image4 from '@/assets//deep-focus/4.png'
+import image5 from '@/assets//deep-focus/5.png'
+import image6 from '@/assets//deep-focus/6.png'
+import image7 from '@/assets//deep-focus/7.png'
+import image8 from '@/assets//deep-focus/8.png'
 
 const downloadHref = 'https://play.google.com/store/apps/details?id=com.sanzox.deepfocus';
 
@@ -110,14 +113,16 @@ const coreFeatures = [
   },
 ];
 
-// App Screenshots — use imported images for the first four items
+// App Screenshots — display four items per slide with a single-step sliding motion
 const galleryItems = [
   { id: 1, title: 'Home', image: image1, alt: 'App home screen', description: 'Overview of your focus journey' },
   { id: 2, title: 'Focus Timer', image: image2, alt: 'App timer screen', description: 'Deep work session in progress' },
   { id: 3, title: '21-Day Challenge', image: image3, alt: 'Task screen', description: 'Build lasting habits' },
   { id: 4, title: 'Task Management', image: image4, alt: 'Challenge screen', description: 'Organize your priorities' },
   { id: 5, title: 'Progress Analytics', image: image5, alt: 'Progress screen', description: 'Track your improvement' },
-
+  { id: 6, title: 'Daily Goals', image: image6, alt: 'Daily goals screen', description: 'Stay consistent and intentional' },
+  { id: 7, title: 'Focus Stats', image: image7, alt: 'Focus stats screen', description: 'Measure momentum over time' },
+  { id: 8, title: 'Rewards', image: image8, alt: 'Rewards screen', description: 'Celebrate every milestone' },
 ];
 
 const faqItems = [
@@ -207,6 +212,19 @@ const legalLinks = [
 export default function DeepFocus() {
   const [openFaqIndex, setOpenFaqIndex] = useState(0);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isMobile, setIsMobile] = useState(() => (typeof window !== 'undefined' ? window.innerWidth < 768 : false));
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const visibleCount = isMobile ? 1 : 4;
+  const totalSlides = Math.max(1, galleryItems.length - visibleCount + 1);
+  const visibleItems = galleryItems.slice(currentSlide, currentSlide + visibleCount);
 
   return (
     <Layout
@@ -638,7 +656,7 @@ export default function DeepFocus() {
               >
                 <div className="inline-flex items-center gap-2 rounded-full border border-[#04BE81]/20 bg-[#E7F8F4] px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.24em] text-[#02754F]">
                   <Layers size={14} />
-                 What’s Inside
+                  What’s Inside
                 </div>
                 <h2 className="mt-6 text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl">
                   Beautifully <span className="bg-gradient-to-r from-[#04BE81] to-[#039E6C] bg-clip-text text-transparent">crafted</span> for focus
@@ -648,32 +666,77 @@ export default function DeepFocus() {
                 </p>
               </motion.div>
 
-              <div className="mt-16 grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-2">
-                {galleryItems.map((item, index) => (
-                  <motion.div
-                    key={item.id}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: (index % 4) * 0.08 }}
-                    className="group relative"
+              <div className="mt-16">
+                <div className="relative mx-auto max-w-7xl px-3 sm:px-5">
+                  <button
+                    type="button"
+                    onClick={() => setCurrentSlide((prev) => Math.max(prev - 1, 0))}
+                    disabled={currentSlide === 0}
+                    className="absolute left-0 top-1/2 z-10 flex -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white/90 p-2.5 text-slate-700 shadow-lg transition hover:border-[#04BE81] hover:text-[#04BE81] disabled:cursor-not-allowed disabled:opacity-40 sm:p-3"
+                    aria-label="Previous screenshots"
                   >
-                    <div className="relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-                      <div className="relative aspect-[9/16] bg-gradient-to-br from-slate-900 to-[#06211A] overflow-hidden">
-                        <img src={item.image} alt={item.alt} className="w-full h-full object-cover" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                        <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                          <p className="text-white font-semibold text-sm">{item.title}</p>
-                          <p className="text-[#6FEFC4] text-xs">{item.description}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
+                    <ChevronDown className="h-4 w-4 rotate-90 sm:h-5 sm:w-5" />
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setCurrentSlide((prev) => Math.min(prev + 1, totalSlides - 1))}
+                    disabled={currentSlide === totalSlides - 1}
+                    className="absolute right-0 top-1/2 z-10 flex -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white/90 p-2.5 text-slate-700 shadow-lg transition hover:border-[#04BE81] hover:text-[#04BE81] disabled:cursor-not-allowed disabled:opacity-40 sm:p-3"
+                    aria-label="Next screenshots"
+                  >
+                    <ChevronDown className="h-4 w-4 -rotate-90 sm:h-5 sm:w-5" />
+                  </button>
+
+                  <div className="overflow-hidden">
+                    <motion.div
+                      key={currentSlide}
+                      initial={{ opacity: 0, x: 14 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -14 }}
+                      transition={{ duration: 0.7, ease: [0.25, 0.8, 0.25, 1] }}
+                      className="grid grid-cols-1 gap-4 md:grid-cols-4 md:gap-6"
+                    >
+                      {visibleItems.map((item, index) => (
+                        <motion.div
+                          key={`${item.id}-${currentSlide}`}
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.6, delay: index * 0.03, ease: [0.25, 0.8, 0.25, 1] }}
+                          className="group relative"
+                        >
+                          <div className="relative overflow-hidden rounded-2xl shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
+                            <div className="relative aspect-[9/16] overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 to-[#06211A]">
+                              <img src={item.image} alt={item.alt} className="h-full w-full object-cover" />
+                              {/* <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" /> */}
+                              <div className="absolute inset-x-0 bottom-0 p-3 translate-y-full transition-transform duration-300 group-hover:translate-y-0 md:p-4">
+                                {/* <p className="text-sm font-semibold text-white">{item.title}</p>
+                                <p className="text-[10px] text-[#6FEFC4] md:text-xs">{item.description}</p> */}
+                              </div>
+                            </div>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </motion.div>
+                  </div>
+                </div>
+
+                <div className="mt-8 flex items-center justify-center gap-2">
+                  {Array.from({ length: totalSlides }).map((_, index) => (
+                    <button
+                      key={index}
+                      type="button"
+                      onClick={() => setCurrentSlide(index)}
+                      aria-label={`Go to slide ${index + 1}`}
+                      className={`h-2.5 rounded-full transition-all ${
+                        currentSlide === index ? 'w-8 bg-[#04BE81]' : 'w-2.5 bg-slate-300 hover:bg-slate-400'
+                      }`}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
           </section>
-
           {/* FAQ Section */}
           <section id="faq" className="bg-white px-4 py-20 sm:px-6 lg:px-8">
             <div className="container-custom mx-auto max-w-4xl">
