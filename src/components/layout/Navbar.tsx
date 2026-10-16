@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { Link, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion, useScroll, useMotionValueEvent } from 'framer-motion';
 import { Menu, X, ChevronDown } from 'lucide-react';
@@ -28,16 +29,11 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [hidden, setHidden] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const { scrollY } = useScroll();
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    const previous = scrollY.getPrevious() ?? 0;
-    if (latest > previous && latest > 150) {
-      setHidden(true);
-    } else {
-      setHidden(false);
-    }
+    setIsScrolled(latest > 24);
   });
 
   const dropdownRef = useRef(null);
@@ -46,7 +42,9 @@ export function Navbar() {
  
   const s = settings || defaultSiteSettings;
  
-  const isServicesActive = location.pathname.startsWith('/services');
+  const currentPath = location.pathname.replace(/\/+$/, '') || '/';
+  const isLinkActive = (href: string | null) => href !== null && currentPath === href;
+  const isServicesActive = currentPath === '/services' || currentPath.startsWith('/services/');
  
   useEffect(() => {
     setIsOpen(false);
@@ -66,23 +64,33 @@ export function Navbar() {
   }, []);
  
   return (
-    <motion.header 
-      variants={{
-        visible: { y: 0 },
-        hidden: { y: "-100%" }
-      }}
-      animate={hidden ? "hidden" : "visible"}
-      transition={{ duration: 0.35, ease: "easeInOut" }}
-      className="sticky top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/50 py-2"
+    <>
+    <div aria-hidden="true" className="h-20 md:h-24" />
+    {createPortal(<motion.header
+      animate={{ y: 0 }}
+      transition={{ duration: 0.3, ease: "easeOut" }}
+      className={cn(
+        'fixed left-0 right-0 top-0 z-50 border-b transition-[background-color,border-color,box-shadow,padding,backdrop-filter] duration-300',
+        isScrolled
+          ? 'border-white/10 bg-[#080808]/85 py-1 shadow-lg shadow-black/20 backdrop-blur-xl'
+          : 'border-transparent bg-transparent py-2'
+      )}
     >
       <nav className="container-custom">
-        <div className="flex items-center justify-between h-16 md:h-20">
+        <div className={cn(
+          'flex items-center justify-between transition-[height] duration-300',
+          isScrolled ? 'h-14 md:h-16' : 'h-16 md:h-20'
+        )}>
           {/* Logo */}
           <Link
             to="/"
             className="flex items-center gap-2 font-display text-3xl font-bold tracking-tight"
           >
-            <img src={logo} alt={s.site_name} className="h-14 md:h-16 w-auto" />
+            <img
+              src={logo}
+              alt={s.site_name}
+              className={cn('w-auto transition-[height] duration-300', isScrolled ? 'h-10 md:h-12' : 'h-14 md:h-16')}
+            />
           </Link>
  
           {/* Desktop Navigation */}
@@ -98,9 +106,12 @@ export function Navbar() {
                     onMouseLeave={() => setDropdownOpen(false)}
                   >
                     <button
+                      aria-current={isServicesActive ? 'page' : undefined}
                       className={cn(
-                        'flex items-center gap-1 text-[16px] font-bold transition-colors',
-                        isServicesActive ? 'gradient-text' : 'text-muted-foreground hover:gradient-text'
+                        'flex items-center gap-1 border-b-2 border-transparent pb-1 text-[16px] font-bold transition-colors hover:border-white/60',
+                        isServicesActive
+                          ? 'border-white/70 text-white'
+                          : 'text-muted-foreground hover:text-white'
                       )}
                     >
                       {link.name}
@@ -112,7 +123,7 @@ export function Navbar() {
                         )}
                         style={{
                           color: isServicesActive
-                            ? 'hsl(217 91% 60%)'
+                            ? 'hsl(var(--foreground))'
                             : 'currentColor',
                         }}
                       />
@@ -125,13 +136,13 @@ export function Navbar() {
                           animate={{ opacity: 1, y: 0, scale: 1 }}
                           exit={{ opacity: 0, y: 8, scale: 0.97 }}
                           transition={{ duration: 0.18, ease: 'easeOut' }}
-                          className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-52 rounded-xl border border-border/50 bg-background/95 backdrop-blur-xl shadow-xl overflow-hidden"
+                          className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-52 rounded-xl border border-white/10 bg-[#111111]/95 backdrop-blur-xl shadow-xl overflow-hidden"
                         >
                           {/* Decorative top gradient line */}
                           <div
                             className="h-[2px] w-full"
                             style={{
-                              background: 'linear-gradient(135deg, hsl(217 91% 60%), hsl(280 70% 55%))',
+                              background: 'var(--gradient-primary)',
                             }}
                           />
                           <div className="py-2">
@@ -141,8 +152,8 @@ export function Navbar() {
                                 to={item.href}
                                 className={cn(
                                   'flex items-center px-4 py-2.5 text-[14px] font-medium transition-colors',
-                                  location.pathname === item.href
-                                    ? 'gradient-text bg-primary/5'
+                                  currentPath === item.href
+                                    ? 'bg-white/[0.08] text-white'
                                     : 'text-muted-foreground hover:text-foreground hover:bg-secondary/60'
                                 )}
                               >
@@ -162,11 +173,12 @@ export function Navbar() {
                   key={link.name}
                   to={link.href}
                   className={cn(
-                    'text-[16px] font-bold transition-colors hover:gradient-text',
-                    location.pathname === link.href
-                      ? 'gradient-text'
+                    'border-b-2 border-transparent pb-1 text-[16px] font-bold transition-colors hover:border-white/60 hover:gradient-text',
+                    isLinkActive(link.href)
+                      ? 'border-white/70 text-white'
                       : 'text-muted-foreground'
                   )}
+                  aria-current={isLinkActive(link.href) ? 'page' : undefined}
                 >
                   {link.name}
                 </Link>
@@ -178,11 +190,11 @@ export function Navbar() {
           <div className="hidden md:block">
             <Button
               asChild
-              className="btn-glow relative px-6 py-3.5 rounded-lg font-semibold text-base tracking-wide transition-transform duration-300 hover:scale-105 active:scale-95"
+              className="btn-glow relative px-6 py-3.5 rounded-full font-semibold text-base tracking-wide transition-transform duration-300 hover:scale-105 active:scale-95"
               style={{
-                background: 'linear-gradient(135deg, hsl(217 91% 60%), hsl(280 70% 55%))',
-                color: 'hsl(222 47% 6%)',
-                boxShadow: '0 0 30px hsl(217 91% 60% / 0.4)',
+                background: 'var(--gradient-primary)',
+                color: 'hsl(var(--primary-foreground))',
+                boxShadow: 'var(--glow-primary)',
                 willChange: 'transform',
               }}
             >
@@ -224,9 +236,9 @@ export function Navbar() {
                       <button
                         onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
                         className={cn(
-                          'w-full flex items-center justify-between py-3 px-4 rounded-lg text-base font-medium transition-colors',
+                          'w-full flex items-center justify-between py-3 px-4 rounded-full text-base font-medium transition-colors',
                           isServicesActive
-                            ? 'bg-primary/10 text-primary'
+                            ? 'bg-white/[0.08] text-white'
                             : 'text-muted-foreground hover:bg-secondary'
                         )}
                       >
@@ -247,18 +259,19 @@ export function Navbar() {
                             animate={{ opacity: 1, height: 'auto' }}
                             exit={{ opacity: 0, height: 0 }}
                             transition={{ duration: 0.2 }}
-                            className="mt-1 ml-4 space-y-1 border-l-2 border-border/50 pl-3"
+                            className="mt-1 ml-4 space-y-1 rounded-2xl border border-white/[0.06] bg-[#111111]/90 p-2"
                           >
                             {link.dropdown.map((item) => (
                               <Link
                                 key={item.name}
                                 to={item.href}
                                 className={cn(
-                                  'block py-2 px-3 rounded-lg text-sm font-medium transition-colors',
-                                  location.pathname === item.href
-                                    ? 'text-primary bg-primary/5'
+                                  'block py-2 px-3 rounded-full text-sm font-medium transition-colors',
+                                  currentPath === item.href
+                                    ? 'bg-white/[0.08] text-white'
                                     : 'text-muted-foreground hover:bg-secondary'
                                 )}
+                                aria-current={currentPath === item.href ? 'page' : undefined}
                               >
                                 {item.name}
                               </Link>
@@ -280,11 +293,12 @@ export function Navbar() {
                     <Link
                       to={link.href}
                       className={cn(
-                        'block py-3 px-4 rounded-lg text-base font-medium transition-colors',
-                        location.pathname === link.href
-                          ? 'bg-primary/10 text-primary'
+                        'block py-3 px-4 rounded-full text-base font-medium transition-colors',
+                        isLinkActive(link.href)
+                          ? 'bg-white/[0.08] text-white'
                           : 'text-muted-foreground hover:bg-secondary'
                       )}
+                      aria-current={isLinkActive(link.href) ? 'page' : undefined}
                     >
                       {link.name}
                     </Link>
@@ -300,11 +314,11 @@ export function Navbar() {
               >
                 <Button
                   asChild
-                  className="w-full btn-glow relative py-3.5 rounded-lg font-semibold text-base tracking-wide transition-transform duration-300 hover:scale-105 active:scale-95"
+                  className="w-full btn-glow relative py-3.5 rounded-full font-semibold text-base tracking-wide transition-transform duration-300 hover:scale-105 active:scale-95"
                   style={{
-                    background: 'linear-gradient(135deg, hsl(217 91% 60%), hsl(280 70% 55%))',
-                    
-                    boxShadow: '0 0 30px hsl(217 91% 60% / 0.4)',
+                    background: 'var(--gradient-primary)',
+                    color: 'hsl(var(--primary-foreground))',
+                    boxShadow: 'var(--glow-primary)',
                     willChange: 'transform',
                   }}
                 >
@@ -315,6 +329,7 @@ export function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.header>
+    </motion.header>, document.body)}
+    </>
   );
 }

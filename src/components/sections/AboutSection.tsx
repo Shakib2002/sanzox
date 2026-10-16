@@ -121,11 +121,11 @@ export function AboutSplitSection() {
             </ul>
 
             <Button asChild               
-                className="btn-glow relative px-5 py-6 rounded-lg font-semibold text-base tracking-wide transition-transform duration-300 hover:scale-105 active:scale-95"
+                className="btn-glow relative px-5 py-6 rounded-full font-semibold text-base tracking-wide transition-transform duration-300 hover:scale-105 active:scale-95"
                 style={{
-                  background: "linear-gradient(135deg, hsl(217 91% 60%), hsl(280 70% 55%))",
-                  color: "hsl(222 47% 6%)",
-                  boxShadow: "0 0 30px hsl(217 91% 60% / 0.4)",
+                  background: "var(--gradient-primary)",
+                  color: "hsl(var(--primary-foreground))",
+                  boxShadow: "var(--glow-primary)",
                   willChange: "transform",
                 }}>
               <Link to="/about">

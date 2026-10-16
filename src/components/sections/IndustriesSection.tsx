@@ -16,37 +16,37 @@ const industries = [
     icon: Building2,
     name: "SaaS & Startups",
     description: "Scalable platforms, AI automation, and growth-focused software.",
-    color: "text-blue-400",
+    color: "text-neutral-300",
   },
   {
     icon: ShoppingBag,
     name: "E-commerce",
     description: "Custom stores, mobile apps, and conversion-driven experiences.",
-    color: "text-green-400",
+    color: "text-neutral-300",
   },
   {
     icon: Landmark,
     name: "Finance",
     description: "Secure digital products, dashboards, and workflow systems.",
-    color: "text-purple-400",
+    color: "text-neutral-300",
   },
   {
     icon: GraduationCap,
     name: "Education",
     description: "Learning platforms, student portals, and digital classrooms.",
-    color: "text-yellow-400",
+    color: "text-neutral-300",
   },
   {
     icon: Heart,
     name: "Healthcare",
     description: "Patient management, appointment systems, and automation.",
-    color: "text-pink-400",
+    color: "text-neutral-300",
   },
   {
     icon: Truck,
     name: "Logistics",
     description: "Operations management, tracking systems, and process automation.",
-    color: "text-cyan-400",
+    color: "text-neutral-300",
   },
 ];
 

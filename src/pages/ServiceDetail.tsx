@@ -172,9 +172,9 @@ export default function ServiceDetailPage() {
             <div
               className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6"
               style={{
-                background: 'linear-gradient(135deg, hsl(217 91% 60% / 0.15), hsl(280 70% 55% / 0.15))',
-                border: '1px solid hsl(217 91% 60% / 0.25)',
-                color: 'hsl(217 91% 60%)',
+                background: 'linear-gradient(135deg, hsl(0 0% 100% / 0.07), hsl(0 0% 100% / 0.03))',
+                border: '1px solid hsl(0 0% 100% / 0.14)',
+                color: 'hsl(0 0% 82%)',
               }}
             >
               <Icon size={32} />
@@ -214,8 +214,8 @@ export default function ServiceDetailPage() {
                   <div
                     className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-colors"
                     style={{
-                      background: 'hsl(217 91% 60% / 0.1)',
-                      color: 'hsl(217 91% 60%)',
+                      background: 'hsl(0 0% 100% / 0.06)',
+                      color: 'hsl(0 0% 82%)',
                     }}
                   >
                     <CheckCircle2 size={16} />
@@ -261,8 +261,8 @@ export default function ServiceDetailPage() {
                   className="w-16 h-16 rounded-full flex items-center justify-center text-lg font-bold mb-4 border-2"
                   style={{
                     background: 'hsl(var(--background))',
-                    borderColor: 'hsl(217 91% 60% / 0.4)',
-                    color: 'hsl(217 91% 60%)',
+                    borderColor: 'hsl(0 0% 100% / 0.2)',
+                    color: 'hsl(0 0% 82%)',
                   }}
                 >
                   {String(i + 1).padStart(2, '0')}
@@ -303,9 +303,9 @@ export default function ServiceDetailPage() {
                     <div
                       className="w-11 h-11 rounded-xl flex items-center justify-center transition-colors"
                       style={{
-                        background: 'linear-gradient(135deg, hsl(217 91% 60% / 0.12), hsl(280 70% 55% / 0.12))',
-                        border: '1px solid hsl(217 91% 60% / 0.2)',
-                        color: 'hsl(217 91% 60%)',
+                        background: 'linear-gradient(135deg, hsl(0 0% 100% / 0.06), hsl(0 0% 100% / 0.03))',
+                        border: '1px solid hsl(0 0% 100% / 0.12)',
+                        color: 'hsl(0 0% 82%)',
                       }}
                     >
                       <ToolIcon size={20} />
@@ -360,14 +360,14 @@ export default function ServiceDetailPage() {
             viewport={{ once: true }}
             className="relative rounded-3xl overflow-hidden p-10 md:p-16 text-center"
             style={{
-              background: 'linear-gradient(135deg, hsl(217 91% 60% / 0.08), hsl(280 70% 55% / 0.08))',
-              border: '1px solid hsl(217 91% 60% / 0.2)',
+              background: 'linear-gradient(135deg, hsl(0 0% 100% / 0.05), hsl(0 0% 100% / 0.02))',
+              border: '1px solid hsl(0 0% 100% / 0.12)',
             }}
           >
             <div
               className="absolute inset-0 pointer-events-none"
               style={{
-                background: 'radial-gradient(ellipse 60% 50% at 50% 0%, hsl(217 91% 60% / 0.12), transparent)',
+                background: 'radial-gradient(ellipse 60% 50% at 50% 0%, hsl(0 0% 100% / 0.06), transparent)',
               }}
             />
             <div className="relative z-10">
@@ -380,9 +380,9 @@ export default function ServiceDetailPage() {
                 asChild
                 className="btn-glow px-8 py-4 rounded-xl font-semibold text-base"
                 style={{
-                  background: 'linear-gradient(135deg, hsl(217 91% 60%), hsl(280 70% 55%))',
-                  color: 'hsl(222 47% 6%)',
-                  boxShadow: '0 0 30px hsl(217 91% 60% / 0.3)',
+                  background: 'var(--gradient-primary)',
+                  color: 'hsl(var(--primary-foreground))',
+                  boxShadow: 'var(--glow-primary)',
                 }}
               >
                 <Link to="/contact">

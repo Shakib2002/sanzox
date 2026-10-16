@@ -160,9 +160,9 @@ export default function WorksPage() {
                   className="w-16 h-16 rounded-2xl flex items-center justify-center mb-5"
                   style={{
                     background:
-                      'linear-gradient(135deg, hsl(217 91% 60% / 0.1), hsl(280 70% 55% / 0.1))',
-                    border: '1px solid hsl(217 91% 60% / 0.2)',
-                    color: 'hsl(217 91% 60%)',
+                      'linear-gradient(135deg, hsl(0 0% 100% / 0.06), hsl(0 0% 100% / 0.03))',
+                    border: '1px solid hsl(0 0% 100% / 0.12)',
+                    color: 'hsl(0 0% 82%)',
                   }}
                 >
                   <Layers size={28} />

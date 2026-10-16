@@ -94,9 +94,9 @@ export default function WorkDetailPage() {
             <div
               className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-5"
               style={{
-                background: 'linear-gradient(135deg, hsl(217 91% 60% / 0.1), hsl(280 70% 55% / 0.1))',
-                border: '1px solid hsl(217 91% 60% / 0.2)',
-                color: 'hsl(217 91% 60%)',
+                background: 'linear-gradient(135deg, hsl(0 0% 100% / 0.06), hsl(0 0% 100% / 0.03))',
+                border: '1px solid hsl(0 0% 100% / 0.12)',
+                color: 'hsl(0 0% 82%)',
               }}
             >
               <Layers size={28} />
@@ -138,9 +138,9 @@ export default function WorkDetailPage() {
                 <span
                   className="px-3 py-1 rounded-full text-xs font-medium"
                   style={{
-                    background: 'linear-gradient(135deg, hsl(217 91% 60% / 0.12), hsl(280 70% 55% / 0.12))',
-                    border: '1px solid hsl(217 91% 60% / 0.25)',
-                    color: 'hsl(217 91% 60%)',
+                    background: 'linear-gradient(135deg, hsl(0 0% 100% / 0.06), hsl(0 0% 100% / 0.03))',
+                    border: '1px solid hsl(0 0% 100% / 0.14)',
+                    color: 'hsl(0 0% 82%)',
                   }}
                 >
                   {work.industry}
@@ -202,7 +202,7 @@ export default function WorkDetailPage() {
                   <span
                     className="text-3xl md:text-4xl font-bold"
                     style={{
-                      background: 'linear-gradient(135deg, hsl(217 91% 60%), hsl(280 70% 55%))',
+                      background: 'var(--gradient-primary)',
                       WebkitBackgroundClip: 'text',
                       WebkitTextFillColor: 'transparent',
                     }}
@@ -239,9 +239,9 @@ export default function WorkDetailPage() {
                       <span
                         className="text-xs font-mono font-medium px-2 py-0.5 rounded"
                         style={{
-                          background: 'hsl(217 91% 60% / 0.1)',
-                          color: 'hsl(217 91% 60%)',
-                          border: '1px solid hsl(217 91% 60% / 0.2)',
+                          background: 'hsl(0 0% 100% / 0.06)',
+                          color: 'hsl(0 0% 82%)',
+                          border: '1px solid hsl(0 0% 100% / 0.12)',
                         }}
                       >
                         {step}
@@ -338,8 +338,8 @@ export default function WorkDetailPage() {
                     rel="noopener noreferrer"
                     className="flex items-center justify-between p-5 rounded-xl group transition-all"
                     style={{
-                      background: 'linear-gradient(135deg, hsl(217 91% 60% / 0.08), hsl(280 70% 55% / 0.08))',
-                      border: '1px solid hsl(217 91% 60% / 0.2)',
+                      background: 'linear-gradient(135deg, hsl(0 0% 100% / 0.05), hsl(0 0% 100% / 0.02))',
+                      border: '1px solid hsl(0 0% 100% / 0.12)',
                     }}
                   >
                     <span className="text-sm font-medium">View live project</span>
@@ -364,14 +364,14 @@ export default function WorkDetailPage() {
             viewport={{ once: true }}
             className="relative rounded-3xl overflow-hidden p-10 md:p-16 text-center"
             style={{
-              background: 'linear-gradient(135deg, hsl(217 91% 60% / 0.08), hsl(280 70% 55% / 0.08))',
-              border: '1px solid hsl(217 91% 60% / 0.2)',
+              background: 'linear-gradient(135deg, hsl(0 0% 100% / 0.05), hsl(0 0% 100% / 0.02))',
+              border: '1px solid hsl(0 0% 100% / 0.12)',
             }}
           >
             <div
               className="absolute inset-0 pointer-events-none"
               style={{
-                background: 'radial-gradient(ellipse 60% 50% at 50% 0%, hsl(217 91% 60% / 0.1), transparent)',
+                background: 'radial-gradient(ellipse 60% 50% at 50% 0%, hsl(0 0% 100% / 0.05), transparent)',
               }}
             />
             <div className="relative z-10">
@@ -384,9 +384,9 @@ export default function WorkDetailPage() {
                 asChild
                 className="btn-glow px-8 py-4 rounded-xl font-semibold text-base"
                 style={{
-                  background: 'linear-gradient(135deg, hsl(217 91% 60%), hsl(280 70% 55%))',
-                  color: 'hsl(222 47% 6%)',
-                  boxShadow: '0 0 30px hsl(217 91% 60% / 0.3)',
+                  background: 'var(--gradient-primary)',
+                  color: 'hsl(var(--primary-foreground))',
+                  boxShadow: 'var(--glow-primary)',
                 }}
               >
                 <Link to="/contact">

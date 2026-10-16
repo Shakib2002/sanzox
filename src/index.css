@@ -4,73 +4,67 @@
 @tailwind components;
 @tailwind utilities;
 
-/* SANZOX Design System - Dark Space Theme */
+/* SANZOX design system - neutral dark theme */
 
 @layer base {
   :root {
-    /* Base colors - Dark navy/space theme */
-    --background: 222 47% 6%;
-    --foreground: 210 40% 98%;
+    /* Neutral dark palette used throughout the product experience */
+    --background: 0 0% 3%;
+    --foreground: 0 0% 96%;
 
-    --card: 222 47% 8%;
-    --card-foreground: 210 40% 98%;
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 96%;
 
-    --popover: 222 47% 10%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 0% 7%;
+    --popover-foreground: 0 0% 96%;
 
-    /* Neon blue accent - primary brand color */
-    --primary: 217 91% 60%;
-    --primary-foreground: 222 47% 6%;
+    --primary: 0 0% 92%;
+    --primary-foreground: 0 0% 5%;
 
-    /* Secondary - muted navy */
-    --secondary: 222 47% 14%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 0 0% 14%;
+    --secondary-foreground: 0 0% 96%;
 
-    --muted: 222 47% 12%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 64%;
 
-    /* Accent - neon glow */
-    --accent: 217 91% 60%;
-    --accent-foreground: 222 47% 6%;
+    --accent: 0 0% 18%;
+    --accent-foreground: 0 0% 96%;
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 96%;
 
-    --border: 222 30% 18%;
-    --input: 222 30% 15%;
-    --ring: 217 91% 60%;
+    --border: 0 0% 17%;
+    --input: 0 0% 15%;
+    --ring: 0 0% 72%;
 
     --radius: 0.75rem;
 
     /* Custom tokens for glassmorphism */
-    --glass-bg: 222 47% 10% / 0.6;
-    --glass-border: 217 91% 60% / 0.15;
-    --glass-shadow: 217 91% 60% / 0.1;
+    --glass-bg: 0 0% 10% / 0.6;
+    --glass-border: 0 0% 100% / 0.08;
+    --glass-shadow: 0 0% 0% / 0.24;
 
-    /* Gradient tokens */
-    --gradient-primary: linear-gradient(135deg, hsl(217 91% 60%), hsl(280 91% 60%));
-    --gradient-hero: radial-gradient(ellipse 80% 50% at 50% -20%, hsl(217 91% 60% / 0.3), transparent);
-    --gradient-card: linear-gradient(180deg, hsl(222 47% 12%), hsl(222 47% 8%));
+    --gradient-primary: linear-gradient(135deg, hsl(0 0% 96%), hsl(0 0% 68%));
+    --gradient-hero: radial-gradient(ellipse 80% 50% at 50% -20%, hsl(0 0% 100% / 0.1), transparent);
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 10%), hsl(0 0% 6%));
 
-    /* Glow effects */
-    --glow-primary: 0 0 40px hsl(217 91% 60% / 0.4);
-    --glow-accent: 0 0 60px hsl(217 91% 60% / 0.2);
+    --glow-primary: 0 0 32px hsl(0 0% 100% / 0.12);
+    --glow-accent: 0 0 48px hsl(0 0% 100% / 0.08);
 
-    /* Sidebar (keeping for compatibility) */
-    --sidebar-background: 222 47% 8%;
-    --sidebar-foreground: 210 40% 98%;
-    --sidebar-primary: 217 91% 60%;
-    --sidebar-primary-foreground: 222 47% 6%;
-    --sidebar-accent: 222 47% 14%;
-    --sidebar-accent-foreground: 210 40% 98%;
-    --sidebar-border: 222 30% 18%;
-    --sidebar-ring: 217 91% 60%;
+    --sidebar-background: 0 0% 8%;
+    --sidebar-foreground: 0 0% 96%;
+    --sidebar-primary: 0 0% 92%;
+    --sidebar-primary-foreground: 0 0% 5%;
+    --sidebar-accent: 0 0% 14%;
+    --sidebar-accent-foreground: 0 0% 96%;
+    --sidebar-border: 0 0% 17%;
+    --sidebar-ring: 0 0% 72%;
 
     /* Success/Warning states */
     --success: 142 76% 36%;
-    --success-foreground: 210 40% 98%;
+    --success-foreground: 0 0% 96%;
     --warning: 38 92% 50%;
-    --warning-foreground: 222 47% 6%;
+    --warning-foreground: 0 0% 5%;
   }
 
   /* No light mode - always dark */
@@ -96,6 +90,13 @@
     width: 100%;
   }
 
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
   /* Reduce motion for accessibility */
   @media (prefers-reduced-motion: reduce) {
     *,
@@ -117,7 +118,7 @@
       inset 0 1px 0 0 hsl(var(--glass-border));
   }
 
-  /* Neon glow button */
+  /* Subtle highlight for primary buttons */
   .btn-glow {
     @apply relative overflow-hidden;
     box-shadow: var(--glow-primary);
@@ -137,7 +138,7 @@
   /* Gradient text */
   .gradient-text {
     @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, hsl(var(--primary)), hsl(280 91% 70%));
+    background-image: linear-gradient(135deg, hsl(var(--primary)), hsl(0 0% 62%));
   }
 
   /* Shimmer effect for gradient text */
@@ -278,6 +279,10 @@
 }
 
 @layer utilities {
+  .site-theme button:not(.image-carousel-button) {
+    border-radius: 9999px !important;
+  }
+
   /* Hide scrollbar but keep functionality */
   .scrollbar-hide {
     -ms-overflow-style: none;

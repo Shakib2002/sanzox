@@ -2,7 +2,6 @@ import { ReactNode } from 'react';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
 import { SEOHead } from '@/components/SEOHead';
-import { ScrollProgress } from '@/components/ui/ScrollProgress';
 
 interface LayoutProps {
   children: ReactNode;
@@ -15,18 +14,12 @@ interface LayoutProps {
 
 export function Layout({ children, title, description, image, hideNavbar, hideFooter }: LayoutProps) {
   return (
-    <div className="relative min-h-screen flex flex-col overflow-x-hidden">
+    <div className="site-theme relative min-h-screen flex flex-col overflow-x-clip bg-[#080808] font-sans text-white">
       <SEOHead title={title} description={description} image={image} />
       
-      {/* Scroll progress indicator */}
-      {/* <ScrollProgress /> */}
-      
-      {/* Star background */}
-      <div className="fixed inset-0 stars-bg opacity-50 pointer-events-none" />
-      
-      {/* Main gradient overlays */}
+      {/* Subtle neutral ambient light */}
       <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-hero-gradient opacity-60" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-hero-gradient opacity-40" />
       </div>
 
       {!hideNavbar && <Navbar />}

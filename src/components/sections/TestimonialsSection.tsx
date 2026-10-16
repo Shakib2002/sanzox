@@ -144,9 +144,9 @@ function TestimonialCard({ testimonial }: TestimonialCardProps) {
         <div
           className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold shrink-0"
           style={{
-            background: 'linear-gradient(135deg, hsl(217 91% 60% / 0.15), hsl(280 70% 55% / 0.15))',
-            border: '1px solid hsl(217 91% 60% / 0.25)',
-            color: 'hsl(217 91% 60%)',
+            background: 'linear-gradient(135deg, hsl(0 0% 100% / 0.07), hsl(0 0% 100% / 0.03))',
+            border: '1px solid hsl(0 0% 100% / 0.14)',
+            color: 'hsl(0 0% 82%)',
           }}
         >
           {getInitials(testimonial.name)}

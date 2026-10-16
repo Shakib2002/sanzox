@@ -54,7 +54,7 @@ export function BentoStats() {
             <motion.div
               className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
               style={{
-                background: 'linear-gradient(135deg, hsl(var(--primary) / 0.2), transparent, hsl(280 91% 60% / 0.2))',
+                background: 'linear-gradient(135deg, hsl(var(--primary) / 0.14), transparent, hsl(0 0% 100% / 0.06))',
               }}
             />
             

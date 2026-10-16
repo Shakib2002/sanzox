@@ -28,7 +28,7 @@ export function AnimatedGradientBackground() {
       <motion.div
         className="absolute top-1/4 right-0 w-[600px] h-[600px] rounded-full opacity-20"
         style={{
-          background: 'radial-gradient(circle, hsl(217 91% 60%) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, hsl(0 0% 80%) 0%, transparent 70%)',
           filter: 'blur(80px)',
         }}
         animate={{
@@ -47,7 +47,7 @@ export function AnimatedGradientBackground() {
       <motion.div
         className="absolute bottom-0 left-1/3 w-[700px] h-[700px] rounded-full opacity-25"
         style={{
-          background: 'radial-gradient(circle, hsl(280 70% 50%) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, hsl(0 0% 70%) 0%, transparent 70%)',
           filter: 'blur(100px)',
         }}
         animate={{
@@ -85,7 +85,7 @@ export function AnimatedGradientBackground() {
       <motion.div
         className="absolute bottom-1/4 right-1/4 w-[350px] h-[350px] rounded-full opacity-20"
         style={{
-          background: 'radial-gradient(circle, hsl(200 80% 50%) 0%, transparent 60%)',
+          background: 'radial-gradient(circle, hsl(0 0% 75%) 0%, transparent 60%)',
           filter: 'blur(50px)',
         }}
         animate={{
@@ -107,11 +107,11 @@ export function AnimatedGradientBackground() {
         style={{
           backgroundImage: `
             radial-gradient(at 40% 20%, hsla(var(--primary) / 0.3) 0px, transparent 50%),
-            radial-gradient(at 80% 0%, hsla(217 91% 60% / 0.2) 0px, transparent 50%),
-            radial-gradient(at 0% 50%, hsla(280 70% 50% / 0.15) 0px, transparent 50%),
+            radial-gradient(at 80% 0%, hsla(0 0% 100% / 0.08) 0px, transparent 50%),
+            radial-gradient(at 0% 50%, hsla(0 0% 100% / 0.06) 0px, transparent 50%),
             radial-gradient(at 80% 50%, hsla(var(--primary) / 0.2) 0px, transparent 50%),
-            radial-gradient(at 0% 100%, hsla(200 80% 50% / 0.15) 0px, transparent 50%),
-            radial-gradient(at 80% 100%, hsla(280 70% 50% / 0.1) 0px, transparent 50%)
+            radial-gradient(at 0% 100%, hsla(0 0% 100% / 0.06) 0px, transparent 50%),
+            radial-gradient(at 80% 100%, hsla(0 0% 100% / 0.04) 0px, transparent 50%)
           `,
         }}
       />

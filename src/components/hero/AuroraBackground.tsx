@@ -39,7 +39,7 @@ export function AuroraBackground() {
         }}
         className="absolute top-1/3 right-1/4 w-[500px] h-[500px] rounded-full opacity-30"
         style={{
-          background: 'radial-gradient(circle, hsl(280 91% 60%) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, hsl(0 0% 78%) 0%, transparent 70%)',
           filter: 'blur(100px)',
         }}
       />
@@ -58,7 +58,7 @@ export function AuroraBackground() {
         }}
         className="absolute bottom-1/4 left-1/3 w-[450px] h-[450px] rounded-full opacity-25"
         style={{
-          background: 'radial-gradient(circle, hsl(190 91% 50%) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, hsl(0 0% 72%) 0%, transparent 70%)',
           filter: 'blur(90px)',
         }}
       />

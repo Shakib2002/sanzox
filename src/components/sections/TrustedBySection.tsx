@@ -16,27 +16,27 @@ const logosRow1 = [
   {
     name: "AI Products",
     icon: Bot,
-    color: "text-violet-400",
+    color: "text-neutral-300",
   },
   {
     name: "SaaS Platforms",
     icon: Boxes,
-    color: "text-blue-400",
+    color: "text-neutral-300",
   },
   {
     name: "E-commerce Brands",
     icon: ShoppingCart,
-    color: "text-green-400",
+    color: "text-neutral-300",
   },
   {
     name: "Mobile Apps",
     icon: Smartphone,
-    color: "text-cyan-400",
+    color: "text-neutral-300",
   },
   {
     name: "Web Applications",
     icon: Globe,
-    color: "text-purple-400",
+    color: "text-neutral-300",
   },
 ];
 
@@ -44,27 +44,27 @@ const logosRow2 = [
   {
     name: "Startups",
     icon: Rocket,
-    color: "text-orange-400",
+    color: "text-neutral-300",
   },
   {
     name: "Growing Businesses",
     icon: TrendingUp,
-    color: "text-emerald-400",
+    color: "text-neutral-300",
   },
   {
     name: "Enterprises",
     icon: Building2,
-    color: "text-yellow-400",
+    color: "text-neutral-300",
   },
   {
     name: "Remote Teams",
     icon: Users,
-    color: "text-pink-400",
+    color: "text-neutral-300",
   },
   {
     name: "Automation Systems",
     icon: Workflow,
-    color: "text-rose-400",
+    color: "text-neutral-300",
   },
 ];
 

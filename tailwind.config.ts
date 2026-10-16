@@ -126,8 +126,8 @@ export default {
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "hero-gradient": "radial-gradient(ellipse 80% 50% at 50% -20%, hsl(217 91% 60% / 0.3), transparent)",
-        "card-gradient": "linear-gradient(180deg, hsl(222 47% 12%), hsl(222 47% 8%))",
+        "hero-gradient": "radial-gradient(ellipse 80% 50% at 50% -20%, hsl(0 0% 100% / 0.1), transparent)",
+        "card-gradient": "linear-gradient(180deg, hsl(0 0% 10%), hsl(0 0% 6%))",
       },
     },
   },

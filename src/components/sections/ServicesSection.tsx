@@ -61,15 +61,15 @@ function ServiceCard({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="absolute -inset-[1px] bg-gradient-to-r from-primary/50 via-primary/20 to-primary/50 rounded-2xl blur-sm"
+            className="absolute -inset-[1px] bg-gradient-to-r from-white/15 via-white/[0.04] to-white/15 rounded-2xl blur-sm"
           />
         )}
       </AnimatePresence>
 
       <div
         onClick={onToggle}
-        className={`relative glass-card cursor-pointer transition-all duration-500 hover:border-primary/30 overflow-hidden ${
-          isActive ? 'border-primary/40' : ''
+        className={`relative glass-card cursor-pointer transition-all duration-500 hover:border-white/15 overflow-hidden ${
+          isActive ? 'border-white/15' : ''
         }`}
       >
         <div className="flex items-start gap-6 p-6 md:p-8">
@@ -92,14 +92,14 @@ function ServiceCard({
             <div className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-4">
                 <motion.div 
-                  className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary"
+                  className="w-12 h-12 rounded-xl bg-white/[0.05] border border-white/10 flex items-center justify-center text-neutral-300"
                   whileHover={{ scale: 1.1, rotate: 5 }}
                   transition={{ type: 'spring', stiffness: 400, damping: 10 }}
                 >
                   <service.icon size={24} />
                 </motion.div>
                 <div>
-                  <h3 className="text-lg md:text-xl font-semibold text-foreground group-hover:text-primary transition-colors">
+                  <h3 className="text-lg md:text-xl font-semibold text-foreground group-hover:text-neutral-300 transition-colors">
                     {service.title}
                   </h3>
                   <p className="text-sm text-muted-foreground hidden sm:block mt-1 line-clamp-1">
@@ -111,7 +111,7 @@ function ServiceCard({
               <motion.div
                 animate={{ rotate: isActive ? 90 : 0 }}
                 transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                className="text-muted-foreground group-hover:text-primary transition-colors"
+                className="text-muted-foreground group-hover:text-neutral-300 transition-colors"
               >
                 <ChevronRight size={24} />
               </motion.div>
@@ -119,7 +119,7 @@ function ServiceCard({
 
             {/* Animated underline */}
             <motion.div 
-              className="h-[2px] bg-gradient-to-r from-primary to-primary/50 mt-4 origin-left"
+              className="h-[2px] bg-gradient-to-r from-white/40 to-transparent mt-4 origin-left"
               initial={{ scaleX: 0 }}
               animate={{ scaleX: isActive ? 1 : 0 }}
               transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
@@ -200,7 +200,7 @@ export function ServicesSection() {
     <section className="section-padding relative overflow-hidden">
       {/* Background glow */}
       <div className="absolute top-1/2 left-0 w-[400px] h-[400px] bg-primary/10 blur-[150px] rounded-full -translate-y-1/2 pointer-events-none" />
-      <div className="absolute top-1/4 right-0 w-[300px] h-[300px] bg-purple-500/10 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/4 right-0 w-[300px] h-[300px] bg-white/[0.025] blur-[120px] rounded-full pointer-events-none" />
 
       <div className="container-custom relative">
         <SectionHeading

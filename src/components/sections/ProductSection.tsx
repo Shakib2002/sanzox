@@ -76,7 +76,7 @@ export default function ProductsSection() {
                 px-5 py-2 rounded-full text-sm font-medium border transition-all duration-300
                 ${
                   active === filter.key
-                    ? "bg-blue-500/10 border-blue-500/20 text-white"
+                    ? "bg-white/[0.08] border-white/15 text-white"
                     : "bg-white/[0.02] border-white/5 text-zinc-500 hover:text-zinc-300 hover:border-white/10"
                 }
               `}
@@ -101,21 +101,21 @@ export default function ProductsSection() {
                   p-7
                   transition-all duration-500
                   hover:-translate-y-2
-                  hover:border-blue-500/30
+                  hover:border-white/20
                   hover:bg-white/[0.04]
-                  hover:shadow-2xl hover:shadow-blue-500/5
+                  hover:shadow-2xl hover:shadow-black/30
                 "
               >
                 {/* Modern gradient border effect */}
-                <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-r from-blue-500/0 via-blue-500/20 to-blue-500/0" />
+                <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-r from-white/0 via-white/[0.04] to-white/0" />
 
                 {/* Top accent line */}
-                <div className="absolute top-0 left-0 w-0 h-[2px] bg-gradient-to-r from-blue-400 to-transparent group-hover:w-full transition-all duration-700 ease-out" />
+                <div className="absolute top-0 left-0 w-0 h-[2px] bg-gradient-to-r from-white/50 to-transparent group-hover:w-full transition-all duration-700 ease-out" />
 
                 <div className="relative z-10 flex flex-col h-full">
                   {/* Icon with subtle animation */}
                   <div className="mb-8 transition-transform duration-300 group-hover:scale-105 origin-left">
-                    <div className="w-14 h-14 rounded-2xl border border-blue-500/30 bg-blue-500/10 flex items-center justify-center shadow-lg shadow-blue-500/5 backdrop-blur-sm">
+                    <div className="w-14 h-14 rounded-2xl border border-white/10 bg-white/[0.04] flex items-center justify-center shadow-lg shadow-black/20 backdrop-blur-sm">
                       <img src={product.icon} alt="" />
                     </div>
                   </div>
@@ -123,13 +123,12 @@ export default function ProductsSection() {
                   <div className="flex-1 flex flex-col">
                     <div className="mb-5">
                       <h3
-                        className="text-white text-2xl font-semibold tracking-tight mb-2 group-hover:text-blue-100 transition-colors"
-                        style={{ fontFamily: "'Sora', sans-serif" }}
+                        className="text-white text-2xl font-semibold tracking-tight mb-2 group-hover:text-neutral-300 transition-colors"
                       >
                         {product.name}
                       </h3>
 
-                      <p className="text-blue-400/80 text-xs uppercase tracking-[0.2em] font-medium">
+                      <p className="text-neutral-400 text-xs uppercase tracking-[0.2em] font-medium">
                         {product.tagline}
                       </p>
                     </div>
@@ -147,13 +146,13 @@ export default function ProductsSection() {
                             text-[11px] font-medium
                             px-3 py-1
                             rounded-full
-                            border border-blue-500/15
-                            bg-blue-500/5
-                            text-blue-300/90
+                            border border-white/10
+                            bg-white/[0.03]
+                            text-neutral-300
                             backdrop-blur-sm
                             transition-all duration-200
-                            group-hover:border-blue-500/30
-                            group-hover:bg-blue-500/10
+                            group-hover:border-white/20
+                            group-hover:bg-white/[0.06]
                           "
                         >
                           {tag}
@@ -170,7 +169,7 @@ export default function ProductsSection() {
                           text-sm font-medium
                           text-zinc-400
                           transition-all duration-300
-                          group-hover:text-blue-400
+                          group-hover:text-white
                         "
                       >
                         Explore Product
@@ -189,11 +188,11 @@ export default function ProductsSection() {
         
       </div>
      <div className="max-w-2xl mx-auto pt-10">
-       <a href="/products"  className="w-1/3 md:w-1/4 mx-auto flex justify-center items-center border py-3 md:py-3.5 px-2 md:px-6 rounded-lg font-semibold tracking-wide transition-transform duration-300 hover:scale-105 active:scale-95 text-sm"
+       <a href="/products"  className="w-1/3 md:w-1/4 mx-auto flex justify-center items-center border py-3 md:py-3.5 px-2 md:px-6 rounded-full font-semibold tracking-wide transition-transform duration-300 hover:scale-105 active:scale-95 text-sm"
           style={{
-                    background: 'linear-gradient(135deg, hsl(217 91% 60%), hsl(280 70% 55%))',
-                    
-                    boxShadow: '0 0 30px hsl(217 91% 60% / 0.4)',
+                    background: 'var(--gradient-primary)',
+                    color: 'hsl(var(--primary-foreground))',
+                    boxShadow: 'var(--glow-primary)',
                     willChange: 'transform',
                   }}
                   >Explore More</a>

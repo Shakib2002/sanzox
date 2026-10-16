@@ -233,7 +233,7 @@ export function HeroSection() {
                   // FIX 9: blur removed from animated element — blur + animation = jitter
                   // Use static blur on a pseudo or a non-animated sibling instead
                   background:
-                    'radial-gradient(circle, hsl(280 70% 50% / 0.4) 0%, hsl(217 91% 60% / 0.3) 50%, transparent 70%)',
+                    'radial-gradient(circle, hsl(0 0% 80% / 0.18) 0%, hsl(0 0% 100% / 0.12) 50%, transparent 70%)',
                   filter: 'blur(120px)',
                   willChange: 'opacity, transform',
                 }}
@@ -246,7 +246,7 @@ export function HeroSection() {
                 className="absolute top-1/4 right-1/4 w-72 h-72 rounded-full -z-10"
                 style={{
                   background:
-                    'radial-gradient(circle, hsl(280 70% 50% / 0.35) 0%, transparent 60%)',
+                    'radial-gradient(circle, hsl(0 0% 78% / 0.16) 0%, transparent 60%)',
                   filter: 'blur(90px)',
                   willChange: 'opacity, transform',
                 }}
@@ -259,7 +259,7 @@ export function HeroSection() {
                 className="absolute bottom-1/4 left-1/4 w-56 h-56 rounded-full -z-10"
                 style={{
                   background:
-                    'radial-gradient(circle, hsl(200 80% 50% / 0.3) 0%, transparent 60%)',
+                    'radial-gradient(circle, hsl(0 0% 75% / 0.14) 0%, transparent 60%)',
                   filter: 'blur(70px)',
                   willChange: 'opacity, transform',
                 }}
@@ -287,9 +287,9 @@ export function HeroSection() {
                   className="absolute w-[110%] h-[75%] rounded-full border-2"
                   style={{
                     transform: 'rotateX(75deg)',
-                    borderColor: 'hsl(280 70% 50% / 0.4)',
+                    borderColor: 'hsl(0 0% 100% / 0.18)',
                     boxShadow:
-                      '0 0 20px hsl(280 70% 50% / 0.3), inset 0 0 20px hsl(280 70% 50% / 0.1)',
+                      '0 0 20px hsl(0 0% 100% / 0.08), inset 0 0 20px hsl(0 0% 100% / 0.03)',
                     willChange: 'transform, opacity',
                     backfaceVisibility: 'hidden',
                     WebkitBackfaceVisibility: 'hidden',
@@ -306,8 +306,8 @@ export function HeroSection() {
                   className="absolute w-[95%] h-[60%] rounded-full border"
                   style={{
                     transform: 'rotateX(65deg) rotateY(10deg)',
-                    borderColor: 'hsl(200 80% 50% / 0.35)',
-                    boxShadow: '0 0 15px hsl(200 80% 50% / 0.25)',
+                    borderColor: 'hsl(0 0% 100% / 0.14)',
+                    boxShadow: '0 0 15px hsl(0 0% 100% / 0.06)',
                     willChange: 'transform',
                     backfaceVisibility: 'hidden',
                     WebkitBackfaceVisibility: 'hidden',
@@ -324,7 +324,7 @@ export function HeroSection() {
                   className="absolute w-[75%] h-[45%] rounded-full border border-dashed"
                   style={{
                     transform: 'rotateX(70deg) rotateY(-5deg)',
-                    borderColor: 'hsl(280 60% 60% / 0.3)',
+                    borderColor: 'hsl(0 0% 100% / 0.1)',
                     willChange: 'transform, opacity',
                     backfaceVisibility: 'hidden',
                     WebkitBackfaceVisibility: 'hidden',

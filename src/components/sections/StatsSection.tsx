@@ -69,8 +69,8 @@ export function StatsSection() {
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent pointer-events-none" />
       
       {/* Dynamic glows */}
-      <DynamicGlow className="-left-32 top-1/2 -translate-y-1/2" color="primary" size="xl" intensity="low" />
-      <DynamicGlow className="-right-32 top-1/2 -translate-y-1/2" color="purple" size="lg" intensity="low" />
+      {/* <DynamicGlow className="-left-32 top-1/2 -translate-y-1/2" color="primary" size="xl" intensity="low" />
+      <DynamicGlow className="-right-32 top-1/2 -translate-y-1/2" color="primary" size="lg" intensity="low" /> */}
       
       <div className="container-custom relative">
         <motion.div
