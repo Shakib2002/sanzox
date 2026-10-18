@@ -101,13 +101,13 @@ export function TrustedBySection() {
     <section className="py-16 overflow-hidden">
       <style>{marqueeStyles}</style>
 
-      <div className="container-custom mb-8">
+      {/* <div className="container-custom mb-8">
         <TextReveal>
           <p className="text-center text-sm uppercase tracking-widest text-muted-foreground">
             Trusted Across Modern Digital Industries
           </p>
         </TextReveal>
-      </div>
+      </div> */}
 
       <div className="space-y-6">
 

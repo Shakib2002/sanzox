@@ -1,13 +1,20 @@
+
 import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { Link, useLocation } from 'react-router-dom';
-import { AnimatePresence, motion, useScroll, useMotionValueEvent } from 'framer-motion';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import {
+  AnimatePresence,
+  motion,
+  useScroll,
+  useMotionValueEvent,
+} from 'framer-motion';
+import { Menu, X, ChevronDown, ArrowUpRight } from 'lucide-react';
+
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useSiteSettings, defaultSiteSettings } from '@/hooks/useSiteSettings';
 
-import logo from "../../assets/6092db2a-794a-45a3-a93e-8de0007250db.png"
+import logo from '../../assets/6092db2a-794a-45a3-a93e-8de0007250db.png';
 
 const services = [
   { name: 'Android Development', href: '/services/android-development' },
@@ -30,306 +37,392 @@ export function Navbar() {
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const { scrollY } = useScroll();
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
+  const { scrollY } = useScroll();
+  const location = useLocation();
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const { data: settings } = useSiteSettings();
+
+  const s = settings || defaultSiteSettings;
+
+  const currentPath =
+    location.pathname.replace(/\/+$/, '') || '/';
+  const isHomePage = currentPath === '/';
+
+  const isLinkActive = (href: string | null) =>
+    href !== null && currentPath === href;
+
+  const isServicesActive =
+    currentPath === '/services' ||
+    currentPath.startsWith('/services/');
+
+  useMotionValueEvent(scrollY, 'change', (latest) => {
     setIsScrolled(latest > 24);
   });
 
-  const dropdownRef = useRef(null);
-  const location = useLocation();
-  const { data: settings } = useSiteSettings();
- 
-  const s = settings || defaultSiteSettings;
- 
-  const currentPath = location.pathname.replace(/\/+$/, '') || '/';
-  const isLinkActive = (href: string | null) => href !== null && currentPath === href;
-  const isServicesActive = currentPath === '/services' || currentPath.startsWith('/services/');
- 
   useEffect(() => {
     setIsOpen(false);
     setMobileServicesOpen(false);
     setDropdownOpen(false);
   }, [location.pathname]);
- 
-  // Close dropdown when clicking outside
+
   useEffect(() => {
-    function handleClickOutside(event) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setDropdownOpen(false);
       }
-    }
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    };
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setDropdownOpen(false);
+        setMobileServicesOpen(false);
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleOutsideClick);
+    document.addEventListener('keydown', handleEscape);
+
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+      document.removeEventListener('keydown', handleEscape);
+    };
   }, []);
- 
-  return (
-    <>
-    <div aria-hidden="true" className="h-20 md:h-24" />
-    {createPortal(<motion.header
-      animate={{ y: 0 }}
-      transition={{ duration: 0.3, ease: "easeOut" }}
+
+  const proposalButton = (
+    <Button
+      asChild
       className={cn(
-        'fixed left-0 right-0 top-0 z-50 border-b transition-[background-color,border-color,box-shadow,padding,backdrop-filter] duration-300',
-        isScrolled
-          ? 'border-white/10 bg-[#080808]/85 py-1 shadow-lg shadow-black/20 backdrop-blur-xl'
-          : 'border-transparent bg-transparent py-2'
+        'group relative h-12 overflow-hidden rounded-xl',
+        'border border-white/20 bg-white/[0.025]',
+        'px-6 font-medium text-white shadow-none',
+        'transition-all duration-300',
+        'hover:border-white/40 hover:bg-white/[0.06]',
+        'hover:shadow-[0_0_25px_rgba(255,255,255,0.08)]',
+        'active:scale-[0.98]'
       )}
     >
-      <nav className="container-custom">
-        <div className={cn(
-          'flex items-center justify-between transition-[height] duration-300',
-          isScrolled ? 'h-14 md:h-16' : 'h-16 md:h-20'
-        )}>
-          {/* Logo */}
-          <Link
-            to="/"
-            className="flex items-center gap-2 font-display text-3xl font-bold tracking-tight"
+      <Link
+        to="/contact"
+        className="flex items-center justify-center gap-2"
+      >
+        <span>Get Proposal</span>
+        <ArrowUpRight
+          size={17}
+          className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+        />
+      </Link>
+    </Button>
+  );
+
+  return (
+    <>
+      {!isHomePage && (
+        <div aria-hidden="true" className="h-20 md:h-24" />
+      )}
+
+      {createPortal(
+        <motion.header
+          animate={{ y: 0 }}
+          transition={{ duration: 0.3, ease: 'easeOut' }}
+          className={cn(
+            'fixed inset-x-0 top-0 z-50',
+            'border-b transition-all duration-300',
+            isHomePage
+              ? 'border-transparent bg-transparent py-3'
+              : isScrolled
+                ? 'border-white/[0.06] bg-[#080808]/85 py-2 shadow-lg shadow-black/20 backdrop-blur-2xl'
+                : 'border-transparent bg-transparent py-3 md:py-5'
+          )}
+        >
+          <nav
+            className={cn(
+              'container-custom transition-all duration-300',
+              isHomePage && isScrolled &&
+                'mx-auto mt-1 w-[calc(100%-2rem)]  rounded-full  bg-[#080808]/90 px-4 py-0 md:py-2 shadow-lg shadow-black/20 backdrop-blur-2xl sm:px-6'
+            )}
           >
-            <img
-              src={logo}
-              alt={s.site_name}
-              className={cn('w-auto transition-[height] duration-300', isScrolled ? 'h-10 md:h-12' : 'h-14 md:h-16')}
-            />
-          </Link>
- 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => {
-              if (link.dropdown) {
-                return (
-                  <div
-                    key={link.name}
-                    ref={dropdownRef}
-                    className="relative"
-                    onMouseEnter={() => setDropdownOpen(true)}
-                    onMouseLeave={() => setDropdownOpen(false)}
-                  >
-                    <button
-                      aria-current={isServicesActive ? 'page' : undefined}
-                      className={cn(
-                        'flex items-center gap-1 border-b-2 border-transparent pb-1 text-[16px] font-bold transition-colors hover:border-white/60',
-                        isServicesActive
-                          ? 'border-white/70 text-white'
-                          : 'text-muted-foreground hover:text-white'
-                      )}
-                    >
-                      {link.name}
-                      <ChevronDown
-                        size={16}
-                        className={cn(
-                          'transition-transform duration-200 flex-shrink-0',
-                          dropdownOpen ? 'rotate-180' : 'rotate-0'
-                        )}
-                        style={{
-                          color: isServicesActive
-                            ? 'hsl(var(--foreground))'
-                            : 'currentColor',
-                        }}
-                      />
-                    </button>
- 
-                    <AnimatePresence>
-                      {dropdownOpen && (
-                        <motion.div
-                          initial={{ opacity: 0, y: 8, scale: 0.97 }}
-                          animate={{ opacity: 1, y: 0, scale: 1 }}
-                          exit={{ opacity: 0, y: 8, scale: 0.97 }}
-                          transition={{ duration: 0.18, ease: 'easeOut' }}
-                          className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-52 rounded-xl border border-white/10 bg-[#111111]/95 backdrop-blur-xl shadow-xl overflow-hidden"
-                        >
-                          {/* Decorative top gradient line */}
-                          <div
-                            className="h-[2px] w-full"
-                            style={{
-                              background: 'var(--gradient-primary)',
-                            }}
-                          />
-                          <div className="py-2">
-                            {link.dropdown.map((item) => (
-                              <Link
-                                key={item.name}
-                                to={item.href}
-                                className={cn(
-                                  'flex items-center px-4 py-2.5 text-[14px] font-medium transition-colors',
-                                  currentPath === item.href
-                                    ? 'bg-white/[0.08] text-white'
-                                    : 'text-muted-foreground hover:text-foreground hover:bg-secondary/60'
-                                )}
-                              >
-                                {item.name}
-                              </Link>
-                            ))}
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                );
-              }
- 
-              return (
-                <Link
-                  key={link.name}
-                  to={link.href}
-                  className={cn(
-                    'border-b-2 border-transparent pb-1 text-[16px] font-bold transition-colors hover:border-white/60 hover:gradient-text',
-                    isLinkActive(link.href)
-                      ? 'border-white/70 text-white'
-                      : 'text-muted-foreground'
-                  )}
-                  aria-current={isLinkActive(link.href) ? 'page' : undefined}
-                >
-                  {link.name}
-                </Link>
-              );
-            })}
-          </div>
- 
-          {/* CTA Button */}
-          <div className="hidden md:block">
-            <Button
-              asChild
-              className="btn-glow relative px-6 py-3.5 rounded-full font-semibold text-base tracking-wide transition-transform duration-300 hover:scale-105 active:scale-95"
-              style={{
-                background: 'var(--gradient-primary)',
-                color: 'hsl(var(--primary-foreground))',
-                boxShadow: 'var(--glow-primary)',
-                willChange: 'transform',
-              }}
-            >
-              <Link to="/contact">Get Proposal</Link>
-            </Button>
-          </div>
- 
-          {/* Mobile Menu Toggle */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 text-foreground"
-            aria-label="Toggle menu"
-          >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-      </nav>
- 
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden bg-background/95 backdrop-blur-xl border-b border-border"
-          >
-            <div className="container-custom py-4 space-y-2">
-              {navLinks.map((link, index) => {
-                if (link.dropdown) {
-                  return (
-                    <motion.div
-                      key={link.name}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.05 }}
-                    >
-                      <button
-                        onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
-                        className={cn(
-                          'w-full flex items-center justify-between py-3 px-4 rounded-full text-base font-medium transition-colors',
-                          isServicesActive
-                            ? 'bg-white/[0.08] text-white'
-                            : 'text-muted-foreground hover:bg-secondary'
-                        )}
+            <div className="grid grid-cols-[1fr_auto] items-center gap-4 lg:grid-cols-[1fr_auto_1fr]">
+
+              {/* Logo */}
+              <Link
+                to="/"
+                aria-label={`${s.site_name} home`}
+                className="flex min-w-0 items-center justify-self-start"
+              >
+                <img
+                  src={logo}
+                  alt={s.site_name}
+                  className="h-14 w-auto object-contain"
+                />
+              </Link>
+
+              {/* Desktop Navigation Pill */}
+              <div
+                className={cn(
+                  'hidden items-center gap-1 lg:flex',
+                  'rounded-xl border border-white/[0.10]',
+                  'bg-[#141414]/90 p-1.5',
+                  'shadow-[0_8px_35px_rgba(0,0,0,0.18)]',
+                  'backdrop-blur-2xl'
+                )}
+              >
+                {navLinks.map((link) => {
+                  const active = link.dropdown
+                    ? isServicesActive
+                    : isLinkActive(link.href);
+
+                  if (link.dropdown) {
+                    return (
+                      <div
+                        key={link.name}
+                        ref={dropdownRef}
+                        className="relative"
+                        onMouseEnter={() => setDropdownOpen(true)}
+                        onMouseLeave={() => setDropdownOpen(false)}
                       >
-                        {link.name}
-                        <ChevronDown
-                          size={16}
+                        <button
+                          type="button"
+                          aria-haspopup="true"
+                          aria-expanded={dropdownOpen}
+                          aria-current={active ? 'page' : undefined}
+                          onClick={() =>
+                            setDropdownOpen((prev) => !prev)
+                          }
+                          onKeyDown={(event) => {
+                            if (event.key === 'ArrowDown') {
+                              event.preventDefault();
+                              setDropdownOpen(true);
+                            }
+                          }}
                           className={cn(
-                            'transition-transform duration-200',
-                            mobileServicesOpen ? 'rotate-180' : 'rotate-0'
+                            'flex h-10 items-center gap-1.5',
+                            'rounded-lg px-3.5',
+                            'text-[13px] font-medium',
+                            'transition-all duration-200',
+                            active
+                              ? 'bg-white/[0.10] text-white'
+                              : 'text-white/75 hover:bg-white/[0.06] hover:text-white'
                           )}
-                        />
-                      </button>
- 
-                      <AnimatePresence>
-                        {mobileServicesOpen && (
-                          <motion.div
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: 'auto' }}
-                            exit={{ opacity: 0, height: 0 }}
-                            transition={{ duration: 0.2 }}
-                            className="mt-1 ml-4 space-y-1 rounded-2xl border border-white/[0.06] bg-[#111111]/90 p-2"
-                          >
-                            {link.dropdown.map((item) => (
-                              <Link
-                                key={item.name}
-                                to={item.href}
-                                className={cn(
-                                  'block py-2 px-3 rounded-full text-sm font-medium transition-colors',
-                                  currentPath === item.href
-                                    ? 'bg-white/[0.08] text-white'
-                                    : 'text-muted-foreground hover:bg-secondary'
-                                )}
-                                aria-current={currentPath === item.href ? 'page' : undefined}
-                              >
-                                {item.name}
-                              </Link>
-                            ))}
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </motion.div>
-                  );
-                }
- 
-                return (
-                  <motion.div
-                    key={link.name}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.05 }}
-                  >
+                        >
+                          {link.name}
+
+                          <ChevronDown
+                            size={14}
+                            className={cn(
+                              'transition-transform duration-200',
+                              dropdownOpen && 'rotate-180'
+                            )}
+                          />
+                        </button>
+
+                        <AnimatePresence>
+                          {dropdownOpen && (
+                            <motion.div
+                              initial={{ opacity: 0, y: 8, scale: 0.98 }}
+                              animate={{ opacity: 1, y: 0, scale: 1 }}
+                              exit={{ opacity: 0, y: 6, scale: 0.98 }}
+                              transition={{ duration: 0.18 }}
+                              className={cn(
+                                'absolute left-1/2 top-full z-50 mt-3',
+                                'w-64 -translate-x-1/2 overflow-hidden',
+                                'rounded-xl border border-white/10',
+                                'bg-[#111111]/95 p-1.5',
+                                'shadow-2xl shadow-black/40 backdrop-blur-2xl'
+                              )}
+                            >
+                              <div
+                                className="absolute inset-x-0 top-0 h-[2px]"
+                                style={{
+                                  background: 'var(--gradient-primary)',
+                                }}
+                              />
+
+                              <div className="pt-1.5">
+                                {link.dropdown.map((item) => (
+                                  <Link
+                                    key={item.name}
+                                    to={item.href}
+                                    className={cn(
+                                      'flex items-center justify-between',
+                                      'rounded-lg px-3.5 py-3',
+                                      'text-[13px] transition-colors',
+                                      currentPath === item.href
+                                        ? 'bg-white/[0.08] text-white'
+                                        : 'text-white/65 hover:bg-white/[0.06] hover:text-white'
+                                    )}
+                                  >
+                                    {item.name}
+                                    <ArrowUpRight
+                                      size={14}
+                                      className="opacity-50"
+                                    />
+                                  </Link>
+                                ))}
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    );
+                  }
+
+                  return (
                     <Link
-                      to={link.href}
+                      key={link.name}
+                      to={link.href!}
+                      aria-current={active ? 'page' : undefined}
                       className={cn(
-                        'block py-3 px-4 rounded-full text-base font-medium transition-colors',
-                        isLinkActive(link.href)
-                          ? 'bg-white/[0.08] text-white'
-                          : 'text-muted-foreground hover:bg-secondary'
+                        'relative flex h-10 items-center',
+                        'rounded-lg px-3.5',
+                        'text-[13px] font-medium',
+                        'transition-all duration-200',
+                        active
+                          ? 'bg-white/[0.10] text-white shadow-inner shadow-white/[0.04]'
+                          : 'text-white/75 hover:bg-white/[0.06] hover:text-white'
                       )}
-                      aria-current={isLinkActive(link.href) ? 'page' : undefined}
                     >
                       {link.name}
                     </Link>
-                  </motion.div>
-                );
-              })}
- 
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="pt-4"
+                  );
+                })}
+              </div>
+
+              {/* Desktop CTA */}
+              <div className="hidden justify-self-end lg:block">
+                {proposalButton}
+              </div>
+
+              {/* Mobile Toggle */}
+              <button
+                type="button"
+                onClick={() => setIsOpen((prev) => !prev)}
+                aria-label={isOpen ? 'Close menu' : 'Open menu'}
+                aria-expanded={isOpen}
+                aria-controls="mobile-navigation"
+                className={cn(
+                  'flex h-11 w-11 items-center justify-center',
+                  'rounded-xl border border-white/15',
+                  'bg-[#141414]/90 text-white',
+                  'transition-colors hover:bg-white/10 lg:hidden'
+                )}
               >
-                <Button
-                  asChild
-                  className="w-full btn-glow relative py-3.5 rounded-full font-semibold text-base tracking-wide transition-transform duration-300 hover:scale-105 active:scale-95"
-                  style={{
-                    background: 'var(--gradient-primary)',
-                    color: 'hsl(var(--primary-foreground))',
-                    boxShadow: 'var(--glow-primary)',
-                    willChange: 'transform',
-                  }}
-                >
-                  <Link to="/contact">Get Proposal</Link>
-                </Button>
-              </motion.div>
+                {isOpen ? <X size={22} /> : <Menu size={22} />}
+              </button>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.header>, document.body)}
+          </nav>
+
+          {/* Mobile Navigation */}
+          <AnimatePresence>
+            {isOpen && (
+              <motion.div
+                id="mobile-navigation"
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.25 }}
+                className={cn(
+                  'overflow-hidden border-t border-white/[0.08]',
+                  'bg-[#080808]/95 backdrop-blur-2xl lg:hidden'
+                )}
+              >
+                <div className="container-custom space-y-1 py-4">
+                  {navLinks.map((link) => {
+                    const active = link.dropdown
+                      ? isServicesActive
+                      : isLinkActive(link.href);
+
+                    if (link.dropdown) {
+                      return (
+                        <div key={link.name}>
+                          <button
+                            type="button"
+                            onClick={() =>
+                              setMobileServicesOpen((prev) => !prev)
+                            }
+                            aria-expanded={mobileServicesOpen}
+                            className={cn(
+                              'flex w-full items-center justify-between',
+                              'rounded-xl px-4 py-3.5 text-sm font-medium',
+                              active
+                                ? 'bg-white/[0.08] text-white'
+                                : 'text-white/70 hover:bg-white/[0.05] hover:text-white'
+                            )}
+                          >
+                            {link.name}
+                            <ChevronDown
+                              size={16}
+                              className={cn(
+                                'transition-transform duration-200',
+                                mobileServicesOpen && 'rotate-180'
+                              )}
+                            />
+                          </button>
+
+                          <AnimatePresence>
+                            {mobileServicesOpen && (
+                              <motion.div
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: 'auto' }}
+                                exit={{ opacity: 0, height: 0 }}
+                                transition={{ duration: 0.2 }}
+                                className="overflow-hidden"
+                              >
+                                <div className="ml-4 mt-1 space-y-1 border-l border-white/10 py-1 pl-3">
+                                  {link.dropdown.map((item) => (
+                                    <Link
+                                      key={item.name}
+                                      to={item.href}
+                                      className={cn(
+                                        'block rounded-lg px-3 py-3 text-sm',
+                                        currentPath === item.href
+                                          ? 'bg-white/[0.08] text-white'
+                                          : 'text-white/60 hover:bg-white/[0.05] hover:text-white'
+                                      )}
+                                    >
+                                      {item.name}
+                                    </Link>
+                                  ))}
+                                </div>
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </div>
+                      );
+                    }
+
+                    return (
+                      <Link
+                        key={link.name}
+                        to={link.href!}
+                        aria-current={active ? 'page' : undefined}
+                        className={cn(
+                          'flex items-center justify-between',
+                          'rounded-xl px-4 py-3.5 text-sm font-medium',
+                          active
+                            ? 'bg-white/[0.10] text-white'
+                            : 'text-white/70 hover:bg-white/[0.05] hover:text-white'
+                        )}
+                      >
+                        {link.name}
+                      </Link>
+                    );
+                  })}
+
+                  <div className="pt-3">
+                    {proposalButton}
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.header>,
+        document.body
+      )}
     </>
   );
 }
