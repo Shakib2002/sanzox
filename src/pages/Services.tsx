@@ -48,7 +48,7 @@ export default function ServicesPage() {
   return (
     <Layout>
       {/* Hero */}
-      <section className="pt-20 pb-16 relative overflow-hidden">
+      <section className="pt-32 pb-16 relative overflow-hidden">
         <div className="absolute inset-0 bg-hero-gradient opacity-50 pointer-events-none" />
         {/* Hero background image */}
         <div className="absolute inset-0 opacity-20 pointer-events-none">

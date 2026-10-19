@@ -670,7 +670,7 @@ export default function DeepFocus() {
             </motion.div>
 
             <div className="mt-16">
-              <div className="relative mx-auto max-w-7xl px-3 sm:px-5">
+              <div className="relative mx-auto w-full max-w-[1440px] px-3 sm:px-5">
                 <button
                   type="button"
                   onClick={() => setCurrentSlide((prev) => Math.max(prev - 1, 0))}

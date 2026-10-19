@@ -56,8 +56,8 @@ export default function ProductsSection() {
   );
 
   return (
-    <section className="relative w-full overflow-hidden py-12 px-4">
-      <div className="relative z-10 max-w-7xl mx-auto">
+    <section className="relative w-full overflow-hidden py-12">
+      <div className="relative z-10 mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-8">
         {/* Header - No Description */}
         <div className="flex flex-col items-center text-center -mb-4">
         <SectionHeading

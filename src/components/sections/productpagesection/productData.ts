@@ -62,24 +62,74 @@ export const products: Product[] = [
 
 export const roadmapItems = [
   {
-    name: 'LearnFlow',
-    icon: 'book',
-    status: 'In Development',
-    description: 'Personalized learning paths with AI recommendations to help you learn faster and smarter.',
-    accent: '#ffc65c',
+    name: "Briko",
+    status: "In Progress",
+    description:
+      "A complete platform for discovering and purchasing real estate.",
+    features: [
+      "Property Listings",
+      "Land & Apartments",
+      "Member Verification",
+      "Admin Dashboard",
+    ],
   },
   {
-    name: 'HabitSync',
-    icon: 'sparkles',
-    status: 'Coming Soon',
-    description: 'Build better habits with smart tracking, gentle reminders, and positive reinforcement.',
-    accent: '#8a7bff',
+    name: "Bandlex",
+    status: "In Progress",
+    description:
+      "Master IELTS vocabulary through deeper learning and daily practice.",
+    features: [
+      "Bangla Meanings",
+      "Paraphrasing",
+      "Sentence Building",
+      "Daily Vocabulary",
+      "Smart Practice",
+    ],
   },
   {
-    name: 'AutoTask',
-    icon: 'workflow',
-    status: 'In Development',
-    description: 'Automate repetitive tasks with AI-powered workflows and integrations.',
-    accent: '#2da8ff',
+    name: "Mental Coach",
+    status: "In Progress",
+    description:
+      "AI-assisted coaching for mental wellness and personal growth.",
+    features: [
+      "AI Coaching",
+      "Mental Wellness",
+      "Self-Reflection",
+      "Personal Growth",
+    ],
+  },
+  {
+    name: "Worko",
+    status: "In Development",
+    description:
+      "An AI fitness coach for personalized workouts and better form.",
+    features: [
+      "AI Fitness Coach",
+      "Pose Detection",
+      "Workout Plans",
+      "Progress Tracking",
+    ],
+  },
+  {
+    name: "Medifamily",
+    status: "In Development",
+    description:
+      "Manage medications and stay on track with timely reminders.",
+    features: [
+      "Medicine Reminders",
+      "Medication Schedule",
+      "Daily Notifications",
+    ],
+  },
+  {
+    name: "Lumiq",
+    status: "In Development",
+    description:
+      "Optimize Android storage and keep your device clutter-free.",
+    features: [
+      "Junk Cleanup",
+      "Storage Optimization",
+      "Device Cleanup",
+    ],
   },
 ];

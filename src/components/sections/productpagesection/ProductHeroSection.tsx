@@ -84,7 +84,7 @@ export default function ProductHeroSection() {
   };
 
   return (
-    <section className="relative isolate overflow-hidden bg-[#080808] text-white">
+    <section className="relative isolate overflow-hidden bg-[#080808] text-white pt-16">
       {/* Subtle grid background */}
       <div
         className="pointer-events-none absolute inset-y-0 right-0 hidden w-[55%] opacity-65 md:block"

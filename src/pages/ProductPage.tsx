@@ -17,6 +17,7 @@ export default function ProductPage() {
       <div className="bg-[#080808] font-sans text-white">
         <ProductHeroSection />
         <FeaturedProductsSection />
+        <ProductRoadmapSection />
         <WhyOurApp />
         <ProductApproachSection />
         <OurAppJourney />

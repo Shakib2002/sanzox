@@ -165,7 +165,7 @@ export default function ServiceDetailPage() {
       />
 
       {/* Hero */}
-      <section className="pt-20 pb-16 relative overflow-hidden">
+      <section className="pt-32 pb-16 relative overflow-hidden">
         <div className="absolute inset-0 bg-hero-gradient opacity-50 pointer-events-none" />
         <div className="container-custom relative ">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-3xl">

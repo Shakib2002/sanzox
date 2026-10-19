@@ -47,7 +47,6 @@ export function Navbar() {
 
   const currentPath =
     location.pathname.replace(/\/+$/, '') || '/';
-  const isHomePage = currentPath === '/';
 
   const isLinkActive = (href: string | null) =>
     href !== null && currentPath === href;
@@ -121,29 +120,17 @@ export function Navbar() {
 
   return (
     <>
-      {!isHomePage && (
-        <div aria-hidden="true" className="h-20 md:h-24" />
-      )}
-
       {createPortal(
         <motion.header
           animate={{ y: 0 }}
           transition={{ duration: 0.3, ease: 'easeOut' }}
-          className={cn(
-            'fixed inset-x-0 top-0 z-50',
-            'border-b transition-all duration-300',
-            isHomePage
-              ? 'border-transparent bg-transparent py-3'
-              : isScrolled
-                ? 'border-white/[0.06] bg-[#080808]/85 py-2 shadow-lg shadow-black/20 backdrop-blur-2xl'
-                : 'border-transparent bg-transparent py-3 md:py-5'
-          )}
+          className="fixed inset-x-0 top-0 z-50 border-transparent bg-transparent py-3"
         >
           <nav
             className={cn(
               'container-custom transition-all duration-300',
-              isHomePage && isScrolled &&
-                'mx-auto mt-1 w-[calc(100%-2rem)]  rounded-full  bg-[#080808]/90 px-4 py-0 md:py-2 shadow-lg shadow-black/20 backdrop-blur-2xl sm:px-6'
+              isScrolled &&
+                'mx-auto mt-1 w-[calc(100%-2rem)] max-w-[1440px] rounded-full border border-white/[0.08] bg-[#080808]/90 px-4 py-0 shadow-lg shadow-black/20 backdrop-blur-2xl sm:px-6 md:py-2'
             )}
           >
             <div className="grid grid-cols-[1fr_auto] items-center gap-4 lg:grid-cols-[1fr_auto_1fr]">
