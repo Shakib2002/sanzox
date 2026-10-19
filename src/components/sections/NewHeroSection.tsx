@@ -31,7 +31,7 @@ const heroContent = {
     secondary: 'See Our Work',
   },
   primaryHref: '/contact',
-  secondaryHref: '/works',
+  secondaryHref: '/products',
   scrollLabel: 'Explore',
 };
 
