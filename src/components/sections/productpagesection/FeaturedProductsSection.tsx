@@ -134,21 +134,45 @@ export function FeaturedProductsSection() {
                             className="h-5 w-5 shrink-0"
                             fill="none"
                           >
+                            {/* Left/back triangle (blue section in real logo) */}
                             <path
-                              d="M3.5 2.7L14 12 3.5 21.3C3.2 21 3 20.5 3 19.8V4.2C3 3.5 3.2 3 3.5 2.7Z"
+                              d="M3.6 2.5c-.4.2-.6.7-.6 1.3v16.4c0 .6.2 1.1.6 1.3L13.2 12 3.6 2.5Z"
                               fill="#000000"
                             />
+                            {/* Top-right section (green in real logo) */}
                             <path
-                              d="M3.5 2.7C4 2.3 4.7 2.4 5.4 2.8L17.1 9.3 14 12 3.5 2.7Z"
+                              d="M4.2 2.2c.5-.2 1.1-.1 1.7.2l11.4 6.5-3.1 3.1-10-9.8Z"
                               fill="#000000"
                             />
+                            {/* Bottom-right section (red in real logo) */}
                             <path
-                              d="M14 12L17.1 14.7 5.4 21.2C4.7 21.6 4 21.7 3.5 21.3L14 12Z"
+                              d="M13.2 12l3.1 3.1-11.4 6.5c-.6.3-1.2.4-1.7.2l10-9.8Z"
                               fill="#000000"
                             />
+                            {/* Right tip (yellow/orange in real logo) */}
                             <path
-                              d="M17.1 9.3L20.2 11C21.2 11.6 21.2 12.4 20.2 13L17.1 14.7 14 12 17.1 9.3Z"
+                              d="M17.8 9.2l2.9 1.7c1 .6 1 1.6 0 2.2l-2.9 1.7-3.1-3.1 3.1-3.7Z"
                               fill="#000000"
+                            />
+                            {/* White separator lines to define the shape */}
+                            <path
+                              d="M3.6 2.5L13.2 12l-9.6 9.5"
+                              stroke="#ffffff"
+                              strokeWidth="1.2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                            <path
+                              d="M13.2 12l3.1-3.1"
+                              stroke="#ffffff"
+                              strokeWidth="1.2"
+                              strokeLinecap="round"
+                            />
+                            <path
+                              d="M13.2 12l3.1 3.1"
+                              stroke="#ffffff"
+                              strokeWidth="1.2"
+                              strokeLinecap="round"
                             />
                           </svg>
 
