@@ -49,6 +49,7 @@ const footerLinks = {
     { name: 'Android Development', href: '/services/android-development' },
     { name: 'SaaS Engineering', href: '/services/saas-engineering' },
     { name: 'AI & LLM Integrations', href: '/services/ai-integrations' },
+    { name: 'E-commerce Solutions', href: '/services/ecommerce-solutions' },
     { name: 'UI/UX Design Systems', href: '/services/design-systems' },
   ],
   legal: [

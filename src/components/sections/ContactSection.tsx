@@ -28,6 +28,7 @@ const services = [
   { value: 'android-development', label: 'Android & Mobile Development' },
   { value: 'saas-engineering', label: 'SaaS Platform Engineering' },
   { value: 'ai-integrations', label: 'AI & LLM Integrations' },
+  { value: 'ecommerce-solutions', label: 'E-commerce Solutions' },
   { value: 'design-systems', label: 'UI/UX Design Systems' },
   { value: 'other', label: 'Other' },
 ];

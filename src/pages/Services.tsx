@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, Bot, Globe, Smartphone, Layers, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, Bot, Globe, Smartphone, Layers, CheckCircle2, ShoppingCart } from 'lucide-react';
 import { Layout } from '@/components/layout/Layout';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { GlassCard } from '@/components/ui/GlassCard';
@@ -33,6 +33,14 @@ const services = [
     description: 'Supercharge your mobile apps and SaaS products with cutting-edge artificial intelligence, custom chatbots, and vector search capabilities.',
     features: ['OpenAI / Gemini API Integration', 'Retrieval-Augmented Generation (RAG)', 'Vector DBs (Pinecone/pgvector)', 'Conversational Agents', 'Semantic Search Systems', 'Predictive Modeling'],
     benefits: ['Automated complex tasks', 'Personalized user experiences', 'Semantic search precision'],
+  },
+  {
+    id: 'ecommerce-solutions',
+    icon: ShoppingCart,
+    title: 'E-commerce Solutions',
+    description: 'Conversion-focused online stores and custom commerce experiences built to make selling simpler and more scalable.',
+    features: ['Shopify Development', 'Custom Storefronts', 'Store Redesign', 'Payment Integration', 'Order Management', 'Performance Optimization'],
+    benefits: ['A smoother shopping experience', 'Reliable checkout and payments', 'Storefronts built to scale'],
   },
   {
     id: 'design-systems',

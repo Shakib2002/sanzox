@@ -52,10 +52,11 @@ const toolIconMap: Record<string, React.ElementType> = {
   'Firebase': Shield,
   'REST API': Puzzle,
   'Figma': PenTool,
+  'Stripe': ShoppingBag,
 };
 
 const servicesData: Record<string, {
-  icon: any;
+  icon: React.ElementType;
   title: string;
   description: string;
   longDescription: string;
@@ -134,6 +135,25 @@ const servicesData: Record<string, {
     faqs: [
       { q: 'What is a design system?', a: 'A set of design tokens and reusable UI components that ensure consistency across all web and mobile platforms.' },
       { q: 'How do you deliver design work?', a: 'We provide Figma files with organized variables, component structures, and developer-friendly export specs.' },
+    ],
+  },
+  'ecommerce-solutions': {
+    icon: Store,
+    title: 'E-commerce Solutions',
+    description: 'Conversion-focused online stores and custom commerce experiences built to make selling simpler and more scalable.',
+    longDescription: 'We build and improve online stores that make it easy for customers to find products, check out securely, and come back to shop again. From Shopify stores to custom storefronts, we connect the shopping experience with payments, inventory, and order workflows.',
+    features: ['Shopify Store Development', 'Custom Storefronts', 'Store Redesign & Migration', 'Payment & Checkout Integration', 'Inventory & Order Management', 'Performance & SEO Optimization'],
+    processSteps: [
+      { title: 'Store Strategy', description: 'Understand your products, customers, operations, and growth goals.' },
+      { title: 'Experience Design', description: 'Plan intuitive product discovery, storefront layouts, and checkout flows.' },
+      { title: 'Commerce Build', description: 'Build or improve the store and connect payments, inventory, and fulfillment.' },
+      { title: 'Launch & Optimize', description: 'Test the full buying journey, launch the store, and refine performance.' },
+    ],
+    tools: ['Shopify', 'React', 'Next.js', 'TypeScript', 'Stripe', 'Vercel'],
+    faqs: [
+      { q: 'Can you build a store on Shopify?', a: 'Yes. We create and customize Shopify storefronts, themes, integrations, and store workflows to fit your business.' },
+      { q: 'Can you improve or migrate an existing store?', a: 'Yes. We can redesign an existing storefront or help move your catalog and shopping experience to a more suitable platform.' },
+      { q: 'Can you integrate payment and order systems?', a: 'We connect checkout and payment providers with the store, and can streamline inventory and order workflows.' },
     ],
   },
 };
