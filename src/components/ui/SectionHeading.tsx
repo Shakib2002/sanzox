@@ -25,7 +25,7 @@ export function SectionHeading({
       whileInView="visible"
       viewport={{ once: true, amount: 0.3 }}
       className={cn(
-        'mb-12 md:mb-16',
+        'mb-5 md:mb-8',
         align === 'center' && 'text-center max-w-3xl mx-auto',
         className
       )}

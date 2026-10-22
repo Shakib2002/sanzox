@@ -1,4 +1,4 @@
-import { useState, useEffect, useLayoutEffect, useRef } from 'react';
+import { useState, useEffect, useLayoutEffect, useRef, useCallback } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { SectionHeading } from '../ui/SectionHeading';
@@ -18,7 +18,7 @@ const products = [
     highlights: ['Market research', 'AI insights', 'Trend tracking'],
     logo: redditlens,
     preview: redditlens,
-    imageClass: 'object-contain p-10',
+    imageClass: 'object-cover',
     href: 'https://redditlens.cc',
   },
   {
@@ -48,73 +48,114 @@ const products = [
 ];
 
 const AUTOPLAY_MS = 4500;
+const CARD_TOP = 24;
+const STAGE_BOTTOM = 36;
+
+const GridPattern = ({ className = '' }) => (
+  <div
+    aria-hidden="true"
+    className={`pointer-events-none absolute inset-0 ${className}`}
+    style={{
+      backgroundImage:
+        'linear-gradient(to right, rgba(255,255,255,0.045) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.045) 1px, transparent 1px)',
+      backgroundSize: '28px 28px',
+      maskImage: 'radial-gradient(ellipse at center, black 40%, transparent 78%)',
+      WebkitMaskImage: 'radial-gradient(ellipse at center, black 40%, transparent 78%)',
+    }}
+  />
+);
 
 function ProductCard({ product, wide, isActive }) {
   const isExternal = product.href.startsWith('http');
 
   return (
     <article
-      className={`isolate h-full overflow-hidden rounded-[2.5rem] bg-[#141414] p-3 shadow-[0_40px_90px_-20px_rgba(0,0,0,0.9),0_0_70px_-15px_rgba(255,255,255,0.07)] ${
-        wide ? 'grid grid-cols-2 gap-3' : 'flex flex-col gap-2'
-      }`}
+      className={`isolate relative flex h-full flex-col overflow-hidden rounded-[2.5rem] bg-gradient-to-b from-[#171717] to-[#0f0f0f] ring-1 ring-white/[0.05] transition-shadow duration-500 ${
+        isActive
+          ? 'shadow-[0_10px_30px_-12px_rgba(0,0,0,0.6)]'
+          : 'shadow-[0_6px_20px_-10px_rgba(0,0,0,0.5)]'
+      } ${wide ? 'grid grid-cols-2' : ''}`}
     >
-      {/* Image: radius = card radius (2.5rem) - padding (0.75rem) = 1.75rem */}
-      <div className="relative aspect-[4/3] w-full self-center overflow-hidden rounded-2xl bg-[#090909] shadow-[0_14px_36px_rgba(0,0,0,0.6)]">
+      <GridPattern className="rounded-[2.5rem] opacity-70" />
+
+      <div
+        className={`relative overflow-hidden bg-[#0a0a0a] ${
+          wide ? 'h-full min-h-0' : 'aspect-[4/3] w-full shrink-0'
+        }`}
+      >
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.10),transparent_68%)]"
+          className="absolute inset-0 opacity-60"
+          style={{
+            backgroundImage:
+              'linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px)',
+            backgroundSize: '20px 20px',
+          }}
         />
         <img
           src={product.preview}
           alt={`${product.name} preview`}
-          className={`relative h-full w-full rounded-2xl ${product.imageClass}`}
+          loading="lazy"
+          className={`relative z-10 block h-full w-full ${product.imageClass}`}
           draggable={false}
         />
       </div>
 
-      {/* Content */}
-      <div className="flex min-w-0 flex-col justify-center px-3 py-3 sm:px-5 lg:px-7">
-        <div className="mb-4 flex items-center gap-3">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/[0.06] p-1.5 shadow-[0_4px_12px_rgba(0,0,0,0.45)]">
-            <img
-              src={product.logo}
-              alt=""
-              className="h-full w-full rounded-lg object-contain"
-              draggable={false}
+      <div
+        className={`relative flex min-w-0 flex-col px-5 py-5 sm:px-6 lg:px-7 ${
+          wide ? 'h-full justify-center' : 'flex-1 justify-between'
+        }`}
+      >
+        <div className="min-w-0">
+          <div className="mb-3 flex items-center gap-3">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/[0.06] p-1.5 ring-1 ring-white/[0.08]">
+              <img
+                src={product.logo}
+                alt=""
+                className="h-full w-full rounded-md object-contain"
+                draggable={false}
+              />
+            </div>
+            <div className="min-w-0">
+              <p className="truncate text-sm font-semibold tracking-tight text-white sm:text-base">
+                {product.name}
+              </p>
+              <p className="truncate text-[11px] text-neutral-500">{product.category}</p>
+            </div>
+          </div>
+
+          <h3 className="text-lg font-semibold leading-tight tracking-tight text-white sm:text-xl">
+            {product.tagline}
+          </h3>
+          <p
+            className={`mt-2 text-sm leading-5 text-neutral-400 ${
+              wide ? 'line-clamp-3' : 'line-clamp-2'
+            }`}
+          >
+            {product.description}
+          </p>
+
+          <a
+            href={product.href}
+            target={isExternal ? '_blank' : undefined}
+            rel={isExternal ? 'noopener noreferrer' : undefined}
+            tabIndex={isActive ? 0 : -1}
+            className="group mt-3 inline-flex w-fit items-center gap-1.5 rounded text-sm font-semibold text-white underline decoration-white/30 underline-offset-4 transition-colors hover:decoration-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-[#141414]"
+          >
+            Explore {product.name}
+            <ArrowUpRight
+              aria-hidden="true"
+              className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
             />
-          </div>
-          <div className="min-w-0">
-            <p className="truncate text-base font-semibold tracking-tight text-white">
-              {product.name}
-            </p>
-            <p className="text-xs text-neutral-500">{product.category}</p>
-          </div>
+          </a>
         </div>
 
-        <h3 className="text-xl font-semibold leading-tight tracking-tight text-white sm:text-2xl">
-          {product.tagline}
-        </h3>
-        <p className="mt-2 line-clamp-4 text-sm leading-6 text-neutral-400">
-          {product.description}
-        </p>
-
-        <a
-          href={product.href}
-          target={isExternal ? '_blank' : undefined}
-          rel={isExternal ? 'noopener noreferrer' : undefined}
-          tabIndex={isActive ? 0 : -1}
-          className="group mt-4 inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-white underline decoration-white/30 underline-offset-4 transition-colors hover:decoration-white"
-        >
-          Explore {product.name}
-          <ArrowUpRight
-            aria-hidden="true"
-            className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-          />
-        </a>
-
-        <ul className="mt-5 grid grid-cols-3 gap-3 pt-4">
+        <ul className="mt-3 flex flex-wrap gap-1.5">
           {product.highlights.map((h) => (
-            <li key={h} className="text-xs leading-5 text-neutral-300">
+            <li
+              key={h}
+              className="inline-flex items-center rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-1 text-[11px] font-medium leading-none text-neutral-300 backdrop-blur-sm transition-colors hover:border-white/20 hover:bg-white/[0.06] hover:text-white"
+            >
               {h}
             </li>
           ))}
@@ -133,10 +174,11 @@ export default function ProductsSection() {
   const reduceMotion = useReducedMotion();
 
   const n = products.length;
-  const showPrevious = () => setActiveIndex((i) => (i - 1 + n) % n);
-  const showNext = () => setActiveIndex((i) => (i + 1) % n);
 
-  // Measure the stage so the layout scales with the screen.
+  const goTo = useCallback((i) => setActiveIndex(((i % n) + n) % n), [n]);
+  const showPrevious = useCallback(() => goTo(activeIndex - 1), [activeIndex, goTo]);
+  const showNext = useCallback(() => goTo(activeIndex + 1), [activeIndex, goTo]);
+
   useLayoutEffect(() => {
     const el = stageRef.current;
     if (!el) return;
@@ -147,33 +189,42 @@ export default function ProductsSection() {
     return () => ro.disconnect();
   }, []);
 
-  // Auto-slide. Keyed on activeIndex so a manual click restarts the 4.5s timer
-  // instead of firing right after the user interacted.
-  const autoplay = !isPaused;
+  const autoplay = !isPaused && !reduceMotion;
   useEffect(() => {
     if (!autoplay) return;
-    const t = setTimeout(
-      () => setActiveIndex((i) => (i + 1) % n),
-      AUTOPLAY_MS,
-    );
+    const t = setTimeout(() => setActiveIndex((i) => (i + 1) % n), AUTOPLAY_MS);
     return () => clearTimeout(t);
   }, [autoplay, activeIndex, n]);
 
-  // Geometry
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === 'ArrowLeft') showPrevious();
+      else if (e.key === 'ArrowRight') showNext();
+    };
+    const el = stageRef.current;
+    el?.addEventListener('keydown', onKey);
+    return () => el?.removeEventListener('keydown', onKey);
+  }, [showPrevious, showNext]);
+
+  // Geometry — height এখন অনেক কম
   const wide = stageW >= 760;
   const cardW = wide ? Math.min(stageW * 0.78, 880) : stageW * 0.86;
-  const cardH = wide ? 400 : 600;
-  const spacing = cardW * 0.94; // distance between slide centres
-  const stageH = cardH + 110;
+
+  const cardH = wide
+    ? Math.min(Math.max(cardW * 0.40, 300), 380)   // 300–380px
+    : Math.min(Math.max(cardW * 1.0, 420), 540);   // 420–540px
+
+  const spacing = cardW * 0.94;
+  const stageH = cardH + STAGE_BOTTOM + CARD_TOP;
 
   const half = Math.floor(n / 2);
   const offsets = products.map(
-    (_, i) => ((i - activeIndex + n + half) % n) - half,
+    (_, i) => ((i - activeIndex + n + half) % n) - half
   );
 
   useEffect(() => {
     prevOffsets.current = offsets;
-  });
+  }, [offsets]);
 
   return (
     <section
@@ -181,13 +232,12 @@ export default function ProductsSection() {
       className="relative w-full overflow-hidden py-16 sm:py-20 lg:py-24"
     >
       <div className="relative z-10 mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-8">
-        <div className="mb-10 text-center sm:mb-12">
+        <div className="mb-4 text-center sm:mb-6">
           <SectionHeading
             badge="SANZOX Ecosystem"
             title={
               <>
-                Intelligent products built for
-                <span className="gradient-text"> modern workflows.</span>
+                What We’ve <span className="text-neutral-400">Built</span>
               </>
             }
           />
@@ -202,18 +252,21 @@ export default function ProductsSection() {
         >
           <motion.div
             ref={stageRef}
+            role="region"
+            aria-roledescription="carousel"
+            aria-label="Product showcase"
+            tabIndex={0}
             onPanEnd={(_, info) => {
               if (info.offset.x < -60) showNext();
               else if (info.offset.x > 60) showPrevious();
             }}
             style={{ height: stageH, touchAction: 'pan-y' }}
-            className="relative overflow-hidden"
+            className="relative overflow-hidden rounded-[3rem] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/20"
           >
             {products.map((product, i) => {
               const d = offsets[i];
               const abs = Math.abs(d);
               const prev = prevOffsets.current[i];
-              // A slide wrapping from one side to the other must not fly across the stage.
               const jumped = prev !== undefined && Math.abs(d - prev) > 1;
 
               return (
@@ -223,7 +276,7 @@ export default function ProductsSection() {
                   animate={{
                     x: d * spacing - cardW / 2,
                     scale: d === 0 ? 1 : 0.9,
-                    opacity: d === 0 ? 1 : abs === 1 ? 0.4 : 0,
+                    opacity: d === 0 ? 1 : abs === 1 ? 0.45 : 0,
                     filter: d === 0 ? 'blur(0px)' : 'blur(1.5px)',
                   }}
                   transition={
@@ -237,21 +290,23 @@ export default function ProductsSection() {
                     width: cardW,
                     height: cardH,
                     left: '50%',
-                    top: 40,
+                    top: CARD_TOP,
                     zIndex: 10 - abs,
                   }}
                   className="absolute"
                   aria-hidden={d !== 0}
+                  aria-roledescription="slide"
+                  aria-label={`${i + 1} of ${n}: ${product.name}`}
                 >
                   <ProductCard product={product} wide={wide} isActive={d === 0} />
 
-                  {/* Clicking a neighbouring slide brings it to the centre */}
                   {abs === 1 && (
                     <button
                       type="button"
                       aria-label={`Show ${product.name}`}
+                      tabIndex={-1}
                       onClick={() => setActiveIndex(i)}
-                      className="absolute inset-0 z-20 cursor-pointer rounded-[2.5rem]"
+                      className="absolute inset-0 z-20 cursor-pointer rounded-[2.5rem] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
                     />
                   )}
                 </motion.div>
@@ -262,8 +317,8 @@ export default function ProductsSection() {
               type="button"
               onClick={showPrevious}
               aria-label="Show previous product"
-              className="absolute left-2 z-30 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/80 text-white shadow-lg backdrop-blur transition hover:scale-105 hover:bg-[#1c1c1c] sm:left-5"
-              style={{ top: 40 + cardH / 2 }}
+              className="absolute left-2 z-30 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/80 text-white backdrop-blur transition hover:scale-105 hover:bg-[#1c1c1c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 sm:left-5 md:flex"
+              style={{ top: CARD_TOP + cardH / 2 }}
             >
               <ChevronLeft aria-hidden="true" className="h-5 w-5" />
             </button>
@@ -271,50 +326,41 @@ export default function ProductsSection() {
               type="button"
               onClick={showNext}
               aria-label="Show next product"
-              className="absolute right-2 z-30 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/80 text-white shadow-lg backdrop-blur transition hover:scale-105 hover:bg-[#1c1c1c] sm:right-5"
-              style={{ top: 40 + cardH / 2 }}
+              className="absolute right-2 z-30 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/80 text-white backdrop-blur transition hover:scale-105 hover:bg-[#1c1c1c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 sm:right-5 md:flex"
+              style={{ top: CARD_TOP + cardH / 2 }}
             >
               <ChevronRight aria-hidden="true" className="h-5 w-5" />
             </button>
           </motion.div>
+
+          <div className="mt-2 flex items-center justify-center gap-3 md:hidden">
+            <button
+              type="button"
+              onClick={showPrevious}
+              aria-label="Show previous product"
+              className="flex h-11 w-11 items-center justify-center rounded-full bg-white/[0.06] text-white ring-1 ring-white/10 transition active:scale-95 hover:bg-white/[0.10] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+            >
+              <ChevronLeft aria-hidden="true" className="h-5 w-5" />
+            </button>
+            <button
+              type="button"
+              onClick={showNext}
+              aria-label="Show next product"
+              className="flex h-11 w-11 items-center justify-center rounded-full bg-white/[0.06] text-white ring-1 ring-white/10 transition active:scale-95 hover:bg-white/[0.10] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+            >
+              <ChevronRight aria-hidden="true" className="h-5 w-5" />
+            </button>
+          </div>
         </div>
 
-        {/* Progress dots: the active pill fills over the autoplay interval */}
-        <div className="mt-6 flex items-center justify-center gap-2">
-          {products.map((product, index) => {
-            const active = index === activeIndex;
-            return (
-              <button
-                key={product.name}
-                type="button"
-                onClick={() => setActiveIndex(index)}
-                aria-label={`Show ${product.name}`}
-                aria-current={active ? 'true' : undefined}
-                className={`relative h-2 overflow-hidden rounded-full bg-white/25 transition-all duration-300 hover:bg-white/50 ${
-                  active ? 'w-10' : 'w-2'
-                }`}
-              >
-                {active && (
-                  <motion.span
-                    key={`${activeIndex}-${autoplay}`}
-                    className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-primary to-white"
-                    initial={{ width: autoplay ? '0%' : '100%' }}
-                    animate={{ width: '100%' }}
-                    transition={{
-                      duration: autoplay ? AUTOPLAY_MS / 1000 : 0,
-                      ease: 'linear',
-                    }}
-                  />
-                )}
-              </button>
-            );
-          })}
+        <div aria-live="polite" aria-atomic="true" className="sr-only">
+          Showing {products[activeIndex].name} ({activeIndex + 1} of {n})
         </div>
 
-        <div className="mt-8 flex justify-center">
+        <div className="mt-2 flex justify-center sm:mt-3">
           <a
             href="/products"
-            className="inline-flex items-center justify-center gap-2 rounded-full bg-white/[0.06] shadow-[0_8px_24px_rgba(0,0,0,0.45)] px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/[0.10]"
+            className="inline-flex items-center justify-center gap-2 rounded-full bg-white/[0.06] px-6 py-3 text-sm font-semibold text-white ring-1 ring-white/[0.06] transition hover:bg-white/[0.10] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
           >
             Explore all products
             <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
