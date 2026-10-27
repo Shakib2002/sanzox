@@ -25,7 +25,7 @@ function StatItem({ value, suffix, label, index }: { value: number; suffix: stri
       transition={{ type: 'spring', stiffness: 400, damping: 25 }}
     >
       {/* Hover glow effect */}
-      <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 rounded-xl transition-opacity duration-500" />
+      <div className="absolute inset-0 bg-primary/5 opacity-0  rounded-xl transition-opacity duration-500" />
       
       <div className="relative">
         <div className="text-4xl md:text-5xl lg:text-6xl font-bold font-display text-foreground mb-3">
@@ -66,7 +66,7 @@ export function StatsSection() {
   return (
     <section className="py-16 md:py-24 relative overflow-hidden">
       {/* Background decorations */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent pointer-events-none" />
+      <div className="absolute inset-0 pointer-events-none" />
       
       {/* Dynamic glows */}
       {/* <DynamicGlow className="-left-32 top-1/2 -translate-y-1/2" color="primary" size="xl" intensity="low" />
@@ -81,7 +81,7 @@ export function StatsSection() {
           className="glass-card py-8 md:py-12 relative overflow-hidden"
         >
           {/* Inner glow */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[100px] bg-primary/10 blur-[80px] rounded-full" />
+          {/* <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[100px] bg-primary/10 blur-[80px] rounded-full" /> */}
           
           <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-y lg:divide-y-0 divide-border/30 relative">
             {stats.map((stat, index) => (

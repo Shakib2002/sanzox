@@ -52,7 +52,7 @@ const industries = [
 
 export function IndustriesSection() {
   return (
-    <section className="section-padding relative bg-gradient-to-b from-transparent via-primary/5 to-transparent">
+    <section className="section-padding relative ">
       <div className="container-custom">
         <SectionHeading
           badge="Industries"

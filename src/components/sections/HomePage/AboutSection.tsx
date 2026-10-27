@@ -3,6 +3,9 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { slideInLeftVariants, slideInRightVariants } from '@/hooks/useScrollAnimation';
 import teamCollaboration from '@/assets/team/team-image-1.webp';
+import collaboration from '@/assets/team/collaboration.webp';
+import image1 from '@/assets/team/discuss.webp';
+
 import { ArrowRight, Check, Sparkles } from 'lucide-react';
 
 export function AboutSplitSection() {
@@ -102,7 +105,7 @@ export function AboutSplitSection() {
               {/* A: Tall image (col 1, rows 1-2) */}
               <div className="group relative row-span-2 overflow-hidden rounded-2xl rounded-tl-[3rem] sm:rounded-tl-[4rem] border border-border/40 shadow-lg">
                 <img
-                  src={teamCollaboration}
+                  src={collaboration}
                   alt="Team collaboration"
                   loading="lazy"
                   className="h-full w-full object-cover object-left transition-transform duration-500 group-hover:scale-105"
@@ -125,7 +128,7 @@ export function AboutSplitSection() {
               {/* C: Image (col 2, row 2) */}
               <div className="group relative overflow-hidden rounded-3xl border border-border/40 shadow-lg">
                 <img
-                  src={teamCollaboration}
+                  src={image1}
                   alt="Working together"
                   loading="lazy"
                   className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
