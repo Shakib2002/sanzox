@@ -1,20 +1,11 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import {
-  Smartphone,
-  Globe,
-  Bot,
-  Layers,
-  ShoppingCart,
-  ArrowUpRight,
-  ArrowRight,
-} from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Check } from 'lucide-react';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 
 const services = [
   {
     id: 'android-development',
-    icon: Smartphone,
     title: 'Android & Mobile App Development',
     description:
       'We build fast, reliable mobile apps that simplify everyday tasks and deliver better digital experiences.',
@@ -29,7 +20,6 @@ const services = [
   },
   {
     id: 'saas-engineering',
-    icon: Globe,
     title: 'SaaS & Web Application Development',
     description:
       'We develop custom web applications, SaaS platforms, and dashboards that streamline workflows and grow with your business.',
@@ -44,7 +34,6 @@ const services = [
   },
   {
     id: 'ai-integrations',
-    icon: Bot,
     title: 'AI Solutions & Integrations',
     description:
       'We integrate AI into apps and business workflows to automate tasks and build intelligent digital experiences.',
@@ -59,7 +48,6 @@ const services = [
   },
   {
     id: 'ecommerce-solutions',
-    icon: ShoppingCart,
     title: 'E-commerce Solutions',
     description:
       'We build and customize online stores that help businesses sell products and deliver seamless shopping experiences.',
@@ -74,7 +62,6 @@ const services = [
   },
   {
     id: 'design-systems',
-    icon: Layers,
     title: 'UI/UX Design & Prototyping',
     description:
       'We design intuitive, modern interfaces that make digital products easier to use and visually consistent.',
@@ -89,161 +76,224 @@ const services = [
   },
 ];
 
-function ServiceCard({
-  service,
-  index,
-}: {
-  service: (typeof services)[number];
-  index: number;
-}) {
-  const Icon = service.icon;
-  const number = String(index + 1).padStart(2, '0');
-  const isOffset = index % 2 === 1;
-
-  return (
-    // Outer li: only handles the up/down offset (layout-level, no framer transform conflict)
-    <li className={isOffset ? 'sm:translate-y-14' : ''}>
-      {/* Inner motion.div: handles the reveal animation */}
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.1 }}
-        transition={{ duration: 0.45, ease: 'easeOut' }}
-        className="h-full"
-      >
-        <Link
-          to={`/services/${service.id}`}
-          aria-label={`Explore ${service.title}`}
-          className="group relative flex h-full min-h-[320px] flex-col overflow-hidden rounded-3xl border border-white/[0.08] bg-white/[0.025] p-5 transition-all duration-300 hover:-translate-y-1 hover:border-white/[0.16] hover:bg-white/[0.045] sm:min-h-[340px] sm:p-6"
-        >
-          {/* Background number */}
-          <span
-            aria-hidden="true"
-            className="pointer-events-none absolute -right-1 -top-3 select-none font-display text-[6.5rem] font-semibold leading-none tracking-[-0.09em] text-foreground/[0.045] transition-colors group-hover:text-primary/[0.12] sm:text-7xl"
-          >
-            {number}
-          </span>
-
-          {/* Icon */}
-          <div className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/[0.10] bg-white/[0.055] text-foreground transition-colors group-hover:border-primary/30 group-hover:bg-primary/10">
-            <Icon size={20} strokeWidth={1.7} />
-          </div>
-
-          {/* Content */}
-          <div className="relative mt-auto pt-9">
-            <h3 className="pr-1 text-lg font-semibold leading-snug tracking-tight text-foreground sm:text-xl">
-              {service.title}
-            </h3>
-
-            <p className="mt-2.5 text-sm leading-6 text-muted-foreground">
-              {service.description}
-            </p>
-
-            {/* Feature chips */}
-            <ul className="mt-4 flex flex-wrap gap-1.5 pr-1">
-              {service.features.map((feature) => (
-                <li
-                  key={feature}
-                  className="rounded-full border border-white/[0.08] bg-white/[0.035] px-2.5 py-1.5 text-[11px] leading-none text-muted-foreground transition-colors group-hover:border-white/[0.13] group-hover:text-foreground/80"
-                >
-                  {feature}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Arrow */}
-          <span className="absolute bottom-4 right-4 flex h-8 w-8 items-center justify-center rounded-full border border-white/[0.10] bg-background/80 text-muted-foreground transition-all group-hover:border-foreground group-hover:bg-foreground group-hover:text-background">
-            <ArrowUpRight size={16} />
-          </span>
-        </Link>
-      </motion.div>
-    </li>
-  );
-}
-
 export function ServicesSection() {
+  const [activeService, setActiveService] = useState(0);
+  const active = services[activeService];
+  const total = services.length;
+
   return (
     <section
       id="services"
       aria-label="Our Services"
       className="section-padding relative isolate"
     >
-      {/* Background effects (separate absolute layer, does not break sticky) */}
+      {/* Subtle grid backdrop — no glow */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
       >
-        <div className="absolute left-[-12%] top-[15%] h-96 w-96 rounded-full bg-primary/[0.08] blur-[140px]" />
-        <div className="absolute right-[-8%] top-[40%] h-80 w-80 rounded-full bg-white/[0.025] blur-[130px]" />
-
         <div
-          className="absolute inset-0 opacity-[0.025]"
+          className="absolute inset-0 opacity-[0.03]"
           style={{
             backgroundImage:
               'linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)',
-            backgroundSize: '40px 40px',
-            maskImage: 'linear-gradient(to bottom, black, transparent 85%)',
+            backgroundSize: '48px 48px',
+            maskImage: 'linear-gradient(to bottom, black, transparent 80%)',
           }}
         />
       </div>
 
-      {/* NOTE: no `items-start` here, so both columns stretch to the same height.
-          That gives the left sticky wrapper room to stick while cards scroll. */}
-      <div className="container-custom grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] lg:gap-12 xl:gap-16">
-        {/* LEFT: Sticky content */}
-        <div className="relative lg:self-stretch">
-          <div className="lg:sticky lg:top-28">
-            <SectionHeading
-              badge="Our Services"
-              title={
-                <>
-                  Everything you need
-                  <br />
-                  to build <span className="gradient-text">what's next</span>
-                </>
-              }
-              description="From intelligent applications to scalable platforms, we build digital solutions that move your business forward."
-              align="left"
-            />
+      <SectionHeading
+        badge="Our Services"
+        title={
+          <>
+            Everything you need
+            <br />
+            to build <span className="text-muted-foreground">what&apos;s next</span>
+          </>
+        }
+        align="center"
+      />
 
-            <div className="mt-7 flex flex-wrap items-center gap-x-4 gap-y-3">
+      <div className="container-custom">
+        <div className="mt-14 grid grid-cols-1 gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.95fr)] lg:items-start lg:gap-16 xl:gap-24">
+          {/* ───────────────────────── LEFT: list ───────────────────────── */}
+          <div className="min-w-0">
+            <ul className="border-t border-white/[0.10]">
+              {services.map((service, index) => {
+                const isActive = activeService === index;
+                const number = String(index + 1).padStart(2, '0');
+
+                return (
+                  <li
+                    key={service.id}
+                    className={`relative border-b transition-colors duration-300 ${
+                      isActive ? 'border-white/[0.18]' : 'border-white/[0.08]'
+                    }`}
+                  >
+                    {/* Active left indicator */}
+                    <span
+                      aria-hidden="true"
+                      className={`absolute left-0 top-0 h-full w-[2px] bg-primary transition-all duration-300 ${
+                        isActive ? 'opacity-100' : 'opacity-0'
+                      }`}
+                    />
+
+                    <button
+                      type="button"
+                      onClick={() => setActiveService(index)}
+                      aria-expanded={isActive}
+                      aria-controls={`service-panel-${service.id}`}
+                      className="group flex w-full items-start gap-5 py-6 pl-5 pr-2 text-left sm:gap-7 sm:py-7"
+                    >
+                      <span
+                        className={`mt-1 shrink-0 font-display text-xs tabular-nums tracking-widest transition-colors duration-300 ${
+                          isActive
+                            ? 'text-primary'
+                            : 'text-muted-foreground/50 group-hover:text-foreground/70'
+                        }`}
+                      >
+                        {number}
+                      </span>
+
+                      <span className="min-w-0 flex-1">
+                        <span
+                          className={`block text-base font-medium leading-snug tracking-tight transition-colors duration-300 sm:text-lg ${
+                            isActive
+                              ? 'text-foreground'
+                              : 'text-foreground/65 group-hover:text-foreground'
+                          }`}
+                        >
+                          {service.title}
+                        </span>
+
+                        {isActive && (
+                          <span className="mt-3 block max-w-xl text-sm leading-7 text-muted-foreground">
+                            {service.description}
+                          </span>
+                        )}
+                      </span>
+
+                      <span
+                        className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-all duration-300 ${
+                          isActive
+                            ? 'border-foreground bg-foreground text-background'
+                            : 'border-white/[0.10] text-muted-foreground group-hover:border-white/[0.22] group-hover:text-foreground'
+                        }`}
+                      >
+                        {isActive ? (
+                          <ArrowRight size={15} strokeWidth={2} />
+                        ) : (
+                          <ArrowUpRight
+                            size={15}
+                            strokeWidth={1.7}
+                            className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                          />
+                        )}
+                      </span>
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+
+            {/* CTA row */}
+            {/* <div className="mt-9 flex flex-wrap items-center gap-x-5 gap-y-3 pl-5">
               <Link
                 to="/contact"
                 className="group inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-3 text-sm font-semibold text-background transition-all duration-300 hover:-translate-y-0.5 hover:opacity-90"
               >
-                Let's build something
+                Let&apos;s build something
                 <ArrowRight
-                  size={16}
+                  size={15}
                   className="transition-transform group-hover:translate-x-1"
                 />
               </Link>
 
-              <span className="text-sm text-muted-foreground">
-                5 services · one team
+              <span className="text-xs uppercase tracking-[0.16em] text-muted-foreground">
+                {total} services · one team
               </span>
-            </div>
+            </div> */}
+          </div>
 
-            {/* Decorative shapes */}
+          {/* ───────────────────────── RIGHT: sticky panel ───────────────────────── */}
+          <div className="relative min-w-0 lg:sticky lg:top-28">
             <div
-              aria-hidden="true"
-              className="mt-12 hidden items-end gap-2 2xl:flex"
+              id={`service-panel-${active.id}`}
+              role="region"
+              aria-label={`${active.title} details`}
+              className="overflow-hidden rounded-3xl border border-white/[0.10] bg-white/[0.02]"
             >
-              <div className="h-20 w-20 rounded-tr-full bg-primary/[0.10]" />
-              <div className="h-12 w-12 rounded-full bg-white/[0.045]" />
-              <div className="h-16 w-16 rounded-t-full bg-primary/[0.07]" />
-              <div className="h-9 w-9 rounded-tl-full bg-white/[0.04]" />
+              {/* Header: eyebrow + counter */}
+              <div className="flex items-start justify-between gap-6 border-b border-white/[0.08] px-6 py-5 sm:px-8">
+                <div className="min-w-0">
+                  <span className="text-[11px] font-medium uppercase tracking-[0.20em] text-muted-foreground">
+                    Selected service
+                  </span>
+                  <h3 className="mt-2 text-lg font-semibold leading-snug tracking-tight text-foreground sm:text-xl">
+                    {active.title}
+                  </h3>
+                </div>
+
+                <span className="shrink-0 font-display text-sm tabular-nums text-muted-foreground">
+                  <span className="text-foreground">
+                    {String(activeService + 1).padStart(2, '0')}
+                  </span>
+                  <span className="mx-1 text-muted-foreground/40">/</span>
+                  {String(total).padStart(2, '0')}
+                </span>
+              </div>
+
+              {/* Body */}
+              <div className="px-6 py-6 sm:px-8 sm:py-7">
+                <p className="max-w-prose text-sm leading-7 text-muted-foreground">
+                  {active.description}
+                </p>
+
+                <div className="mt-6">
+                  <span className="text-[11px] font-medium uppercase tracking-[0.20em] text-muted-foreground">
+                    Capabilities
+                  </span>
+
+                  <ul
+                    className="mt-4 grid grid-cols-1 gap-x-6 sm:grid-cols-2"
+                    aria-live="polite"
+                  >
+                    {active.features.map((feature, i) => (
+                      <li
+                        key={feature}
+                        className={`flex items-center gap-2.5 py-2.5 text-sm text-foreground/80 ${
+                          i > 0 ? 'border-t border-white/[0.06]' : ''
+                        } ${i >= 2 ? 'sm:border-t sm:border-white/[0.06]' : 'sm:border-t-0'}`}
+                      >
+                        <Check
+                          size={14}
+                          strokeWidth={2}
+                          className="shrink-0 text-primary/80"
+                        />
+                        <span className="truncate">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              {/* Footer */}
+              <div className="border-t border-white/[0.08] px-6 py-4 sm:px-8">
+                <Link
+                  to={`/services/${active.id}`}
+                  className="group inline-flex items-center gap-2 text-sm font-medium text-foreground transition-colors hover:text-primary"
+                >
+                  Explore More
+                  <ArrowRight
+                    size={15}
+                    className="transition-transform group-hover:translate-x-1"
+                  />
+                </Link>
+              </div>
             </div>
           </div>
         </div>
-
-        {/* RIGHT: Scrolling service cards (zigzag up/down) */}
-        {/* sm:pb-14 leaves room for the translated (lowered) cards at the bottom */}
-        <ul className="grid min-w-0 grid-cols-1 items-stretch gap-4 sm:grid-cols-2 sm:gap-x-4 sm:gap-y-4 sm:pb-14">
-          {services.map((service, index) => (
-            <ServiceCard key={service.id} service={service} index={index} />
-          ))}
-        </ul>
       </div>
     </section>
   );

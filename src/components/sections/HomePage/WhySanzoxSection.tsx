@@ -45,7 +45,7 @@ export function WhySanzoxSection() {
           title={
             <>
               Built Different.{' '}
-              <span className="gradient-text">Built Better.</span>
+              <span className="text-muted-foreground">Built Better.</span>
             </>
           }
           description="We combine cutting-edge technology with battle-tested strategies to deliver exceptional results."

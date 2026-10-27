@@ -56,7 +56,7 @@ export function IndustriesSection() {
       <div className="container-custom">
         <SectionHeading
           badge="Industries"
-          title={<>Industry <span className="gradient-text">Expertise</span></>}
+          title={<>Industry <span className="text-muted-foreground">Expertise</span></>}
           description="Deep domain knowledge across multiple industries to deliver tailored solutions."
         />
 

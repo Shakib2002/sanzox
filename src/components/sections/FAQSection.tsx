@@ -38,7 +38,7 @@ export function FAQSection() {
   return (
     <section className="section-padding">
       <div className="container-custom max-w-3xl">
-        <SectionHeading badge="FAQ" title={<>Ask <span className="gradient-text">Anything</span></>} />
+        <SectionHeading badge="FAQ" title={<>Ask <span className="text-muted-foreground">Anything</span></>} />
         <motion.div variants={fadeUpVariants} initial="hidden" whileInView="visible" viewport={{ once: true }}>
           <Accordion type="single" collapsible className="space-y-4">
             {faqs.map((faq, i) => (

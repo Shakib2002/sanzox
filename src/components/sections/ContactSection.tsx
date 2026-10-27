@@ -13,6 +13,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { slideInLeftVariants, slideInRightVariants } from '@/hooks/useScrollAnimation';
+import { SectionHeading } from '../ui/SectionHeading';
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, 'Name is required').max(100, 'Name must be less than 100 characters'),
@@ -157,13 +158,20 @@ export function ContactSection() {
             className="space-y-6"
           >
             <div>
-              <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-4">
-                Get In Touch
-              </span>
-              <h2 className="heading-lg mb-4">
-                Let's Build Something <span className="gradient-text">Amazing Together</span>
-              </h2>
-              <p className="text-muted-foreground text-lg leading-relaxed">
+
+             <SectionHeading
+              badge="Get In Touch"
+              title={
+                <>
+                  Let's Build Something
+                  <br />
+                  <span className="text-muted-foreground">Amazing Together</span>
+                </>
+              
+              }
+              align='left'
+            />
+              <p className="text-muted-foreground text-lg leading-relaxed -mt-10">
                 Have a project in mind? We'd love to hear about it. Send us a message and we'll get back to you within 24 hours.
               </p>
             </div>

@@ -74,7 +74,7 @@ export function TestimonialsSection() {
       <div className="container-custom">
         <SectionHeading
           badge="Testimonials"
-          title={<>Trusted by <span className="gradient-text">modern teams</span></>}
+          title={<>Trusted by <span className="text-muted-foreground">modern teams</span></>}
         />
 
         <motion.div

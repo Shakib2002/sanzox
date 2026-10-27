@@ -277,7 +277,7 @@ export default function ProductsSection() {
             badge="SANZOX Ecosystem"
             title={
               <>
-                What We’ve <span className="text-neutral-400">Built</span>
+                What We’ve <span className="text-muted-foreground">Built</span>
               </>
             }
           />
