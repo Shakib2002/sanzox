@@ -116,7 +116,7 @@ export default {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        marquee: "marquee 30s linear infinite",
+        marquee: "marquee 20s linear infinite",
         float: "float 6s ease-in-out infinite",
         "fade-up": "fade-up 0.6s ease-out",
         "fade-in": "fade-in 0.4s ease-out",

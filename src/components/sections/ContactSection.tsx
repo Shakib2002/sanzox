@@ -193,7 +193,7 @@ export function ContactSection() {
             </div>
 
             {/* Social Icons */}
-            <div>
+            {/* <div>
               <p className="text-sm text-muted-foreground mb-3">Follow us on social media</p>
               <div className="flex items-center gap-3 flex-wrap">
                 {socials.map(({ href, label, icon }) => (
@@ -209,7 +209,7 @@ export function ContactSection() {
                   </a>
                 ))}
               </div>
-            </div>
+            </div> */}
           </motion.div>
 
           {/* Right — Form */}

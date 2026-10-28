@@ -1,6 +1,11 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ArrowUpRight, Check } from 'lucide-react';
+import {
+  ArrowRight,
+  ArrowUpRight,
+  ChevronDown,
+  ChevronUp,
+} from 'lucide-react';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 
 const services = [
@@ -78,7 +83,7 @@ const services = [
 
 export function ServicesSection() {
   const [activeService, setActiveService] = useState(0);
-  const active = services[activeService];
+  const active = services[activeService] ?? services[0];
   const total = services.length;
 
   return (
@@ -117,7 +122,7 @@ export function ServicesSection() {
 
       <div className="container-custom">
         <div className="mt-14 grid grid-cols-1 gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.95fr)] lg:items-start lg:gap-16 xl:gap-24">
-          {/* ───────────────────────── LEFT: list ───────────────────────── */}
+          {/* ───────────────────────── LEFT: list / accordion ───────────────────────── */}
           <div className="min-w-0">
             <ul className="border-t border-white/[0.10]">
               {services.map((service, index) => {
@@ -131,26 +136,29 @@ export function ServicesSection() {
                       isActive ? 'border-white/[0.18]' : 'border-white/[0.08]'
                     }`}
                   >
-                    {/* Active left indicator */}
+                    {/* Active left indicator (desktop only) */}
                     <span
                       aria-hidden="true"
-                      className={`absolute left-0 top-0 h-full w-[2px] bg-primary transition-all duration-300 ${
+                      className={`absolute left-0 top-0 hidden h-full w-[2px] bg-primary transition-all duration-300 lg:block ${
                         isActive ? 'opacity-100' : 'opacity-0'
                       }`}
                     />
 
                     <button
                       type="button"
-                      onClick={() => setActiveService(index)}
+                      onClick={() =>
+                        setActiveService(isActive ? -1 : index)
+                      }
                       aria-expanded={isActive}
                       aria-controls={`service-panel-${service.id}`}
-                      className="group flex w-full items-start gap-5 py-6 pl-5 pr-2 text-left sm:gap-7 sm:py-7"
+                      className="group flex w-full items-start gap-4 py-5 pl-1 pr-2 text-left sm:gap-5 sm:py-6 lg:gap-7 lg:py-7 lg:pl-5"
                     >
+                      {/* ✅ Number: bigger + lower opacity */}
                       <span
-                        className={`mt-1 shrink-0 font-display text-xs tabular-nums tracking-widest transition-colors duration-300 ${
+                        className={`mt-1 shrink-0 font-display text-sm tabular-nums tracking-widest transition-colors duration-300 sm:text-base ${
                           isActive
-                            ? 'text-primary'
-                            : 'text-muted-foreground/50 group-hover:text-foreground/70'
+                            ? 'text-primary/70'
+                            : 'text-muted-foreground/35 group-hover:text-muted-foreground/60'
                         }`}
                       >
                         {number}
@@ -167,8 +175,54 @@ export function ServicesSection() {
                           {service.title}
                         </span>
 
+                        {/* ✅ Mobile-only inline accordion content */}
                         {isActive && (
-                          <span className="mt-3 block max-w-xl text-sm leading-7 text-muted-foreground">
+                          <span
+                            id={`service-panel-${service.id}`}
+                            role="region"
+                            aria-label={`${service.title} details`}
+                            className="mt-4 block lg:hidden"
+                          >
+                            <span className="block text-sm leading-7 text-muted-foreground">
+                              {service.description}
+                            </span>
+
+                            {/* ✅ Capabilities: always 2 columns, fully rounded pills */}
+                            <span className="mt-5 block">
+                              <span className="block text-[11px] font-medium uppercase tracking-[0.20em] text-muted-foreground">
+                                Capabilities
+                              </span>
+
+                              <ul className="mt-3 grid grid-cols-2 gap-2">
+                                {service.features.map((feature) => (
+                                  <li
+                                    key={feature}
+                                    className="flex items-center justify-center rounded-full border border-white/[0.10] bg-white/[0.02] px-3 py-2 text-center text-xs leading-snug text-foreground/80"
+                                  >
+                                    <span className="truncate">{feature}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </span>
+
+                            <span className="mt-4 block">
+                              <Link
+                                to={`/services/${service.id}`}
+                                className="group/link inline-flex items-center gap-2 text-sm font-medium text-foreground transition-colors hover:text-primary"
+                              >
+                                Explore More
+                                <ArrowRight
+                                  size={15}
+                                  className="transition-transform group-hover/link:translate-x-1"
+                                />
+                              </Link>
+                            </span>
+                          </span>
+                        )}
+
+                        {/* ✅ Desktop-only short description under title */}
+                        {isActive && (
+                          <span className="mt-3 hidden max-w-xl text-sm leading-7 text-muted-foreground lg:block">
                             {service.description}
                           </span>
                         )}
@@ -181,45 +235,39 @@ export function ServicesSection() {
                             : 'border-white/[0.10] text-muted-foreground group-hover:border-white/[0.22] group-hover:text-foreground'
                         }`}
                       >
-                        {isActive ? (
-                          <ArrowRight size={15} strokeWidth={2} />
-                        ) : (
-                          <ArrowUpRight
-                            size={15}
-                            strokeWidth={1.7}
-                            className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                          />
-                        )}
+                        {/* Mobile: chevron up/down */}
+                        <span className="lg:hidden">
+                          {isActive ? (
+                            <ChevronUp size={16} strokeWidth={2} />
+                          ) : (
+                            <ChevronDown size={16} strokeWidth={2} />
+                          )}
+                        </span>
+
+                        {/* Desktop: original arrows */}
+                        <span className="hidden lg:block">
+                          {isActive ? (
+                            <ArrowRight size={15} strokeWidth={2} />
+                          ) : (
+                            <ArrowUpRight
+                              size={15}
+                              strokeWidth={1.7}
+                              className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                            />
+                          )}
+                        </span>
                       </span>
                     </button>
                   </li>
                 );
               })}
             </ul>
-
-            {/* CTA row */}
-            {/* <div className="mt-9 flex flex-wrap items-center gap-x-5 gap-y-3 pl-5">
-              <Link
-                to="/contact"
-                className="group inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-3 text-sm font-semibold text-background transition-all duration-300 hover:-translate-y-0.5 hover:opacity-90"
-              >
-                Let&apos;s build something
-                <ArrowRight
-                  size={15}
-                  className="transition-transform group-hover:translate-x-1"
-                />
-              </Link>
-
-              <span className="text-xs uppercase tracking-[0.16em] text-muted-foreground">
-                {total} services · one team
-              </span>
-            </div> */}
           </div>
 
-          {/* ───────────────────────── RIGHT: sticky panel ───────────────────────── */}
-          <div className="relative min-w-0 lg:sticky lg:top-28">
+          {/* ───────────────────────── RIGHT: sticky panel (desktop only) ───────────────────────── */}
+          <div className="relative hidden min-w-0 lg:sticky lg:top-28 lg:block">
             <div
-              id={`service-panel-${active.id}`}
+              id={`desktop-service-panel-${active.id}`}
               role="region"
               aria-label={`${active.title} details`}
               className="overflow-hidden rounded-3xl border border-white/[0.10] bg-white/[0.02]"
@@ -256,21 +304,14 @@ export function ServicesSection() {
                   </span>
 
                   <ul
-                    className="mt-4 grid grid-cols-1 gap-x-6 sm:grid-cols-2"
+                    className="mt-4 grid grid-cols-2 gap-2"
                     aria-live="polite"
                   >
-                    {active.features.map((feature, i) => (
+                    {active.features.map((feature) => (
                       <li
                         key={feature}
-                        className={`flex items-center gap-2.5 py-2.5 text-sm text-foreground/80 ${
-                          i > 0 ? 'border-t border-white/[0.06]' : ''
-                        } ${i >= 2 ? 'sm:border-t sm:border-white/[0.06]' : 'sm:border-t-0'}`}
+                        className="flex items-center justify-center rounded-full border border-white/[0.10] bg-white/[0.02] px-3 py-2 text-center text-xs leading-snug text-foreground/80"
                       >
-                        <Check
-                          size={14}
-                          strokeWidth={2}
-                          className="shrink-0 text-primary/80"
-                        />
                         <span className="truncate">{feature}</span>
                       </li>
                     ))}

@@ -2,15 +2,6 @@ import { motion } from 'framer-motion';
 import { Star, Quote } from 'lucide-react';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { fadeUpVariants } from '@/hooks/useScrollAnimation';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselPrevious,
-  CarouselNext,
-} from '@/components/ui/carousel';
-import Autoplay from 'embla-carousel-autoplay';
-import { useRef } from 'react';
 
 const testimonials = [
   {
@@ -65,43 +56,42 @@ function getInitials(name: string) {
 }
 
 export function TestimonialsSection() {
-  const autoplayPlugin = useRef(
-    Autoplay({ delay: 4000, stopOnInteraction: true, stopOnMouseEnter: true })
-  );
+  // duplicate the list so the loop is seamless
+  const items = [...testimonials, ...testimonials];
 
   return (
-    <section className="section-padding overflow-hidden">
+    <section className="section-padding overflow-hidden w-full">
       <div className="container-custom">
         <SectionHeading
           badge="Testimonials"
           title={<>Trusted by <span className="text-muted-foreground">modern teams</span></>}
         />
-
-        <motion.div
-          variants={fadeUpVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="relative"
-        >
-          <Carousel
-            opts={{ align: 'start', loop: true, dragFree: true }}
-            plugins={[autoplayPlugin.current]}
-            className="w-full cursor-grab active:cursor-grabbing"
-          >
-            <CarouselContent className="-ml-4">
-              {testimonials.map((t) => (
-                <CarouselItem key={t.id} className="pl-4 md:basis-1/2 lg:basis-1/3">
-                  <TestimonialCard testimonial={t} />
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-
-            <CarouselPrevious className="hidden md:flex left-0 bg-background/80 backdrop-blur-md border-border/40 hover:border-primary/40 transition-all" />
-            <CarouselNext className="hidden md:flex right-0 bg-background/80 backdrop-blur-md border-border/40 hover:border-primary/40 transition-all" />
-          </Carousel>
-        </motion.div>
       </div>
+
+      <motion.div
+        variants={fadeUpVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        className="relative w-full group"
+      >
+        {/* left shadow / fade */}
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-16 md:w-32 lg:w-48 bg-gradient-to-r from-background via-background/80 to-transparent z-10" />
+        {/* right shadow / fade */}
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-16 md:w-32 lg:w-48 bg-gradient-to-l from-background via-background/80 to-transparent z-10" />
+
+        {/* marquee track */}
+        <div className="flex w-max animate-marquee group-hover:[animation-play-state:paused]">
+          {items.map((t, i) => (
+            <div
+              key={`${t.id}-${i}`}
+              className="shrink-0 px-2 w-[280px] sm:w-[320px] lg:w-[340px]"
+            >
+              <TestimonialCard testimonial={t} />
+            </div>
+          ))}
+        </div>
+      </motion.div>
     </section>
   );
 }
@@ -119,7 +109,7 @@ interface TestimonialCardProps {
 
 function TestimonialCard({ testimonial }: TestimonialCardProps) {
   return (
-    <div className="h-full p-6 rounded-2xl border border-border/40 bg-secondary/20 hover:border-border/70 hover:bg-secondary/30 transition-all duration-300 flex flex-col gap-5">
+    <div className="h-full p-5 rounded-xl border border-border/40 bg-secondary/20 hover:border-border/70 hover:bg-secondary/30 transition-all duration-300 flex flex-col gap-4">
 
       {/* Stars + quote icon row */}
       <div className="flex items-center justify-between">
@@ -127,22 +117,22 @@ function TestimonialCard({ testimonial }: TestimonialCardProps) {
           {Array.from({ length: testimonial.rating }).map((_, i) => (
             <Star
               key={i}
-              className="w-4 h-4 fill-amber-400 text-amber-400"
+              className="w-3.5 h-3.5 fill-amber-400 text-amber-400"
             />
           ))}
         </div>
-        <Quote className="w-6 h-6 text-border/60" />
+        <Quote className="w-5 h-5 text-border/60" />
       </div>
 
       {/* Quote */}
-      <p className="text-sm md:text-[15px] italic text-muted-foreground/90 leading-relaxed flex-1">
+      <p className="text-[13px] italic text-muted-foreground/90 leading-relaxed flex-1">
         "{testimonial.quote}"
       </p>
 
       {/* Author */}
-      <div className="flex items-center gap-3 pt-2 border-t border-border/30">
+      <div className="flex items-center gap-2.5 pt-2 border-t border-border/30">
         <div
-          className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold shrink-0"
+          className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-semibold shrink-0"
           style={{
             background: 'linear-gradient(135deg, hsl(0 0% 100% / 0.07), hsl(0 0% 100% / 0.03))',
             border: '1px solid hsl(0 0% 100% / 0.14)',
@@ -151,9 +141,11 @@ function TestimonialCard({ testimonial }: TestimonialCardProps) {
         >
           {getInitials(testimonial.name)}
         </div>
-        <div>
-          <p className="text-sm font-semibold leading-tight">{testimonial.name}</p>
-          <p className="text-xs text-muted-foreground mt-0.5">
+        <div className="min-w-0">
+          <p className="text-[13px] font-semibold leading-tight truncate">
+            {testimonial.name}
+          </p>
+          <p className="text-[11px] text-muted-foreground mt-0.5 truncate">
             {testimonial.role} · {testimonial.company}
           </p>
         </div>

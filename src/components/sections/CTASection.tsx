@@ -1,150 +1,46 @@
-import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, Sparkles, CheckCircle2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { MagneticButton } from '@/components/ui/MagneticButton';
-import { ParticleField } from '@/components/ui/ParticleField';
+import { ArrowRight } from 'lucide-react';
 import { fadeUpVariants } from '@/hooks/useScrollAnimation';
-import { useSiteSettings } from '@/hooks/useSiteSettings';
 
 export function CTASection() {
-  const { data: settings } = useSiteSettings();
-
-  const badge = settings?.cta_badge || 'Ready to Transform?';
-  const headline = settings?.cta_headline || "Let's start";
-  const headlineHighlight = settings?.cta_headline_highlight || 'building brands';
-  const headlineSuffix = settings?.cta_headline_suffix || 'that matter';
-  const description = settings?.cta_description || 'Ready to transform your business with automation-driven growth? Book a free strategy call and discover your potential.';
-  const primaryButtonText = settings?.cta_primary_button_text || 'Get Free Proposal';
-  const primaryButtonLink = settings?.cta_primary_button_link || '/contact';
-  const secondaryButtonText = settings?.cta_secondary_button_text || 'View Our Work';
-  const secondaryButtonLink = settings?.cta_secondary_button_link || '/products';
-  const trustIndicators = settings?.cta_trust_indicators || ['Free Consultation', 'No Commitment', '24h Response'];
-
   return (
-    <section className="py-20 md:py-28 relative overflow-hidden">
-      <ParticleField count={30} />
-
-      {/* Soft radial glow */}
-      <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[360px] pointer-events-none"
-        style={{
-          background: 'radial-gradient(ellipse at center, hsl(0 0% 100% / 0.06) 0%, transparent 70%)',
-        }}
-      />
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background pointer-events-none" />
-
-      <div className="container-custom relative z-10">
+    <section className="section-padding">
+      <div className="container-custom">
         <motion.div
           variants={fadeUpVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="max-w-3xl mx-auto text-center"
+          className="relative overflow-hidden rounded-3xl border border-border/40 bg-secondary/20 px-6 py-16 text-center sm:px-12 sm:py-20 lg:py-24"
         >
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium mb-7"
-            style={{
-              background: 'hsl(0 0% 100% / 0.06)',
-              border: '1px solid hsl(0 0% 100% / 0.14)',
-              color: 'hsl(0 0% 82%)',
-            }}
-          >
-            <Sparkles className="w-3.5 h-3.5" />
-            {badge}
-          </motion.div>
+          {/* subtle glow background */}
+          <div className="pointer-events-none absolute inset-0 -z-10">
+            <div className="absolute left-1/2 top-0 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/10 blur-3xl" />
+            <div className="absolute bottom-0 right-0 h-64 w-64 translate-x-1/3 translate-y-1/3 rounded-full bg-primary/5 blur-3xl" />
+          </div>
 
-          {/* Headline */}
-          <motion.h2
-            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-5 leading-[1.15] tracking-tight"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.08, duration: 0.45 }}
-          >
-            {headline}{' '}
-            <span className="gradient-text shimmer-text">{headlineHighlight}</span>
+          {/* Heading */}
+          <h2 className="mx-auto max-w-3xl text-3xl font-semibold leading-[1.1] tracking-tight text-balance sm:text-4xl lg:text-5xl">
+            Have an idea?
             <br />
-            <span className="text-muted-foreground font-medium">{headlineSuffix}</span>
-          </motion.h2>
+            <span className="text-muted-foreground">Let’s build it together.</span>
+          </h2>
 
-          {/* Description */}
-          <motion.p
-            className="text-muted-foreground text-lg leading-relaxed mb-10 max-w-xl mx-auto"
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.16, duration: 0.4 }}
-          >
-            {description}
-          </motion.p>
+          {/* Subtext */}
+          <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+            Tell us about your project and we’ll reply within 24 hours.
+          </p>
 
-          {/* Buttons */}
-          <motion.div
-            className="flex flex-col sm:flex-row gap-3 justify-center"
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.24, duration: 0.4 }}
-          >
-            <MagneticButton>
-              <Button
-                size="lg"
-                asChild
-                className="btn-glow relative px-8 py-3.5 rounded-full font-semibold text-base tracking-wide transition-transform duration-300 hover:scale-[1.03] active:scale-95"
-                style={{
-                  background: 'var(--gradient-primary)',
-                  color: 'hsl(var(--primary-foreground))',
-                  boxShadow: 'var(--glow-primary)',
-                  willChange: 'transform',
-                }}
-              >
-                <Link to={primaryButtonLink} className="flex items-center gap-2">
-                  {primaryButtonText}
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </Button>
-            </MagneticButton>
-
-            <MagneticButton magneticStrength={0.2}>
-              <Button
-                size="lg"
-                variant="outline"
-                asChild
-                className="px-8 py-3.5 rounded-full font-semibold text-base tracking-wide transition-all duration-300 hover:scale-[1.03] active:scale-95"
-                style={{
-                  borderColor: 'hsl(0 0% 100% / 0.18)',
-                  background: 'transparent',
-                  color: "hsl(210 40% 98%)",
-                }}
-              >
-                <Link to={secondaryButtonLink}>{secondaryButtonText}</Link>
-              </Button>
-            </MagneticButton>
-          </motion.div>
-
-          {/* Trust indicators */}
-          {trustIndicators.length > 0 && (
-            <motion.div
-              className="mt-10 flex flex-wrap items-center justify-center gap-6"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.36, duration: 0.4 }}
+          {/* CTA button */}
+          <div className="mt-9 flex justify-center">
+            <a
+              href="/contact"
+              className="group inline-flex items-center gap-2 rounded-full bg-foreground px-7 py-3.5 text-sm font-medium text-background transition-all duration-300 hover:gap-3 hover:opacity-90"
             >
-              {trustIndicators.map((indicator, index) => (
-                <div key={index} className="flex items-center gap-1.5 text-sm text-muted-foreground">
-                  <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
-                  <span>{indicator}</span>
-                </div>
-              ))}
-            </motion.div>
-          )}
+              Start a project
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+            </a>
+          </div>
         </motion.div>
       </div>
     </section>
